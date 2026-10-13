@@ -13,6 +13,7 @@ Vendor.lua
 Camera.lua
 Cinematics.lua
 Decline.lua
+TrackerSort.lua
 Look.lua
 Options.lua
 Window.lua
