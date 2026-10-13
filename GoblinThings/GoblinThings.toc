@@ -1,0 +1,20 @@
+## Interface: 16001
+## Title: Goblin Things
+## Notes: Small goblin conveniences: auto accept and turn in quests, sell junk, repair, decline duels and guild invites, skip cinematics, and zoom the camera out further. Time is money, friend.
+## Author: CoffeeAndLoot
+## Version: 2026.10.13
+## IconTexture: Interface\AddOns\GoblinThings\Media\icon
+## SavedVariables: GoblinThingsDB
+
+API.lua
+Features.lua
+Hands.lua
+Vendor.lua
+Camera.lua
+Cinematics.lua
+Decline.lua
+Look.lua
+Options.lua
+Window.lua
+MinimapButton.lua
+Core.lua
