@@ -7,6 +7,7 @@ local harness = dofile("test/harness.lua")
 local modules = {
     { "Features", "GoblinThings/Features.lua" },
     { "Hands", "GoblinThings/Hands.lua" },
+    { "Vendor", "GoblinThings/Vendor.lua" },
     { "Camera", "GoblinThings/Camera.lua" },
     { "Look", "GoblinThings/Look.lua" },
     { "Options", "GoblinThings/Options.lua" },
@@ -25,6 +26,7 @@ local suites = {
     "test/test_camera.lua",
     "test/test_options.lua",
     "test/test_hands.lua",
+    "test/test_vendor.lua",
 }
 
 for i = 1, #suites do
