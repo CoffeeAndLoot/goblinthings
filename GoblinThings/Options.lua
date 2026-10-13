@@ -14,6 +14,15 @@ local function list(t)
     return type(t) == "table" and t or {}
 end
 
+function Options.IsTab(name)
+    for _, section in ipairs(ns.Features.Sections()) do
+        if section.name == name then
+            return true
+        end
+    end
+    return false
+end
+
 -- The SavedVariable with every field valid (see the spec's SavedVariable).
 -- Keeps the given table, so writes to it are saved.
 function Options.Init(db)
@@ -40,6 +49,9 @@ function Options.Init(db)
         angle = type(minimap.angle) == "number" and minimap.angle or Options.DEFAULT_ANGLE,
         hide = minimap.hide == true,  -- shown unless hidden on purpose
     }
+    if not Options.IsTab(db.tab) then
+        db.tab = ns.Features.Sections()[1].name  -- the window opens on the last tab used
+    end
     local window = db.window
     if not (type(window) == "table" and type(window.point) == "string" and type(window.relativePoint) == "string"
         and type(window.x) == "number" and type(window.y) == "number") then
