@@ -18,8 +18,14 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [ ] Dragging it slides it round the rim; `/reload`: it stays where it was put.
 - [ ] Click, `/gt` and `/gt options` open the window; Escape or the X closes it.
 - [ ] Esc > Options > AddOns lists "Goblin Things" with a gold "Open Goblin Things" button that opens the window.
-- [ ] The window shows five gold headers (Quests, Vendors, Social, Camera, Cinematics), eight rows, the
-      "Show minimap button" check and "Hold Shift at an NPC or vendor to skip." Nothing overlaps.
+- [ ] **Full client restart** first (TrackerSort.lua is new in the TOC).
+- [ ] The window shows five tabs (Quests, Vendors, Social, Camera, Cinematics); the open one is gold.
+      Each tab shows only its rows; the window keeps the same height on every tab; the "Show
+      minimap button" check and "Hold Shift at an NPC or vendor to skip." stay under every tab.
+- [ ] Close and reopen, and `/reload`: the window opens on the tab last used.
+- [ ] The Quests tab: two checks, a gold "Tracker sort" sub-header, rows 1st / 2nd / 3rd each
+      reading None | Level | Finished | This zone with every word fully visible, and the dim note
+      "All None = Blizzard's order (fully after /reload)". Nothing overlaps.
 - [ ] Each check flips on click and stays flipped after `/reload`.
 - [ ] Off | Repeats only | All: all three words fully visible (no "..."), each button snug to its
       word; the chosen one is gold; it stays after `/reload`.
@@ -45,6 +51,28 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
       their own menu, not that quest (at most once per session for a 5-player quest).
 - [ ] Shift held while talking to the NPC: nothing is accepted or turned in that visit.
 - [ ] Each switch off on its own: only the other thing happens.
+
+## Tracker sort
+
+- [ ] With all three on None, `/gt probe` says "tracker sort off (not installed)" and the tracker is
+      in Blizzard's order.
+- [ ] 1st: Level alone: tracked quests run lowest level to highest.
+- [ ] 1st: Finished alone: finished quests (the "?" ones) on top.
+- [ ] 1st: This zone alone: quests in your zone on top; ride into another zone and the order follows.
+      Also step indoors or into a sub-zone and back.
+- [ ] 1st: This zone, 2nd: Finished, 3rd: Level: this zone's finished quests, then this zone's open
+      quests lowest level first, then other zones the same way.
+- [ ] No repeats: with 1st on Level, pick Level for 2nd: 1st goes back to None.
+- [ ] Set any tier, then all three back to None: the tracker goes back to Blizzard's order now, and
+      `/gt probe` says "off (not installed)". `/reload`: still Blizzard's order.
+- [ ] `/reload` with a tier set: the tracker comes up already sorted.
+- [ ] With a tier set, through accepting, finishing, turning in and abandoning quests, the tracker
+      never goes blank or drops a quest, and `/gt probe` shows no "Tracker sort threw" line (a sort
+      that errors or loses quests falls back to Blizzard's list and records why there).
+- [ ] **Release gate:** `/console taintLog 1`, `/reload`, set a tier, track a quest with a usable
+      item. Use it from the tracker out of combat, then in combat: no "blocked" or "AddOn tried to
+      call a protected function". Then `/console taintLog 0`. If blocked, send the end of
+      `Logs\taint.log`; the feature does not ship as built.
 
 ## Vendors
 

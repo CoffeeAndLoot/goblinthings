@@ -5,9 +5,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 # Goblin Things
 
 WoW Forever addon (interface 16001: Classic data on the 12.x engine, game type `camelot`).
-Eight quality-of-life switches in one Goblin-look window: auto accept and turn in quests, auto sell
-junk, auto repair, decline duels, decline guild invites, camera distance past Blizzard's 2.0, and
-skipping cinematics. Spec: `docs/superpowers/specs/2026-10-13-goblin-things-design.md`.
+Quality-of-life switches in one tabbed Goblin-look window: auto accept and turn in quests, a tiered
+quest tracker sort, auto sell junk, auto repair, decline duels, decline guild invites, camera
+distance past Blizzard's 2.0, and skipping cinematics. Specs:
+`docs/superpowers/specs/2026-10-13-goblin-things-design.md` and
+`docs/superpowers/specs/2026-10-13-tracker-sort-and-tabs-design.md` (its Tabs replace the first's Window).
 Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came from GoblinQuest
 (`D:\goblinquest`, shelved).
 
@@ -35,17 +37,21 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
 
 ## How it fits together
 
-TOC load order is `API, Features, Hands, Vendor, Camera, Cinematics, Decline, Look, Options, Window, MinimapButton, Core`.
+TOC load order is `API, Features, Hands, Vendor, Camera, Cinematics, Decline, TrackerSort, Look, Options, Window, MinimapButton, Core`.
 
-1. `Features.LIST` is the eight switches as data: key, label, section, control (`check`, `slider`,
-   `choice`) and default. The window builds its rows from it; `Options.Init` stores every feature
-   with a default. The camera has none: the game's own CVar is its store.
+1. `Features.LIST` is every switch as data: key, label, section (its tab), optional group (a
+   sub-header), control (`check`, `slider`, `choice`) and default; `Features.NOTES` gives a tab its
+   dim note. The window builds its tabs and rows from it; `Options.Init` stores every feature with a
+   default. The camera has none: the game's own CVar is its store.
 2. `Hands` (quests), `Vendor`, `Camera`, `Cinematics` and `Decline` are pure: each takes plain values
    (views built by `API.lua`) and the settings, and says what to do.
 3. `Core` routes events to them behind `guard(label, ...)` (one error per label per session) and has
    `API` carry out the result. `Core.Get(key)` / `Core.Set(key, value)` are the one door to every
    setting, the camera's CVar included.
 4. Holding Shift as an NPC or vendor window opens skips every quest and vendor action that visit.
+5. The tracker sort (`TrackerSort`, pure) wraps `QuestObjectiveTracker.BuildQuestWatchInfos` via
+   `API.SetTrackerSort` only while a tier is set; all None removes the wrapper, and a player who
+   never sorts never has the tracker touched.
 
 ## Client facts (verified in game)
 

@@ -5,9 +5,9 @@ local _, ns = ...
 -- behind guard(), so an error is one chat line, said once per label, never a
 -- raise. Core.Get / Core.Set are the one door to every setting; the camera's
 -- store is the game's own CVar.
-local API, Camera, Cinematics, Decline, Features, Hands, MinimapButton, Options, Vendor, Window =
+local API, Camera, Cinematics, Decline, Features, Hands, MinimapButton, Options, TrackerSort, Vendor, Window =
     ns.API, ns.Camera, ns.Cinematics, ns.Decline, ns.Features, ns.Hands, ns.MinimapButton, ns.Options,
-    ns.Vendor, ns.Window
+    ns.TrackerSort, ns.Vendor, ns.Window
 local Core = {}
 ns.Core = Core
 
@@ -36,6 +36,36 @@ local function db()
     return GoblinThingsDB
 end
 
+-- ---- quest tracker sort ----
+
+local trackerInstalled = false  -- the wrapper is in place; until it is, the tracker is never touched
+
+-- Blizzard's { { quest, index } ... } in our order.
+local function sortTracker(infos)
+    local entries = {}
+    for i, info in ipairs(infos) do
+        local facts = API.TrackerFacts(info.quest)
+        entries[i] = { level = facts.level, finished = facts.finished, onMap = facts.onMap, index = i, info = info }
+    end
+    local out = {}
+    for i, entry in ipairs(TrackerSort.Order(entries, TrackerSort.Tiers(db().features))) do
+        out[i] = entry.info
+    end
+    return out
+end
+
+-- On when any tier is set. Off removes the wrapper only if it was ever put
+-- in, so a player who never sorts never has the tracker touched.
+local function applyTrackerSort()
+    local on = #TrackerSort.Tiers(db().features) > 0
+    if on then
+        trackerInstalled = API.SetTrackerSort(sortTracker)
+    elseif trackerInstalled then
+        API.SetTrackerSort(nil)
+        trackerInstalled = false
+    end
+end
+
 function Core.Get(key)
     if key == Camera.KEY then
         return Camera.Clamp(API.GetCVar(Camera.CVAR))
@@ -51,10 +81,28 @@ function Core.Set(key, value)
         end
         if key == Camera.KEY then
             API.SetCVar(Camera.CVAR, Camera.Text(Camera.Clamp(value)))
+        elseif TrackerSort.IsSlot(key) then
+            for slot, slotValue in pairs(TrackerSort.Assign(db().features, key, value)) do
+                db().features[slot] = slotValue
+            end
+            applyTrackerSort()
         else
             db().features[key] = value
         end
         Window.Refresh(Core)
+    end)
+end
+
+function Core.Tab()
+    return db().tab
+end
+
+function Core.SetTab(name)
+    guard("Window", function()
+        if Options.IsTab(name) then
+            db().tab = name
+            Window.Refresh(Core)
+        end
     end)
 end
 
@@ -210,6 +258,13 @@ API.OnEvents({ "CINEMATIC_START" }, function(_, canBeCancelled)
     end)
 end)
 
+-- "This zone" changes with the map: redraw after Blizzard's own zone handler.
+API.OnEvents({ "ZONE_CHANGED", "ZONE_CHANGED_NEW_AREA", "ZONE_CHANGED_INDOORS" }, function()
+    if trackerInstalled then
+        API.Later(API.RedrawTracker)
+    end
+end)
+
 -- ---- /gt ----
 
 local commands = {}
@@ -248,6 +303,9 @@ function commands.probe()
         size(seen.movies), size(seen.cinematics), tostring(Cinematics.Key(API.Race(), API.PlayerMap()))))
     say("Probe: last cinematic summary: "
         .. (lastSummary and ('"' .. lastSummary .. '"') or "none this session") .. ".")
+    local tiers = TrackerSort.Tiers(db().features)
+    say("Probe: tracker sort " .. (#tiers > 0 and table.concat(tiers, ", ") or "off")
+        .. (trackerInstalled and " (installed)." or " (not installed)."))
     for name, message in pairs(API.Errors()) do
         say("Probe: " .. name .. " threw: " .. message)
     end
@@ -269,6 +327,7 @@ API.OnEvents({ "PLAYER_LOGIN" }, function()
             say("Couldn't add the options page; /gt still opens the window.")
         end
         MinimapButton.Create(Core)
+        applyTrackerSort()
     end)
 end)
 
