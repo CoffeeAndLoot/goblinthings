@@ -51,6 +51,11 @@ TOC load order is `API, Features, Hands, Vendor, Camera, Cinematics, Decline, Lo
 
 - `cameraDistanceMaxZoomFactor` keeps 2.6 and 4, the camera zooms further than at 2.0, and opening
   Options > Controls does not reset it (2026-10-13).
+- Quest tracker order (2026-10-13): the watch list keeps the game's own order; `RemoveQuestWatch` +
+  `AddQuestWatch` does **not** move a quest (1483 stayed first; its watch type stayed 1, Manual).
+  Setting `QuestObjectiveTracker.BuildQuestWatchInfos` to a wrapper that sorts Blizzard's result
+  and calling `QuestObjectiveTracker:MarkDirty()` reorders the tracker (A→Z and Z→A both seen).
+  Untested: whether that taint blocks the tracker's quest-item button (`UseQuestLogSpecialItem`).
 
 ## Deploy
 
