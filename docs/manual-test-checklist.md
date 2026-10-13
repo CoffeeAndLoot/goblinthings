@@ -23,9 +23,10 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
       Each tab shows only its rows; the window keeps the same height on every tab; the "Show
       minimap button" check and "Hold Shift at an NPC or vendor to skip." stay under every tab.
 - [ ] Close and reopen, and `/reload`: the window opens on the tab last used.
-- [ ] The Quests tab: two checks, a gold "Tracker sort" sub-header, rows 1st / 2nd / 3rd each
-      reading None | Level | Finished | This zone with every word fully visible, and the dim note
-      "All None = Blizzard's order (fully after /reload)". Nothing overlaps.
+- [ ] The Quests tab: two checks, a gold "Quest tracker" sub-header, an "Only this zone" check,
+      rows 1st / 2nd / 3rd each reading None | Level | Finished | This zone with every word fully
+      visible, and the dim note "Off and all None = Blizzard's tracker (fully after /reload)".
+      Nothing overlaps.
 - [ ] Each check flips on click and stays flipped after `/reload`.
 - [ ] Off | Repeats only | All: all three words fully visible (no "..."), each button snug to its
       word; the chosen one is gold; it stays after `/reload`.
@@ -72,7 +73,16 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [ ] `/reload` with a tier set: the tracker comes up already sorted.
 - [ ] With a tier set, through accepting, finishing, turning in and abandoning quests, the tracker
       never goes blank or drops a quest, and `/gt probe` shows no "Tracker sort threw" line (a sort
-      that errors or loses quests falls back to Blizzard's list and records why there).
+      that errors or shows a quest Blizzard did not give falls back to Blizzard's list).
+- [ ] Only this zone on (all tiers None): only quests on your current map show; `/gt probe` says
+      "tracker sort off, only this zone (installed)".
+- [ ] Only this zone: ride into another zone, then into a sub-zone and indoors: the list follows.
+- [ ] Only this zone in a zone with none of your tracked quests (a city): the tracker is empty.
+- [ ] Only this zone: a finished quest whose turn-in NPC is in another zone (e.g. Ziz Fizziks,
+      Windshear Crag, seen from the Barrens) is hidden until you get there. Tell Claude if it shows.
+- [ ] Only this zone plus 1st: Level: this zone's quests only, lowest level first.
+- [ ] Only this zone off again (tiers None): every tracked quest is back; probe says
+      "off (pass-through until /reload)".
 - [ ] **Release gate:** `/console taintLog 1`, `/reload`, set a tier, track a quest with a usable
       item. Out of combat and then in combat: use the item from the tracker; left-click a quest
       title (the map opens); right-click a title and super-track it; click a quest's POI button.

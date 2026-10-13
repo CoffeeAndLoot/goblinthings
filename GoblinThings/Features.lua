@@ -13,13 +13,15 @@ local SORT_CHOICES = { "none", "level", "finished", "zone" }
 local SORT_LABELS = { none = "None", level = "Level", finished = "Finished", zone = "This zone" }
 
 local function sortSlot(key, label)
-    return { key = key, label = label, section = "Quests", group = "Tracker sort", control = "choice",
+    return { key = key, label = label, section = "Quests", group = "Quest tracker", control = "choice",
         default = "none", choices = SORT_CHOICES, labels = SORT_LABELS }
 end
 
 Features.LIST = {
     { key = "autoAccept", label = "Auto accept quests", section = "Quests", control = "check", default = true },
     { key = "autoTurnIn", label = "Auto turn-in quests", section = "Quests", control = "check", default = true },
+    { key = "zoneOnly", label = "Only this zone", section = "Quests", group = "Quest tracker", control = "check",
+        default = false },
     sortSlot("sortFirst", "1st"),
     sortSlot("sortSecond", "2nd"),
     sortSlot("sortThird", "3rd"),
@@ -36,7 +38,7 @@ Features.LIST = {
 }
 
 -- A dim line at the foot of a section's tab.
-Features.NOTES = { Quests = "All None = Blizzard's order (fully after /reload)" }
+Features.NOTES = { Quests = "Off and all None = Blizzard's tracker (fully after /reload)" }
 
 function Features.ByKey(key)
     for _, feature in ipairs(Features.LIST) do

@@ -50,7 +50,7 @@ TOC load order is `API, Features, Hands, Vendor, Camera, Cinematics, Decline, Tr
    setting, the camera's CVar included.
 4. Holding Shift as an NPC or vendor window opens skips every quest and vendor action that visit.
 5. The tracker sort (`TrackerSort`, pure) wraps `QuestObjectiveTracker.BuildQuestWatchInfos` via
-   `API.SetTrackerSort` once a tier is set; all None leaves it in as a pass-through until /reload
+   `API.SetTrackerSort` once a tier is set or Only this zone is on (it also filters); all None leaves it in as a pass-through until /reload
    (XML `mixin=` copies methods onto the frame, so setting the field to nil would delete the
    tracker's own method). A player who never sorts never has the tracker touched.
 

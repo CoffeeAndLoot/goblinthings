@@ -7,20 +7,27 @@ return function(h, loaded)
             for _, f in ipairs(Features.LIST) do
                 keys[#keys + 1] = f.key
             end
-            h.eq(table.concat(keys, " "), "autoAccept autoTurnIn sortFirst sortSecond sortThird autoSellJunk "
-                .. "autoRepair declineDuels declineGuild cameraDistance cinematics")
+            h.eq(table.concat(keys, " "), "autoAccept autoTurnIn zoneOnly sortFirst sortSecond sortThird "
+                .. "autoSellJunk autoRepair declineDuels declineGuild cameraDistance cinematics")
         end)
-        h.it("the three tracker sort slots are choices grouped under Tracker sort, starting at None", function()
+        h.it("the three tracker sort slots are choices grouped under Quest tracker, starting at None", function()
             for _, key in ipairs({ "sortFirst", "sortSecond", "sortThird" }) do
                 local f = Features.ByKey(key)
                 h.eq(f.section, "Quests", key)
-                h.eq(f.group, "Tracker sort", key)
+                h.eq(f.group, "Quest tracker", key)
                 h.eq(f.default, "none", key)
                 h.eq(table.concat(f.choices, " "), "none level finished zone", key)
                 h.eq(f.labels.zone, "This zone", key)
             end
             h.eq(Features.ByKey("sortFirst").label, "1st")
             h.eq(Features.ByKey("sortThird").label, "3rd")
+        end)
+        h.it("Only this zone is a check in the same group, off by default", function()
+            local f = Features.ByKey("zoneOnly")
+            h.eq(f.label, "Only this zone")
+            h.eq(f.control, "check")
+            h.eq(f.group, "Quest tracker")
+            h.eq(f.default, false)
         end)
         h.it("every stored switch's default is valid; the camera has none, the CVar is its store", function()
             for _, f in ipairs(Features.LIST) do
@@ -88,11 +95,11 @@ return function(h, loaded)
                 counts[#counts + 1] = #s.features
             end
             h.eq(table.concat(names, " "), "Quests Vendors Social Camera Cinematics")
-            h.eq(table.concat(counts, " "), "5 2 2 1 1")
+            h.eq(table.concat(counts, " "), "6 2 2 1 1")
         end)
         h.it("a section carries its note; the others have none", function()
             local sections = Features.Sections()
-            h.eq(sections[1].note, "All None = Blizzard's order (fully after /reload)")
+            h.eq(sections[1].note, "Off and all None = Blizzard's tracker (fully after /reload)")
             h.eq(sections[2].note, nil)
         end)
     end)

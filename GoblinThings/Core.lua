@@ -48,17 +48,19 @@ local function sortTracker(infos)
         entries[i] = { level = facts.level, finished = facts.finished, onMap = facts.onMap, index = i, info = info }
     end
     local out = {}
-    for i, entry in ipairs(TrackerSort.Order(entries, TrackerSort.Tiers(db().features))) do
+    local features = db().features
+    for i, entry in ipairs(TrackerSort.Order(entries, TrackerSort.Tiers(features),
+        features[TrackerSort.ZONE_ONLY] == true)) do
         out[i] = entry.info
     end
     return out
 end
 
--- On when any tier is set. Off makes an installed wrapper pass Blizzard's
+-- On when any tier is set or Only this zone is on. Off makes an installed wrapper pass Blizzard's
 -- list through; it stays in until /reload (see API.SetTrackerSort). A player
 -- who never sorts never has the tracker touched.
 local function applyTrackerSort()
-    local on = #TrackerSort.Tiers(db().features) > 0
+    local on = TrackerSort.Active(db().features)
     if on then
         trackerInstalled = API.SetTrackerSort(sortTracker) or trackerInstalled
     elseif trackerInstalled then
@@ -88,6 +90,9 @@ function Core.Set(key, value)
             applyTrackerSort()
         else
             db().features[key] = value
+            if key == TrackerSort.ZONE_ONLY then
+                applyTrackerSort()
+            end
         end
         Window.Refresh(Core)
     end)
@@ -304,9 +309,11 @@ function commands.probe()
     say("Probe: last cinematic summary: "
         .. (lastSummary and ('"' .. lastSummary .. '"') or "none this session") .. ".")
     local tiers = TrackerSort.Tiers(db().features)
+    local active = TrackerSort.Active(db().features)
     local how = not trackerInstalled and " (not installed)."
-        or (#tiers > 0 and " (installed)." or " (pass-through until /reload).")
-    say("Probe: tracker sort " .. (#tiers > 0 and table.concat(tiers, ", ") or "off") .. how)
+        or (active and " (installed)." or " (pass-through until /reload).")
+    say("Probe: tracker sort " .. (#tiers > 0 and table.concat(tiers, ", ") or "off")
+        .. (db().features[TrackerSort.ZONE_ONLY] and ", only this zone" or "") .. how)
     for name, message in pairs(API.Errors()) do
         say("Probe: " .. name .. " threw: " .. message)
     end

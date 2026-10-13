@@ -5,9 +5,9 @@ return function(h, loaded)
         return { index = index, level = level, finished = finished, onMap = onMap }
     end
 
-    local function order(entries, tiers)
+    local function order(entries, tiers, zoneOnly)
         local out = {}
-        for i, e in ipairs(TrackerSort.Order(entries, tiers)) do
+        for i, e in ipairs(TrackerSort.Order(entries, tiers, zoneOnly)) do
             out[i] = e.index
         end
         return table.concat(out, " ")
@@ -22,6 +22,11 @@ return function(h, loaded)
             local tiers = TrackerSort.Tiers({ sortFirst = "zone", sortSecond = "none", sortThird = "level" })
             h.eq(table.concat(tiers, " "), "zone level")
             h.eq(#TrackerSort.Tiers({ sortFirst = "sideways" }), 0)
+        end)
+        h.it("is active with a tier set or Only this zone on, and not otherwise", function()
+            h.falsy(TrackerSort.Active({ sortFirst = "none", zoneOnly = false }))
+            h.truthy(TrackerSort.Active({ sortFirst = "level", zoneOnly = false }))
+            h.truthy(TrackerSort.Active({ sortFirst = "none", zoneOnly = true }))
         end)
         h.it("knows its three slots", function()
             h.truthy(TrackerSort.IsSlot("sortSecond"))
@@ -83,6 +88,17 @@ return function(h, loaded)
         end)
         h.it("no tiers keeps Blizzard's order", function()
             h.eq(order({ q(1, 30), q(2, 10), q(3, 20) }, {}), "1 2 3")
+        end)
+        h.it("only this zone drops quests the game says are elsewhere, then sorts the rest", function()
+            local entries = { q(1, 30, false, true), q(2, 10, false, false), q(3, 20, false, true) }
+            h.eq(order(entries, { "level" }, true), "3 1")
+            h.eq(order(entries, {}, true), "1 3")
+        end)
+        h.it("only this zone keeps a quest the game gave no answer for", function()
+            h.eq(order({ q(1, 10, false, nil), q(2, 10, false, false) }, {}, true), "1")
+        end)
+        h.it("only this zone with nothing here is an empty list", function()
+            h.eq(order({ q(1, 10, false, false) }, {}, true), "")
         end)
         h.it("returns a new list and leaves Blizzard's untouched", function()
             local entries = { q(1, 30), q(2, 10) }

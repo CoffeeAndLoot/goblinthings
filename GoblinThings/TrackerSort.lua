@@ -4,12 +4,14 @@ local _, ns = ...
 -- The rule): up to three tiers, each a step down from the last. Level is lowest
 -- first, Finished puts finished quests first, This zone puts quests on the
 -- current map first; whatever still ties keeps Blizzard's own order (index).
+-- Only this zone (zoneOnly) drops quests on other maps before sorting.
 -- A value the game did not give sorts as the weakest. Pure.
 local TrackerSort = {}
 ns.TrackerSort = TrackerSort
 
 TrackerSort.SLOTS = { "sortFirst", "sortSecond", "sortThird" }
 TrackerSort.KEYS = { level = true, finished = true, zone = true }
+TrackerSort.ZONE_ONLY = "zoneOnly"  -- the Only this zone feature
 
 function TrackerSort.IsSlot(key)
     for _, slot in ipairs(TrackerSort.SLOTS) do
@@ -77,11 +79,20 @@ function TrackerSort.Less(a, b, tiers)
     return a.index < b.index
 end
 
--- A sorted copy of entries ({ level, finished, onMap, index, ... }).
-function TrackerSort.Order(entries, tiers)
+-- Whether the tracker needs us at all: a tier set, or Only this zone on.
+function TrackerSort.Active(features)
+    return #TrackerSort.Tiers(features) > 0 or features[TrackerSort.ZONE_ONLY] == true
+end
+
+-- A sorted copy of entries ({ level, finished, onMap, index, ... }). With
+-- zoneOnly, a quest the game says is elsewhere (onMap false) is left out; one
+-- it gave no answer for (nil) stays.
+function TrackerSort.Order(entries, tiers, zoneOnly)
     local out = {}
-    for i, entry in ipairs(entries) do
-        out[i] = entry
+    for _, entry in ipairs(entries) do
+        if not (zoneOnly and entry.onMap == false) then
+            out[#out + 1] = entry
+        end
     end
     table.sort(out, function(a, b)
         return TrackerSort.Less(a, b, tiers)

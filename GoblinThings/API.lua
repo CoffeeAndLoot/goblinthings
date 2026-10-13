@@ -289,27 +289,51 @@ function API.TrackerFacts(quest)
     end
     local logIndex = call("GetLogIndexForQuestID", C_QuestLog.GetLogIndexForQuestID, id)
     local info = type(logIndex) == "number" and call("GetInfo", C_QuestLog.GetInfo, logIndex) or nil
+    local onMap = call("IsOnMap", C_QuestLog.IsOnMap, id)
+    if type(onMap) ~= "boolean" then
+        onMap = nil  -- no answer, so Only this zone keeps it
+    end
     return {
         level = (type(info) == "table" and type(info.level) == "number") and info.level or nil,
         finished = call("IsComplete", C_QuestLog.IsComplete, id) == true,
-        onMap = call("IsOnMap", C_QuestLog.IsOnMap, id) == true,
+        onMap = onMap,
     }
 end
 
 local trackerSorter
 
+-- Whether every entry of shown is one of infos, none twice: a filter may
+-- drop quests, but never invent or repeat one.
+local function drawnFrom(shown, infos)
+    if type(shown) ~= "table" then
+        return false
+    end
+    local left = {}
+    for _, info in ipairs(infos) do
+        left[info] = true
+    end
+    for _, info in ipairs(shown) do
+        if not left[info] then
+            return false
+        end
+        left[info] = nil
+    end
+    return true
+end
+
 -- Stands in for QuestObjectiveTrackerMixin:BuildQuestWatchInfos: Blizzard's
--- list, reordered. A sorter that errors or loses quests gives Blizzard's list.
+-- list, filtered and reordered. A sorter that errors, or shows a quest
+-- Blizzard did not give or one twice, gives Blizzard's list.
 local function sortedWatchInfos(self)
     local infos = QuestObjectiveTrackerMixin.BuildQuestWatchInfos(self)
     if not trackerSorter then
         return infos
     end
     local ok, sorted = pcall(trackerSorter, infos)
-    if ok and type(sorted) == "table" and #sorted == #infos then
+    if ok and drawnFrom(sorted, infos) then
         return sorted
     end
-    errors["Tracker sort"] = ok and "the sort lost quests" or tostring(sorted)
+    errors["Tracker sort"] = ok and "the sort showed a quest Blizzard did not give" or tostring(sorted)
     return infos
 end
 

@@ -18,7 +18,7 @@ the same way; with all three on None the addon does not touch the tracker.
 
 ### Settings
 
-Three new features in `Features.LIST`, section `Quests`, group `Tracker sort`, control `choice`:
+Three new features in `Features.LIST`, section `Quests`, group `Quest tracker`, control `choice`:
 
 | Key | Label | Choices | Default |
 |---|---|---|---|
@@ -81,6 +81,15 @@ of combat and in combat: using a quest item, clicking a title, super-tracking fr
 menu and clicking a POI button must not be blocked, and the spellbook and bags must open cleanly
 after combat. If any is blocked, the feature does not ship as designed.
 
+### Only this zone (added 2026-10-13)
+
+A check, `zoneOnly`, label "Only this zone", group `Quest tracker`, default off. On, the tracker
+shows only quests the game says are on the current map (`C_QuestLog.IsOnMap` false drops a quest;
+no answer keeps it), then sorts them by the tiers. A zone with none of your tracked quests shows an
+empty tracker (the owner's choice). The wrapper goes in when any tier is set **or** this is on.
+The wrapper's safety net accepts a shorter list: it falls back to Blizzard's list only when the
+sorter errors or shows a quest Blizzard did not give, or one twice.
+
 ## Tabs
 
 - **Tabs are sections.** `Features.Sections()` gives the tabs in `LIST` order: Quests, Vendors,
@@ -96,11 +105,12 @@ after combat. If any is blocked, the feature does not ship as designed.
   ```
    Auto accept quests                       [■]
    Auto turn-in quests                      [■]
-   Tracker sort
+   Quest tracker
+     Only this zone                         [■]
      1st   None | Level | Finished | This zone
      2nd   None | Level | Finished | This zone
      3rd   None | Level | Finished | This zone
-     All None = Blizzard's order (fully after /reload)
+     Off and all None = Blizzard's tracker (fully after /reload)
   ```
   The last line is a dim note, shown on the Quests tab only.
 - **Footer** (minimap check, Shift hint) stays below the tabs, on every tab.
