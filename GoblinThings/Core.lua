@@ -68,6 +68,16 @@ local function applyTrackerSort()
     end
 end
 
+-- Blizzard's own auto-track setting, kept on while the switch is ticked;
+-- switched says the player just clicked it, so off may write "0".
+local function applyAutoTrack(switched)
+    local cvar = TrackerSort.AUTO_TRACK_CVAR
+    local write = TrackerSort.AutoTrackWrite(db().features[TrackerSort.AUTO_TRACK] == true, API.GetCVar(cvar), switched)
+    if write then
+        API.SetCVar(cvar, write)
+    end
+end
+
 function Core.Get(key)
     if key == Camera.KEY then
         return Camera.Clamp(API.GetCVar(Camera.CVAR))
@@ -92,6 +102,8 @@ function Core.Set(key, value)
             db().features[key] = value
             if key == TrackerSort.ZONE_ONLY then
                 applyTrackerSort()
+            elseif key == TrackerSort.AUTO_TRACK then
+                applyAutoTrack(true)
             end
         end
         Window.Refresh(Core)
@@ -263,6 +275,12 @@ API.OnEvents({ "CINEMATIC_START" }, function(_, canBeCancelled)
     end)
 end)
 
+-- Every loading screen: an addon that turns auto-track off at login is
+-- undone after it, while the switch is ticked.
+API.OnEvents({ "PLAYER_ENTERING_WORLD" }, function()
+    guard("Auto-track", applyAutoTrack, false)
+end)
+
 -- "This zone" changes with the map: redraw after Blizzard's own zone handler.
 API.OnEvents({ "ZONE_CHANGED", "ZONE_CHANGED_NEW_AREA", "ZONE_CHANGED_INDOORS" }, function()
     if trackerInstalled then
@@ -308,6 +326,8 @@ function commands.probe()
         size(seen.movies), size(seen.cinematics), tostring(Cinematics.Key(API.Race(), API.PlayerMap()))))
     say("Probe: last cinematic summary: "
         .. (lastSummary and ('"' .. lastSummary .. '"') or "none this session") .. ".")
+    local cvar = TrackerSort.AUTO_TRACK_CVAR
+    say("Probe: " .. cvar .. " reads " .. tostring(API.GetCVar(cvar)) .. ".")
     local tiers = TrackerSort.Tiers(db().features)
     local active = TrackerSort.Active(db().features)
     local how = not trackerInstalled and " (not installed)."

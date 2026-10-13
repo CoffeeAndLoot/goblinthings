@@ -12,6 +12,19 @@ ns.TrackerSort = TrackerSort
 TrackerSort.SLOTS = { "sortFirst", "sortSecond", "sortThird" }
 TrackerSort.KEYS = { level = true, finished = true, zone = true }
 TrackerSort.ZONE_ONLY = "zoneOnly"  -- the Only this zone feature
+TrackerSort.AUTO_TRACK = "autoTrack"  -- the Auto-track new quests feature
+TrackerSort.AUTO_TRACK_CVAR = "autoQuestWatch"  -- Blizzard_ObjectiveTracker.lua:35 tracks new quests by it
+
+-- What to write to Blizzard's auto-track setting, or nil to leave it: on, it
+-- must read "1"; switched off just now, "0". Off and untouched never writes,
+-- so a player who never ticks the box never has the setting changed.
+function TrackerSort.AutoTrackWrite(on, current, switched)
+    local want = on and "1" or (switched and "0" or nil)
+    if want ~= nil and current ~= want then
+        return want
+    end
+    return nil
+end
 
 function TrackerSort.IsSlot(key)
     for _, slot in ipairs(TrackerSort.SLOTS) do

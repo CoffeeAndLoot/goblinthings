@@ -20,6 +20,8 @@ end
 Features.LIST = {
     { key = "autoAccept", label = "Auto accept quests", section = "Quests", control = "check", default = true },
     { key = "autoTurnIn", label = "Auto turn-in quests", section = "Quests", control = "check", default = true },
+    { key = "autoTrack", label = "Auto-track new quests", section = "Quests", control = "check",
+        default = false },
     { key = "zoneOnly", label = "Only this zone", section = "Quests", group = "Quest tracker", control = "check",
         default = false },
     sortSlot("sortFirst", "1st"),

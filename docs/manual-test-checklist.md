@@ -23,7 +23,7 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
       Each tab shows only its rows; the window keeps the same height on every tab; the "Show
       minimap button" check and "Hold Shift at an NPC or vendor to skip." stay under every tab.
 - [ ] Close and reopen, and `/reload`: the window opens on the tab last used.
-- [ ] The Quests tab: two checks, a gold "Quest tracker" sub-header, an "Only this zone" check,
+- [ ] The Quests tab: three checks (auto accept, auto turn-in, auto-track), a gold "Quest tracker" sub-header, an "Only this zone" check,
       rows 1st / 2nd / 3rd each reading None | Level | Finished | This zone with every word fully
       visible, and the dim note "Off and all None = Blizzard's tracker (fully after /reload)".
       Nothing overlaps.
@@ -52,6 +52,15 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
       their own menu, not that quest (at most once per session for a 5-player quest).
 - [ ] Shift held while talking to the NPC: nothing is accepted or turned in that visit.
 - [ ] Each switch off on its own: only the other thing happens.
+
+## Auto-track new quests
+
+- [ ] Ticked: `/gt probe` says "autoQuestWatch reads 1", also after `/reload` and after a loading
+      screen. Accept a new quest: it shows in the tracker (and in the tracked-quests list).
+- [ ] With the addon that turned it off still installed (e.g. Questie): after logging in and a
+      loading screen, still "reads 1".
+- [ ] Unticked by clicking: "autoQuestWatch reads 0"; a newly accepted quest is not tracked.
+- [ ] Never ticked on a fresh install: Goblin Things leaves `autoQuestWatch` as it was.
 
 ## Tracker sort
 

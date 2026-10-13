@@ -7,7 +7,7 @@ return function(h, loaded)
             for _, f in ipairs(Features.LIST) do
                 keys[#keys + 1] = f.key
             end
-            h.eq(table.concat(keys, " "), "autoAccept autoTurnIn zoneOnly sortFirst sortSecond sortThird "
+            h.eq(table.concat(keys, " "), "autoAccept autoTurnIn autoTrack zoneOnly sortFirst sortSecond sortThird "
                 .. "autoSellJunk autoRepair declineDuels declineGuild cameraDistance cinematics")
         end)
         h.it("the three tracker sort slots are choices grouped under Quest tracker, starting at None", function()
@@ -21,6 +21,14 @@ return function(h, loaded)
             end
             h.eq(Features.ByKey("sortFirst").label, "1st")
             h.eq(Features.ByKey("sortThird").label, "3rd")
+        end)
+        h.it("Auto-track new quests is an ungrouped Quests check, off by default", function()
+            local f = Features.ByKey("autoTrack")
+            h.eq(f.label, "Auto-track new quests")
+            h.eq(f.section, "Quests")
+            h.eq(f.control, "check")
+            h.eq(f.group, nil)
+            h.eq(f.default, false)
         end)
         h.it("Only this zone is a check in the same group, off by default", function()
             local f = Features.ByKey("zoneOnly")
@@ -95,7 +103,7 @@ return function(h, loaded)
                 counts[#counts + 1] = #s.features
             end
             h.eq(table.concat(names, " "), "Quests Vendors Social Camera Cinematics")
-            h.eq(table.concat(counts, " "), "6 2 2 1 1")
+            h.eq(table.concat(counts, " "), "7 2 2 1 1")
         end)
         h.it("a section carries its note; the others have none", function()
             local sections = Features.Sections()

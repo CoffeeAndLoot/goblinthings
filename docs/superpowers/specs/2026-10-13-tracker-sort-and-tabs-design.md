@@ -90,6 +90,15 @@ empty tracker (the owner's choice). The wrapper goes in when any tier is set **o
 The wrapper's safety net accepts a shorter list: it falls back to Blizzard's list only when the
 sorter errors or shows a quest Blizzard did not give, or one twice.
 
+### Auto-track new quests (added 2026-10-13)
+
+A check, `autoTrack`, label "Auto-track new quests", in the Quests tab's top rows, default off.
+On Forever the only thing that tracks a newly accepted quest is Blizzard's tracker, and only while
+the `autoQuestWatch` CVar is "1" (`Blizzard_ObjectiveTracker.lua:35`); another addon had set it to
+"0". Ticked, Goblin Things sets that CVar to "1" at every `PLAYER_ENTERING_WORLD` and when ticked;
+unticked by a click, to "0"; never ticked, never touched. It does not call `AddQuestWatch` itself:
+Blizzard's own handler tracks the quest, so no taint is added to the tracker.
+
 ## Tabs
 
 - **Tabs are sections.** `Features.Sections()` gives the tabs in `LIST` order: Quests, Vendors,

@@ -5,8 +5,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 # Goblin Things
 
 WoW Forever addon (interface 16001: Classic data on the 12.x engine, game type `camelot`).
-Quality-of-life switches in one tabbed Goblin-look window: auto accept and turn in quests, a tiered
-quest tracker sort, auto sell junk, auto repair, decline duels, decline guild invites, camera
+Quality-of-life switches in one tabbed Goblin-look window: auto accept and turn in quests, auto-track
+new quests (Blizzard's `autoQuestWatch`), a tiered quest tracker sort with Only this zone, auto sell junk, auto repair, decline duels, decline guild invites, camera
 distance past Blizzard's 2.0, and skipping cinematics. Specs:
 `docs/superpowers/specs/2026-10-13-goblin-things-design.md` and
 `docs/superpowers/specs/2026-10-13-tracker-sort-and-tabs-design.md` (its Tabs replace the first's Window).
