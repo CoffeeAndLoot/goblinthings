@@ -7,8 +7,9 @@ return function(h, loaded)
             local sections = { { name = "A", features = { 1, 2 } }, { name = "B", features = { 3 } } }
             h.eq(Window.WellHeight(sections), 2 * L.WELL_PAD + 2 * L.SECTION + 3 * L.ROW)
         end)
-        h.it("fits the eight switches under five headers", function()
-            h.eq(Window.WellHeight(loaded.ns.Features.Sections()), 2 * L.WELL_PAD + 5 * L.SECTION + 8 * L.ROW)
+        h.it("fits every switch under its five headers", function()
+            h.eq(Window.WellHeight(loaded.ns.Features.Sections()),
+                2 * L.WELL_PAD + 5 * L.SECTION + #loaded.ns.Features.LIST * L.ROW)
         end)
     end)
 end

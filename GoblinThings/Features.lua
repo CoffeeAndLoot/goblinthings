@@ -7,9 +7,22 @@ local _, ns = ...
 local Features = {}
 ns.Features = Features
 
+-- The tracker sort's three tiers share their choices (spec
+-- 2026-10-13-tracker-sort-and-tabs-design.md, Settings).
+local SORT_CHOICES = { "none", "level", "finished", "zone" }
+local SORT_LABELS = { none = "None", level = "Level", finished = "Finished", zone = "This zone" }
+
+local function sortSlot(key, label)
+    return { key = key, label = label, section = "Quests", group = "Tracker sort", control = "choice",
+        default = "none", choices = SORT_CHOICES, labels = SORT_LABELS }
+end
+
 Features.LIST = {
     { key = "autoAccept", label = "Auto accept quests", section = "Quests", control = "check", default = true },
     { key = "autoTurnIn", label = "Auto turn-in quests", section = "Quests", control = "check", default = true },
+    sortSlot("sortFirst", "1st"),
+    sortSlot("sortSecond", "2nd"),
+    sortSlot("sortThird", "3rd"),
     { key = "autoSellJunk", label = "Auto sell junk", section = "Vendors", control = "check", default = true },
     { key = "autoRepair", label = "Auto repair", section = "Vendors", control = "check", default = true },
     { key = "declineDuels", label = "Decline duels", section = "Social", control = "check", default = false },
@@ -21,6 +34,9 @@ Features.LIST = {
         default = "repeats", choices = { "off", "repeats", "all" },
         labels = { off = "Off", repeats = "Repeats only", all = "All" } },
 }
+
+-- A dim line at the foot of a section's tab.
+Features.NOTES = { Quests = "All None = Blizzard's order (fully after /reload)" }
 
 function Features.ByKey(key)
     for _, feature in ipairs(Features.LIST) do
@@ -46,13 +62,13 @@ function Features.Valid(feature, value)
     return false
 end
 
--- { { name, features } ... }: LIST grouped by section, in LIST order.
+-- { { name, features, note } ... }: LIST grouped by section, in LIST order.
 function Features.Sections()
     local out, byName = {}, {}
     for _, feature in ipairs(Features.LIST) do
         local section = byName[feature.section]
         if not section then
-            section = { name = feature.section, features = {} }
+            section = { name = feature.section, features = {}, note = Features.NOTES[feature.section] }
             byName[feature.section] = section
             out[#out + 1] = section
         end
