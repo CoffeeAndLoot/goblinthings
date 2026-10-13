@@ -5,6 +5,7 @@ local harness = dofile("test/harness.lua")
 -- API.lua and Core.lua touch Blizzard globals, so they are not loaded here.
 -- A missing module is a hard failure: a suite that silently skips proves nothing.
 local modules = {
+    { "Features", "GoblinThings/Features.lua" },
     { "Look", "GoblinThings/Look.lua" },
 }
 
@@ -16,6 +17,7 @@ for i = 1, #modules do
 end
 
 local suites = {
+    "test/test_features.lua",
     "test/test_look.lua",
 }
 
