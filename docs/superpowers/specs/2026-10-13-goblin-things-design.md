@@ -118,11 +118,13 @@ only ones seen before and marks new ones seen.
 - Movies: `PLAY_MOVIE` carries a `movieID`. Stop with `MovieFrame:FinishMovie()`
   (Blizzard's own confirm-skip button, `Blizzard_FrameXML/MovieFrame.lua`).
 - In-engine cinematics: `CINEMATIC_START` carries no ID (payload
-  `canBeCancelled`, `forcedAspectRatio`). The key is
-  `GetCurrentCinematicSummary()` if the probe shows it names the cinematic;
-  otherwise the player's race (each race has one intro). Stop with
-  `StopCinematic()` (what `CinematicFrame_CancelCinematic` calls), only when
-  `canBeCancelled` is true.
+  `canBeCancelled`, `forcedAspectRatio`). The key is the player's race and map
+  (`Scourge:1420`): each race's intro plays once, in its starting zone.
+  `GetCurrentCinematicSummary()` is recorded at each start and shown by
+  `/gt probe`; if it turns out to name the cinematic, it may replace the key.
+  Stop with `StopCinematic()` (what `CinematicFrame_CancelCinematic` calls),
+  only when `canBeCancelled` is true: false means a vehicle ride, never touched.
+- Unknown key (no race or map) in Repeats only: do nothing.
 - The seen list is account-wide: `{ movies = { [id] = true }, cinematics = {
   [key] = true } }`.
 
@@ -194,7 +196,7 @@ the table it was given.
 |---|---|
 | `/gt` | Opens the window |
 | `/gt minimap` | Hides or shows the minimap button |
-| `/gt probe` | Prints each setting, the camera CVar, the seen counts, `attempt()` errors, and, while a cinematic plays, `GetCurrentCinematicSummary()` |
+| `/gt probe` | Prints each setting, the camera CVar, the seen counts, this spot's cinematic key, the last `GetCurrentCinematicSummary()` this session, and `attempt()` errors |
 
 ## Errors
 
@@ -217,8 +219,8 @@ the table it was given.
 
 ## Open facts (settle in game)
 
-1. What `GetCurrentCinematicSummary()` returns during a race intro: a usable key
-   or not.
+1. What `GetCurrentCinematicSummary()` returns during a race intro: a better
+   key than race and map, or not.
 2. Whether the duel and guild-invite popups close on their own after a decline.
 3. Whether the camera CVar can be written in combat.
 
