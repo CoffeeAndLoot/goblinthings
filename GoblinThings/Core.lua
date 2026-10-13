@@ -102,6 +102,7 @@ Core.NPC_WINDOWS = {
 Core.NPC_END = { GOSSIP_CLOSED = true, QUEST_FINISHED = true }
 
 local visit = Hands.NewVisit()
+local refused = {}  -- questIDs whose offer the Hands refused this session (Hands.Refused)
 
 local function atNpc(event, continuing)
     local kind = Core.NPC_WINDOWS[event]
@@ -115,7 +116,11 @@ local function atNpc(event, continuing)
     if API.ShiftDown() then
         visit.held = true  -- Shift at any window keeps the whole visit manual
     end
-    local action = Hands.Decide(API.NpcView(kind), db().features, visit)
+    local view = API.NpcView(kind)
+    if Hands.Refused(view) then
+        refused[view.questID] = true
+    end
+    local action = Hands.Decide(view, db().features, visit, refused)
     if action then
         visit.tried[action.key] = true
         API.NpcAct(kind, action.op, action.arg)

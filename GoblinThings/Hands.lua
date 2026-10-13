@@ -15,6 +15,9 @@ ns.Hands = Hands
 -- Enum.QuestTag Dungeon and Raid (QuestLogDocumentation.lua ~1509-1510):
 -- an offered quest tagged with either is left for the player to take by hand.
 Hands.DUNGEON_TAGS = { [81] = true, [62] = true }
+-- Enum.QuestTag PvP (QuestLogDocumentation.lua ~1508): skipped at the list too,
+-- or an NPC that also offers one opens that quest on every talk.
+Hands.PVP_TAG = 41
 Hands.GROUP_SIZE = 5
 
 function Hands.NewVisit()
@@ -31,7 +34,20 @@ local function isFullGroup(group)
     return type(group) == "number" and group >= Hands.GROUP_SIZE
 end
 
-local function atQuestList(view, prefs)
+-- An offer the Hands leave for the player: PvP, dungeon or raid, or a full group.
+local function keepOff(view)
+    return view.pvp or isDungeon(view.tag) or isFullGroup(view.group)
+end
+
+-- Whether a detail window is an offer the Hands refused. The caller keeps its
+-- questID for the session and passes the set back as Decide's `refused`, so
+-- the list stops opening a quest the offer will only refuse again.
+function Hands.Refused(view)
+    return type(view) == "table" and view.kind == "detail" and view.questID ~= nil and keepOff(view) and true
+        or false
+end
+
+local function atQuestList(view, prefs, refused)
     if prefs.autoTurnIn then
         for _, q in ipairs(view.active or {}) do
             if q.complete then
@@ -41,7 +57,9 @@ local function atQuestList(view, prefs)
     end
     if prefs.autoAccept then
         for _, q in ipairs(view.available or {}) do
-            if not (q.trivial or q.repeatable or q.ignored or isDungeon(q.tag)) then
+            local wasRefused = q.questID ~= nil and refused[q.questID]
+            if not (q.trivial or q.repeatable or q.ignored or isDungeon(q.tag) or q.tag == Hands.PVP_TAG
+                or wasRefused) then
                 return { op = "selectAvailable", arg = q.arg }
             end
         end
@@ -49,12 +67,12 @@ local function atQuestList(view, prefs)
     return nil
 end
 
-local function choose(view, prefs)
+local function choose(view, prefs, refused)
     local kind = view.kind
     if kind == "gossip" or kind == "greeting" then
-        return atQuestList(view, prefs)
+        return atQuestList(view, prefs, refused)
     elseif kind == "detail" then
-        if prefs.autoAccept and not view.pvp and not isDungeon(view.tag) and not isFullGroup(view.group) then
+        if prefs.autoAccept and not keepOff(view) then
             return { op = view.auto and "acknowledge" or "accept" }
         end
     elseif kind == "progress" then
@@ -69,11 +87,12 @@ local function choose(view, prefs)
     return nil
 end
 
-function Hands.Decide(view, prefs, visit)
+-- refused: optional set of questIDs (see Hands.Refused).
+function Hands.Decide(view, prefs, visit, refused)
     if type(view) ~= "table" or visit.held then
         return nil
     end
-    local action = choose(view, prefs)
+    local action = choose(view, prefs, refused or {})
     if not action then
         return nil
     end

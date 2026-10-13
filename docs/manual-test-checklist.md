@@ -21,7 +21,8 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [ ] The window shows five gold headers (Quests, Vendors, Social, Camera, Cinematics), eight rows, the
       "Show minimap button" check and "Hold Shift at an NPC or vendor to skip." Nothing overlaps.
 - [ ] Each check flips on click and stays flipped after `/reload`.
-- [ ] Off | Repeats only | All: the chosen one is gold; it stays after `/reload`.
+- [ ] Off | Repeats only | All: all three words fully visible (no "..."), each button snug to its
+      word; the chosen one is gold; it stays after `/reload`.
 - [ ] Unticking "Show minimap button" hides it; `/gt minimap` brings it back.
 - [ ] The window remembers where it was dragged after `/reload`.
 
@@ -40,6 +41,8 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [ ] Turning in a quest with no reward choice: completed and rewarded with no clicks.
 - [ ] A quest with two or more reward choices: the reward window waits for you.
 - [ ] A gray, a repeatable, a dungeon, a PvP or a gold-costing quest: left for you.
+- [ ] A vendor, trainer or innkeeper who also offers a PvP or 5-player quest: talking to them shows
+      their own menu, not that quest (at most once per session for a 5-player quest).
 - [ ] Shift held while talking to the NPC: nothing is accepted or turned in that visit.
 - [ ] Each switch off on its own: only the other thing happens.
 

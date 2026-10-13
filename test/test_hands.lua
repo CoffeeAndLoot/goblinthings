@@ -2,8 +2,8 @@ return function(h, loaded)
     local Hands = loaded.ns.Hands
     local ON = { autoAccept = true, autoTurnIn = true }
 
-    local function decide(view, prefs, visit)
-        return Hands.Decide(view, prefs or ON, visit or Hands.NewVisit())
+    local function decide(view, prefs, visit, refused)
+        return Hands.Decide(view, prefs or ON, visit or Hands.NewVisit(), refused)
     end
 
     h.describe("Hands at a gossip or greeting window", function()
@@ -77,6 +77,18 @@ return function(h, loaded)
             h.eq(a.op, "selectAvailable")
             h.eq(a.arg, 22)
         end)
+        h.it("never opens a PvP-tagged quest at gossip, so a service NPC's menu stays reachable", function()
+            h.eq(decide({ kind = "gossip", active = {},
+                available = { { arg = 21, trivial = false, tag = 41 } } }), nil)
+        end)
+        h.it("skips a quest whose offer was already refused this session", function()
+            local a = decide({ kind = "gossip", active = {},
+                available = { { arg = 7, questID = 7, trivial = false }, { arg = 8, questID = 8, trivial = false } } },
+                ON, nil, { [7] = true })
+            h.eq(a.arg, 8)
+            h.eq(decide({ kind = "greeting", active = {},
+                available = { { arg = 1, questID = 7, trivial = false } } }, ON, nil, { [7] = true }), nil)
+        end)
         h.it("a tag of 0 is not a signal: picked up", function()
             local a = decide({ kind = "gossip", active = {},
                 available = { { arg = 21, trivial = false, tag = 0 } } })
@@ -111,6 +123,20 @@ return function(h, loaded)
         end)
         h.it("a nil tag and group are not a positive signal", function()
             h.eq(decide({ kind = "detail", questID = 5, tag = nil, group = nil }).op, "accept")
+        end)
+    end)
+
+    h.describe("Hands.Refused", function()
+        h.it("an offer the Hands will not take, so the list can skip it next time", function()
+            h.truthy(Hands.Refused({ kind = "detail", questID = 5, pvp = true }))
+            h.truthy(Hands.Refused({ kind = "detail", questID = 5, tag = 81 }))
+            h.truthy(Hands.Refused({ kind = "detail", questID = 5, group = 5 }))
+        end)
+        h.it("not an ordinary offer, one with no ID, or another window", function()
+            h.falsy(Hands.Refused({ kind = "detail", questID = 5 }))
+            h.falsy(Hands.Refused({ kind = "detail", pvp = true }))
+            h.falsy(Hands.Refused({ kind = "progress", questID = 5, pvp = true }))
+            h.falsy(Hands.Refused(nil))
         end)
     end)
 
