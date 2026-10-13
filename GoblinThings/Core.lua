@@ -54,15 +54,15 @@ local function sortTracker(infos)
     return out
 end
 
--- On when any tier is set. Off removes the wrapper only if it was ever put
--- in, so a player who never sorts never has the tracker touched.
+-- On when any tier is set. Off makes an installed wrapper pass Blizzard's
+-- list through; it stays in until /reload (see API.SetTrackerSort). A player
+-- who never sorts never has the tracker touched.
 local function applyTrackerSort()
     local on = #TrackerSort.Tiers(db().features) > 0
     if on then
-        trackerInstalled = API.SetTrackerSort(sortTracker)
+        trackerInstalled = API.SetTrackerSort(sortTracker) or trackerInstalled
     elseif trackerInstalled then
         API.SetTrackerSort(nil)
-        trackerInstalled = false
     end
 end
 
@@ -304,8 +304,9 @@ function commands.probe()
     say("Probe: last cinematic summary: "
         .. (lastSummary and ('"' .. lastSummary .. '"') or "none this session") .. ".")
     local tiers = TrackerSort.Tiers(db().features)
-    say("Probe: tracker sort " .. (#tiers > 0 and table.concat(tiers, ", ") or "off")
-        .. (trackerInstalled and " (installed)." or " (not installed)."))
+    local how = not trackerInstalled and " (not installed)."
+        or (#tiers > 0 and " (installed)." or " (pass-through until /reload).")
+    say("Probe: tracker sort " .. (#tiers > 0 and table.concat(tiers, ", ") or "off") .. how)
     for name, message in pairs(API.Errors()) do
         say("Probe: " .. name .. " threw: " .. message)
     end

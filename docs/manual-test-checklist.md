@@ -63,16 +63,23 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [ ] 1st: This zone, 2nd: Finished, 3rd: Level: this zone's finished quests, then this zone's open
       quests lowest level first, then other zones the same way.
 - [ ] No repeats: with 1st on Level, pick Level for 2nd: 1st goes back to None.
-- [ ] Set any tier, then all three back to None: the tracker goes back to Blizzard's order now, and
-      `/gt probe` says "off (not installed)". `/reload`: still Blizzard's order.
+- [ ] Set any tier, then all three back to None: the tracker goes back to Blizzard's order now and
+      **keeps drawing and updating** (accept or progress a quest); achievement and profession
+      trackers below it still update; `/gt probe` says "off (pass-through until /reload)".
+      `/reload`: Blizzard's order, probe "off (not installed)".
+- [ ] `/dump rawget(QuestObjectiveTracker, "BuildQuestWatchInfos") ~= nil` prints true before any
+      tier is set (the frame owns a copy of the method; tell Claude if false).
 - [ ] `/reload` with a tier set: the tracker comes up already sorted.
 - [ ] With a tier set, through accepting, finishing, turning in and abandoning quests, the tracker
       never goes blank or drops a quest, and `/gt probe` shows no "Tracker sort threw" line (a sort
       that errors or loses quests falls back to Blizzard's list and records why there).
 - [ ] **Release gate:** `/console taintLog 1`, `/reload`, set a tier, track a quest with a usable
-      item. Use it from the tracker out of combat, then in combat: no "blocked" or "AddOn tried to
-      call a protected function". Then `/console taintLog 0`. If blocked, send the end of
-      `Logs\taint.log`; the feature does not ship as built.
+      item. Out of combat and then in combat: use the item from the tracker; left-click a quest
+      title (the map opens); right-click a title and super-track it; click a quest's POI button.
+      After combat: open and close the spellbook and the bags. No "blocked" or "AddOn tried to call
+      a protected function" anywhere, and no GoblinThings "blocked" line in `Logs\taint.log`. Then
+      `/console taintLog 0`. If anything is blocked, send the end of `Logs\taint.log`; the feature
+      does not ship as built.
 
 ## Vendors
 

@@ -319,8 +319,11 @@ function API.RedrawTracker()
     end
 end
 
--- sorter(infos) -> a reordered copy, or nil to hand the tracker back to
--- Blizzard. False when this client has no such tracker.
+-- sorter(infos) -> a reordered copy, or nil for Blizzard's order. XML
+-- mixin= copies the mixin's methods onto the frame (no __index back to it),
+-- so the wrapper, once in, stays in: setting the field to nil would delete
+-- the tracker's own method. With no sorter it passes Blizzard's list through.
+-- False when this client has no such tracker.
 function API.SetTrackerSort(sorter)
     if not (QuestObjectiveTracker and QuestObjectiveTrackerMixin
         and type(QuestObjectiveTrackerMixin.BuildQuestWatchInfos) == "function") then
@@ -328,7 +331,9 @@ function API.SetTrackerSort(sorter)
         return false
     end
     trackerSorter = sorter
-    QuestObjectiveTracker.BuildQuestWatchInfos = sorter and sortedWatchInfos or nil
+    if sorter then
+        QuestObjectiveTracker.BuildQuestWatchInfos = sortedWatchInfos
+    end
     API.RedrawTracker()
     return true
 end

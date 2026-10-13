@@ -37,6 +37,7 @@ local suites = {
     "test/test_trackersort.lua",
     "test/test_minimap.lua",
     "test/test_window.lua",
+    "test/test_api_tracker.lua",
 }
 
 for i = 1, #suites do

@@ -55,8 +55,10 @@ is stable by construction.
   `QuestObjectiveTrackerMixin.BuildQuestWatchInfos(self)`, so Blizzard's filtering stays, then
   reorders a copy of the result with the rule and returns it. If anything in the reorder errors,
   the wrapper returns Blizzard's list untouched: a bug here never empties the tracker.
-- **Off:** set `QuestObjectiveTracker.BuildQuestWatchInfos = nil`, so the mixin's method shows
-  through again. The taint from having replaced it lasts until `/reload`; the window says so.
+- **Off:** the wrapper stays in and passes Blizzard's list through untouched. XML `mixin=` copies
+  the mixin's methods onto the frame, with no `__index` back to the mixin, so setting the field to
+  nil would delete the tracker's own method (found in final review, 2026-10-13). The wrapper and its
+  taint last until `/reload`; the window says so. A player who never sets a tier never has it put in.
 - **Facts per quest:** only the quest's ID is read from the tracker's quest object
   (`quest:GetID()`; the object comes from `Blizzard_ObjectAPI/Mainline/Quest.lua`, which the TOC
   marks mainline though it works on camelot). Level from
@@ -71,10 +73,13 @@ is stable by construction.
 
 ### The release gate
 
-Replacing the method taints the tracker. The tracker's quest-item button calls
-`UseQuestLogSpecialItem` (`Blizzard_ObjectiveTrackerShared.lua:94-104`), whose protection is not in
-Forever's docs. Before release, with `taintLog 1`: a quest item used from the tracker out of
-combat and in combat must not be blocked. If it is, the feature does not ship as designed.
+Replacing the method taints the tracker's layout and every value it writes (block IDs, the
+item button's attributes, POI state), so later clicks on them run tainted. The quest-item button
+calls `UseQuestLogSpecialItem` (`Blizzard_ObjectiveTrackerShared.lua:94-104`), whose protection is
+not in Forever's docs; a title click opens the map panel. Before release, with `taintLog 1`, out
+of combat and in combat: using a quest item, clicking a title, super-tracking from the right-click
+menu and clicking a POI button must not be blocked, and the spellbook and bags must open cleanly
+after combat. If any is blocked, the feature does not ship as designed.
 
 ## Tabs
 
