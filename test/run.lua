@@ -13,6 +13,7 @@ local modules = {
     { "Decline", "GoblinThings/Decline.lua" },
     { "Look", "GoblinThings/Look.lua" },
     { "Options", "GoblinThings/Options.lua" },
+    { "MinimapButton", "GoblinThings/MinimapButton.lua" },
 }
 
 local ns = {}
@@ -31,6 +32,7 @@ local suites = {
     "test/test_vendor.lua",
     "test/test_cinematics.lua",
     "test/test_decline.lua",
+    "test/test_minimap.lua",
 }
 
 for i = 1, #suites do
