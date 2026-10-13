@@ -1,11 +1,13 @@
 local _, ns = ...
 
--- The settings window (spec 2026-10-13-goblin-things-design.md, Window) in the
--- Goblin look (Look.lua): a dark window with a gold top edge, a header to drag
--- it by, and one inset well holding every row of Features.LIST under gold
--- section headers. Each row reads and writes through core.Get / core.Set.
--- Plain frames, no Blizzard templates. WellHeight is pure; the rest makes
--- frames only when called, so test/run.lua loads this file.
+-- The settings window (spec 2026-10-13-tracker-sort-and-tabs-design.md, Tabs)
+-- in the Goblin look (Look.lua): a dark window with a gold top edge, a header
+-- to drag it by, a strip of tabs (one per Features section), and under it one
+-- inset page per tab: that section's rows, a gold sub-header over each group
+-- and the section's dim note. Every page is as tall as the tallest, so
+-- switching tabs never resizes the window. Rows read and write through
+-- core.Get / core.Set. Plain frames, no Blizzard templates. PageHeight and
+-- Height are pure; the rest makes frames only when called.
 local Window = {}
 ns.Window = Window
 
@@ -13,21 +15,42 @@ Window.NAME = "GoblinThingsWindow"  -- UISpecialFrames closes frames by name on 
 Window.WIDTH = 420
 Window.HOME = { "CENTER", "CENTER", 0, 40 }  -- where it opens until dragged
 Window.LAYOUT = {
-    TOP_EDGE = 2, HEADER = 56, PAD = 16, CLOSE = 28, WELL_PAD = 4, SECTION = 28, ROW = 36, INDENT = 26,
-    CHECK = 18, SLIDER_W = 160, SLIDER_H = 16, VALUE_W = 34, CHOICE_H = 24, CHOICE_PAD = 20, FOOT = 62,
+    TOP_EDGE = 2, HEADER = 56, PAD = 16, CLOSE = 28, TAB_H = 26, WELL_PAD = 4, GROUP = 26, ROW = 36,
+    NOTE = 22, INDENT = 26, CHECK = 18, SLIDER_W = 160, SLIDER_H = 16, VALUE_W = 34, CHOICE_H = 24,
+    CHOICE_PAD = 20, FOOT = 62,
 }
 local L = Window.LAYOUT
 
-function Window.WellHeight(sections)
-    local height = 2 * L.WELL_PAD
-    for _, section in ipairs(sections) do
-        height = height + L.SECTION + #section.features * L.ROW
+function Window.PageHeight(section)
+    local height, last = 2 * L.WELL_PAD + #section.features * L.ROW, nil
+    for _, feature in ipairs(section.features) do
+        if feature.group and feature.group ~= last then
+            height = height + L.GROUP
+        end
+        last = feature.group
+    end
+    if section.note then
+        height = height + L.NOTE
     end
     return height
 end
 
+local function tallest(sections)
+    local most = 0
+    for _, section in ipairs(sections) do
+        most = math.max(most, Window.PageHeight(section))
+    end
+    return most
+end
+
+function Window.Height(sections)
+    return L.TOP_EDGE + L.HEADER + L.PAD + L.TAB_H + L.PAD + tallest(sections) + L.FOOT
+end
+
 local frame
 local controls = {}  -- feature key -> { feature, check } | { feature, slider, value } | { feature, buttons }
+local tabs = {}      -- section name -> its tab button
+local pages = {}     -- section name -> its page
 local minimapCheck
 local refreshing = false  -- a slider moved by Refresh is not the player moving it
 
@@ -65,6 +88,20 @@ local function buildHeader(core)
     tagline:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -4)
     tagline:SetPoint("RIGHT", close, "LEFT", -12, 0)
     tagline:SetText("Time is money, friend.")
+end
+
+-- One button per section, equal widths, borders overlapping into one strip.
+local function buildTabs(core, sections, top)
+    local n = #sections
+    local width = math.floor((Window.WIDTH - 2 * L.PAD + (n - 1)) / n)
+    for i, section in ipairs(sections) do
+        local name = section.name
+        local b = ns.Look.Button(frame, name, width, L.TAB_H, function()
+            core.SetTab(name)
+        end)
+        b:SetPoint("TOPLEFT", frame, "TOPLEFT", L.PAD + (i - 1) * (width - 1), top)
+        tabs[name] = b
+    end
 end
 
 local function checkControl(core, r, feature)
@@ -115,11 +152,11 @@ end
 
 local MAKERS = { check = checkControl, slider = sliderControl, choice = choiceControl }
 
-local function row(core, well, feature, y)
-    local r = CreateFrame("Frame", nil, well)
+local function row(core, page, feature, y)
+    local r = CreateFrame("Frame", nil, page)
     r:SetHeight(L.ROW)
-    r:SetPoint("TOPLEFT", well, "TOPLEFT", L.WELL_PAD, y)
-    r:SetPoint("TOPRIGHT", well, "TOPRIGHT", -L.WELL_PAD, y)
+    r:SetPoint("TOPLEFT", page, "TOPLEFT", L.WELL_PAD, y)
+    r:SetPoint("TOPRIGHT", page, "TOPRIGHT", -L.WELL_PAD, y)
     local control = MAKERS[feature.control](core, r, feature)
     control.feature = feature
     controls[feature.key] = control
@@ -128,25 +165,48 @@ local function row(core, well, feature, y)
     name:SetText(feature.label)
 end
 
-local function sectionHeader(well, name, y, first)
-    local Look = ns.Look
-    if not first then
-        local rule = Look.Texture(well, "BORDER", Look.COLOUR.divider)
-        rule:SetHeight(1)
-        rule:SetPoint("TOPLEFT", well, "TOPLEFT", L.WELL_PAD + 10, y)
-        rule:SetPoint("TOPRIGHT", well, "TOPRIGHT", -(L.WELL_PAD + 10), y)
-    end
-    local text = Look.Text(well, Look.WORDS, 12, "gold")
-    text:SetPoint("TOPLEFT", well, "TOPLEFT", L.WELL_PAD + 10, y - 10)
+local function groupHeader(page, name, y)
+    local text = ns.Look.Text(page, ns.Look.WORDS, 12, "gold")
+    text:SetPoint("TOPLEFT", page, "TOPLEFT", L.WELL_PAD + 10, y - 8)
     text:SetText(name)
+end
+
+local function note(page, words, y)
+    local text = ns.Look.Text(page, ns.Look.WORDS, 10, "dim")
+    text:SetPoint("TOPLEFT", page, "TOPLEFT", L.WELL_PAD + L.INDENT, y - 4)
+    text:SetPoint("RIGHT", page, "RIGHT", -10, 0)
+    text:SetText(words)
+end
+
+local function buildPage(core, section, top, height)
+    local Look = ns.Look
+    local page = CreateFrame("Frame", nil, frame)
+    page:SetPoint("TOPLEFT", frame, "TOPLEFT", L.PAD, top)
+    page:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -L.PAD, top)
+    page:SetHeight(height)
+    Look.Texture(page, "BACKGROUND", Look.COLOUR.inset):SetAllPoints(page)
+    Look.Outline(page, Look.COLOUR.line)
+    local y, last = -L.WELL_PAD, nil
+    for _, feature in ipairs(section.features) do
+        if feature.group and feature.group ~= last then
+            groupHeader(page, feature.group, y)
+            y = y - L.GROUP
+        end
+        last = feature.group
+        row(core, page, feature, y)
+        y = y - L.ROW
+    end
+    if section.note then
+        note(page, section.note, y)
+    end
+    return page
 end
 
 local function make(core)
     local Look = ns.Look
     local sections = ns.Features.Sections()
-    local wellHeight = Window.WellHeight(sections)
     frame = CreateFrame("Frame", Window.NAME, UIParent)
-    frame:SetSize(Window.WIDTH, L.TOP_EDGE + L.HEADER + L.PAD + wellHeight + L.FOOT)
+    frame:SetSize(Window.WIDTH, Window.Height(sections))
     frame:SetFrameStrata("HIGH")
     frame:SetClampedToScreen(true)
     frame:SetMovable(true)
@@ -159,20 +219,11 @@ local function make(core)
     topEdge:SetHeight(L.TOP_EDGE)
     buildHeader(core)
 
-    local well = CreateFrame("Frame", nil, frame)
-    well:SetPoint("TOPLEFT", frame, "TOPLEFT", L.PAD, -(L.TOP_EDGE + L.HEADER + L.PAD))
-    well:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -L.PAD, -(L.TOP_EDGE + L.HEADER + L.PAD))
-    well:SetHeight(wellHeight)
-    Look.Texture(well, "BACKGROUND", Look.COLOUR.inset):SetAllPoints(well)
-    Look.Outline(well, Look.COLOUR.line)
-    local y = -L.WELL_PAD
-    for i, section in ipairs(sections) do
-        sectionHeader(well, section.name, y, i == 1)
-        y = y - L.SECTION
-        for _, feature in ipairs(section.features) do
-            row(core, well, feature, y)
-            y = y - L.ROW
-        end
+    local tabTop = -(L.TOP_EDGE + L.HEADER + L.PAD)
+    buildTabs(core, sections, tabTop)
+    local pageTop, height = tabTop - L.TAB_H - L.PAD, tallest(sections)
+    for _, section in ipairs(sections) do
+        pages[section.name] = buildPage(core, section, pageTop, height)
     end
 
     -- Hiding the minimap button leaves /gt and Esc > Options to open this window.
@@ -201,12 +252,20 @@ local function make(core)
     table.insert(UISpecialFrames, Window.NAME)  -- Escape closes it
 end
 
--- Draws every control from core.Get: checks on or off, the slider and its
--- number (the camera CVar, read fresh: "?" when the game gives no answer),
--- the chosen choice gold, and the minimap check.
+-- Shows the open tab's page with its tab gold, and draws every control from
+-- core.Get: checks on or off, the slider and its number (the camera CVar,
+-- read fresh: "?" when the game gives no answer), the chosen choice gold, and
+-- the minimap check.
 function Window.Refresh(core)
     if not frame then
         return
+    end
+    local open = core.Tab()
+    for name, b in pairs(tabs) do
+        ns.Look.Style(b, name == open and "gold" or "quiet")
+    end
+    for name, page in pairs(pages) do
+        page:SetShown(name == open)
     end
     minimapCheck.SetOn(core.MinimapShown())
     for key, c in pairs(controls) do
