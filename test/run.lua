@@ -6,6 +6,7 @@ local harness = dofile("test/harness.lua")
 -- A missing module is a hard failure: a suite that silently skips proves nothing.
 local modules = {
     { "Features", "GoblinThings/Features.lua" },
+    { "Hands", "GoblinThings/Hands.lua" },
     { "Camera", "GoblinThings/Camera.lua" },
     { "Look", "GoblinThings/Look.lua" },
     { "Options", "GoblinThings/Options.lua" },
@@ -23,6 +24,7 @@ local suites = {
     "test/test_look.lua",
     "test/test_camera.lua",
     "test/test_options.lua",
+    "test/test_hands.lua",
 }
 
 for i = 1, #suites do
