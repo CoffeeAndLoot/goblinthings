@@ -15,6 +15,7 @@
     "CompleteQuest", "GetQuestReward",
     "C_Container", "C_Item", "CanMerchantRepair", "GetRepairAllCost", "GetMoney", "RepairAllItems",
     "C_CVar", "CancelDuel", "DeclineGuild",
-    "StopCinematic", "MovieFrame", "GetCurrentCinematicSummary", "UnitRace", "C_Map"
+    "StopCinematic", "MovieFrame", "GetCurrentCinematicSummary", "UnitRace", "C_Map",
+    "QuestObjectiveTracker", "QuestObjectiveTrackerMixin"
   ]
 }

@@ -3,6 +3,7 @@ max_line_length = 120
 self = false
 globals = {
     "GoblinThingsDB", "SLASH_GOBLINTHINGS1", "SLASH_GOBLINTHINGS2", "SlashCmdList",
+    "QuestObjectiveTracker",  -- API.SetTrackerSort sets its BuildQuestWatchInfos
 }
 read_globals = {
     "print", "CreateFrame", "UIParent", "UISpecialFrames", "GameTooltip",
@@ -18,4 +19,5 @@ read_globals = {
     "C_Container", "C_Item", "CanMerchantRepair", "GetRepairAllCost", "GetMoney", "RepairAllItems",
     "C_CVar", "CancelDuel", "DeclineGuild",
     "StopCinematic", "MovieFrame", "GetCurrentCinematicSummary", "UnitRace", "C_Map",
+    "QuestObjectiveTrackerMixin",
 }

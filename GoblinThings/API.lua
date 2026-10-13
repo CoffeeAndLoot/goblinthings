@@ -275,6 +275,64 @@ function API.Later(fn)
     end
 end
 
+-- ---- quest tracker (spec 2026-10-13-tracker-sort-and-tabs-design.md) ----
+
+-- What a tracked quest is sorted by. Only the ID is read from the tracker's
+-- quest object; the rest is asked of the game, nil when it gives no answer.
+function API.TrackerFacts(quest)
+    if type(quest) ~= "table" or type(quest.GetID) ~= "function" then
+        return {}
+    end
+    local id = attempt("quest:GetID", quest.GetID, quest)
+    if type(id) ~= "number" or not C_QuestLog then
+        return {}
+    end
+    local logIndex = call("GetLogIndexForQuestID", C_QuestLog.GetLogIndexForQuestID, id)
+    local info = type(logIndex) == "number" and call("GetInfo", C_QuestLog.GetInfo, logIndex) or nil
+    return {
+        level = (type(info) == "table" and type(info.level) == "number") and info.level or nil,
+        finished = call("IsComplete", C_QuestLog.IsComplete, id) == true,
+        onMap = call("IsOnMap", C_QuestLog.IsOnMap, id) == true,
+    }
+end
+
+local trackerSorter
+
+-- Stands in for QuestObjectiveTrackerMixin:BuildQuestWatchInfos: Blizzard's
+-- list, reordered. A sorter that errors or loses quests gives Blizzard's list.
+local function sortedWatchInfos(self)
+    local infos = QuestObjectiveTrackerMixin.BuildQuestWatchInfos(self)
+    if not trackerSorter then
+        return infos
+    end
+    local ok, sorted = pcall(trackerSorter, infos)
+    if ok and type(sorted) == "table" and #sorted == #infos then
+        return sorted
+    end
+    errors["Tracker sort"] = ok and "the sort lost quests" or tostring(sorted)
+    return infos
+end
+
+function API.RedrawTracker()
+    if QuestObjectiveTracker and QuestObjectiveTracker.MarkDirty then
+        attempt("QuestObjectiveTracker:MarkDirty", QuestObjectiveTracker.MarkDirty, QuestObjectiveTracker)
+    end
+end
+
+-- sorter(infos) -> a reordered copy, or nil to hand the tracker back to
+-- Blizzard. False when this client has no such tracker.
+function API.SetTrackerSort(sorter)
+    if not (QuestObjectiveTracker and QuestObjectiveTrackerMixin
+        and type(QuestObjectiveTrackerMixin.BuildQuestWatchInfos) == "function") then
+        errors["Tracker"] = "QuestObjectiveTracker or its BuildQuestWatchInfos is missing"
+        return false
+    end
+    trackerSorter = sorter
+    QuestObjectiveTracker.BuildQuestWatchInfos = sorter and sortedWatchInfos or nil
+    API.RedrawTracker()
+    return true
+end
+
 -- ---- screen (from Goblin Flyout's API.lua) ----
 
 -- Physical pixels per UI unit at scale 1 (the UI is 768 units tall), so a
