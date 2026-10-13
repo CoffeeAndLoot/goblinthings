@@ -91,7 +91,8 @@ local function sliderControl(core, r, feature)
 end
 
 -- One button per choice, right to left, their borders overlapping into one
--- switch, each as wide as its words.
+-- switch, each as wide as its words. Unbounded: the label is anchored inside
+-- a 10 px button, so GetStringWidth would measure the clipped text.
 local function choiceControl(core, r, feature)
     local Look = ns.Look
     local buttons, right = {}, nil
@@ -100,7 +101,7 @@ local function choiceControl(core, r, feature)
         local b = Look.Button(r, feature.labels[choice], 10, L.CHOICE_H, function()
             core.Set(feature.key, choice)
         end)
-        b:SetWidth(math.ceil(b.label:GetStringWidth()) + L.CHOICE_PAD)
+        b:SetWidth(math.ceil(b.label:GetUnboundedStringWidth()) + L.CHOICE_PAD)
         if right then
             b:SetPoint("RIGHT", right, "LEFT", 1, 0)
         else
