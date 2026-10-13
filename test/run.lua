@@ -9,6 +9,7 @@ local modules = {
     { "Hands", "GoblinThings/Hands.lua" },
     { "Vendor", "GoblinThings/Vendor.lua" },
     { "Camera", "GoblinThings/Camera.lua" },
+    { "Cinematics", "GoblinThings/Cinematics.lua" },
     { "Look", "GoblinThings/Look.lua" },
     { "Options", "GoblinThings/Options.lua" },
 }
@@ -27,6 +28,7 @@ local suites = {
     "test/test_options.lua",
     "test/test_hands.lua",
     "test/test_vendor.lua",
+    "test/test_cinematics.lua",
 }
 
 for i = 1, #suites do
