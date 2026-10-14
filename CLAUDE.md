@@ -6,7 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 WoW Forever addon (interface 16001: Classic data on the 12.x engine, game type `camelot`).
 Quality-of-life switches in one tabbed Goblin-look window: auto accept and turn in quests, auto-track
-new quests (Blizzard's `autoQuestWatch`), a tiered quest tracker sort with Only this zone, auto sell junk, auto repair, decline duels, decline guild invites, camera
+new quests (Blizzard's `autoQuestWatch`), a tiered quest tracker sort with Only this zone, auto sell junk, auto repair, decline duels, decline guild invites, accept group invites from
+the guild or friends, accept summons, camera
 distance past Blizzard's 2.0, and skipping cinematics. Specs:
 `docs/superpowers/specs/2026-10-13-goblin-things-design.md` and
 `docs/superpowers/specs/2026-10-13-tracker-sort-and-tabs-design.md` (its Tabs replace the first's Window).
@@ -37,13 +38,13 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
 
 ## How it fits together
 
-TOC load order is `API, Features, Hands, Vendor, Camera, Cinematics, Decline, TrackerSort, Look, Options, Window, MinimapButton, Core`.
+TOC load order is `API, Features, Hands, Vendor, Camera, Cinematics, Decline, Accept, TrackerSort, Look, Options, Window, MinimapButton, Core`.
 
 1. `Features.LIST` is every switch as data: key, label, section (its tab), optional group (a
    sub-header), control (`check`, `slider`, `choice`) and default; `Features.NOTES` gives a tab its
    dim note. The window builds its tabs and rows from it; `Options.Init` stores every feature with a
    default. The camera has none: the game's own CVar is its store.
-2. `Hands` (quests), `Vendor`, `Camera`, `Cinematics` and `Decline` are pure: each takes plain values
+2. `Hands` (quests), `Vendor`, `Camera`, `Cinematics`, `Decline` and `Accept` are pure: each takes plain values
    (views built by `API.lua`) and the settings, and says what to do.
 3. `Core` routes events to them behind `guard(label, ...)` (one error per label per session) and has
    `API` carry out the result. `Core.Get(key)` / `Core.Set(key, value)` are the one door to every

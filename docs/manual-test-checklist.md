@@ -7,7 +7,7 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 
 - [ ] After the junction and a **full client restart**, Goblin Things is listed and enabled in the
       AddOns list with its round GT icon; no Lua error on login.
-- [ ] `/gt probe` lists the eight settings (autoAccept true ... declineDuels false, cinematics
+- [ ] `/gt probe` lists every setting (autoAccept true ... acceptSummons false, cinematics
       repeats, cameraDistance a number), the CVar, the seen counts, a cinematic key like
       `Scourge:1420`, "none this session", and no "threw:".
 
@@ -122,6 +122,25 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [ ] Decline guild invites on: an invite is refused with "Declined a guild invite from <name>
       (<guild>)." and **no invite window lingers** (open fact 2).
 - [ ] Decline guild invites off: the invite window appears as normal.
+- [ ] After a **full client restart** (Accept.lua is a new file): the Social tab shows five checks,
+      "Accept invites from guild", "Accept invites from friends" and "Accept summons" under the
+      declines, each off, every label fully visible. `/gt probe` says "accept calls missing: none"
+      (tell Claude any it names).
+- [ ] Accept invites from guild on, a guildie invites you (party, then a raid): you join, "Accepted
+      a group invite from <name> (guild)." is said, and **no invite popup lingers**. You stay in
+      the group a minute later (the popup's close must not decline it).
+- [ ] Accept invites from friends on: the same from a character friend, then a Battle.net friend,
+      with "(friend)".
+- [ ] Each check alone: an invite from the other list, or from a stranger, shows the normal popup.
+- [ ] Queued for a battleground (or any queue), a guildie invites: the normal popup, with Blizzard's
+      "will remove you from the queue" line; nothing accepted.
+- [ ] Accept summons on, out of combat: a warlock's ritual or a meeting stone summon is taken at
+      once, "Accepted a summon from <name> to <place>." is said, no popup lingers, you arrive.
+- [ ] Accept summons on, in combat when the summon comes: the popup stays (its Accept greyed, as
+      Blizzard does); accept it yourself after combat.
+- [ ] Accept summons off: the summon popup appears as normal.
+- [ ] Taint: with `/console taintLog 1`, after an auto-accepted invite, a later popup (delete an
+      item, a duel request) works; no "blocked" line naming GoblinThings in `Logs	aint.log`.
 
 ## Cinematics
 

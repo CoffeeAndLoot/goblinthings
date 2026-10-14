@@ -11,6 +11,7 @@ local modules = {
     { "Camera", "GoblinThings/Camera.lua" },
     { "Cinematics", "GoblinThings/Cinematics.lua" },
     { "Decline", "GoblinThings/Decline.lua" },
+    { "Accept", "GoblinThings/Accept.lua" },
     { "TrackerSort", "GoblinThings/TrackerSort.lua" },
     { "Look", "GoblinThings/Look.lua" },
     { "Options", "GoblinThings/Options.lua" },
@@ -34,10 +35,12 @@ local suites = {
     "test/test_vendor.lua",
     "test/test_cinematics.lua",
     "test/test_decline.lua",
+    "test/test_accept.lua",
     "test/test_trackersort.lua",
     "test/test_minimap.lua",
     "test/test_window.lua",
     "test/test_api_tracker.lua",
+    "test/test_api_accept.lua",
 }
 
 for i = 1, #suites do

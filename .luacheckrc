@@ -20,4 +20,6 @@ read_globals = {
     "C_CVar", "CancelDuel", "DeclineGuild",
     "StopCinematic", "MovieFrame", "GetCurrentCinematicSummary", "UnitRace", "C_Map",
     "QuestObjectiveTrackerMixin",
+    "AcceptGroup", "IsGuildMember", "C_FriendList", "C_BattleNet", "WillAcceptInviteRemoveQueues", "StaticPopup_FindVisible",
+    "StaticPopup_Hide", "C_SummonInfo", "Enum", "UnitAffectingCombat", "PlayerCanTeleport",
 }

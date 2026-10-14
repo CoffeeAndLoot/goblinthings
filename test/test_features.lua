@@ -8,7 +8,8 @@ return function(h, loaded)
                 keys[#keys + 1] = f.key
             end
             h.eq(table.concat(keys, " "), "autoAccept autoTurnIn autoTrack zoneOnly sortFirst sortSecond sortThird "
-                .. "autoSellJunk autoRepair declineDuels declineGuild cameraDistance cinematics")
+                .. "autoSellJunk autoRepair declineDuels declineGuild acceptGuild acceptFriends acceptSummons "
+                .. "cameraDistance cinematics")
         end)
         h.it("the three tracker sort slots are choices grouped under Quest tracker, starting at None", function()
             for _, key in ipairs({ "sortFirst", "sortSecond", "sortThird" }) do
@@ -103,7 +104,7 @@ return function(h, loaded)
                 counts[#counts + 1] = #s.features
             end
             h.eq(table.concat(names, " "), "Quests Vendors Social Camera Cinematics")
-            h.eq(table.concat(counts, " "), "7 2 2 1 1")
+            h.eq(table.concat(counts, " "), "7 2 5 1 1")
         end)
         h.it("a section carries its note; the others have none", function()
             local sections = Features.Sections()

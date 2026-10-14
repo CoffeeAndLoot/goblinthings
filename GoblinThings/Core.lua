@@ -5,9 +5,9 @@ local _, ns = ...
 -- behind guard(), so an error is one chat line, said once per label, never a
 -- raise. Core.Get / Core.Set are the one door to every setting; the camera's
 -- store is the game's own CVar.
-local API, Camera, Cinematics, Decline, Features, Hands, MinimapButton, Options, TrackerSort, Vendor, Window =
-    ns.API, ns.Camera, ns.Cinematics, ns.Decline, ns.Features, ns.Hands, ns.MinimapButton, ns.Options,
-    ns.TrackerSort, ns.Vendor, ns.Window
+local API, Accept, Camera, Cinematics, Decline, Features, Hands, MinimapButton, Options, TrackerSort, Vendor,
+    Window = ns.API, ns.Accept, ns.Camera, ns.Cinematics, ns.Decline, ns.Features, ns.Hands, ns.MinimapButton,
+    ns.Options, ns.TrackerSort, ns.Vendor, ns.Window
 local Core = {}
 ns.Core = Core
 
@@ -252,6 +252,39 @@ API.OnEvents({ "GUILD_INVITE_REQUEST" }, function(_, inviter, guild)
     end)
 end)
 
+-- ---- accepts ----
+
+-- PartyInfoDocumentation.lua's payload. Nothing is asked of the game unless a check is on.
+API.OnEvents({ "PARTY_INVITE_REQUEST" }, function(_, name, isTank, isHealer, isDamage, _, _, inviterGUID,
+    questSessionActive)
+    guard("Accept", function()
+        local features = db().features
+        if not (features.acceptGuild or features.acceptFriends) then
+            return
+        end
+        local who = API.InviterView(name, isTank or isHealer or isDamage, questSessionActive, inviterGUID)
+        local line = Accept.Invite(features, who)
+        if line then
+            API.AcceptInvite()
+            API.Later(API.HideInvitePopup)  -- after Blizzard's handler has shown it
+            say(line)
+        end
+    end)
+end)
+
+API.OnEvents({ "CONFIRM_SUMMON" }, function(_, summonReason, skippingStartExperience)
+    guard("Accept", function()
+        if not db().features.acceptSummons then
+            return
+        end
+        local line = Accept.Summon(true, API.SummonView(summonReason, skippingStartExperience))
+        if line then
+            API.Later(API.ConfirmSummon)  -- after Blizzard's handler has shown its popup
+            say(line)
+        end
+    end)
+end)
+
 -- ---- cinematics ----
 
 local lastSummary  -- GetCurrentCinematicSummary at the last cinematic, for the probe
@@ -336,6 +369,8 @@ function commands.probe()
         or (active and " (installed)." or " (pass-through until /reload).")
     say("Probe: tracker sort " .. (#tiers > 0 and table.concat(tiers, ", ") or "off")
         .. (db().features[TrackerSort.ZONE_ONLY] and ", only this zone" or "") .. how)
+    local missing = API.MissingAcceptCalls()
+    say("Probe: accept calls missing: " .. (#missing > 0 and table.concat(missing, ", ") or "none") .. ".")
     for name, message in pairs(API.Errors()) do
         say("Probe: " .. name .. " threw: " .. message)
     end

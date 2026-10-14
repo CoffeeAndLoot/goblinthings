@@ -234,6 +234,93 @@ function API.DeclineGuild()
     call("DeclineGuild", DeclineGuild)
 end
 
+-- ---- accepts: what Blizzard's own popups call ----
+
+-- A PARTY_INVITE_REQUEST as Accept.Invite reads it. Guild and friend are
+-- read from the inviter's GUID the way Blizzard_UIPanels_Game/Shared/
+-- SocialQueue.lua does; a Battle.net friend counts as a friend. plain: no
+-- roles offered and no party sync, so Blizzard shows PARTY_INVITE
+-- (Blizzard_Game/*/EventImplementation.lua, HandlePartyInviteRequest).
+-- dropsQueue: Blizzard's own "accepting will remove you from the queue" test.
+function API.InviterView(name, roles, questSession, guid)
+    local view = {
+        name = str(name),
+        plain = not (roles or questSession),  -- Classic's handler never reads questSession: unsent is none
+    }
+    if type(guid) == "string" and guid ~= "" then
+        view.guild = call("IsGuildMember", IsGuildMember, guid) and true or false
+        local friend = call("IsFriend", C_FriendList and C_FriendList.IsFriend, guid)
+        local bnet = call("GetGameAccountInfoByGUID", C_BattleNet and C_BattleNet.GetGameAccountInfoByGUID, guid)
+        view.friend = friend == true or type(bnet) == "table"
+    end
+    local drops = call("WillAcceptInviteRemoveQueues", WillAcceptInviteRemoveQueues)  -- true or false; nil: no answer
+    if type(drops) == "boolean" then
+        view.dropsQueue = drops
+    end
+    return view
+end
+
+-- PARTY_INVITE's Accept (Blizzard_StaticPopup_Game/GameDialogDefs.lua).
+function API.AcceptInvite()
+    call("AcceptGroup", AcceptGroup)
+end
+
+-- Closes PARTY_INVITE after API.AcceptInvite. Its OnHide declines an invite
+-- its own button did not accept, so it is marked accepted first, as its
+-- OnAccept does.
+function API.HideInvitePopup()
+    local dialog = call("StaticPopup_FindVisible", StaticPopup_FindVisible, "PARTY_INVITE")
+    if type(dialog) == "table" then
+        dialog.inviteAccepted = 1
+        call("StaticPopup_Hide", StaticPopup_Hide, "PARTY_INVITE")
+    end
+end
+
+-- A CONFIRM_SUMMON as Accept.Summon reads it. plain: the CONFIRM_SUMMON
+-- popup, not the scenario or starting-area one (ShowSummonConfirmationDialog).
+function API.SummonView(reason, skipping)
+    local info = C_SummonInfo or {}
+    local scenario = Enum and Enum.SummonReason and Enum.SummonReason.Scenario
+    local inCombat = call("UnitAffectingCombat", UnitAffectingCombat, "player")
+    if type(inCombat) ~= "boolean" then
+        inCombat = nil  -- no answer: Accept.Summon waits on the player
+    end
+    return {
+        summoner = str(call("GetSummonConfirmSummoner", info.GetSummonConfirmSummoner)),
+        area = str(call("GetSummonConfirmAreaName", info.GetSummonConfirmAreaName)),
+        plain = skipping == false and type(reason) == "number" and type(scenario) == "number" and reason ~= scenario,
+        inCombat = inCombat,
+        canTeleport = call("PlayerCanTeleport", PlayerCanTeleport) == true,
+    }
+end
+
+-- CONFIRM_SUMMON's Accept, then the popup closed; it has no OnHide.
+function API.ConfirmSummon()
+    call("ConfirmSummon", C_SummonInfo and C_SummonInfo.ConfirmSummon)
+    call("StaticPopup_Hide", StaticPopup_Hide, "CONFIRM_SUMMON")
+end
+
+-- The calls the accepts need that this client does not have, for the probe.
+function API.MissingAcceptCalls()
+    local have = {
+        AcceptGroup = AcceptGroup, IsGuildMember = IsGuildMember,
+        WillAcceptInviteRemoveQueues = WillAcceptInviteRemoveQueues,
+        StaticPopup_FindVisible = StaticPopup_FindVisible, StaticPopup_Hide = StaticPopup_Hide,
+        PlayerCanTeleport = PlayerCanTeleport,
+        ["C_FriendList.IsFriend"] = C_FriendList and C_FriendList.IsFriend,
+        ["C_BattleNet.GetGameAccountInfoByGUID"] = C_BattleNet and C_BattleNet.GetGameAccountInfoByGUID,
+        ["C_SummonInfo.ConfirmSummon"] = C_SummonInfo and C_SummonInfo.ConfirmSummon,
+    }
+    local missing = {}
+    for name, fn in pairs(have) do
+        if type(fn) ~= "function" then
+            missing[#missing + 1] = name
+        end
+    end
+    table.sort(missing)
+    return missing
+end
+
 -- ---- cinematics ----
 
 -- CinematicFrame_CancelCinematic's call for a real (cancellable) cinematic.
