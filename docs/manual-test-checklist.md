@@ -87,6 +87,10 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
       "tracker sort off, only this zone (installed)".
 - [ ] Only this zone: ride into another zone, then into a sub-zone and indoors: the list follows.
 - [ ] Only this zone in a zone with none of your tracked quests (a city): the tracker is empty.
+- [ ] Only this zone in the Crossroads: Barrens quests show; Stonetalon quests (Letter to Jin'Zil,
+      Deepmoss Spider Eggs, Ziz Fizziks) do not. Open the world map on Stonetalon and close it: no change.
+- [ ] Only this zone inside a cave or other sub-map: note whether the zone's quests hide (the check
+      uses the map you are on; tell Claude if that is unwanted).
 - [ ] Only this zone: a finished quest whose turn-in NPC is in another zone (e.g. Ziz Fizziks,
       Windshear Crag, seen from the Barrens) is hidden until you get there. Tell Claude if it shows.
 - [ ] Only this zone plus 1st: Level: this zone's quests only, lowest level first.

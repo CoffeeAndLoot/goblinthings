@@ -63,6 +63,10 @@ TOC load order is `API, Features, Hands, Vendor, Camera, Cinematics, Decline, Tr
   Setting `QuestObjectiveTracker.BuildQuestWatchInfos` to a wrapper that sorts Blizzard's result
   and calling `QuestObjectiveTracker:MarkDirty()` reorders the tracker (A→Z and Z→A both seen).
   Untested: whether that taint blocks the tracker's quest-item button (`UseQuestLogSpecialItem`).
+- "On this map" (2026-10-13, the Crossroads, map 1413): `C_QuestLog.GetQuestsOnMap(1413)` also lists
+  Stonetalon quests (1060, 1069, 1483) with `mapID` 1442, and `C_QuestLog.IsOnMap` counts them as
+  on the map. Only an entry whose `mapID` is the player's map is really here (`TrackerSort.HereSet`).
+  `GetMapForQuestPOIs()` and `GetBestMapForUnit("player")` both read 1413 there.
 
 ## Deploy
 

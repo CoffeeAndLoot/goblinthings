@@ -277,9 +277,20 @@ end
 
 -- ---- quest tracker (spec 2026-10-13-tracker-sort-and-tabs-design.md) ----
 
+-- The quests the game lists on a map (C_QuestLog.GetQuestsOnMap), raw; nil
+-- when it gives no answer. TrackerSort.HereSet reads them.
+function API.QuestsOnMap(mapID)
+    if type(mapID) ~= "number" or not C_QuestLog then
+        return nil
+    end
+    local pois = call("GetQuestsOnMap", C_QuestLog.GetQuestsOnMap, mapID)
+    return type(pois) == "table" and pois or nil
+end
+
 -- What a tracked quest is sorted by. Only the ID is read from the tracker's
 -- quest object; the rest is asked of the game, nil when it gives no answer.
-function API.TrackerFacts(quest)
+-- here: TrackerSort.HereSet for the player's map, or nil when unknown.
+function API.TrackerFacts(quest, here)
     if type(quest) ~= "table" or type(quest.GetID) ~= "function" then
         return {}
     end
@@ -289,9 +300,9 @@ function API.TrackerFacts(quest)
     end
     local logIndex = call("GetLogIndexForQuestID", C_QuestLog.GetLogIndexForQuestID, id)
     local info = type(logIndex) == "number" and call("GetInfo", C_QuestLog.GetInfo, logIndex) or nil
-    local onMap = call("IsOnMap", C_QuestLog.IsOnMap, id)
-    if type(onMap) ~= "boolean" then
-        onMap = nil  -- no answer, so Only this zone keeps it
+    local onMap  -- nil: no answer, so Only this zone keeps it
+    if type(here) == "table" then
+        onMap = here[id] == true
     end
     return {
         level = (type(info) == "table" and type(info.level) == "number") and info.level or nil,

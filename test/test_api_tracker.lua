@@ -24,26 +24,26 @@ return function(h)
     end
 
     h.describe("API.TrackerFacts", function()
-        -- IsOnMap answers false, true or nothing for quest 5, 6 and 7.
-        local function facts(id)
-            local onMap = { [5] = false, [6] = true }
+        -- IsOnMap says yes to everything, as it did for Stonetalon quests in the
+        -- Crossroads; "here" (TrackerSort.HereSet) must decide instead.
+        local function facts(id, here)
             C_QuestLog = {
                 GetLogIndexForQuestID = function() return nil end,
                 IsComplete = function() return false end,
-                IsOnMap = function(questID) return onMap[questID] end,
+                IsOnMap = function() return true end,
             }
             local ns = {}
             assert(loadfile("GoblinThings/API.lua"))("GoblinThings", ns)
-            local result = ns.API.TrackerFacts({ GetID = function() return id end })
+            local result = ns.API.TrackerFacts({ GetID = function() return id end }, here)
             C_QuestLog = nil
             return result
         end
-        h.it("keeps the game's no as false, so Only this zone hides the quest", function()
-            h.eq(facts(5).onMap, false)
+        h.it("a quest in the here set is on the map; one outside it is not", function()
+            h.eq(facts(878, { [878] = true }).onMap, true)
+            h.eq(facts(1060, { [878] = true }).onMap, false)
         end)
-        h.it("keeps the game's yes, and no answer as nil", function()
-            h.eq(facts(6).onMap, true)
-            h.eq(facts(7).onMap, nil)
+        h.it("no here set (the game gave no answer) is nil, so Only this zone keeps it", function()
+            h.eq(facts(878, nil).onMap, nil)
         end)
     end)
 

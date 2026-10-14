@@ -92,6 +92,24 @@ function TrackerSort.Less(a, b, tiers)
     return a.index < b.index
 end
 
+-- The quests whose marker belongs to mapID itself, as { [questID] = true },
+-- from C_QuestLog.GetQuestsOnMap(mapID); nil when either is unknown. The game
+-- also lists a neighbouring zone's quests on a map, with that zone's mapID
+-- (Stonetalon's 1442 on the Barrens' 1413), and IsOnMap says yes to those:
+-- they are not here.
+function TrackerSort.HereSet(pois, mapID)
+    if type(pois) ~= "table" or type(mapID) ~= "number" then
+        return nil
+    end
+    local here = {}
+    for _, poi in ipairs(pois) do
+        if type(poi) == "table" and poi.mapID == mapID and type(poi.questID) == "number" then
+            here[poi.questID] = true
+        end
+    end
+    return here
+end
+
 -- Whether the tracker needs us at all: a tier set, or Only this zone on.
 function TrackerSort.Active(features)
     return #TrackerSort.Tiers(features) > 0 or features[TrackerSort.ZONE_ONLY] == true

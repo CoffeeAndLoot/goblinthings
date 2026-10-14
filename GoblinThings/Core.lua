@@ -42,9 +42,11 @@ local trackerInstalled = false  -- the wrapper is in place; until it is, the tra
 
 -- Blizzard's { { quest, index } ... } in our order.
 local function sortTracker(infos)
+    local map = API.PlayerMap()
+    local here = TrackerSort.HereSet(API.QuestsOnMap(map), map)
     local entries = {}
     for i, info in ipairs(infos) do
-        local facts = API.TrackerFacts(info.quest)
+        local facts = API.TrackerFacts(info.quest, here)
         entries[i] = { level = facts.level, finished = facts.finished, onMap = facts.onMap, index = i, info = info }
     end
     local out = {}

@@ -34,6 +34,26 @@ return function(h, loaded)
         end)
     end)
 
+    h.describe("TrackerSort.HereSet", function()
+        -- GetQuestsOnMap(1413) in the Crossroads, 2026-10-13: Stonetalon quests listed with mapID 1442.
+        local pois = {
+            { questID = 878, mapID = 1413 }, { questID = 95621, mapID = 1413 },
+            { questID = 1060, mapID = 1442 }, { questID = 1483, mapID = 1442 },
+        }
+        h.it("holds the quests whose marker belongs to this map, not a neighbour's", function()
+            local here = TrackerSort.HereSet(pois, 1413)
+            h.eq(here[878], true)
+            h.eq(here[95621], true)
+            h.eq(here[1060], nil)
+            h.eq(here[1483], nil)
+        end)
+        h.it("no map or no list is no answer; junk entries are skipped", function()
+            h.eq(TrackerSort.HereSet(pois, nil), nil)
+            h.eq(TrackerSort.HereSet(nil, 1413), nil)
+            h.eq(next(TrackerSort.HereSet({ "junk", { mapID = 1413 } }, 1413)), nil)
+        end)
+    end)
+
     h.describe("TrackerSort.AutoTrackWrite", function()
         h.it("on: turns Blizzard's auto-track on when it is off or unknown, else leaves it", function()
             h.eq(TrackerSort.AutoTrackWrite(true, "0", false), "1")

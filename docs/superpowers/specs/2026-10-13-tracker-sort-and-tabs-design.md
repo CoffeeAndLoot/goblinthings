@@ -39,7 +39,7 @@ in Blizzard's own sorted list. For each active tier in order:
 
 - `level`: lower first. A quest whose level is unknown (nil) sorts after every known level.
 - `finished`: finished (`true`) first; nil counts as not finished.
-- `zone`: on the current map (`true`) first; nil counts as not on the map.
+- `zone`: on the current map (`true`, as Only this zone decides it) first; nil counts as not on the map.
 
 If every active tier ties, the lower `index` wins, so leftover ties keep Blizzard's order. The sort
 is stable by construction.
@@ -84,8 +84,9 @@ after combat. If any is blocked, the feature does not ship as designed.
 ### Only this zone (added 2026-10-13)
 
 A check, `zoneOnly`, label "Only this zone", group `Quest tracker`, default off. On, the tracker
-shows only quests the game says are on the current map (`C_QuestLog.IsOnMap` false drops a quest;
-no answer keeps it), then sorts them by the tiers. A zone with none of your tracked quests shows an
+shows only quests whose map marker is on the player's map: `C_QuestLog.GetQuestsOnMap(map)`
+entries with `mapID == map` (in-game 2026-10-13: it also lists a neighbouring zone's quests with
+that zone's `mapID`, and `IsOnMap` says yes to them, so `IsOnMap` is not used; no answer keeps a quest), then sorts them by the tiers. A zone with none of your tracked quests shows an
 empty tracker (the owner's choice). The wrapper goes in when any tier is set **or** this is on.
 The wrapper's safety net accepts a shorter list: it falls back to Blizzard's list only when the
 sorter errors or shows a quest Blizzard did not give, or one twice.
