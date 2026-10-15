@@ -4,7 +4,8 @@ local _, ns = ...
 -- The rule): up to three tiers, each a step down from the last. Level is lowest
 -- first, Finished puts finished quests first, This zone puts quests on the
 -- current map first; whatever still ties keeps Blizzard's own order (index).
--- Only this zone (zoneOnly) drops quests on other maps before sorting.
+-- Only this zone (zoneOnly) drops quests on other maps before sorting, and
+-- Hide quests above me (hideAbove) those too far above the player's level.
 -- A value the game did not give sorts as the weakest. Pure.
 local TrackerSort = {}
 ns.TrackerSort = TrackerSort
@@ -12,6 +13,7 @@ ns.TrackerSort = TrackerSort
 TrackerSort.SLOTS = { "sortFirst", "sortSecond", "sortThird" }
 TrackerSort.KEYS = { level = true, finished = true, zone = true }
 TrackerSort.ZONE_ONLY = "zoneOnly"  -- the Only this zone feature
+TrackerSort.HIDE_ABOVE = "hideAbove"  -- the Hide quests above me slider; 0 is Off
 TrackerSort.AUTO_TRACK = "autoTrack"  -- the Auto-track new quests feature
 TrackerSort.AUTO_TRACK_CVAR = "autoQuestWatch"  -- Blizzard_ObjectiveTracker.lua:35 tracks new quests by it
 
@@ -110,18 +112,36 @@ function TrackerSort.HereSet(pois, mapID)
     return here
 end
 
--- Whether the tracker needs us at all: a tier set, or Only this zone on.
+-- The slider's whole levels above the player; 0 when Off or odd.
+local function above(features)
+    local n = features[TrackerSort.HIDE_ABOVE]
+    return type(n) == "number" and math.max(0, math.floor(n)) or 0
+end
+
+-- Whether the tracker needs us at all: a tier set, Only this zone on, or the slider set.
 function TrackerSort.Active(features)
-    return #TrackerSort.Tiers(features) > 0 or features[TrackerSort.ZONE_ONLY] == true
+    return #TrackerSort.Tiers(features) > 0 or features[TrackerSort.ZONE_ONLY] == true or above(features) > 0
+end
+
+-- The highest quest level the tracker shows: the player's level plus the
+-- slider; nil (no cap) when Off or the game gave no level.
+function TrackerSort.Cap(features, playerLevel)
+    local n = above(features)
+    if n == 0 or type(playerLevel) ~= "number" then
+        return nil
+    end
+    return playerLevel + n
 end
 
 -- A sorted copy of entries ({ level, finished, onMap, index, ... }). With
--- zoneOnly, a quest the game says is elsewhere (onMap false) is left out; one
--- it gave no answer for (nil) stays.
-function TrackerSort.Order(entries, tiers, zoneOnly)
+-- zoneOnly, a quest the game says is elsewhere (onMap false) is left out; with
+-- maxLevel, one whose level is above it. A quest the game gave no answer for
+-- stays.
+function TrackerSort.Order(entries, tiers, zoneOnly, maxLevel)
     local out = {}
     for _, entry in ipairs(entries) do
-        if not (zoneOnly and entry.onMap == false) then
+        local tooHigh = maxLevel ~= nil and level(entry) ~= nil and level(entry) > maxLevel
+        if not (zoneOnly and entry.onMap == false) and not tooHigh then
             out[#out + 1] = entry
         end
     end

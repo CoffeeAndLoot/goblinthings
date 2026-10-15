@@ -11,6 +11,7 @@ Small goblin conveniences for **WoW Forever** (interface 16001), set once in one
 | Auto-track new quests | Keeps Blizzard's own auto-tracking on, even if another addon turns it off | Off |
 | Tracker sort | Orders the quest tracker by up to three tiers: Level (lowest first), Finished first, This zone first | Off |
 | Only this zone | The quest tracker shows only quests in the zone you're in | Off |
+| Hide quests above me | The quest tracker hides quests more than 1-20 levels (your pick) above you | Off |
 | Auto sell junk | Sells gray items at any vendor, with one chat line | On |
 | Auto repair | Repairs with your own gold at vendors who repair | On |
 | Fast loot | When the game auto-loots, takes everything at once instead of at the loot window's pace | On |

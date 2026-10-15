@@ -27,7 +27,7 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
       and the window still fits on screen.
 - [ ] Close and reopen, and `/reload`: the window opens on the tab last used.
 - [ ] The Quests tab: three checks (auto accept, auto turn-in, auto-track), a gold "Quest tracker" sub-header, an "Only this zone" check,
-      rows 1st / 2nd / 3rd each reading None | Level | Finished | This zone with every word fully
+      a "Hide quests above me" slider reading "Off", rows 1st / 2nd / 3rd each reading None | Level | Finished | This zone with every word fully
       visible, and the dim note "Off and all None = Blizzard's tracker (fully after /reload)".
       Nothing overlaps.
 - [ ] Each check flips on click and stays flipped after `/reload`.
@@ -99,6 +99,15 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [ ] Only this zone plus 1st: Level: this zone's quests only, lowest level first.
 - [ ] Only this zone off again (tiers None): every tracked quest is back; probe says
       "off (pass-through until /reload)".
+- [ ] Hide quests above me (2026-10-15): drag the slider; its number steps Off, +1 ... +20 in
+      whole levels and stays after `/reload`. At +3 (tiers None, Only this zone off): a tracked quest
+      more than 3 levels above you leaves the tracker at once; one exactly 3 above stays. The quest
+      log still lists it. Probe: "hideAbove = 3" and "(installed)".
+- [ ] Hide quests above me: ding a level with a hidden quest one level over the cap: it comes back
+      on the tracker by itself (tell Claude if it needs a second level-up or a `/reload`).
+- [ ] Hide quests above me with Only this zone and 1st: Level: both filters apply, lowest first.
+- [ ] Hide quests above me back to Off (tiers None, zone off): every tracked quest is back; probe
+      says "off (pass-through until /reload)".
 - [ ] **Release gate:** `/console taintLog 1`, `/reload`, set a tier, track a quest with a usable
       item. Out of combat and then in combat: use the item from the tracker; left-click a quest
       title (the map opens); right-click a title and super-track it; click a quest's POI button.

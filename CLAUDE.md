@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 WoW Forever addon (interface 16001: Classic data on the 12.x engine, game type `camelot`).
 Quality-of-life switches in one tabbed Goblin-look window: auto accept and turn in quests, auto-track
-new quests (Blizzard's `autoQuestWatch`), a tiered quest tracker sort with Only this zone, auto sell junk, auto repair, fast loot (when the game auto-loots), decline duels, decline guild invites, accept group invites from
+new quests (Blizzard's `autoQuestWatch`), a tiered quest tracker sort with Only this zone and Hide quests above me, auto sell junk, auto repair, fast loot (when the game auto-loots), decline duels, decline guild invites, accept group invites from
 the guild or friends, accept summons, camera
 distance past Blizzard's 2.0, and skipping cinematics. Specs:
 `docs/superpowers/specs/2026-10-13-goblin-things-design.md` and
@@ -51,7 +51,7 @@ TOC load order is `API, Features, Hands, Vendor, Camera, Cinematics, Decline, Ac
    setting, the camera's CVar included.
 4. Holding Shift as an NPC or vendor window opens skips every quest and vendor action that visit.
 5. The tracker sort (`TrackerSort`, pure) wraps `QuestObjectiveTracker.BuildQuestWatchInfos` via
-   `API.SetTrackerSort` once a tier is set or Only this zone is on (it also filters); all None leaves it in as a pass-through until /reload
+   `API.SetTrackerSort` once a tier is set, Only this zone is on or Hide quests above me is set (it also filters); all None leaves it in as a pass-through until /reload
    (XML `mixin=` copies methods onto the frame, so setting the field to nil would delete the
    tracker's own method). A player who never sorts never has the tracker touched.
 

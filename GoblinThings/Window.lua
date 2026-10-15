@@ -253,8 +253,8 @@ local function make(core)
 end
 
 -- Shows the open tab's page with its tab gold, and draws every control from
--- core.Get: checks on or off, the slider and its number (the camera CVar,
--- read fresh: "?" when the game gives no answer), the chosen choice gold, and
+-- core.Get: checks on or off, each slider and its number (Features.SliderText;
+-- the camera's CVar is read fresh, "?" when the game gives no answer), the chosen choice gold, and
 -- the minimap check.
 function Window.Refresh(core)
     if not frame then
@@ -276,7 +276,7 @@ function Window.Refresh(core)
             refreshing = true
             c.slider:SetValue(value or c.feature.min)
             refreshing = false
-            c.value:SetText(value and ns.Camera.Text(value) or "?")
+            c.value:SetText(ns.Features.SliderText(c.feature, value))
         elseif c.buttons then
             for choice, b in pairs(c.buttons) do
                 ns.Look.Style(b, choice == value and "gold" or "quiet")

@@ -5,9 +5,9 @@ return function(h, loaded)
         return { index = index, level = level, finished = finished, onMap = onMap }
     end
 
-    local function order(entries, tiers, zoneOnly)
+    local function order(entries, tiers, zoneOnly, maxLevel)
         local out = {}
-        for i, e in ipairs(TrackerSort.Order(entries, tiers, zoneOnly)) do
+        for i, e in ipairs(TrackerSort.Order(entries, tiers, zoneOnly, maxLevel)) do
             out[i] = e.index
         end
         return table.concat(out, " ")
@@ -27,6 +27,10 @@ return function(h, loaded)
             h.falsy(TrackerSort.Active({ sortFirst = "none", zoneOnly = false }))
             h.truthy(TrackerSort.Active({ sortFirst = "level", zoneOnly = false }))
             h.truthy(TrackerSort.Active({ sortFirst = "none", zoneOnly = true }))
+        end)
+        h.it("is active with Hide quests above me set, and not at Off (0)", function()
+            h.truthy(TrackerSort.Active({ sortFirst = "none", zoneOnly = false, hideAbove = 3 }))
+            h.falsy(TrackerSort.Active({ sortFirst = "none", zoneOnly = false, hideAbove = 0 }))
         end)
         h.it("knows its three slots", function()
             h.truthy(TrackerSort.IsSlot("sortSecond"))
@@ -114,7 +118,27 @@ return function(h, loaded)
         end)
     end)
 
+    h.describe("TrackerSort.Cap", function()
+        h.it("is the player's level plus the slider, whole levels", function()
+            h.eq(TrackerSort.Cap({ hideAbove = 3 }, 20), 23)
+            h.eq(TrackerSort.Cap({ hideAbove = 3.0001 }, 20), 23)
+        end)
+        h.it("Off, or no level from the game, is no cap", function()
+            h.eq(TrackerSort.Cap({ hideAbove = 0 }, 20), nil)
+            h.eq(TrackerSort.Cap({}, 20), nil)
+            h.eq(TrackerSort.Cap({ hideAbove = 3 }, nil), nil)
+        end)
+    end)
+
     h.describe("TrackerSort.Order", function()
+        h.it("a cap drops quests above it, keeps one at it and one of unknown level", function()
+            local entries = { q(1, 24), q(2, 23), q(3, nil), q(4, 10) }
+            h.eq(order(entries, {}, false, 23), "2 3 4")
+            h.eq(order(entries, {}, false, nil), "1 2 3 4")
+        end)
+        h.it("the cap and Only this zone both drop", function()
+            h.eq(order({ q(1, 30, false, true), q(2, 10, false, false), q(3, 10, false, true) }, {}, true, 20), "3")
+        end)
         h.it("steps down the tiers: this zone, then finished, then level", function()
             local entries = {
                 q(1, 10, false, true), q(2, 12, true, true), q(3, 5, true, false),

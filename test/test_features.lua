@@ -7,8 +7,8 @@ return function(h, loaded)
             for _, f in ipairs(Features.LIST) do
                 keys[#keys + 1] = f.key
             end
-            h.eq(table.concat(keys, " "), "autoAccept autoTurnIn autoTrack zoneOnly sortFirst sortSecond sortThird "
-                .. "autoSellJunk autoRepair fastLoot declineDuels declineGuild acceptGuild acceptFriends acceptSummons "
+            h.eq(table.concat(keys, " "), "autoAccept autoTurnIn autoTrack zoneOnly hideAbove "
+                .. "sortFirst sortSecond sortThird autoSellJunk autoRepair fastLoot declineDuels declineGuild acceptGuild acceptFriends acceptSummons "
                 .. "cameraDistance cinematics")
         end)
         h.it("the three tracker sort slots are choices grouped under Quest tracker, starting at None", function()
@@ -38,12 +38,31 @@ return function(h, loaded)
             h.eq(f.group, "Quest tracker")
             h.eq(f.default, false)
         end)
+        h.it("Hide quests above me is a Quest tracker slider, 0 (Off) to 20, Off by default", function()
+            local f = Features.ByKey("hideAbove")
+            h.eq(f.label, "Hide quests above me")
+            h.eq(f.group, "Quest tracker")
+            h.eq(f.control, "slider")
+            h.eq(f.min, 0)
+            h.eq(f.max, 20)
+            h.eq(f.step, 1)
+            h.eq(f.default, 0)
+        end)
         h.it("Fast loot is the Loot tab's one check, on by default", function()
             local f = Features.ByKey("fastLoot")
             h.eq(f.label, "Fast loot")
             h.eq(f.section, "Loot")
             h.eq(f.control, "check")
             h.eq(f.default, true)
+        end)
+        h.it("a slider's number: Off at its off value, else its format; ? when unknown", function()
+            local hide, camera = Features.ByKey("hideAbove"), Features.ByKey("cameraDistance")
+            h.eq(Features.SliderText(hide, 0), "Off")
+            h.eq(Features.SliderText(hide, 3), "+3")
+            h.eq(Features.SliderText(hide, 3.0001), "+3")
+            h.eq(Features.SliderText(camera, 2.6), "2.6")
+            h.eq(Features.SliderText(camera, 1), "1.0")
+            h.eq(Features.SliderText(camera, nil), "?")
         end)
         h.it("every stored switch's default is valid; the camera has none, the CVar is its store", function()
             for _, f in ipairs(Features.LIST) do
@@ -111,7 +130,7 @@ return function(h, loaded)
                 counts[#counts + 1] = #s.features
             end
             h.eq(table.concat(names, " "), "Quests Vendors Loot Social Camera Cinematics")
-            h.eq(table.concat(counts, " "), "7 2 1 5 1 1")
+            h.eq(table.concat(counts, " "), "8 2 1 5 1 1")
         end)
         h.it("a section carries its note; the others have none", function()
             local sections = Features.Sections()

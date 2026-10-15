@@ -52,7 +52,7 @@ local function sortTracker(infos)
     local out = {}
     local features = db().features
     for i, entry in ipairs(TrackerSort.Order(entries, TrackerSort.Tiers(features),
-        features[TrackerSort.ZONE_ONLY] == true)) do
+        features[TrackerSort.ZONE_ONLY] == true, TrackerSort.Cap(features, API.PlayerLevel()))) do
         out[i] = entry.info
     end
     return out
@@ -102,7 +102,7 @@ function Core.Set(key, value)
             applyTrackerSort()
         else
             db().features[key] = value
-            if key == TrackerSort.ZONE_ONLY then
+            if key == TrackerSort.ZONE_ONLY or key == TrackerSort.HIDE_ABOVE then
                 applyTrackerSort()
             elseif key == TrackerSort.AUTO_TRACK then
                 applyAutoTrack(true)
@@ -336,8 +336,9 @@ API.OnEvents({ "PLAYER_ENTERING_WORLD" }, function()
     guard("Auto-track", applyAutoTrack, false)
 end)
 
--- "This zone" changes with the map: redraw after Blizzard's own zone handler.
-API.OnEvents({ "ZONE_CHANGED", "ZONE_CHANGED_NEW_AREA", "ZONE_CHANGED_INDOORS" }, function()
+-- "This zone" changes with the map, and Hide quests above me with the
+-- player's level: redraw after Blizzard's own handlers.
+API.OnEvents({ "ZONE_CHANGED", "ZONE_CHANGED_NEW_AREA", "ZONE_CHANGED_INDOORS", "PLAYER_LEVEL_UP" }, function()
     if trackerInstalled then
         API.Later(API.RedrawTracker)
     end

@@ -22,5 +22,5 @@ read_globals = {
     "QuestObjectiveTrackerMixin",
     "AcceptGroup", "IsGuildMember", "C_FriendList", "C_BattleNet", "WillAcceptInviteRemoveQueues", "StaticPopup_FindVisible",
     "StaticPopup_Hide", "C_SummonInfo", "Enum", "UnitAffectingCombat", "PlayerCanTeleport",
-    "GetNumLootItems", "GetLootSlotInfo", "LootSlot",
+    "GetNumLootItems", "GetLootSlotInfo", "LootSlot", "UnitLevel",
 }

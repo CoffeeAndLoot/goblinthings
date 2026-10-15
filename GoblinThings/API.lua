@@ -420,6 +420,12 @@ function API.TrackerFacts(quest, here)
     }
 end
 
+-- The player's level, nil when the game gives no answer.
+function API.PlayerLevel()
+    local level = call("UnitLevel", UnitLevel, "player")
+    return type(level) == "number" and level or nil
+end
+
 local trackerSorter
 
 -- Whether every entry of shown is one of infos, none twice: a filter may
