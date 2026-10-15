@@ -8,8 +8,8 @@ return function(h, loaded)
                 keys[#keys + 1] = f.key
             end
             h.eq(table.concat(keys, " "), "autoAccept autoTurnIn autoTrack zoneOnly hideAbove "
-                .. "sortFirst sortSecond sortThird autoSellJunk autoRepair fastLoot declineDuels declineGuild acceptGuild acceptFriends acceptSummons "
-                .. "cameraDistance cinematics")
+                .. "sortFirst sortSecond sortThird autoSellJunk autoRepair fastLoot "
+                .. "declineDuels declineGuild acceptGuild acceptFriends acceptSummons cameraDistance cinematics")
         end)
         h.it("the three tracker sort slots are choices grouped under Quest tracker, starting at None", function()
             for _, key in ipairs({ "sortFirst", "sortSecond", "sortThird" }) do
