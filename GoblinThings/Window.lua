@@ -12,10 +12,10 @@ local Window = {}
 ns.Window = Window
 
 Window.NAME = "GoblinThingsWindow"  -- UISpecialFrames closes frames by name on Escape
-Window.WIDTH = 420
+Window.WIDTH = 520  -- six tabs at 82px each, so every tab name fits
 Window.HOME = { "CENTER", "CENTER", 0, 40 }  -- where it opens until dragged
 Window.LAYOUT = {
-    TOP_EDGE = 2, HEADER = 56, PAD = 16, CLOSE = 28, TAB_H = 26, WELL_PAD = 4, GROUP = 26, ROW = 36,
+    TOP_EDGE = 2, HEADER = 56, PAD = 16, CLOSE = 28, TAB_H = 26, WELL_PAD = 4, GROUP = 26, ROW = 40,
     NOTE = 22, INDENT = 26, CHECK = 18, SLIDER_W = 160, SLIDER_H = 16, VALUE_W = 34, CHOICE_H = 24,
     CHOICE_PAD = 20, FOOT = 62,
 }

@@ -19,9 +19,12 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [ ] Click, `/gt` and `/gt options` open the window; Escape or the X closes it.
 - [ ] Esc > Options > AddOns lists "Goblin Things" with a gold "Open Goblin Things" button that opens the window.
 - [ ] **Full client restart** first (TrackerSort.lua is new in the TOC).
-- [ ] The window shows five tabs (Quests, Vendors, Social, Camera, Cinematics); the open one is gold.
+- [ ] The window shows six tabs (Quests, Vendors, Loot, Social, Camera, Cinematics); the open one is gold.
       Each tab shows only its rows; the window keeps the same height on every tab; the "Show
       minimap button" check and "Hold Shift at an NPC or vendor to skip." stay under every tab.
+- [ ] Wider and taller (520 wide, rows 40 high, 2026-10-15): every tab name and every row label is
+      fully visible, no "..." ("Cinematics", "Accept invites from friends"); rows are not cramped
+      and the window still fits on screen.
 - [ ] Close and reopen, and `/reload`: the window opens on the tab last used.
 - [ ] The Quests tab: three checks (auto accept, auto turn-in, auto-track), a gold "Quest tracker" sub-header, an "Only this zone" check,
       rows 1st / 2nd / 3rd each reading None | Level | Finished | This zone with every word fully
