@@ -14,8 +14,11 @@ ns.Window = Window
 Window.NAME = "GoblinThingsWindow"  -- UISpecialFrames closes frames by name on Escape
 Window.WIDTH = 520  -- six tabs at 82px each, so every tab name fits
 Window.HOME = { "CENTER", "CENTER", 0, 40 }  -- where it opens until dragged
+-- The plaque banner (tools/make_art.py): the art's own pixels in the top-left
+-- of a power-of-two canvas, so the TexCoords crop the rest. Drawn HEADER tall.
+Window.BANNER = { file = "Interface\\AddOns\\GoblinThings\\Media\\header", w = 1390, h = 338, cw = 2048, ch = 512 }
 Window.LAYOUT = {
-    TOP_EDGE = 2, HEADER = 56, PAD = 16, CLOSE = 28, TAB_H = 26, WELL_PAD = 4, GROUP = 26, ROW = 40,
+    TOP_EDGE = 2, HEADER = 112, PAD = 16, CLOSE = 28, TAB_H = 26, WELL_PAD = 4, GROUP = 26, ROW = 40,
     NOTE = 22, INDENT = 26, CHECK = 18, SLIDER_W = 160, SLIDER_H = 16, VALUE_W = 34, CHOICE_H = 24,
     CHOICE_PAD = 20, FOOT = 62,
 }
@@ -80,14 +83,24 @@ local function buildHeader(core)
 
     local close = Look.IconButton(head, "close", L.CLOSE, function() frame:Hide() end, "X")
     close:SetPoint("RIGHT", head, "RIGHT", -12, 0)
-    local name = Look.Text(head, Look.WORDS, 17, "gold")
-    name:SetPoint("TOPLEFT", head, "TOPLEFT", L.PAD, -12)
-    name:SetPoint("RIGHT", close, "LEFT", -12, 0)
-    name:SetText(ns.Options.NAME)
-    local tagline = Look.Text(head, Look.WORDS, 10, "dim")
-    tagline:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -4)
-    tagline:SetPoint("RIGHT", close, "LEFT", -12, 0)
-    tagline:SetText("Time is money, friend.")
+    -- The banner carries the name and tagline; the window's text fallback
+    -- stands in if the client cannot load the file.
+    local B = Window.BANNER
+    local banner = head:CreateTexture(nil, "ARTWORK")
+    banner:SetSize(L.HEADER * B.w / B.h, L.HEADER)
+    banner:SetPoint("LEFT", head, "LEFT", L.PAD, 0)
+    if banner:SetTexture(B.file) then
+        banner:SetTexCoord(0, B.w / B.cw, 0, B.h / B.ch)
+    else
+        banner:Hide()
+        local name = Look.Text(head, Look.WORDS, 17, "gold")
+        name:SetPoint("TOPLEFT", head, "TOPLEFT", L.PAD, -12)
+        name:SetPoint("RIGHT", close, "LEFT", -12, 0)
+        name:SetText(ns.Options.NAME)
+        local tagline = Look.Text(head, Look.WORDS, 10, "dim")
+        tagline:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -4)
+        tagline:SetText("Time is money, friend.")
+    end
 end
 
 -- One button per section, equal widths, borders overlapping into one strip.

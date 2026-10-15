@@ -8,7 +8,7 @@ local _, ns = ...
 local MinimapButton = {}
 ns.MinimapButton = MinimapButton
 
-MinimapButton.ICON = "Interface\\AddOns\\GoblinThings\\Media\\icon"  -- tools/make_icon.py: GT on teal
+MinimapButton.ICON = "Interface\\AddOns\\GoblinThings\\Media\\icon"  -- tools/make_art.py: the round goblin
 
 -- Offset from the minimap's centre for an angle in degrees (0 = right, 90 = up).
 function MinimapButton.Position(angle, radius)

@@ -13,7 +13,14 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 
 ## Window and minimap
 
-- [ ] A round minimap button sits on the rim, clear of Goblin Flyout's: gold "GT" on a teal disc.
+- [ ] Art (2026-10-15, **full client restart**: header.tga is new, icon.tga changed): the minimap
+      button is the round goblin portrait with its bronze rim, clean-edged at 31 px, no square
+      backdrop; Esc > Options > AddOns shows the same goblin beside "Goblin Things".
+- [ ] Art: the window's header is the plaque banner (goblin, wrench, "Goblin Things / Time is
+      money, friend."), its edges melting into the window with no visible box; the X sits to its
+      right; dragging the banner moves the window. At 3840x2160 and your UI scale it reads sharp,
+      not grainy, and nothing is cut off at the right (tell Claude the UI scale if it is).
+- [ ] A round minimap button sits on the rim, clear of Goblin Flyout's.
       Hover: "Goblin Things / Click for options, drag to move. / Time is money, friend."
 - [ ] Dragging it slides it round the rim; `/reload`: it stays where it was put.
 - [ ] Click, `/gt` and `/gt options` open the window; Escape or the X closes it.
