@@ -17,6 +17,7 @@
     "C_CVar", "CancelDuel", "DeclineGuild",
     "StopCinematic", "MovieFrame", "GetCurrentCinematicSummary", "UnitRace", "C_Map",
     "QuestObjectiveTracker", "QuestObjectiveTrackerMixin",
-    "AcceptGroup", "IsGuildMember", "C_FriendList", "C_BattleNet", "WillAcceptInviteRemoveQueues", "StaticPopup_FindVisible", "StaticPopup_Hide", "C_SummonInfo", "Enum", "UnitAffectingCombat", "PlayerCanTeleport"
+    "AcceptGroup", "IsGuildMember", "C_FriendList", "C_BattleNet", "WillAcceptInviteRemoveQueues", "StaticPopup_FindVisible", "StaticPopup_Hide", "C_SummonInfo", "Enum", "UnitAffectingCombat", "PlayerCanTeleport",
+    "GetNumLootItems", "GetLootSlotInfo", "LootSlot"
   ]
 }

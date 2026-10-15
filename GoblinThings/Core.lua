@@ -5,9 +5,9 @@ local _, ns = ...
 -- behind guard(), so an error is one chat line, said once per label, never a
 -- raise. Core.Get / Core.Set are the one door to every setting; the camera's
 -- store is the game's own CVar.
-local API, Accept, Camera, Cinematics, Decline, Features, Hands, MinimapButton, Options, TrackerSort, Vendor,
-    Window = ns.API, ns.Accept, ns.Camera, ns.Cinematics, ns.Decline, ns.Features, ns.Hands, ns.MinimapButton,
-    ns.Options, ns.TrackerSort, ns.Vendor, ns.Window
+local API, Accept, Camera, Cinematics, Decline, Features, Hands, Loot, MinimapButton, Options, TrackerSort, Vendor,
+    Window = ns.API, ns.Accept, ns.Camera, ns.Cinematics, ns.Decline, ns.Features, ns.Hands, ns.Loot,
+    ns.MinimapButton, ns.Options, ns.TrackerSort, ns.Vendor, ns.Window
 local Core = {}
 ns.Core = Core
 
@@ -228,6 +228,26 @@ end
 
 API.OnEvents({ "MERCHANT_SHOW", "MERCHANT_CLOSED" }, function(event)
     guard("Vendor", atVendor, event)
+end)
+
+-- ---- loot ----
+
+local lootDone = false  -- LOOT_READY can come more than once a window
+
+API.OnEvents({ "LOOT_READY", "LOOT_CLOSED" }, function(event, autoloot)
+    guard("Loot", function()
+        if event == "LOOT_CLOSED" then
+            lootDone = false
+            return
+        end
+        if lootDone or db().features.fastLoot ~= true then
+            return
+        end
+        lootDone = true
+        for _, slot in ipairs(Loot.Slots(true, autoloot, API.LootView())) do
+            API.TakeLoot(slot)
+        end
+    end)
 end)
 
 -- ---- declines ----

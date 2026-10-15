@@ -8,7 +8,7 @@ return function(h, loaded)
                 keys[#keys + 1] = f.key
             end
             h.eq(table.concat(keys, " "), "autoAccept autoTurnIn autoTrack zoneOnly sortFirst sortSecond sortThird "
-                .. "autoSellJunk autoRepair declineDuels declineGuild acceptGuild acceptFriends acceptSummons "
+                .. "autoSellJunk autoRepair fastLoot declineDuels declineGuild acceptGuild acceptFriends acceptSummons "
                 .. "cameraDistance cinematics")
         end)
         h.it("the three tracker sort slots are choices grouped under Quest tracker, starting at None", function()
@@ -37,6 +37,13 @@ return function(h, loaded)
             h.eq(f.control, "check")
             h.eq(f.group, "Quest tracker")
             h.eq(f.default, false)
+        end)
+        h.it("Fast loot is the Loot tab's one check, on by default", function()
+            local f = Features.ByKey("fastLoot")
+            h.eq(f.label, "Fast loot")
+            h.eq(f.section, "Loot")
+            h.eq(f.control, "check")
+            h.eq(f.default, true)
         end)
         h.it("every stored switch's default is valid; the camera has none, the CVar is its store", function()
             for _, f in ipairs(Features.LIST) do
@@ -103,8 +110,8 @@ return function(h, loaded)
                 names[#names + 1] = s.name
                 counts[#counts + 1] = #s.features
             end
-            h.eq(table.concat(names, " "), "Quests Vendors Social Camera Cinematics")
-            h.eq(table.concat(counts, " "), "7 2 5 1 1")
+            h.eq(table.concat(names, " "), "Quests Vendors Loot Social Camera Cinematics")
+            h.eq(table.concat(counts, " "), "7 2 1 5 1 1")
         end)
         h.it("a section carries its note; the others have none", function()
             local sections = Features.Sections()

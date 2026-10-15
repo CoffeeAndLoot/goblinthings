@@ -114,6 +114,19 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [ ] Open a vendor, close, reopen: it acts again on the reopen, once.
 - [ ] Each switch off on its own: only the other thing happens.
 
+## Loot
+
+- [ ] After a **full client restart** (Loot.lua is a new file): six tabs, every name fully visible
+      ("Cinematics" too); the Loot tab shows "Fast loot", on.
+- [ ] Blizzard's Auto Loot on, Fast loot on: kill and loot a mob with several drops and coin; all of
+      it lands at once, the loot window at most flickers. Same for a chest, a herb or a fishing catch.
+- [ ] Same, holding Shift (Blizzard's auto-loot toggle): the loot window stays open, nothing taken.
+- [ ] Blizzard's Auto Loot off: the window opens as normal; Shift-loot takes it all at once.
+- [ ] Fast loot off, Auto Loot on: Blizzard's own pace, nothing else changes.
+- [ ] Bags full: what fits is taken, the rest stays in the open loot window ("Inventory is full" may say so more than once).
+- [ ] A bind-on-pickup drop: Blizzard's bind popup asks; nothing is confirmed for you.
+- [ ] In a group with a loot threshold: an item up for roll stays for the roll; the rest is taken.
+
 ## Social
 
 - [ ] Decline duels on: a friend's duel request is refused, "Declined a duel from <name>." is said,
@@ -140,7 +153,7 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
       Blizzard does); accept it yourself after combat.
 - [ ] Accept summons off: the summon popup appears as normal.
 - [ ] Taint: with `/console taintLog 1`, after an auto-accepted invite, a later popup (delete an
-      item, a duel request) works; no "blocked" line naming GoblinThings in `Logs	aint.log`.
+      item, a duel request) works; no "blocked" line naming GoblinThings in `Logs\taint.log`.
 
 ## Cinematics
 

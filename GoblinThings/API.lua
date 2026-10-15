@@ -212,6 +212,28 @@ function API.RepairAll()
     call("RepairAllItems", RepairAllItems)  -- no argument: own gold
 end
 
+-- ---- loot (Mainline/LootFrame.lua: GetNumLootItems, GetLootSlotInfo, LootSlot) ----
+
+-- { { slot, locked } ... }. locked is GetLootSlotInfo's sixth return, read
+-- truthy as LootFrame does; nil when the game would not describe the slot.
+function API.LootView()
+    local view = {}
+    local n = call("GetNumLootItems", GetNumLootItems)
+    for slot = 1, count(n) do
+        local texture, _, _, _, _, locked = call("GetLootSlotInfo", GetLootSlotInfo, slot)
+        local entry = { slot = slot }
+        if texture ~= nil then
+            entry.locked = locked and true or false
+        end
+        view[#view + 1] = entry
+    end
+    return view
+end
+
+function API.TakeLoot(slot)
+    call("LootSlot", LootSlot, slot)
+end
+
 -- ---- camera (CVarDocumentation.lua: C_CVar.GetCVar / SetCVar) ----
 
 function API.GetCVar(name)

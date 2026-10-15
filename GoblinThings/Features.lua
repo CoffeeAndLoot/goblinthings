@@ -29,6 +29,7 @@ Features.LIST = {
     sortSlot("sortThird", "3rd"),
     { key = "autoSellJunk", label = "Auto sell junk", section = "Vendors", control = "check", default = true },
     { key = "autoRepair", label = "Auto repair", section = "Vendors", control = "check", default = true },
+    { key = "fastLoot", label = "Fast loot", section = "Loot", control = "check", default = true },
     { key = "declineDuels", label = "Decline duels", section = "Social", control = "check", default = false },
     { key = "declineGuild", label = "Decline guild invites", section = "Social", control = "check",
         default = false },
