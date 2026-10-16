@@ -65,6 +65,38 @@ return function(h, loaded)
         end)
     end)
 
+    h.describe("Trainer.GossipPick", function()
+        local function gossip(over, options)
+            local v = { numActive = 0, numAvailable = 0,
+                options = options or { { orderIndex = 0, icon = Trainer.ICON, status = 0 } } }
+            for k, x in pairs(over or {}) do v[k] = x end
+            return v
+        end
+
+        h.it("picks a lone trainer option", function()
+            h.eq(Trainer.GossipPick(gossip(), true), 0)
+        end)
+        h.it("does nothing when off", function()
+            h.eq(Trainer.GossipPick(gossip(), false), nil)
+        end)
+        h.it("leaves the window alone when a quest is on offer or turned in", function()
+            h.eq(Trainer.GossipPick(gossip({ numAvailable = 1 }), true), nil)
+            h.eq(Trainer.GossipPick(gossip({ numActive = 1 }), true), nil)
+        end)
+        h.it("never picks among several options, or a lone one that is not a trainer's", function()
+            local train = { orderIndex = 0, icon = Trainer.ICON, status = 0 }
+            h.eq(Trainer.GossipPick(gossip(nil, { train, { orderIndex = 1, icon = 132060, status = 0 } }), true), nil)
+            h.eq(Trainer.GossipPick(gossip(nil, { { orderIndex = 0, icon = 132060, status = 0 } }), true), nil)
+        end)
+        h.it("an unavailable option, or no answer from the game, is left alone", function()
+            h.eq(Trainer.GossipPick(gossip(nil, { { orderIndex = 0, icon = Trainer.ICON, status = 1 } }), true), nil)
+            local v = gossip(); v.numAvailable = nil
+            h.eq(Trainer.GossipPick(v, true), nil)
+            v = gossip(); v.options = nil
+            h.eq(Trainer.GossipPick(v, true), nil)
+        end)
+    end)
+
     h.describe("Trainer.Confirm and Trainer.Line", function()
         h.it("counts only tried services the list now shows as learned", function()
             local visit = Trainer.NewVisit()

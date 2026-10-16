@@ -15,7 +15,7 @@ and forget them.
 | | Tracker sort | Orders the quest tracker by up to three tiers: Level (lowest first), Finished first, This zone first | Off |
 | Vendors | Auto sell junk | Sells gray items at any vendor, with one chat line | On |
 | | Auto repair | Repairs with your own gold at vendors who repair | On |
-| | Auto train | Trains everything you can afford at class and profession trainers; never takes up a new profession | Off |
+| | Auto train | Skips a trainer's lone "Train me" and trains everything you can afford at class and profession trainers; never takes up a new profession | Off |
 | Loot | Fast loot | When the game auto-loots, takes everything at once instead of at the loot window's pace | On |
 | Social | Decline duels | Refuses every duel request | Off |
 | | Decline guild invites | Refuses every guild invite | Off |

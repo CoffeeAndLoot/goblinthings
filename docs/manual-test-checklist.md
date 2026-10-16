@@ -150,6 +150,9 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [x] Shift held while talking to the trainer: nothing trained, no line (Tarn, Leatherworking, 2026-10-16).
 - [ ] Switch off: the trainer window is left as it is.
 - [ ] Hunter pet trainer (if a hunter is handy): nothing trained.
+- [ ] A trainer whose chat page holds only "Train me." (Tarn): the trainer list opens straight away and
+      trains; with Shift held the chat page stays and nothing is trained.
+- [ ] A trainer with a second option ("unlearn talents", a quest): the chat page stays as it is.
 
 ## Loot
 

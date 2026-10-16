@@ -87,6 +87,19 @@ function API.NpcView(kind)
                     title = str(q.title),
                 }
             end)
+        local n = call("GetNumActiveQuests", g.GetNumActiveQuests)
+        view.numActive = (type(n) == "number") and n or nil
+        n = call("GetNumAvailableQuests", g.GetNumAvailableQuests)
+        view.numAvailable = (type(n) == "number") and n or nil
+        local options = call("GetOptions", g.GetOptions)
+        if type(options) == "table" then
+            view.options = {}
+            for i, o in ipairs(options) do
+                if type(o) == "table" then
+                    view.options[i] = { orderIndex = o.orderIndex, icon = o.icon, status = o.status }
+                end
+            end
+        end
     elseif kind == "greeting" then
         view.active, view.available = {}, {}
         for i = 1, count(call("GetNumActiveQuests", GetNumActiveQuests)) do
@@ -155,6 +168,10 @@ local ACT = {
     complete = function() return CompleteQuest() end,
     reward = function(_, arg) return GetQuestReward(arg) end,
 }
+
+function API.SelectGossipOption(orderIndex)
+    call("SelectOptionByIndex", C_GossipInfo and C_GossipInfo.SelectOptionByIndex, orderIndex)
+end
 
 function API.NpcAct(kind, op, arg)
     local fn = ACT[op]

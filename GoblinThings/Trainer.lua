@@ -5,7 +5,8 @@ local _, ns = ...
 -- service that takes a profession slot (GetTrainerServiceCost's isProfession,
 -- which Blizzard_TrainerUI greys out once both slots are used), never at a pet
 -- trainer. Pure: API.lua reads the window into a plain view and buys; Core
--- keeps the visit and says the line.
+-- keeps the visit and says the line. A gossip window holding only "Train me"
+-- is answered too (Trainer.GossipPick).
 --
 -- view = { shift, trainerType, money, services = { { index, name, rank,
 --   type, cost, isProfession } ... } }   (nil wherever the game gave no answer)
@@ -14,6 +15,23 @@ local Trainer = {}
 ns.Trainer = Trainer
 
 Trainer.PET = 3 -- Enum.TrainerType.Pet
+Trainer.ICON = 132058 -- a trainer's gossip option icon (seen in game 2026-10-16: Tarn's "Train me.")
+
+-- The orderIndex of a gossip window's one option when it is a trainer's and
+-- nothing else is on offer, as Blizzard's GossipFrame skips an option flagged
+-- selectOptionWhenOnlyOption; nil otherwise. view = NpcView("gossip").
+function Trainer.GossipPick(view, autoTrain)
+    local options = view.options
+    if not autoTrain or view.numActive ~= 0 or view.numAvailable ~= 0 or type(options) ~= "table"
+        or #options ~= 1 then
+        return nil
+    end
+    local o = options[1]
+    if o.icon == Trainer.ICON and o.status == 0 and type(o.orderIndex) == "number" then
+        return o.orderIndex
+    end
+    return nil
+end
 
 function Trainer.NewVisit()
     return { held = false, tried = {}, learned = {} }  -- tried/learned: key -> cost

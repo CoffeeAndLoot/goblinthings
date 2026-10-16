@@ -198,6 +198,12 @@ local function atNpc(event, continuing)
     if action then
         visit.tried[action.key] = true
         API.NpcAct(kind, action.op, action.arg)
+    elseif kind == "gossip" and not visit.held and not visit.tried.trainer then
+        local option = Trainer.GossipPick(view, db().features.autoTrain)
+        if option then
+            visit.tried.trainer = true
+            API.SelectGossipOption(option)
+        end
     end
 end
 
