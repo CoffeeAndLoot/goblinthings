@@ -17,6 +17,14 @@ return function(h)
     end
 
     h.describe("API.TrainerView", function()
+        h.it("no count from the game is no list, not an empty one", function()
+            GetNumTrainerServices = function() return nil end
+            local ns = {}
+            assert(loadfile("GoblinThings/API.lua"))("GoblinThings", ns)
+            local out = ns.API.TrainerView()
+            _G.GetNumTrainerServices = nil
+            h.eq(out.services, nil)
+        end)
         h.it("reads the type, gold and each row", function()
             local out = view({ { name = "Thorns", type = "available", rank = "Rank 2", cost = 100 } })
             h.eq(out.trainerType, 0)

@@ -235,11 +235,15 @@ end
 -- The window as the plain table Trainer.Next reads; the list is what the
 -- trainer's filters show. Money is read here, after the last purchase landed.
 function API.TrainerView()
-    local view = { services = {}, shift = API.ShiftDown() }
+    local view = { shift = API.ShiftDown() }
     view.trainerType = call("GetTrainerType", C_Trainer and C_Trainer.GetTrainerType)
     local money = call("GetMoney", GetMoney)
     view.money = (type(money) == "number") and money or nil
     local n = call("GetNumTrainerServices", GetNumTrainerServices)
+    if type(n) ~= "number" then
+        return view  -- no count is no list, not an empty one (Trainer.Confirm)
+    end
+    view.services = {}
     for index = 1, count(n) do
         local name, serviceType, _, _, rank = call("GetTrainerServiceInfo", GetTrainerServiceInfo, index)
         local cost, isProfession = call("GetTrainerServiceCost", GetTrainerServiceCost, index)

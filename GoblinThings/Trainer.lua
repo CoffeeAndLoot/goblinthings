@@ -47,14 +47,23 @@ local function buyable(s, money, visit)
         and type(s.cost) == "number" and s.cost <= money and not visit.tried[Trainer.Key(s)]
 end
 
--- Marks the services tried this visit that the list now shows as learned.
+-- Marks as learned each service tried this visit that the list no longer
+-- offers: shown as used, or gone (the trainer's Used filter hides learned
+-- rows; seen in game 2026-10-16). A refused purchase stays available. A list
+-- the game would not count (services nil) confirms nothing.
 function Trainer.Confirm(view, visit)
-    for _, s in ipairs(view.services or {}) do
-        if type(s.name) == "string" and s.type == "used" then
-            local key = Trainer.Key(s)
-            if visit.tried[key] then
-                visit.learned[key] = visit.tried[key]
-            end
+    if type(view.services) ~= "table" then
+        return
+    end
+    local offered = {}
+    for _, s in ipairs(view.services) do
+        if type(s.name) == "string" and s.type == "available" then
+            offered[Trainer.Key(s)] = true
+        end
+    end
+    for key, cost in pairs(visit.tried) do
+        if not offered[key] then
+            visit.learned[key] = cost
         end
     end
 end
