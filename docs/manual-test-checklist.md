@@ -137,9 +137,10 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 
 ## Trainers
 
-- [ ] Auto train on, Vendors tab shows it (off by default); full client restart for the new file first.
-- [ ] Class trainer with several green rows: all trained one after another, gold drops by the total, the
-      rows turn gray, and closing says "Trained N for ...". Nothing in red is touched.
+- [x] Auto train on, Vendors tab shows it (off by default); full client restart for the new file first.
+- [x] Class trainer with several green rows: all trained one after another (Druid, level 22, 2026-10-16:
+      Moonfire, Rejuvenation, Soothe Animal, Wrath).
+- [ ] Closing that trainer says "Trained N for ..." with the gold spent; nothing in red is touched.
 - [ ] Short of gold for the whole list: trains in list order until it cannot afford the next, then stops,
       no error spam in chat; the line counts only what was learned.
 - [ ] Profession trainer for a craft you have: the next rank (Journeyman etc.) and recipes are trained.
