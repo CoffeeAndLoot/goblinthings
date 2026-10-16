@@ -51,9 +51,10 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
   on Wago too. The Wago project is deliberately **not** linked to the GitHub repo (Wago only links at
   creation; the link's features, its own release automation and README import, are not wanted:
   the workflow uploads each release itself, and both on would post every release twice).
-  So Wago never sees the README: when it changed since the last tag, paste it into the Wago project's
-  description by hand (Wago's API uploads versions only; docs.wago.io). The images are raw `master`
-  URLs, so a new screenshot shows there on its own; only the text goes stale.
+  So Wago never sees the README: when a switch was added or changed since the last tag, edit the Wago
+  project's Summary and Description by hand (addons.wago.io/developers/projects/goblin-things/settings;
+  Wago's API uploads versions only, docs.wago.io). The description is its own shorter Markdown version of
+  the README, with no images, so edit it in its style rather than pasting the README over it.
 
 ## How it fits together
 
