@@ -140,7 +140,8 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [x] Auto train on, Vendors tab shows it (off by default); full client restart for the new file first.
 - [x] Class trainer with several green rows: all trained one after another (Druid, level 22, 2026-10-16:
       Moonfire, Rejuvenation, Soothe Animal, Wrath).
-- [ ] Closing that trainer says "Trained N for ..." with the gold spent; nothing in red is touched.
+- [x] Closing the trainer says "Trained N for ..." with the gold spent, counting only what the addon bought,
+      with the trainer's Used filter off (Snang: "Trained 1 for 25c." after Tailoring by hand, 2026-10-16).
 - [ ] Short of gold for the whole list: trains in list order until it cannot afford the next, then stops,
       no error spam in chat; the line counts only what was learned.
 - [x] Profession trainer for a craft you have: recipes are trained (Tarn, Light Leather Pants at 71 skill,
