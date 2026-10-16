@@ -142,11 +142,13 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
       Moonfire, Rejuvenation, Soothe Animal, Wrath).
 - [x] Closing the trainer says "Trained N for ..." with the gold spent, counting only what the addon bought,
       with the trainer's Used filter off (Snang: "Trained 1 for 25c." after Tailoring by hand, 2026-10-16).
-- [ ] Short of gold for the whole list: trains in list order until it cannot afford the next, then stops,
+- [-] Short of gold for the whole list: trains in list order until it cannot afford the next, then stops,
       no error spam in chat; the line counts only what was learned.
+      Skipped 2026-10-16: no chance to test before 2026.10.16.2; logic covered by test_trainer.lua.
 - [x] Profession trainer for a craft you have: recipes are trained (Tarn, Light Leather Pants at 71 skill,
       56s 41c to 52s 81c, 2026-10-16).
-- [ ] The same for the next rank (Journeyman etc.) when it comes due.
+- [-] The same for the next rank (Journeyman etc.) when it comes due.
+      Skipped 2026-10-16: no chance to test before 2026.10.16.2; logic covered by test_trainer.lua.
 - [x] Taking up a profession by hand at its trainer: the recipes that turn green are then trained in the same
       visit (Snang, Apprentice Tailoring by hand, then White Linen Shirt, 2026-10-16).
 - [x] Profession trainer for a craft you do not have: nothing trained, no profession slot taken
@@ -154,12 +156,16 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [x] The same with a free profession slot: still nothing trained (an alt with only Enchanting at Snang,
       Apprentice Tailoring 10c left green and untrained, 2026-10-16).
 - [x] Shift held while talking to the trainer: nothing trained, no line (Tarn, Leatherworking, 2026-10-16).
-- [ ] Switch off: the trainer window is left as it is.
-- [ ] Hunter pet trainer (if a hunter is handy): nothing trained.
+- [-] Switch off: the trainer window is left as it is.
+      Skipped 2026-10-16: no chance to test before 2026.10.16.2; logic covered by test_trainer.lua.
+- [-] Hunter pet trainer (if a hunter is handy): nothing trained.
+      Skipped 2026-10-16: no chance to test before 2026.10.16.2; logic covered by test_trainer.lua.
 - [x] A trainer whose chat page holds only "Train me." (Tarn): the trainer list opens straight away and
       trains (2026-10-16).
-- [ ] The same with Shift held: the chat page stays and nothing is trained.
-- [ ] A trainer with a second option ("unlearn talents", a quest): the chat page stays as it is.
+- [-] The same with Shift held: the chat page stays and nothing is trained.
+      Skipped 2026-10-16: no chance to test before 2026.10.16.2; logic covered by test_trainer.lua.
+- [-] A trainer with a second option ("unlearn talents", a quest): the chat page stays as it is.
+      Skipped 2026-10-16: no chance to test before 2026.10.16.2; logic covered by test_trainer.lua.
 
 ## Loot
 
