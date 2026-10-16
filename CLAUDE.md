@@ -54,7 +54,9 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
   So Wago never sees the README: when a switch was added or changed since the last tag, edit the Wago
   project's Summary and Description by hand (addons.wago.io/developers/projects/goblin-things/settings;
   Wago's API uploads versions only, docs.wago.io). The description is its own shorter Markdown version of
-  the README, with no images, so edit it in its style rather than pasting the README over it.
+  the README, so edit it in its style rather than pasting the README over it. Its banner and three tab
+  screenshots are the README's raw `master` URLs, so a replaced screenshot shows there on its own; a new
+  image file needs its own line.
 
 ## How it fits together
 
