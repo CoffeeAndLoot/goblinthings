@@ -5,7 +5,7 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 
 ## Install
 
-- [ ] After the junction and a **full client restart**, Goblin Things is listed and enabled in the
+- [x] After the junction and a **full client restart**, Goblin Things is listed and enabled in the
       AddOns list with its round GT icon; no Lua error on login.
 - [ ] `/gt probe` lists every setting (autoAccept true ... acceptSummons false, cinematics
       repeats, cameraDistance a number), the CVar, the seen counts, a cinematic key like
@@ -13,10 +13,10 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 
 ## Window and minimap
 
-- [ ] Art (2026-10-15, **full client restart**: header.tga is new, icon.tga changed): the minimap
+- [x] Art (2026-10-15, **full client restart**: header.tga is new, icon.tga changed): the minimap
       button is the round goblin portrait with its bronze rim, clean-edged at 31 px, no square
       backdrop; Esc > Options > AddOns shows the same goblin beside "Goblin Things".
-- [ ] Art: the window's header is the plaque banner (goblin, wrench, "Goblin Things / Time is
+- [x] Art: the window's header is the plaque banner (goblin, wrench, "Goblin Things / Time is
       money, friend.") on the window's own colour: no box, no edge, no shade step anywhere round
       it (look hard at the corners and under the desk); the X clears the pipe end; no stub of a
       divider line at the right under the X (seen 2026-10-16, rule removed); dragging the banner
@@ -25,17 +25,17 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [ ] A round minimap button sits on the rim, clear of Goblin Flyout's.
       Hover: "Goblin Things / Click for options, drag to move. / Time is money, friend."
 - [ ] Dragging it slides it round the rim; `/reload`: it stays where it was put.
-- [ ] Click, `/gt` and `/gt options` open the window; Escape or the X closes it.
+- [x] Click, `/gt` and `/gt options` open the window; Escape or the X closes it.
 - [ ] Esc > Options > AddOns lists "Goblin Things" with a gold "Open Goblin Things" button that opens the window.
 - [ ] **Full client restart** first (TrackerSort.lua is new in the TOC).
-- [ ] The window shows six tabs (Quests, Vendors, Loot, Social, Camera, Cinematics); the open one is gold.
+- [x] The window shows six tabs (Quests, Vendors, Loot, Social, Camera, Cinematics); the open one is gold.
       Each tab shows only its rows; the window keeps the same height on every tab; the "Show
       minimap button" check and "Hold Shift at an NPC or vendor to skip." stay under every tab.
-- [ ] Wider and taller (520 wide, rows 40 high, 2026-10-15): every tab name and every row label is
+- [x] Wider and taller (520 wide, rows 40 high, 2026-10-15): every tab name and every row label is
       fully visible, no "..." ("Cinematics", "Accept invites from friends"); rows are not cramped
       and the window still fits on screen.
 - [ ] Close and reopen, and `/reload`: the window opens on the tab last used.
-- [ ] The Quests tab: three checks (auto accept, auto turn-in, auto-track), a gold "Quest tracker" sub-header, an "Only this zone" check,
+- [x] The Quests tab: three checks (auto accept, auto turn-in, auto-track), a gold "Quest tracker" sub-header, an "Only this zone" check,
       a "Hide quests above me" slider reading "Off", rows 1st / 2nd / 3rd each reading None | Level | Finished | This zone with every word fully
       visible, and the dim note "Off and all None = Blizzard's tracker (fully after /reload)".
       Nothing overlaps.
@@ -108,7 +108,7 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [ ] Only this zone plus 1st: Level: this zone's quests only, lowest level first.
 - [ ] Only this zone off again (tiers None): every tracked quest is back; probe says
       "off (pass-through until /reload)".
-- [ ] Hide quests above me (2026-10-15): drag the slider; its number steps Off, +1 ... +20 in
+- [x] Hide quests above me (2026-10-15): drag the slider; its number steps Off, +1 ... +20 in
       whole levels and stays after `/reload`. At +3 (tiers None, Only this zone off): a tracked quest
       more than 3 levels above you leaves the tracker at once; one exactly 3 above stays. The quest
       log still lists it. Probe: "hideAbove = 3" and "(installed)".
@@ -137,7 +137,7 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 
 ## Loot
 
-- [ ] After a **full client restart** (Loot.lua is a new file): six tabs, every name fully visible
+- [x] After a **full client restart** (Loot.lua is a new file): six tabs, every name fully visible
       ("Cinematics" too); the Loot tab shows "Fast loot", on.
 - [ ] Blizzard's Auto Loot on, Fast loot on: kill and loot a mob with several drops and coin; all of
       it lands at once, the loot window at most flickers. Same for a chest, a herb or a fishing catch.
@@ -160,7 +160,7 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
       "Accept invites from guild", "Accept invites from friends" and "Accept summons" under the
       declines, each off, every label fully visible. `/gt probe` says "accept calls missing: none"
       (tell Claude any it names).
-- [ ] Accept invites from guild on, a guildie invites you (party, then a raid): you join, "Accepted
+- [x] Accept invites from guild on, a guildie invites you (party, then a raid): you join, "Accepted
       a group invite from <name> (guild)." is said, and **no invite popup lingers**. You stay in
       the group a minute later (the popup's close must not decline it).
 - [ ] Accept invites from friends on: the same from a character friend, then a Battle.net friend,
@@ -173,9 +173,9 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [ ] Accept summons on, in combat when the summon comes: the popup stays (its Accept greyed, as
       Blizzard does); accept it yourself after combat.
 - [ ] Accept summons off: the summon popup appears as normal.
-- [ ] Guild login alerts (2026-10-15): the Social tab's sixth check, ticked when Blizzard's
+- [x] Guild login alerts (2026-10-15): the Social tab's sixth check, ticked when Blizzard's
       Options > Social > Guild Member Alert is; `/gt probe` says "guildAlerts = true".
-- [ ] Untick it: a guildie logging in makes **no ding**. Note whether the "<name> has come online"
+- [x] Untick it: a guildie logging in makes **no ding**. Note whether the "<name> has come online" (2026-10-16: no ding; whether the chat line went too was not noted)
       chat line still shows (the engine owns both; tell Claude if the line went too). Blizzard's
       Guild Member Alert box now reads unticked; tick it there and our box follows on reopen.
 - [ ] Never clicked on a fresh install: `/dump GetCVar("guildMemberNotify")` is unchanged by opening
