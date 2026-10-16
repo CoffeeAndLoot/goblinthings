@@ -1,5 +1,9 @@
 .remember/
 .superpowers/
-
 AGENTS.md
 .codex/
+
+# Release build products (made on CI)
+*.zip
+GoblinThings/LICENSE.txt
+CHANGELOG.md

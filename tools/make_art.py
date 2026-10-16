@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Cut the addon's art out of the mockup sheets in tools/art and write the
+"""Cut the addon's art out of the sources in tools/art and write the
 TGAs the client loads, plus images/thumbnail.png. Never edit the TGAs by
 hand: change the crops here and rerun.
 
@@ -22,7 +22,7 @@ import numpy as np
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
-SHEET = ROOT / "tools" / "art" / "sheet-banner.png"  # the 2172x724 concept sheet: the icon
+SHEET = ROOT / "tools" / "art" / "concept-sheet.png"  # the 2172x724 concept sheet: the icon
 BANNER_SOURCE = ROOT / "tools" / "art" / "header-source.png"  # 2000x750, made to docs/art-spec.md
 MEDIA = ROOT / "GoblinThings" / "Media"
 THUMBNAIL = ROOT / "images" / "thumbnail.png"

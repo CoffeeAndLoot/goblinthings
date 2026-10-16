@@ -1,6 +1,6 @@
 # Art spec: the header banner
 
-For the image generator that made `tools/art/sheet-banner.png`. Feed it that sheet as the
+For the image generator that made `tools/art/concept-sheet.png`. Feed it that sheet as the
 reference so it is the same goblin, and ask for one plain image to this spec. Drop the result in
 `tools/art/header-source.png`; `tools/make_art.py` cuts `GoblinThings/Media/header.tga` from it.
 

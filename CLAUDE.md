@@ -5,12 +5,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 # Goblin Things
 
 WoW Forever addon (interface 16001: Classic data on the 12.x engine, game type `camelot`).
-Quality-of-life switches in one tabbed Goblin-look window: auto accept and turn in quests, auto-track
-new quests (Blizzard's `autoQuestWatch`), a tiered quest tracker sort with Only this zone and Hide quests above me, auto sell junk, auto repair, fast loot (when the game auto-loots), decline duels, decline guild invites, accept group invites from
-the guild or friends, accept summons, a Guild login alerts check on Blizzard's `guildMemberNotify`, camera
-distance past Blizzard's 2.0, and skipping cinematics. Specs:
-`docs/superpowers/specs/2026-10-13-goblin-things-design.md` and
-`docs/superpowers/specs/2026-10-13-tracker-sort-and-tabs-design.md` (its Tabs replace the first's Window).
+Quality-of-life switches in one tabbed Goblin-look window; the README's table is the list, one row
+per switch. Docs:
+
+- `docs/superpowers/specs/2026-10-13-goblin-things-design.md`: the first design (its Window is
+  superseded by the second's Tabs).
+- `docs/superpowers/specs/2026-10-13-tracker-sort-and-tabs-design.md`: the tracker sort and the tabs.
+- `docs/manual-test-checklist.md`: every in-game check, ticked only by the owner.
+- `docs/art-spec.md`: the brief for regenerating the header banner.
+
 Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came from GoblinQuest
 (`D:\goblinquest`, shelved).
 
@@ -27,16 +30,22 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
 - The window, options page and minimap button wear the Goblin look (`Look.lua`, from Goblin
   Flyout): plain frames and colour textures, **no Blizzard frame templates**, colours only from
   `Look.COLOUR`.
-- `GoblinThings/Media/header.tga` (the plaque banner), `Media/icon.tga` (the round goblin) and
-  `images/thumbnail.png` are cut from `tools/art/` (the banner from `header-source.png`, made to `docs/art-spec.md`; the icon from the concept sheet) by
-  `python tools/make_art.py [preview_dir]`; never edit any of them by hand. The banner is kept at
-  the sheet's native pixels (sharp at 4K); `Window.BANNER` must match the script's crop box.
-  `Media/icons/close-*.tga` are Goblin Flyout's, copied. A new or changed TGA needs a full client restart.
+- Art is generated, never hand-edited: `python tools/make_art.py [preview_dir]` cuts
+  `GoblinThings/Media/header.tga` (the plaque banner) from `tools/art/header-source.png` (made to
+  `docs/art-spec.md`) and `Media/icon.tga` plus `images/thumbnail.png` (the round goblin) from
+  `tools/art/concept-sheet.png`. The banner keeps its source pixels (sharp at 4K) and its backdrop
+  is set to `Look.COLOUR.window`, so it is laid edge to edge; `Window.BANNER` must match the
+  script's crop box. `Media/icons/close-*.tga` are Goblin Flyout's, copied. `images/banner.png` is
+  the README's hero only. A new or changed TGA needs a full client restart.
 - Adding a file to the TOC needs a full client restart, not `/reload`. Say so.
 - Calendar versions (`2026.10.13`, `.2` for a second that day), written only in the TOC.
-- Commit after each change: `Area: plain sentence`. Push only when the owner asks. A release is a
-  `v<TOC version>` tag: the release workflow zips the addon and posts it to Wago when the repo has
-  the `WAGO_API_TOKEN` secret and the TOC an `X-Wago-ID`. CI runs the suite on Lua 5.1 and luacheck.
+- Commit after each change: `Area: plain sentence`. Push only when the owner asks. CI runs the suite
+  on Lua 5.1 and luacheck on every push.
+- A release: the owner has ticked the checklist for everything since the last tag, the TOC version
+  is bumped to today, then `git tag v<TOC version>` and push the tag. The release workflow checks
+  the tag matches the TOC, zips the addon with the licence, writes the changelog from the commits
+  since the previous tag, attaches both to a GitHub release, and posts to Wago when the repo has
+  the `WAGO_API_TOKEN` secret and the TOC an `X-Wago-ID` (neither is set yet).
 
 ## How it fits together
 
