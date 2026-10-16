@@ -146,6 +146,8 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [x] Profession trainer for a craft you have: recipes are trained (Tarn, Light Leather Pants at 71 skill,
       56s 41c to 52s 81c, 2026-10-16).
 - [ ] The same for the next rank (Journeyman etc.) when it comes due.
+- [x] Taking up a profession by hand at its trainer: the recipes that turn green are then trained in the same
+      visit (Snang, Apprentice Tailoring by hand, then White Linen Shirt, 2026-10-16).
 - [x] Profession trainer for a craft you do not have: nothing trained, no profession slot taken
       (Enchanting trainer, both slots full with Skinning and Leatherworking, 2026-10-16).
 - [x] The same with a free profession slot: still nothing trained (an alt with only Enchanting at Snang,
