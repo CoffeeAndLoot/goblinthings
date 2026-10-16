@@ -2,7 +2,7 @@
 ## Title: Goblin Things
 ## Notes: Small goblin conveniences: auto accept and turn in quests, sort and trim the quest tracker, sell junk, repair, loot fast, decline duels and guild invites, accept invites from your guild or friends and summons, skip cinematics, and zoom the camera out further. Time is money, friend.
 ## Author: CoffeeAndLoot
-## Version: 2026.10.13
+## Version: 2026.10.16
 ## IconTexture: Interface\AddOns\GoblinThings\Media\icon
 ## X-Wago-ID: rN4rvyKD
 ## SavedVariables: GoblinThingsDB
