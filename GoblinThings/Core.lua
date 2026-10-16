@@ -5,9 +5,9 @@ local _, ns = ...
 -- behind guard(), so an error is one chat line, said once per label, never a
 -- raise. Core.Get / Core.Set are the one door to every setting; the camera's
 -- store is the game's own CVar.
-local API, Accept, Camera, Cinematics, Decline, Features, Hands, Loot, MinimapButton, Options, TrackerSort, Vendor,
-    Window = ns.API, ns.Accept, ns.Camera, ns.Cinematics, ns.Decline, ns.Features, ns.Hands, ns.Loot,
-    ns.MinimapButton, ns.Options, ns.TrackerSort, ns.Vendor, ns.Window
+local API, Accept, Camera, Cinematics, Decline, Features, Hands, Loot, MinimapButton, Options, Trainer, TrackerSort,
+    Vendor, Window = ns.API, ns.Accept, ns.Camera, ns.Cinematics, ns.Decline, ns.Features, ns.Hands, ns.Loot,
+    ns.MinimapButton, ns.Options, ns.Trainer, ns.TrackerSort, ns.Vendor, ns.Window
 local Core = {}
 ns.Core = Core
 
@@ -235,6 +235,40 @@ end
 
 API.OnEvents({ "MERCHANT_SHOW", "MERCHANT_CLOSED" }, function(event)
     guard("Vendor", atVendor, event)
+end)
+
+-- ---- trainers ----
+
+-- One purchase now, the next when TRAINER_UPDATE shows the list changed; a
+-- purchase the game refuses brings no update, so the run stops there.
+local lesson = Trainer.NewVisit()
+
+local function atTrainer(event)
+    if event == "TRAINER_CLOSED" then
+        local line = Trainer.Line(lesson)
+        if line then
+            say(line)
+        end
+        lesson = Trainer.NewVisit()
+        return
+    end
+    if event == "TRAINER_SHOW" then
+        lesson = Trainer.NewVisit()
+    end
+    if not db().features.autoTrain then
+        return  -- a trainer is never read unless the switch is on
+    end
+    local view = API.TrainerView()
+    Trainer.Confirm(view, lesson)
+    local buy = Trainer.Next(view, db().features.autoTrain, lesson)
+    if buy then
+        lesson.tried[buy.key] = buy.cost
+        API.BuyTrainerService(buy.index)
+    end
+end
+
+API.OnEvents({ "TRAINER_SHOW", "TRAINER_UPDATE", "TRAINER_CLOSED" }, function(event)
+    guard("Trainer", atTrainer, event)
 end)
 
 -- ---- loot ----

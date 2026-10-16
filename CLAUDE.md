@@ -54,13 +54,13 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
 
 ## How it fits together
 
-TOC load order is `API, Features, Hands, Vendor, Camera, Cinematics, Decline, Accept, Loot, TrackerSort, Look, Options, Window, MinimapButton, Core`.
+TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, Decline, Accept, Loot, TrackerSort, Look, Options, Window, MinimapButton, Core`.
 
 1. `Features.LIST` is every switch as data: key, label, section (its tab), optional group (a
    sub-header), control (`check`, `slider`, `choice`) and default; `Features.NOTES` gives a tab its
    dim note. The window builds its tabs and rows from it; `Options.Init` stores every feature with a
    default. One with a `cvar` (the camera, Guild login alerts) has none: the game's own CVar is its store.
-2. `Hands` (quests), `Vendor`, `Camera`, `Cinematics`, `Decline`, `Accept` and `Loot` are pure: each takes plain values
+2. `Hands` (quests), `Vendor`, `Trainer`, `Camera`, `Cinematics`, `Decline`, `Accept` and `Loot` are pure: each takes plain values
    (views built by `API.lua`) and the settings, and says what to do.
 3. `Core` routes events to them behind `guard(label, ...)` (one error per label per session) and has
    `API` carry out the result. `Core.Get(key)` / `Core.Set(key, value)` are the one door to every

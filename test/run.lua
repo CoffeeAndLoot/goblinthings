@@ -8,6 +8,7 @@ local modules = {
     { "Features", "GoblinThings/Features.lua" },
     { "Hands", "GoblinThings/Hands.lua" },
     { "Vendor", "GoblinThings/Vendor.lua" },
+    { "Trainer", "GoblinThings/Trainer.lua" },
     { "Camera", "GoblinThings/Camera.lua" },
     { "Cinematics", "GoblinThings/Cinematics.lua" },
     { "Decline", "GoblinThings/Decline.lua" },
@@ -34,6 +35,7 @@ local suites = {
     "test/test_options.lua",
     "test/test_hands.lua",
     "test/test_vendor.lua",
+    "test/test_trainer.lua",
     "test/test_cinematics.lua",
     "test/test_decline.lua",
     "test/test_accept.lua",
@@ -44,6 +46,7 @@ local suites = {
     "test/test_api_tracker.lua",
     "test/test_api_accept.lua",
     "test/test_api_loot.lua",
+    "test/test_api_trainer.lua",
 }
 
 for i = 1, #suites do

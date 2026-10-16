@@ -212,6 +212,36 @@ function API.RepairAll()
     call("RepairAllItems", RepairAllItems)  -- no argument: own gold
 end
 
+-- ---- trainer (Blizzard_TrainerUI/Mainline: GetNumTrainerServices, GetTrainerServiceInfo,
+-- GetTrainerServiceCost, BuyTrainerService; TrainerDocumentation.lua: C_Trainer.GetTrainerType) ----
+
+-- The window as the plain table Trainer.Next reads; the list is what the
+-- trainer's filters show. Money is read here, after the last purchase landed.
+function API.TrainerView()
+    local view = { services = {}, shift = API.ShiftDown() }
+    view.trainerType = call("GetTrainerType", C_Trainer and C_Trainer.GetTrainerType)
+    local money = call("GetMoney", GetMoney)
+    view.money = (type(money) == "number") and money or nil
+    local n = call("GetNumTrainerServices", GetNumTrainerServices)
+    for index = 1, count(n) do
+        local name, serviceType, _, _, rank = call("GetTrainerServiceInfo", GetTrainerServiceInfo, index)
+        local cost, isProfession = call("GetTrainerServiceCost", GetTrainerServiceCost, index)
+        view.services[index] = {
+            index = index,
+            name = str(name),
+            rank = str(rank),
+            type = str(serviceType),
+            cost = (type(cost) == "number") and cost or nil,
+            isProfession = isProfession and isProfession ~= 0 or false,
+        }
+    end
+    return view
+end
+
+function API.BuyTrainerService(index)
+    call("BuyTrainerService", BuyTrainerService, index)
+end
+
 -- ---- loot (Mainline/LootFrame.lua: GetNumLootItems, GetLootSlotInfo, LootSlot) ----
 
 -- { { slot, locked } ... }. locked is GetLootSlotInfo's sixth return, read

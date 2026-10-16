@@ -135,6 +135,19 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [ ] Open a vendor, close, reopen: it acts again on the reopen, once.
 - [ ] Each switch off on its own: only the other thing happens.
 
+## Trainers
+
+- [ ] Auto train on, Vendors tab shows it (off by default); full client restart for the new file first.
+- [ ] Class trainer with several green rows: all trained one after another, gold drops by the total, the
+      rows turn gray, and closing says "Trained N for ...". Nothing in red is touched.
+- [ ] Short of gold for the whole list: trains in list order until it cannot afford the next, then stops,
+      no error spam in chat; the line counts only what was learned.
+- [ ] Profession trainer for a craft you have: the next rank (Journeyman etc.) and recipes are trained.
+- [ ] Profession trainer for a craft you do not have: nothing trained, no profession slot taken.
+- [ ] Shift held while talking to the trainer: nothing trained, no line.
+- [ ] Switch off: the trainer window is left as it is.
+- [ ] Hunter pet trainer (if a hunter is handy): nothing trained.
+
 ## Loot
 
 - [x] After a **full client restart** (Loot.lua is a new file): six tabs, every name fully visible

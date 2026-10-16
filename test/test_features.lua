@@ -8,7 +8,7 @@ return function(h, loaded)
                 keys[#keys + 1] = f.key
             end
             h.eq(table.concat(keys, " "), "autoAccept autoTurnIn autoTrack zoneOnly hideAbove "
-                .. "sortFirst sortSecond sortThird autoSellJunk autoRepair fastLoot "
+                .. "sortFirst sortSecond sortThird autoSellJunk autoRepair autoTrain fastLoot "
                 .. "declineDuels declineGuild acceptGuild acceptFriends acceptSummons guildAlerts "
                 .. "cameraDistance cinematics")
         end)
@@ -147,7 +147,7 @@ return function(h, loaded)
                 counts[#counts + 1] = #s.features
             end
             h.eq(table.concat(names, " "), "Quests Vendors Loot Social Camera Cinematics")
-            h.eq(table.concat(counts, " "), "8 2 1 6 1 1")
+            h.eq(table.concat(counts, " "), "8 3 1 6 1 1")
         end)
         h.it("a section carries its note; the others have none", function()
             local sections = Features.Sections()
