@@ -147,7 +147,7 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [x] Profession trainer for a craft you do not have: nothing trained, no profession slot taken
       (Enchanting trainer, both slots full with Skinning and Leatherworking, 2026-10-16).
 - [ ] The same with a free profession slot (a fresh alt): still nothing trained.
-- [ ] Shift held while talking to the trainer: nothing trained, no line.
+- [x] Shift held while talking to the trainer: nothing trained, no line (Tarn, Leatherworking, 2026-10-16).
 - [ ] Switch off: the trainer window is left as it is.
 - [ ] Hunter pet trainer (if a hunter is handy): nothing trained.
 
