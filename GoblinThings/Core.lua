@@ -84,17 +84,24 @@ function Core.Get(key)
     if key == Camera.KEY then
         return Camera.Clamp(API.GetCVar(Camera.CVAR))
     end
+    local feature = Features.ByKey(key)
+    if feature and feature.cvar then  -- a check the game's own CVar stores
+        return Features.CVarOn(API.GetCVar(feature.cvar))
+    end
     return db().features[key]
 end
 
 -- Called from the window's clicks and drags, so it carries its own guard.
 function Core.Set(key, value)
     guard("Settings", function()
-        if not Features.Valid(Features.ByKey(key), value) then
+        local feature = Features.ByKey(key)
+        if not Features.Valid(feature, value) then
             return
         end
         if key == Camera.KEY then
             API.SetCVar(Camera.CVAR, Camera.Text(Camera.Clamp(value)))
+        elseif feature.cvar then
+            API.SetCVar(feature.cvar, Features.CVarText(value))
         elseif TrackerSort.IsSlot(key) then
             for slot, slotValue in pairs(TrackerSort.Assign(db().features, key, value)) do
                 db().features[slot] = slotValue

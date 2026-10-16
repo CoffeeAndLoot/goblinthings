@@ -9,7 +9,8 @@ return function(h, loaded)
             end
             h.eq(table.concat(keys, " "), "autoAccept autoTurnIn autoTrack zoneOnly hideAbove "
                 .. "sortFirst sortSecond sortThird autoSellJunk autoRepair fastLoot "
-                .. "declineDuels declineGuild acceptGuild acceptFriends acceptSummons cameraDistance cinematics")
+                .. "declineDuels declineGuild acceptGuild acceptFriends acceptSummons guildAlerts "
+                .. "cameraDistance cinematics")
         end)
         h.it("the three tracker sort slots are choices grouped under Quest tracker, starting at None", function()
             for _, key in ipairs({ "sortFirst", "sortSecond", "sortThird" }) do
@@ -64,9 +65,25 @@ return function(h, loaded)
             h.eq(Features.SliderText(camera, 1), "1.0")
             h.eq(Features.SliderText(camera, nil), "?")
         end)
-        h.it("every stored switch's default is valid; the camera has none, the CVar is its store", function()
+        h.it("Guild login alerts is a Social check stored in Blizzard's guildMemberNotify CVar", function()
+            local f = Features.ByKey("guildAlerts")
+            h.eq(f.label, "Guild login alerts")
+            h.eq(f.section, "Social")
+            h.eq(f.control, "check")
+            h.eq(f.cvar, "guildMemberNotify")
+            h.eq(f.default, nil)
+            h.eq(Features.ByKey("cameraDistance").cvar, "cameraDistanceMaxZoomFactor")
+        end)
+        h.it("a CVar check reads \"1\" as on and anything else as off, and writes \"1\" or \"0\"", function()
+            h.eq(Features.CVarOn("1"), true)
+            h.eq(Features.CVarOn("0"), false)
+            h.eq(Features.CVarOn(nil), false)
+            h.eq(Features.CVarText(true), "1")
+            h.eq(Features.CVarText(false), "0")
+        end)
+        h.it("every stored switch's default is valid; a CVar-stored one has none", function()
             for _, f in ipairs(Features.LIST) do
-                if f.key == "cameraDistance" then
+                if f.cvar then  -- the game's CVar is its store
                     h.eq(f.default, nil, f.key)
                 else
                     h.truthy(Features.Valid(f, f.default), f.key)
@@ -130,7 +147,7 @@ return function(h, loaded)
                 counts[#counts + 1] = #s.features
             end
             h.eq(table.concat(names, " "), "Quests Vendors Loot Social Camera Cinematics")
-            h.eq(table.concat(counts, " "), "8 2 1 5 1 1")
+            h.eq(table.concat(counts, " "), "8 2 1 6 1 1")
         end)
         h.it("a section carries its note; the others have none", function()
             local sections = Features.Sections()

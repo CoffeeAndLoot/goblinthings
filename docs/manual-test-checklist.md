@@ -171,6 +171,13 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [ ] Accept summons on, in combat when the summon comes: the popup stays (its Accept greyed, as
       Blizzard does); accept it yourself after combat.
 - [ ] Accept summons off: the summon popup appears as normal.
+- [ ] Guild login alerts (2026-10-15): the Social tab's sixth check, ticked when Blizzard's
+      Options > Social > Guild Member Alert is; `/gt probe` says "guildAlerts = true".
+- [ ] Untick it: a guildie logging in makes **no ding**. Note whether the "<name> has come online"
+      chat line still shows (the engine owns both; tell Claude if the line went too). Blizzard's
+      Guild Member Alert box now reads unticked; tick it there and our box follows on reopen.
+- [ ] Never clicked on a fresh install: `/dump GetCVar("guildMemberNotify")` is unchanged by opening
+      the window.
 - [ ] Taint: with `/console taintLog 1`, after an auto-accepted invite, a later popup (delete an
       item, a duel request) works; no "blocked" line naming GoblinThings in `Logs\taint.log`.
 

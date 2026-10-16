@@ -8,7 +8,7 @@ local Camera = {}
 ns.Camera = Camera
 
 Camera.KEY = "cameraDistance"
-Camera.CVAR = "cameraDistanceMaxZoomFactor"
+Camera.CVAR = ns.Features.ByKey(Camera.KEY).cvar  -- cameraDistanceMaxZoomFactor
 
 -- A number or a numeric string, kept in range and rounded to the step; nil
 -- for anything else (the client gave no answer).

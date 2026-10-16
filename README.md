@@ -20,6 +20,7 @@ Small goblin conveniences for **WoW Forever** (interface 16001), set once in one
 | Accept invites from guild | Joins a party or raid when a guild member invites you | Off |
 | Accept invites from friends | The same for your friends list and Battle.net friends | Off |
 | Accept summons | Takes a summon at once, unless you're in combat | Off |
+| Guild login alerts | Blizzard's own Guild Member Alert (the ding when a guildie logs in), here for convenience | On |
 | Camera distance | Zooms the camera out to 4.0, past Blizzard's 2.0 | Untouched |
 | Skip cinematics | Off, repeats only, or all | Repeats only |
 

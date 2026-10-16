@@ -2,7 +2,7 @@ local _, ns = ...
 
 -- The switches as data (spec 2026-10-13-goblin-things-design.md, Scope). The
 -- window builds its rows from LIST and Options.Init stores every feature with
--- a default; the camera has none, because the game's own CVar is its store.
+-- a default; one with a cvar has none, because the game's own CVar is its store.
 -- Pure: test/run.lua loads this file.
 local Features = {}
 ns.Features = Features
@@ -40,8 +40,12 @@ Features.LIST = {
     { key = "acceptFriends", label = "Accept invites from friends", section = "Social", control = "check",
         default = false },
     { key = "acceptSummons", label = "Accept summons", section = "Social", control = "check", default = false },
+    -- Blizzard's Options > Social > Guild Member Alert (SettingsDefinitions_Frame/Social.lua:95);
+    -- the engine plays the ding, so its CVar is the only handle and the store.
+    { key = "guildAlerts", label = "Guild login alerts", section = "Social", control = "check",
+        cvar = "guildMemberNotify" },
     { key = "cameraDistance", label = "Camera distance", section = "Camera", control = "slider",
-        min = 1.0, max = 4.0, step = 0.1, format = "%.1f" },
+        min = 1.0, max = 4.0, step = 0.1, format = "%.1f", cvar = "cameraDistanceMaxZoomFactor" },
     { key = "cinematics", label = "Skip cinematics", section = "Cinematics", control = "choice",
         default = "repeats", choices = { "off", "repeats", "all" },
         labels = { off = "Off", repeats = "Repeats only", all = "All" } },
@@ -72,6 +76,15 @@ function Features.Valid(feature, value)
         return type(value) == "number" and value == value and value >= feature.min and value <= feature.max
     end
     return false
+end
+
+-- A check whose store is the game's own CVar: "1" is on; no answer reads as off.
+function Features.CVarOn(text)
+    return text == "1"
+end
+
+function Features.CVarText(on)
+    return on and "1" or "0"
 end
 
 -- The number beside a slider: "Off" at its off value, else its format
