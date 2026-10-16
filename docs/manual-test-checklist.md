@@ -144,7 +144,9 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [ ] Short of gold for the whole list: trains in list order until it cannot afford the next, then stops,
       no error spam in chat; the line counts only what was learned.
 - [ ] Profession trainer for a craft you have: the next rank (Journeyman etc.) and recipes are trained.
-- [ ] Profession trainer for a craft you do not have: nothing trained, no profession slot taken.
+- [x] Profession trainer for a craft you do not have: nothing trained, no profession slot taken
+      (Enchanting trainer, both slots full with Skinning and Leatherworking, 2026-10-16).
+- [ ] The same with a free profession slot (a fresh alt): still nothing trained.
 - [ ] Shift held while talking to the trainer: nothing trained, no line.
 - [ ] Switch off: the trainer window is left as it is.
 - [ ] Hunter pet trainer (if a hunter is handy): nothing trained.
