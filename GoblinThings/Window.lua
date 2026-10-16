@@ -14,11 +14,13 @@ ns.Window = Window
 Window.NAME = "GoblinThingsWindow"  -- UISpecialFrames closes frames by name on Escape
 Window.WIDTH = 520  -- six tabs at 82px each, so every tab name fits
 Window.HOME = { "CENTER", "CENTER", 0, 40 }  -- where it opens until dragged
--- The plaque banner (tools/make_art.py): the art's own pixels in the top-left
--- of a power-of-two canvas, so the TexCoords crop the rest. Drawn HEADER tall.
-Window.BANNER = { file = "Interface\\AddOns\\GoblinThings\\Media\\header", w = 1390, h = 338, cw = 2048, ch = 512 }
+-- The plaque banner (tools/make_art.py, docs/art-spec.md): the art's own
+-- pixels in the top-left of a power-of-two canvas, so the TexCoords crop the
+-- rest. Its backdrop is the window colour, so it is drawn from the window's
+-- left edge, HEADER tall, and simply is the header.
+Window.BANNER = { file = "Interface\\AddOns\\GoblinThings\\Media\\header", w = 2000, h = 508, cw = 2048, ch = 512 }
 Window.LAYOUT = {
-    TOP_EDGE = 2, HEADER = 112, PAD = 16, CLOSE = 28, TAB_H = 26, WELL_PAD = 4, GROUP = 26, ROW = 40,
+    TOP_EDGE = 2, HEADER = 126, PAD = 16, CLOSE = 28, TAB_H = 26, WELL_PAD = 4, GROUP = 26, ROW = 40,
     NOTE = 22, INDENT = 26, CHECK = 18, SLIDER_W = 160, SLIDER_H = 16, VALUE_W = 34, CHOICE_H = 24,
     CHOICE_PAD = 20, FOOT = 62,
 }
@@ -88,7 +90,7 @@ local function buildHeader(core)
     local B = Window.BANNER
     local banner = head:CreateTexture(nil, "ARTWORK")
     banner:SetSize(L.HEADER * B.w / B.h, L.HEADER)
-    banner:SetPoint("LEFT", head, "LEFT", L.PAD, 0)
+    banner:SetPoint("LEFT", head, "LEFT", 0, 0)
     if banner:SetTexture(B.file) then
         banner:SetTexCoord(0, B.w / B.cw, 0, B.h / B.ch)
     else

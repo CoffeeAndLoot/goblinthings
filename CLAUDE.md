@@ -28,7 +28,7 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
   Flyout): plain frames and colour textures, **no Blizzard frame templates**, colours only from
   `Look.COLOUR`.
 - `GoblinThings/Media/header.tga` (the plaque banner), `Media/icon.tga` (the round goblin) and
-  `images/thumbnail.png` are cut from the mockup sheets in `tools/art/` by
+  `images/thumbnail.png` are cut from `tools/art/` (the banner from `header-source.png`, made to `docs/art-spec.md`; the icon from the concept sheet) by
   `python tools/make_art.py [preview_dir]`; never edit any of them by hand. The banner is kept at
   the sheet's native pixels (sharp at 4K); `Window.BANNER` must match the script's crop box.
   `Media/icons/close-*.tga` are Goblin Flyout's, copied. A new or changed TGA needs a full client restart.
