@@ -143,15 +143,18 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [ ] Closing that trainer says "Trained N for ..." with the gold spent; nothing in red is touched.
 - [ ] Short of gold for the whole list: trains in list order until it cannot afford the next, then stops,
       no error spam in chat; the line counts only what was learned.
-- [ ] Profession trainer for a craft you have: the next rank (Journeyman etc.) and recipes are trained.
+- [x] Profession trainer for a craft you have: recipes are trained (Tarn, Light Leather Pants at 71 skill,
+      56s 41c to 52s 81c, 2026-10-16).
+- [ ] The same for the next rank (Journeyman etc.) when it comes due.
 - [x] Profession trainer for a craft you do not have: nothing trained, no profession slot taken
       (Enchanting trainer, both slots full with Skinning and Leatherworking, 2026-10-16).
 - [ ] The same with a free profession slot (a fresh alt): still nothing trained.
 - [x] Shift held while talking to the trainer: nothing trained, no line (Tarn, Leatherworking, 2026-10-16).
 - [ ] Switch off: the trainer window is left as it is.
 - [ ] Hunter pet trainer (if a hunter is handy): nothing trained.
-- [ ] A trainer whose chat page holds only "Train me." (Tarn): the trainer list opens straight away and
-      trains; with Shift held the chat page stays and nothing is trained.
+- [x] A trainer whose chat page holds only "Train me." (Tarn): the trainer list opens straight away and
+      trains (2026-10-16).
+- [ ] The same with Shift held: the chat page stays and nothing is trained.
 - [ ] A trainer with a second option ("unlearn talents", a quest): the chat page stays as it is.
 
 ## Loot
