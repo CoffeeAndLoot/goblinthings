@@ -78,11 +78,6 @@ local function buildHeader(core)
             core.SaveWindow("TOPLEFT", "BOTTOMLEFT", x, y)
         end
     end)
-    local rule = Look.Texture(head, "BORDER", Look.COLOUR.divider)
-    rule:SetHeight(1)
-    rule:SetPoint("BOTTOMLEFT", head, "BOTTOMLEFT")
-    rule:SetPoint("BOTTOMRIGHT", head, "BOTTOMRIGHT")
-
     local close = Look.IconButton(head, "close", L.CLOSE, function() frame:Hide() end, "X")
     close:SetPoint("RIGHT", head, "RIGHT", -12, 0)
     -- The banner carries the name and tagline; the window's text fallback

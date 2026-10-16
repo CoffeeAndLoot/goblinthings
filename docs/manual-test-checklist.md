@@ -18,8 +18,9 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
       backdrop; Esc > Options > AddOns shows the same goblin beside "Goblin Things".
 - [ ] Art: the window's header is the plaque banner (goblin, wrench, "Goblin Things / Time is
       money, friend.") on the window's own colour: no box, no edge, no shade step anywhere round
-      it (look hard at the corners and under the desk); the X clears the pipe end; dragging the
-      banner moves the window. At 3840x2160 and your UI scale it reads sharp,
+      it (look hard at the corners and under the desk); the X clears the pipe end; no stub of a
+      divider line at the right under the X (seen 2026-10-16, rule removed); dragging the banner
+      moves the window. At 3840x2160 and your UI scale it reads sharp,
       not grainy, and nothing is cut off at the right (tell Claude the UI scale if it is).
 - [ ] A round minimap button sits on the rim, clear of Goblin Flyout's.
       Hover: "Goblin Things / Click for options, drag to move. / Time is money, friend."
