@@ -1,4 +1,4 @@
-![Goblin Things](images/banner.png)
+![Goblin Things](https://raw.githubusercontent.com/CoffeeAndLoot/goblinthings/master/images/banner.png)
 
 *Time is money, friend.*
 
@@ -28,11 +28,11 @@ and forget them.
 Hold **Shift** while talking to an NPC or opening a vendor to skip everything that visit. Hold it on a
 corpse to get the normal loot window. Everything else is one click in the window.
 
-![The Goblin Things window on its Quests tab: the auto-quest checks, Only this zone, the Hide quests above me slider at +3, and the three tracker sort tiers](images/quests.png)
+![The Goblin Things window on its Quests tab: the auto-quest checks, Only this zone, the Hide quests above me slider at +3, and the three tracker sort tiers](https://raw.githubusercontent.com/CoffeeAndLoot/goblinthings/master/images/quests.png)
 
 <p>
-<img src="images/vendors.png" width="49%" alt="The Vendors tab: Auto sell junk and Auto repair">
-<img src="images/social.png" width="49%" alt="The Social tab: decline duels and guild invites, accept invites from guild or friends, accept summons, guild login alerts">
+<img src="https://raw.githubusercontent.com/CoffeeAndLoot/goblinthings/master/images/vendors.png" width="49%" alt="The Vendors tab: Auto sell junk and Auto repair">
+<img src="https://raw.githubusercontent.com/CoffeeAndLoot/goblinthings/master/images/social.png" width="49%" alt="The Social tab: decline duels and guild invites, accept invites from guild or friends, accept summons, guild login alerts">
 </p>
 
 ## Getting started
