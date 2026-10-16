@@ -48,9 +48,9 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
   `rN4rvyKD`, the TOC's `X-Wago-ID`, listed at addons.wago.io/addons/goblin-things) with the
   repo's `WAGO_API_TOKEN` secret; both are set (2026-10-16). The repo is public and
   the README's images are `raw.githubusercontent.com` URLs, as Goblin Flyout's are, so they render
-  on Wago too. The Wago project is connected to the GitHub repo for metadata only; Wago's own
-  release automation stays **off**, since the workflow uploads each release itself (both on would
-  post every release twice).
+  on Wago too. The Wago project is deliberately **not** linked to the GitHub repo (Wago only links at
+  creation; the link's features, its own release automation and README import, are not wanted:
+  the workflow uploads each release itself, and both on would post every release twice).
 
 ## How it fits together
 
