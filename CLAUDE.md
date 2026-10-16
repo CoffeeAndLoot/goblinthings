@@ -44,8 +44,9 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
 - A release: the owner has ticked the checklist for everything since the last tag, the TOC version
   is bumped to today, then `git tag v<TOC version>` and push the tag. The release workflow checks
   the tag matches the TOC, zips the addon with the licence, writes the changelog from the commits
-  since the previous tag, attaches both to a GitHub release, and posts to Wago when the repo has
-  the `WAGO_API_TOKEN` secret and the TOC an `X-Wago-ID` (neither is set yet). The README's images
+  since the previous tag, attaches both to a GitHub release, and posts to Wago (project
+  `rN4rvyKD`, the TOC's `X-Wago-ID`, listed at addons.wago.io/addons/goblin-things) with the
+  repo's `WAGO_API_TOKEN` secret; both are set (2026-10-16). The README's images
   are relative paths (the repo is private); when it goes public, switch them to
   `https://raw.githubusercontent.com/CoffeeAndLoot/goblinthings/master/images/...` as Goblin
   Flyout's are, so they render on Wago too.

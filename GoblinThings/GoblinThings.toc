@@ -4,6 +4,7 @@
 ## Author: CoffeeAndLoot
 ## Version: 2026.10.13
 ## IconTexture: Interface\AddOns\GoblinThings\Media\icon
+## X-Wago-ID: rN4rvyKD
 ## SavedVariables: GoblinThingsDB
 
 API.lua
