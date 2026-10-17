@@ -95,6 +95,11 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [ ] With a tier set, through accepting, finishing, turning in and abandoning quests, the tracker
       never goes blank or drops a quest, and `/gt probe` shows no "Tracker sort threw" line (a sort
       that errors or shows a quest Blizzard did not give falls back to Blizzard's list).
+- [ ] Gaps bug (seen 2026-10-17: blank space between tracked quests after turning in and picking
+      up quests; changing a sort or the level slider clears it). While the gaps show, run
+      `/gt probe` **before touching any setting** and send Claude the "tracker blocks" line (each
+      block's quest ID, top, height, alpha, and whether it is cached, hidden or unchained), plus
+      any Lua error seen with `/console scriptErrors 1`.
 - [ ] Only this zone on (all tiers None): only quests on your current map show; `/gt probe` says
       "tracker sort off, only this zone (installed)".
 - [ ] Only this zone: ride into another zone, then into a sub-zone and indoors: the list follows.

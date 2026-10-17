@@ -539,6 +539,46 @@ function API.SetTrackerSort(sorter)
     return true
 end
 
+-- The quest tracker's blocks for /gt probe, laid-out chain first (firstBlock
+-- -> nextBlock), then any the module still holds outside it:
+-- { id, shown, alpha, height, top, cached, inChain }. Also the module's cached
+-- count and whether its container is stuck dirty (Blizzard_ObjectiveTracker-
+-- Module.lua's CheckCachedBlocks re-places a turned-in quest's block by the
+-- last layout's order while it fades). Nil when the tracker is missing.
+function API.TrackerBlocks()
+    local module = QuestObjectiveTracker
+    if type(module) ~= "table" or type(module.usedBlocks) ~= "table" then
+        return nil
+    end
+    local out, seen = {}, {}
+    local function view(block, inChain)
+        seen[block] = true
+        out[#out + 1] = {
+            id = block.id,
+            shown = attempt("block:IsShown", block.IsShown, block) == true,
+            alpha = attempt("block:GetAlpha", block.GetAlpha, block),
+            height = block.height,
+            top = attempt("block:GetTop", block.GetTop, block),
+            cached = block.cached == true,
+            inChain = inChain,
+        }
+    end
+    local block = module.firstBlock
+    while type(block) == "table" and not seen[block] do
+        view(block, true)
+        block = block.nextBlock
+    end
+    for _, blocks in pairs(module.usedBlocks) do
+        for _, held in pairs(blocks) do
+            if type(held) == "table" and not seen[held] then
+                view(held, false)
+            end
+        end
+    end
+    local container = module.parentContainer
+    return out, module.numCachedBlocks, type(container) == "table" and container.dirty == true
+end
+
 -- ---- screen (from Goblin Flyout's API.lua) ----
 
 -- Physical pixels per UI unit at scale 1 (the UI is 768 units tall), so a

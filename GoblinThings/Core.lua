@@ -437,6 +437,18 @@ function commands.probe()
         or (active and " (installed)." or " (pass-through until /reload).")
     say("Probe: tracker sort " .. (#tiers > 0 and table.concat(tiers, ", ") or "off")
         .. (db().features[TrackerSort.ZONE_ONLY] and ", only this zone" or "") .. how)
+    local blocks, cached, dirty = API.TrackerBlocks()
+    if blocks then
+        local parts = {}
+        for _, b in ipairs(blocks) do
+            parts[#parts + 1] = ("%s top %s h %s a %s%s%s%s"):format(tostring(b.id),
+                b.top and ("%.0f"):format(b.top) or "?", tostring(b.height),
+                b.alpha and ("%.2f"):format(b.alpha) or "?",
+                b.shown and "" or " hidden", b.cached and " cached" or "", b.inChain and "" or " unchained")
+        end
+        say(("Probe: tracker blocks (%s cached%s): %s."):format(tostring(cached),
+            dirty and ", stuck dirty" or "", #parts > 0 and table.concat(parts, "; ") or "none"))
+    end
     local missing = API.MissingAcceptCalls()
     say("Probe: accept calls missing: " .. (#missing > 0 and table.concat(missing, ", ") or "none") .. ".")
     for name, message in pairs(API.Errors()) do
