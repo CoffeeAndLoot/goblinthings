@@ -50,7 +50,7 @@ Goblin Things.
 ## Install
 
 Install with the [Wago app](https://addons.wago.io/addons/goblin-things), or copy the `GoblinThings`
-folder into `World of Warcraft\_classic_beta_\Interface\AddOns\` and restart the game. Zips are on
+folder into `World of Warcraft\_forever_\Interface\AddOns\` and restart the game. Zips are on
 the [releases page](https://github.com/CoffeeAndLoot/goblinthings/releases).
 
 ## How it behaves

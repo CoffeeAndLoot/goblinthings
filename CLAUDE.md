@@ -93,8 +93,8 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
 
 ## Deploy
 
-The addon folder is junctioned into the client:
-`New-Item -ItemType Junction -Path "D:\World of Warcraft\_classic_beta_\Interface\AddOns\GoblinThings" -Target "D:\GoblinThings\GoblinThings"`
+The addon folder is junctioned into the live client (`_forever_`; the beta folder is gone):
+`New-Item -ItemType Junction -Path "D:\World of Warcraft\_forever_\Interface\AddOns\GoblinThings" -Target "D:\GoblinThings\GoblinThings"`
 
 ## Commands (this Windows box)
 
