@@ -97,6 +97,8 @@ local function drawKills()
             left = Kills.Left(xp, xpMax, samples)
         end
         preview = Window.Shown() and db().tab == "XP"
+    else
+        samples = {}  -- off forgets: switched back on, the count waits for fresh kills
     end
     KillsReadout.Draw(Kills.Text(left, preview), {
         corner = features.killsCorner, x = features.killsX, y = features.killsY,
@@ -435,6 +437,7 @@ local killPattern, killIndex  -- from the game's format string, built at the fir
 
 local function logXP(event, text)
     if db().features.killsLeft ~= true then
+        lastXP = nil  -- XP gained while off is no gain to report
         return
     end
     if event == "CHAT_MSG_COMBAT_XP_GAIN" then

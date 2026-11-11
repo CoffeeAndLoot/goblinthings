@@ -261,6 +261,8 @@ verified in source only.
 
 ## Kills to level
 
+- [ ] With a count showing, untick Kills to level and tick it again: no number until the next kill, and `/gt probe` reads 0 kill sample(s) before it.
+
 - [ ] **Full client restart** first (Kills.lua and KillsReadout.lua are new in the TOC). No Lua
       error on login; nothing new on screen (the switch is off by default).
 - [ ] The window is 684 wide and shows eight tabs, XP last; every tab name is fully visible

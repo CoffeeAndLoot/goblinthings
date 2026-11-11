@@ -43,7 +43,7 @@ function Kills.Left(xp, xpMax, samples)
     if type(xp) ~= "number" or type(xpMax) ~= "number" or #samples == 0 then
         return nil
     end
-    if not (xpMax > 0 and xp >= 0 and xp < xpMax) then
+    if not (xpMax > 0 and xpMax < math.huge and xp >= 0 and xp < xpMax) then
         return nil
     end
     local total = 0
@@ -65,7 +65,10 @@ function Kills.Pattern(format)
     local out, captures, index, i = { "^" }, 0, nil, 1
     while i <= #format do
         local kind, after = format:match("^%%%d*%$?([sd])()", i)
-        if kind then
+        if format:sub(i, i + 1) == "%%" then  -- the format's own escape: one percent sign
+            out[#out + 1] = "%%"
+            i = i + 2
+        elseif kind then
             captures = captures + 1
             if kind == "d" then
                 index = index or captures
