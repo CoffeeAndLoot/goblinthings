@@ -12,7 +12,7 @@ local Window = {}
 ns.Window = Window
 
 Window.NAME = "GoblinThingsWindow"  -- UISpecialFrames closes frames by name on Escape
-Window.WIDTH = 520  -- six tabs at 82px each, so every tab name fits
+Window.WIDTH = 600  -- seven tabs at 82px each, so every tab name fits
 Window.HOME = { "CENTER", "CENTER", 0, 40 }  -- where it opens until dragged
 -- The plaque banner (tools/make_art.py, docs/art-spec.md): the art's own
 -- pixels in the top-left of a power-of-two canvas, so the TexCoords crop the

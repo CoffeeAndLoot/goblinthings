@@ -20,6 +20,10 @@ Look.COLOUR = {
     text = hex(0xEC, 0xE6, 0xD8),      -- everything you read
     gold = hex(0xD6, 0xAA, 0x4E),      -- the accent
     ink = hex(0x17, 0x14, 0x0D),       -- words on gold
+    -- The world map's own lettering, for the readout drawn on it (MapReadout.lua):
+    -- AREA_NAME_FONT_COLOR (1.0, 0.9294, 0.7607) and AREA_DESCRIPTION_FONT_COLOR (white).
+    areaName = hex(0xFF, 0xED, 0xC2),
+    areaText = hex(0xFF, 0xFF, 0xFF),
 }
 Look.WORDS = "Fonts\\FRIZQT__.TTF"
 Look.BORDER = 1
@@ -66,12 +70,13 @@ end
 
 -- A one-line, left-justified FontString in a face, size and palette colour.
 -- A face that will not load falls back to the client's small font: a missing
--- file costs looks, never words. The flags are required by the client.
-function Look.Text(parent, face, size, colour)
+-- file costs looks, never words. The flags are required by the client: ""
+-- unless given ("OUTLINE" for words drawn on the map's art).
+function Look.Text(parent, face, size, colour, flags)
     local s = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     s:SetJustifyH("LEFT")
     s:SetWordWrap(false)
-    if not s:SetFont(face, size, "") then
+    if not s:SetFont(face, size, flags or "") then
         s:SetFontObject("GameFontHighlightSmall")
     end
     s:SetTextColor(Look.RGB(colour))

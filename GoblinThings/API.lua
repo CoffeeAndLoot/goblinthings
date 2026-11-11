@@ -579,6 +579,63 @@ function API.TrackerBlocks()
     return out, module.numCachedBlocks, type(container) == "table" and container.dirty == true
 end
 
+-- ---- world map (spec 2026-11-10-map-zone-readout-design.md) ----
+-- As Blizzard's own area label finds the zone under the cursor
+-- (Blizzard_SharedMapDataProviders/AreaLabelDataProvider.lua):
+-- MapCanvasMixin's GetMapID, IsCanvasMouseFocusOrPinFocus (so a flight
+-- point or quest pin under the cursor keeps its zone shown),
+-- GetNormalizedCursorPosition and C_Map.GetMapInfoAtPosition.
+
+local mapHover = { asked = 0, answered = 0 }
+
+-- WorldMapFrame and its canvas container (the frame the map's own overlays
+-- anchor to), or nil while the map is not loaded or lacks either.
+function API.WorldMap()
+    local map = WorldMapFrame
+    if type(map) ~= "table" then
+        return nil
+    end
+    local canvas = call("WorldMapFrame:GetCanvasContainer", map.GetCanvasContainer, map)
+    if type(canvas) ~= "table" then
+        return nil
+    end
+    return map, canvas
+end
+
+-- The shown map's ID and the one under the cursor (nil off the canvas, or
+-- when the game names none there); nil, nil when the map gives no ID.
+function API.MapUnderCursor(map)
+    local shown = call("map:GetMapID", map.GetMapID, map)
+    if type(shown) ~= "number" then
+        return nil, nil
+    end
+    if not call("map:IsCanvasMouseFocusOrPinFocus", map.IsCanvasMouseFocusOrPinFocus, map) then
+        return shown, nil
+    end
+    local x, y = call("map:GetNormalizedCursorPosition", map.GetNormalizedCursorPosition, map)
+    if type(x) ~= "number" or type(y) ~= "number" then
+        return shown, nil
+    end
+    mapHover.asked = mapHover.asked + 1
+    local info = call("GetMapInfoAtPosition", C_Map and C_Map.GetMapInfoAtPosition, shown, x, y)
+    if type(info) == "table" and type(info.mapID) == "number" then
+        mapHover.answered = mapHover.answered + 1
+        return shown, info.mapID
+    end
+    return shown, nil
+end
+
+-- How often MapUnderCursor asked the game this session, and how often a map came back.
+function API.MapHoverCounts()
+    return mapHover.asked, mapHover.answered
+end
+
+-- A map's name in the client's language, or nil.
+function API.MapName(mapID)
+    local info = call("GetMapInfo", C_Map and C_Map.GetMapInfo, mapID)
+    return type(info) == "table" and str(info.name) or nil
+end
+
 -- ---- screen (from Goblin Flyout's API.lua) ----
 
 -- Physical pixels per UI unit at scale 1 (the UI is 768 units tall), so a

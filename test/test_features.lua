@@ -10,7 +10,7 @@ return function(h, loaded)
             h.eq(table.concat(keys, " "), "autoAccept autoTurnIn autoTrack zoneOnly hideAbove "
                 .. "sortFirst sortSecond sortThird autoSellJunk autoRepair autoTrain fastLoot "
                 .. "declineDuels declineGuild acceptGuild acceptFriends acceptSummons guildAlerts "
-                .. "cameraDistance cinematics")
+                .. "cameraDistance cinematics mapInfo")
         end)
         h.it("the three tracker sort slots are choices grouped under Quest tracker, starting at None", function()
             for _, key in ipairs({ "sortFirst", "sortSecond", "sortThird" }) do
@@ -48,6 +48,13 @@ return function(h, loaded)
             h.eq(f.max, 20)
             h.eq(f.step, 1)
             h.eq(f.default, 0)
+        end)
+        h.it("the map readout is the Map tab's one check, on by default", function()
+            local f = Features.ByKey("mapInfo")
+            h.eq(f.label, "Zone levels and fishing on the map")
+            h.eq(f.section, "Map")
+            h.eq(f.control, "check")
+            h.eq(f.default, true)
         end)
         h.it("Fast loot is the Loot tab's one check, on by default", function()
             local f = Features.ByKey("fastLoot")
@@ -146,13 +153,14 @@ return function(h, loaded)
                 names[#names + 1] = s.name
                 counts[#counts + 1] = #s.features
             end
-            h.eq(table.concat(names, " "), "Quests Vendors Loot Social Camera Cinematics")
-            h.eq(table.concat(counts, " "), "8 3 1 6 1 1")
+            h.eq(table.concat(names, " "), "Quests Vendors Loot Social Camera Cinematics Map")
+            h.eq(table.concat(counts, " "), "8 3 1 6 1 1 1")
         end)
         h.it("a section carries its note; the others have none", function()
             local sections = Features.Sections()
             h.eq(sections[1].note, "Off and all None = Blizzard's tracker (fully after /reload)")
             h.eq(sections[2].note, nil)
+            h.eq(sections[7].note, "Hover a zone on the world map; read it bottom right")
         end)
     end)
 end

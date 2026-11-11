@@ -5,9 +5,9 @@ local _, ns = ...
 -- behind guard(), so an error is one chat line, said once per label, never a
 -- raise. Core.Get / Core.Set are the one door to every setting; the camera's
 -- store is the game's own CVar.
-local API, Accept, Camera, Cinematics, Decline, Features, Hands, Loot, MinimapButton, Options, Trainer, TrackerSort,
-    Vendor, Window = ns.API, ns.Accept, ns.Camera, ns.Cinematics, ns.Decline, ns.Features, ns.Hands, ns.Loot,
-    ns.MinimapButton, ns.Options, ns.Trainer, ns.TrackerSort, ns.Vendor, ns.Window
+local API, Accept, Camera, Cinematics, Decline, Features, Hands, Loot, MapReadout, MinimapButton, Options, Trainer,
+    TrackerSort, Vendor, Window = ns.API, ns.Accept, ns.Camera, ns.Cinematics, ns.Decline, ns.Features, ns.Hands,
+    ns.Loot, ns.MapReadout, ns.MinimapButton, ns.Options, ns.Trainer, ns.TrackerSort, ns.Vendor, ns.Window
 local Core = {}
 ns.Core = Core
 
@@ -24,6 +24,7 @@ local function guard(label, fn, ...)
     end
     return ok
 end
+Core.Guard = guard  -- for MapReadout's OnUpdate
 
 -- Looked up lazily: SavedVariables load after this file runs, before any
 -- handler or command can ask. Checked and repaired once, then read as is.
@@ -449,6 +450,17 @@ function commands.probe()
         say(("Probe: tracker blocks (%s cached%s): %s."):format(tostring(cached),
             dirty and ", stuck dirty" or "", #parts > 0 and table.concat(parts, "; ") or "none"))
     end
+    local asked, answered = API.MapHoverCounts()
+    local hover
+    if asked == 0 then
+        hover = "not asked yet this session (open the world map and hover a zone)"
+    elseif answered == 0 then
+        hover = ("asked %d times and NO answers: C_Map.GetMapInfoAtPosition is silent on this build"):format(asked)
+    else
+        hover = ("asked %d times, %d answered with a map"):format(asked, answered)
+    end
+    say("Probe: map readout " .. (MapReadout.Built() and "built" or "NOT built (no world map)")
+        .. "; map hover " .. hover .. ".")
     local missing = API.MissingAcceptCalls()
     say("Probe: accept calls missing: " .. (#missing > 0 and table.concat(missing, ", ") or "none") .. ".")
     for name, message in pairs(API.Errors()) do
@@ -472,8 +484,17 @@ API.OnEvents({ "PLAYER_LOGIN" }, function()
             say("Couldn't add the options page; /gt still opens the window.")
         end
         MinimapButton.Create(Core)
+        MapReadout.Create(Core)
         applyTrackerSort()
     end)
+end)
+
+-- The world map loads at startup on this build; should it ever come later,
+-- the readout is built when it does.
+API.OnEvents({ "ADDON_LOADED" }, function(_, name)
+    if name == "Blizzard_WorldMap" then
+        guard("Map", MapReadout.Create, Core)
+    end
 end)
 
 SLASH_GOBLINTHINGS1 = "/gt"

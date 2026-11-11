@@ -20,6 +20,7 @@ local modules = {
     { "Options", "GoblinThings/Options.lua" },
     { "Window", "GoblinThings/Window.lua" },
     { "MinimapButton", "GoblinThings/MinimapButton.lua" },
+    { "MapReadout", "GoblinThings/MapReadout.lua" },
 }
 
 local ns = {}
@@ -49,6 +50,7 @@ local suites = {
     "test/test_api_accept.lua",
     "test/test_api_loot.lua",
     "test/test_api_trainer.lua",
+    "test/test_api_map.lua",
 }
 
 for i = 1, #suites do

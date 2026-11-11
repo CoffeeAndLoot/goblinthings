@@ -53,7 +53,9 @@ With the world map open, the bottom-right corner of the map shows, in the map's 
 Blizzard's area label (`Blizzard_SharedMapDataProviders/AreaLabelDataProvider.lua`) finds the zone
 under the cursor every frame with `map:IsCanvasMouseFocus()`, `map:GetNormalizedCursorPosition()`
 and `C_Map.GetMapInfoAtPosition(map:GetMapID(), x, y)`, treating an answer whose `mapID` differs
-from the shown map as the hovered child. The readout does the same:
+from the shown map as the hovered child. The readout does the same, with
+`map:IsCanvasMouseFocusOrPinFocus()` in place of the first so a flight point or quest pin under the
+cursor keeps its zone shown:
 
 - `MapInfo.lua` (pure, tested): the two tables, `Pick(shown, hovered)` and `Lines(mapID, name)`.
 - `API.MapUnderCursor(map)` makes those calls through `call()`, and counts how often it asked and how

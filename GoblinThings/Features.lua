@@ -50,10 +50,16 @@ Features.LIST = {
     { key = "cinematics", label = "Skip cinematics", section = "Cinematics", control = "choice",
         default = "repeats", choices = { "off", "repeats", "all" },
         labels = { off = "Off", repeats = "Repeats only", all = "All" } },
+    -- The world map's corner readout (spec 2026-11-10-map-zone-readout-design.md).
+    { key = "mapInfo", label = "Zone levels and fishing on the map", section = "Map", control = "check",
+        default = true },
 }
 
 -- A dim line at the foot of a section's tab.
-Features.NOTES = { Quests = "Off and all None = Blizzard's tracker (fully after /reload)" }
+Features.NOTES = {
+    Quests = "Off and all None = Blizzard's tracker (fully after /reload)",
+    Map = "Hover a zone on the world map; read it bottom right",
+}
 
 function Features.ByKey(key)
     for _, feature in ipairs(Features.LIST) do

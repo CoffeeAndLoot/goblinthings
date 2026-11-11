@@ -18,8 +18,10 @@ Decline.lua
 Accept.lua
 Loot.lua
 TrackerSort.lua
+MapInfo.lua
 Look.lua
 Options.lua
 Window.lua
 MinimapButton.lua
+MapReadout.lua
 Core.lua
