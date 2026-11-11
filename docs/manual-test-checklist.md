@@ -285,7 +285,17 @@ verified in source only.
 - [ ] Leave the XP tab, or close the window (the X, Escape, `/gt`): the sample `37` goes. Back on
       the XP tab it returns. Untick the switch: it goes and stays gone.
 - [ ] `/reload`: corner, offsets, faintness, size and font are as you left them.
-- [ ] The probe (settles how a kill is recognised; the count itself is not built yet). With the
-      switch **on**: `/reload`, then in this order kill a mob while rested, kill one unrested (or
-      note that you had no rested XP), turn in a quest, and discover a new area. Then `/gt probe`
-      and send Claude every "XP line" and the three "COMBATLOG_" lines exactly as printed.
+- [ ] The probe (yours to tick; your 2026-11-11 screenshot, in a party, showed it): the XP lines are
+      readable, the three "COMBATLOG_" format strings exist, and a kill reads "<mob> dies, you gain
+      N experience." with N the whole gain. Not in that screenshot: a quest turn-in or a discovery
+      (its twelve lines were all kills).
+- [ ] The count (a `/reload` is enough): with the switch on, the number appears after your first
+      kill and drops by about one a kill on like mobs.
+- [ ] Turn in a quest and discover an area: the number drops and `/gt probe`'s "kill sample(s)"
+      count does not rise. Send Claude those two "XP line" msg lines (never yet seen).
+- [ ] An unnamed gain ("You gain N experience.", seen once in a party) lowers the number and adds
+      no sample. Tell Claude if those are common enough that the count feels wrong.
+- [ ] `/reload`: the number is hidden until the next kill.
+- [ ] A level-up recomputes it against the new level. At max level, or with XP turned off, it
+      never shows.
+- [ ] Solo and rested, then unrested: the count jumps when rested runs out and settles within ten kills.

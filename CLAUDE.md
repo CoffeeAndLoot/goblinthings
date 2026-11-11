@@ -11,6 +11,8 @@ per switch. Docs:
 - `docs/superpowers/specs/2026-10-13-goblin-things-design.md`: the first design (its Window is
   superseded by the second's Tabs).
 - `docs/superpowers/specs/2026-10-13-tracker-sort-and-tabs-design.md`: the tracker sort and the tabs.
+- `docs/superpowers/specs/2026-11-11-kills-to-level-design.md`: the kills-to-level number (its plan is
+  `docs/superpowers/plans/2026-11-11-kills-to-level.md`).
 - `docs/manual-test-checklist.md`: every in-game check, ticked only by the owner.
 - `docs/art-spec.md`: the brief for regenerating the header banner.
 
@@ -60,13 +62,13 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
 
 ## How it fits together
 
-TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, Decline, Accept, Loot, TrackerSort, MapInfo, Look, Options, Window, MinimapButton, MapReadout, Core`.
+TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, Decline, Accept, Loot, TrackerSort, MapInfo, Kills, Look, Options, Window, MinimapButton, MapReadout, KillsReadout, Core`.
 
 1. `Features.LIST` is every switch as data: key, label, section (its tab), optional group (a
    sub-header), control (`check`, `slider`, `choice`) and default; `Features.NOTES` gives a tab its
    dim note. The window builds its tabs and rows from it; `Options.Init` stores every feature with a
    default. One with a `cvar` (the camera, Guild login alerts) has none: the game's own CVar is its store.
-2. `Hands` (quests), `Vendor`, `Trainer`, `Camera`, `Cinematics`, `Decline`, `Accept` and `Loot` are pure: each takes plain values
+2. `Hands` (quests), `Vendor`, `Trainer`, `Camera`, `Cinematics`, `Decline`, `Accept`, `Loot` and `Kills` are pure: each takes plain values
    (views built by `API.lua`) and the settings, and says what to do.
 3. `Core` routes events to them behind `guard(label, ...)` (one error per label per session) and has
    `API` carry out the result. `Core.Get(key)` / `Core.Set(key, value)` are the one door to every
@@ -82,6 +84,13 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
    bottom right each frame the map is shown, from `API.MapUnderCursor` (as Blizzard's area label
    finds the hovered zone). `C_Map.GetMapLevels` exists on this build and answers for no zone, so
    never switch to it without an in-game check; `/gt probe` counts the hover API's answers.
+7. Kills to level: `Kills` (pure) keeps the last ten kills' XP and divides the XP still needed by
+   their average; `KillsReadout` draws the one ghosted number `Core`'s `drawKills` hands it, on
+   `UIParent` at strata BACKGROUND with the mouse off. A kill is a `CHAT_MSG_COMBAT_XP_GAIN` line
+   matching the pattern `Kills.Pattern` builds from the game's own `COMBATLOG_XPGAIN_FIRSTPERSON`, so
+   it follows the client's language; its figure is the sample. Samples are session-only and taken
+   only while the switch is on. Quest, exploration and unnamed XP lower the count but are no sample.
+   The window's XP tab shows a sample `37` while it is open, to tune the look.
 
 ## Client facts (verified in game)
 
@@ -96,6 +105,13 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
   Stonetalon quests (1060, 1069, 1483) with `mapID` 1442, and `C_QuestLog.IsOnMap` counts them as
   on the map. Only an entry whose `mapID` is the player's map is really here (`TrackerSort.HereSet`).
   `GetMapForQuestPOIs()` and `GetBestMapForUnit("player")` both read 1413 there.
+- XP lines (2026-11-11, `/gt probe` in a party, the owner's screenshot): `CHAT_MSG_COMBAT_XP_GAIN`'s text is readable
+  (not secret). `COMBATLOG_XPGAIN_FIRSTPERSON` is "%s dies, you gain %d experience.",
+  `COMBATLOG_XPGAIN_FIRSTPERSON_UNNAMED` is "You gain %d experience." and
+  `COMBATLOG_XPGAIN_EXHAUSTION1` is "%s dies, you gain %d experience. (%s exp %s bonus)". A kill reads
+  "Witherbark Witch Doctor dies, you gain 64 experience. (+19 group bonus)": the figure is the whole
+  gain (the `UnitXP` change that follows is the same 64), bonus included. One gain arrived unnamed
+  ("You gain 64 experience. (+19 group bonus)"). Not yet seen: a quest turn-in's or a discovery's line.
 
 ## Deploy
 
