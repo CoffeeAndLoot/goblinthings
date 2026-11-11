@@ -636,6 +636,46 @@ function API.MapName(mapID)
     return type(info) == "table" and str(info.name) or nil
 end
 
+-- ---- experience (spec 2026-11-11-kills-to-level-design.md) ----
+
+-- The player's XP into this level and the level's size (UnitDocumentation.lua),
+-- or nil unless the game gives both.
+function API.PlayerXP()
+    local xp = call("UnitXP", UnitXP, "player")
+    local xpMax = call("UnitXPMax", UnitXPMax, "player")
+    if type(xp) ~= "number" or type(xpMax) ~= "number" then
+        return nil
+    end
+    return xp, xpMax
+end
+
+-- False at max level or with XP turned off, as Blizzard's ExpBar.lua asks
+-- before drawing rested XP; a call this client lacks does not disqualify.
+function API.CanEarnXP()
+    if call("IsXPUserDisabled", IsXPUserDisabled) then
+        return false
+    end
+    local rules = GameRulesUtil
+    if type(rules) == "table" and call("IsPlayerAtEffectiveMaxLevel", rules.IsPlayerAtEffectiveMaxLevel) then
+        return false
+    end
+    return true
+end
+
+-- text when it is a string the addon may read; nil for a secret value (asked
+-- first: SecureTypes.lua's issecretvalue) or anything else.
+function API.Readable(text)
+    if call("issecretvalue", issecretvalue, text) then
+        return nil
+    end
+    return str(text)
+end
+
+-- A global string by name (the game's own format strings), or nil.
+function API.GlobalText(name)
+    return str(_G[name])
+end
+
 -- ---- screen (from Goblin Flyout's API.lua) ----
 
 -- Physical pixels per UI unit at scale 1 (the UI is 768 units tall), so a
