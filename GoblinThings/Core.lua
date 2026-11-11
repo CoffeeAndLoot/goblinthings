@@ -431,6 +431,7 @@ end)
 -- open fact): the XP lines the game sends and each change in XP, in the order
 -- they came, kept only while the switch is on.
 local xpLog, lastXP = {}, nil
+local killPattern, killIndex  -- from the game's format string, built at the first XP line
 
 local function logXP(event, text)
     if db().features.killsLeft ~= true then
@@ -439,6 +440,11 @@ local function logXP(event, text)
     if event == "CHAT_MSG_COMBAT_XP_GAIN" then
         local readable = API.Readable(text)
         Kills.Keep(xpLog, readable and ('msg "' .. readable .. '"') or "msg SECRET", Kills.LOG)
+        -- A line in the game's own kill format is a kill, and its figure the sample.
+        if not killPattern then
+            killPattern, killIndex = Kills.Pattern(API.GlobalText(Kills.FORMAT))
+        end
+        Kills.Add(samples, Kills.Sample(readable, killPattern, killIndex))
         return
     end
     local xp, xpMax = API.PlayerXP()
@@ -464,6 +470,7 @@ end)
 -- ChatInfoDocumentation.lua's ChatMsgCombatXpGain; its first payload is the text.
 API.OnEvents({ "CHAT_MSG_COMBAT_XP_GAIN" }, function(event, text)
     guard("Kills", logXP, event, text)
+    redrawKills()
 end)
 
 -- ---- /gt ----

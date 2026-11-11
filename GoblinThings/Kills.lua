@@ -9,6 +9,9 @@ ns.Kills = Kills
 Kills.MAX = 10     -- kills averaged
 Kills.SAMPLE = 37  -- shown while tuning the look, before there is an estimate
 Kills.LOG = 12     -- XP lines kept for /gt probe
+-- The global string the game formats a kill's XP line with (seen in game
+-- 2026-11-11: "%s dies, you gain %d experience.").
+Kills.FORMAT = "COMBATLOG_XPGAIN_FIRSTPERSON"
 
 -- Blizzard's own faces, by the Font row's choices (the files this build's
 -- source names: Fonts.xml, and GlueFonts.xml for Arial Narrow).
@@ -48,6 +51,47 @@ function Kills.Left(xp, xpMax, samples)
         total = total + sample
     end
     return math.ceil((xpMax - xp) / (total / #samples))
+end
+
+-- A Lua pattern for the game's kill-line format (COMBATLOG_XPGAIN_FIRSTPERSON,
+-- "%s dies, you gain %d experience." in English), and which capture is the
+-- XP. Anchored at the start only: the rested and group lines are this one
+-- with a bonus after it. Any language's word order (%2$d) is followed. nil
+-- for no format or one with no number.
+function Kills.Pattern(format)
+    if type(format) ~= "string" then
+        return nil
+    end
+    local out, captures, index, i = { "^" }, 0, nil, 1
+    while i <= #format do
+        local kind, after = format:match("^%%%d*%$?([sd])()", i)
+        if kind then
+            captures = captures + 1
+            if kind == "d" then
+                index = index or captures
+                out[#out + 1] = "(%d+)"
+            else
+                out[#out + 1] = "(.-)"
+            end
+            i = after
+        else
+            out[#out + 1] = format:sub(i, i):gsub("%p", "%%%0")
+            i = i + 1
+        end
+    end
+    if not index then
+        return nil
+    end
+    return table.concat(out), index
+end
+
+-- The XP of a kill line, or nil for any other line.
+function Kills.Sample(text, pattern, index)
+    if type(text) ~= "string" or type(pattern) ~= "string" then
+        return nil
+    end
+    local captures = { text:match(pattern) }
+    return tonumber(captures[index])
 end
 
 local CORNERS = {
