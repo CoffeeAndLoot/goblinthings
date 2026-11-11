@@ -8,6 +8,7 @@ ns.Kills = Kills
 
 Kills.MAX = 10     -- kills averaged
 Kills.SAMPLE = 37  -- shown while tuning the look, before there is an estimate
+Kills.LOG = 12     -- XP lines kept for /gt probe
 
 -- Blizzard's own faces, by the Font row's choices (the files this build's
 -- source names: Fonts.xml, and GlueFonts.xml for Arial Narrow).

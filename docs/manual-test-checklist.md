@@ -285,3 +285,7 @@ verified in source only.
 - [ ] Leave the XP tab, or close the window (the X, Escape, `/gt`): the sample `37` goes. Back on
       the XP tab it returns. Untick the switch: it goes and stays gone.
 - [ ] `/reload`: corner, offsets, faintness, size and font are as you left them.
+- [ ] The probe (settles how a kill is recognised; the count itself is not built yet). With the
+      switch **on**: `/reload`, then in this order kill a mob while rested, kill one unrested (or
+      note that you had no rested XP), turn in a quest, and discover a new area. Then `/gt probe`
+      and send Claude every "XP line" and the three "COMBATLOG_" lines exactly as printed.

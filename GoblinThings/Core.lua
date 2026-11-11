@@ -427,9 +427,43 @@ API.OnEvents({ "ZONE_CHANGED", "ZONE_CHANGED_NEW_AREA", "ZONE_CHANGED_INDOORS", 
     end
 end)
 
+-- For /gt probe, to settle what a kill looks like on this build (the spec's
+-- open fact): the XP lines the game sends and each change in XP, in the order
+-- they came, kept only while the switch is on.
+local xpLog, lastXP = {}, nil
+
+local function logXP(event, text)
+    if db().features.killsLeft ~= true then
+        return
+    end
+    if event == "CHAT_MSG_COMBAT_XP_GAIN" then
+        local readable = API.Readable(text)
+        Kills.Keep(xpLog, readable and ('msg "' .. readable .. '"') or "msg SECRET", Kills.LOG)
+        return
+    end
+    local xp, xpMax = API.PlayerXP()
+    if not xp then
+        return
+    end
+    if event == "PLAYER_XP_UPDATE" then
+        if lastXP and xp >= lastXP then
+            Kills.Keep(xpLog, ("xp +%d (%d to %d of %d)"):format(xp - lastXP, lastXP, xp, xpMax), Kills.LOG)
+        else
+            Kills.Keep(xpLog, ("xp %d of %d"):format(xp, xpMax), Kills.LOG)
+        end
+    end
+    lastXP = xp
+end
+
 -- The events Blizzard's own XP bar redraws on (ExpBar.lua), and a loading screen.
-API.OnEvents({ "PLAYER_XP_UPDATE", "PLAYER_LEVEL_UP", "PLAYER_ENTERING_WORLD" }, function()
+API.OnEvents({ "PLAYER_XP_UPDATE", "PLAYER_LEVEL_UP", "PLAYER_ENTERING_WORLD" }, function(event)
+    guard("Kills", logXP, event)
     redrawKills()
+end)
+
+-- ChatInfoDocumentation.lua's ChatMsgCombatXpGain; its first payload is the text.
+API.OnEvents({ "CHAT_MSG_COMBAT_XP_GAIN" }, function(event, text)
+    guard("Kills", logXP, event, text)
 end)
 
 -- ---- /gt ----
@@ -501,6 +535,20 @@ function commands.probe()
     end
     say("Probe: map readout " .. (MapReadout.Built() and "built" or "NOT built (no world map)")
         .. "; map hover " .. hover .. ".")
+    say("Probe: kills readout " .. (KillsReadout.Built() and "built" or "not built yet") .. "; "
+        .. #samples .. " kill sample(s).")
+    if #xpLog == 0 then
+        say("Probe: no XP lines yet (tick Kills to level, then kill something).")
+    end
+    for i, line in ipairs(xpLog) do
+        say(("Probe: XP line %d: %s"):format(i, line))
+    end
+    -- Candidates being checked, not facts: the names Classic gave these formats.
+    for _, name in ipairs({ "COMBATLOG_XPGAIN_FIRSTPERSON", "COMBATLOG_XPGAIN_FIRSTPERSON_UNNAMED",
+        "COMBATLOG_XPGAIN_EXHAUSTION1" }) do
+        local value = API.GlobalText(name)
+        say("Probe: " .. name .. " = " .. (value and ('"' .. value .. '"') or "missing"))
+    end
     local missing = API.MissingAcceptCalls()
     say("Probe: accept calls missing: " .. (#missing > 0 and table.concat(missing, ", ") or "none") .. ".")
     for name, message in pairs(API.Errors()) do
