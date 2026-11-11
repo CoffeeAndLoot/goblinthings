@@ -22,6 +22,7 @@ local modules = {
     { "Window", "GoblinThings/Window.lua" },
     { "MinimapButton", "GoblinThings/MinimapButton.lua" },
     { "MapReadout", "GoblinThings/MapReadout.lua" },
+    { "KillsReadout", "GoblinThings/KillsReadout.lua" },
 }
 
 local ns = {}

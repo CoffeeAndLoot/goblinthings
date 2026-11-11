@@ -25,4 +25,5 @@ Options.lua
 Window.lua
 MinimapButton.lua
 MapReadout.lua
+KillsReadout.lua
 Core.lua

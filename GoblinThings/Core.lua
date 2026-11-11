@@ -8,6 +8,7 @@ local _, ns = ...
 local API, Accept, Camera, Cinematics, Decline, Features, Hands, Loot, MapReadout, MinimapButton, Options, Trainer,
     TrackerSort, Vendor, Window = ns.API, ns.Accept, ns.Camera, ns.Cinematics, ns.Decline, ns.Features, ns.Hands,
     ns.Loot, ns.MapReadout, ns.MinimapButton, ns.Options, ns.Trainer, ns.TrackerSort, ns.Vendor, ns.Window
+local Kills, KillsReadout = ns.Kills, ns.KillsReadout
 local Core = {}
 ns.Core = Core
 
@@ -81,6 +82,36 @@ local function applyAutoTrack(switched)
     end
 end
 
+-- ---- kills to level (spec 2026-11-11-kills-to-level-design.md) ----
+
+local samples = {}  -- the last kills' XP, this session only (Kills.Add)
+
+-- The count while there is one, a sample while the XP tab is open to tune
+-- the look, else nothing. Off, at max level or with no answer: nothing.
+local function drawKills()
+    local features = db().features
+    local left, preview
+    if features.killsLeft == true then
+        if API.CanEarnXP() then
+            local xp, xpMax = API.PlayerXP()
+            left = Kills.Left(xp, xpMax, samples)
+        end
+        preview = Window.Shown() and db().tab == "XP"
+    end
+    KillsReadout.Draw(Kills.Text(left, preview), {
+        corner = features.killsCorner, x = features.killsX, y = features.killsY,
+        alpha = features.killsAlpha, size = features.killsSize, font = features.killsFont,
+    })
+end
+
+local function redrawKills()
+    guard("Kills", drawKills)
+end
+
+function Core.WindowHidden()
+    redrawKills()
+end
+
 function Core.Get(key)
     if key == Camera.KEY then
         return Camera.Clamp(API.GetCVar(Camera.CVAR))
@@ -114,6 +145,8 @@ function Core.Set(key, value)
                 applyTrackerSort()
             elseif key == TrackerSort.AUTO_TRACK then
                 applyAutoTrack(true)
+            elseif feature.section == "XP" then
+                drawKills()
             end
         end
         Window.Refresh(Core)
@@ -129,6 +162,7 @@ function Core.SetTab(name)
         if Options.IsTab(name) then
             db().tab = name
             Window.Refresh(Core)
+            drawKills()
         end
     end)
 end
@@ -165,6 +199,7 @@ end
 
 function Core.ToggleWindow()
     guard("Window", Window.Toggle, Core)
+    redrawKills()
 end
 
 -- ---- quests ----
@@ -390,6 +425,11 @@ API.OnEvents({ "ZONE_CHANGED", "ZONE_CHANGED_NEW_AREA", "ZONE_CHANGED_INDOORS", 
     if trackerInstalled then
         API.Later(API.RedrawTracker)
     end
+end)
+
+-- The events Blizzard's own XP bar redraws on (ExpBar.lua), and a loading screen.
+API.OnEvents({ "PLAYER_XP_UPDATE", "PLAYER_LEVEL_UP", "PLAYER_ENTERING_WORLD" }, function()
+    redrawKills()
 end)
 
 -- ---- /gt ----

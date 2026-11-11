@@ -258,3 +258,30 @@ verified in source only.
       rate match the line (Classic values, unverified on Forever)? Tell Claude what differs.
 - [ ] Level ranges: compare a few zones with the game's own idea (quest levels, mob levels); the
       ranges are Classic's, copied from GoblinPS.
+
+## Kills to level
+
+- [ ] **Full client restart** first (Kills.lua and KillsReadout.lua are new in the TOC). No Lua
+      error on login; nothing new on screen (the switch is off by default).
+- [ ] The window is 684 wide and shows eight tabs, XP last; every tab name is fully visible
+      ("Cinematics"), the X still clears the banner, and the window fits on screen.
+- [ ] The XP tab: a "Kills to level" check, Corner (Top left | Top right | Bottom left | Bottom
+      right, every word visible), Offset across, Offset down / up, Faintness (reads "30%"), Size,
+      Font (Friz | Arial | Morpheus), and the dim note "Kills like your last ten; hidden until your
+      first kill". Nothing overlaps; "100%" fits beside the Faintness slider.
+- [ ] Tick the switch on the XP tab: a ghosted `37` appears in the top left, with no outline, no
+      frame and no label.
+- [ ] Each Corner button moves it to that corner at once; on the right-hand corners it hugs the
+      right edge.
+- [ ] Offset across and Offset down / up each push it in from the chosen corner as you drag; at 0
+      and 0 it sits in the very corner.
+- [ ] Faintness: 5% is barely there, 100% is solid white. If the name reads backwards for a slider
+      where right is easier to see, tell Claude.
+- [ ] Size changes it as you drag, 8 to 48.
+- [ ] Friz, Arial and Morpheus each draw a visibly different face. A face that will not load must
+      still show the number (in Friz): tell Claude which one, if any, looks the same as Friz.
+- [ ] The mouse clicks through it: with it over the player portrait, a click still targets you.
+- [ ] It sits under the character pane and the bags, never over them; Alt-Z hides it with the UI.
+- [ ] Leave the XP tab, or close the window (the X, Escape, `/gt`): the sample `37` goes. Back on
+      the XP tab it returns. Untick the switch: it goes and stays gone.
+- [ ] `/reload`: corner, offsets, faintness, size and font are as you left them.

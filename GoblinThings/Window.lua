@@ -259,7 +259,14 @@ local function make(core)
         frame:SetPoint(Window.HOME[1], UIParent, Window.HOME[2], Window.HOME[3], Window.HOME[4])
     end
     frame:Hide()
+    -- However it closes (the button, Escape, /gt), core hears: the kills
+    -- readout's tuning sample goes with the window.
+    frame:SetScript("OnHide", function() core.WindowHidden() end)
     table.insert(UISpecialFrames, Window.NAME)  -- Escape closes it
+end
+
+function Window.Shown()
+    return frame ~= nil and frame:IsShown()
 end
 
 -- Shows the open tab's page with its tab gold, and draws every control from
