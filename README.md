@@ -25,6 +25,7 @@ and forget them.
 | | Guild login alerts | Blizzard's own Guild Member Alert (the ding when a guildie logs in), here for convenience | On |
 | Camera | Camera distance | Zooms the camera out to 4.0, past Blizzard's 2.0 | Untouched |
 | Cinematics | Skip cinematics | Off, repeats only, or all | Repeats only |
+| Map | Zone levels and fishing on the map | On the world map, hover a zone (or open its map) to see its level range and the fishing skill it needs, bottom right | On |
 
 Hold **Shift** while talking to an NPC, a vendor or a trainer to skip everything that visit. Hold it on a
 corpse to get the normal loot window. Everything else is one click in the window.

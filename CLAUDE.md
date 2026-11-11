@@ -60,7 +60,7 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
 
 ## How it fits together
 
-TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, Decline, Accept, Loot, TrackerSort, Look, Options, Window, MinimapButton, Core`.
+TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, Decline, Accept, Loot, TrackerSort, MapInfo, Look, Options, Window, MinimapButton, MapReadout, Core`.
 
 1. `Features.LIST` is every switch as data: key, label, section (its tab), optional group (a
    sub-header), control (`check`, `slider`, `choice`) and default; `Features.NOTES` gives a tab its
@@ -76,6 +76,12 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
    `API.SetTrackerSort` once a tier is set, Only this zone is on or Hide quests above me is set (it also filters); all None leaves it in as a pass-through until /reload
    (XML `mixin=` copies methods onto the frame, so setting the field to nil would delete the
    tracker's own method). A player who never sorts never has the tracker touched.
+6. The world map readout (`docs/superpowers/specs/2026-11-10-map-zone-readout-design.md`):
+   `MapInfo` (pure) holds hand-written level ranges (copied from GoblinPS) and Classic fishing
+   skills by UiMap ID, and picks the map to describe; `MapReadout` draws it at the map canvas's
+   bottom right each frame the map is shown, from `API.MapUnderCursor` (as Blizzard's area label
+   finds the hovered zone). `C_Map.GetMapLevels` exists on this build and answers for no zone, so
+   never switch to it without an in-game check; `/gt probe` counts the hover API's answers.
 
 ## Client facts (verified in game)
 

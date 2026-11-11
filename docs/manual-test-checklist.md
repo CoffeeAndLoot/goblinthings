@@ -28,12 +28,12 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [x] Click, `/gt` and `/gt options` open the window; Escape or the X closes it.
 - [ ] Esc > Options > AddOns lists "Goblin Things" with a gold "Open Goblin Things" button that opens the window.
 - [ ] **Full client restart** first (TrackerSort.lua is new in the TOC).
-- [x] The window shows six tabs (Quests, Vendors, Loot, Social, Camera, Cinematics); the open one is gold.
+- [ ] The window shows seven tabs (Quests, Vendors, Loot, Social, Camera, Cinematics, Map); the open one is gold.
       Each tab shows only its rows; the window keeps the same height on every tab; the "Show
       minimap button" check and "Hold Shift at an NPC or vendor to skip." stay under every tab.
-- [x] Wider and taller (520 wide, rows 40 high, 2026-10-15): every tab name and every row label is
-      fully visible, no "..." ("Cinematics", "Accept invites from friends"); rows are not cramped
-      and the window still fits on screen.
+- [ ] 600 wide for seven tabs (was 520 for six, seen 2026-10-15), rows 40 high: every tab name and
+      every row label is fully visible, no "..." ("Cinematics", "Accept invites from friends",
+      "Zone levels and fishing on the map"); the X still clears the banner; the window fits on screen.
 - [ ] Close and reopen, and `/reload`: the window opens on the tab last used.
 - [x] The Quests tab: three checks (auto accept, auto turn-in, auto-track), a gold "Quest tracker" sub-header, an "Only this zone" check,
       a "Hide quests above me" slider reading "Off", rows 1st / 2nd / 3rd each reading None | Level | Finished | This zone with every word fully
@@ -174,7 +174,7 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 
 ## Loot
 
-- [x] After a **full client restart** (Loot.lua is a new file): six tabs, every name fully visible
+- [x] After a **full client restart** (Loot.lua is a new file): every tab name fully visible
       ("Cinematics" too); the Loot tab shows "Fast loot", on.
 - [ ] Blizzard's Auto Loot on, Fast loot on: kill and loot a mob with several drops and coin; all of
       it lands at once, the loot window at most flickers. Same for a chest, a herb or a fishing catch.
@@ -228,3 +228,33 @@ Mark each with the build and date when walked; `[-]` is skipped by choice, with 
 - [ ] Mode All: an intro you have never seen is skipped.
 - [ ] Mode Off: the intro plays.
 - [ ] A flight path or any vehicle ride plays normally in every mode (it is not a cinematic).
+
+## World map zone readout
+
+Spec `docs/superpowers/specs/2026-11-10-map-zone-readout-design.md`. Built 2026-11-10 on 1.60.1.70862,
+verified in source only.
+
+- [ ] **Full client restart** first (MapInfo.lua and MapReadout.lua are new in the TOC). No Lua
+      error on login; the Map tab shows one check, "Zone levels and fishing on the map", ticked, and
+      the dim note "Hover a zone on the world map; read it bottom right".
+- [ ] Open the world map on Kalimdor and hover The Barrens: at the map's bottom right, three
+      right-aligned lines in outlined map lettering: "The Barrens" (pale gold), "Levels 10-25" and
+      "Fishing 1 (no getaways at 75)" (white). Move to Ashenvale: it changes to "Levels 18-30",
+      "Fishing 55 (no getaways at 150)". Over the sea, or with the cursor off the map: nothing.
+- [ ] Hovering a flight point or quest pin inside a zone keeps that zone's lines up.
+- [ ] The lines clear the quest-log toggle in the corner (if this build shows one) and every map
+      control; nothing overlaps; long names ("Stranglethorn Vale", "Fishing 330 (no getaways at
+      425)") are not cut. Readable on the parchment at your UI scale (tell Claude the sizes to change).
+- [ ] Eastern Kingdoms: Badlands shows its name and "Levels 35-45" only (no fishing data);
+      Riverglades shows "Levels 35-45" only.
+- [ ] Open a zone's own map (Durotar): its lines show without hovering. Hover Orgrimmar on it:
+      "Orgrimmar" and its fishing line, no levels. Kalimdor's own continent view with the cursor
+      away: nothing. Shen'dralas: nothing.
+- [ ] Untick the switch with the map open: the lines vanish; tick it: they return on the next hover.
+- [ ] `/gt probe` after hovering a few zones: "map readout built; map hover asked N times, M
+      answered with a map" with M above 0. If it says **NO answers**, the hover API is silent on this
+      build: tell Claude.
+- [ ] Forever's fishing: in one zone you know, does the game's "need more skill" message or catch
+      rate match the line (Classic values, unverified on Forever)? Tell Claude what differs.
+- [ ] Level ranges: compare a few zones with the game's own idea (quest levels, mob levels); the
+      ranges are Classic's, copied from GoblinPS.
