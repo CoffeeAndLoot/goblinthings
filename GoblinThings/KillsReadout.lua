@@ -16,6 +16,9 @@ local function build()
     frame:EnableMouse(false)
     frame:SetSize(1, 1)
     label = ns.Look.Text(frame, ns.Look.WORDS, 18, "ghost")
+    -- Look.Text's font object carries a black drop shadow (SystemFont_Shadow_Small);
+    -- like an outline, it would defeat the ghosting.
+    label:SetShadowOffset(0, 0)
 end
 
 -- text in the look s = { corner, x, y, alpha, size, font } (the kills*
@@ -31,7 +34,10 @@ function KillsReadout.Draw(text, s)
         build()
     end
     local Kills = ns.Kills
-    if not label:SetFont(Kills.Font(s.font), s.size, "") then
+    -- SetFont answers false for a face it cannot load; should this build raise
+    -- instead, the pcall still lands on Friz.
+    local ok, set = pcall(label.SetFont, label, Kills.Font(s.font), s.size, "")
+    if not (ok and set) then
         label:SetFont(ns.Look.WORDS, s.size, "")  -- a face that will not load costs looks, never the number
     end
     local point, dx, dy = Kills.Anchor(s.corner, s.x, s.y)

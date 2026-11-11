@@ -146,7 +146,7 @@ function Core.Set(key, value)
             elseif key == TrackerSort.AUTO_TRACK then
                 applyAutoTrack(true)
             elseif feature.section == "XP" then
-                drawKills()
+                redrawKills()  -- its own guard: a draw error must not skip the Refresh below
             end
         end
         Window.Refresh(Core)
@@ -162,7 +162,7 @@ function Core.SetTab(name)
         if Options.IsTab(name) then
             db().tab = name
             Window.Refresh(Core)
-            drawKills()
+            redrawKills()
         end
     end)
 end

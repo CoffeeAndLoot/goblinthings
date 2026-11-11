@@ -280,6 +280,7 @@ verified in source only.
 - [ ] Size changes it as you drag, 8 to 48.
 - [ ] Friz, Arial and Morpheus each draw a visibly different face. A face that will not load must
       still show the number (in Friz): tell Claude which one, if any, looks the same as Friz.
+- [ ] The number has no drop shadow: plain ghosted white, no dark edge down and to the right.
 - [ ] The mouse clicks through it: with it over the player portrait, a click still targets you.
 - [ ] It sits under the character pane and the bags, never over them; Alt-Z hides it with the UI.
 - [ ] Leave the XP tab, or close the window (the X, Escape, `/gt`): the sample `37` goes. Back on
