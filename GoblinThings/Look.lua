@@ -24,6 +24,7 @@ Look.COLOUR = {
     -- AREA_NAME_FONT_COLOR (1.0, 0.9294, 0.7607) and AREA_DESCRIPTION_FONT_COLOR (white).
     areaName = hex(0xFF, 0xED, 0xC2),
     areaText = hex(0xFF, 0xFF, 0xFF),
+    ghost = hex(0xFF, 0xFF, 0xFF),     -- the kills-to-level number; its faintness is alpha (KillsReadout.lua)
 }
 Look.WORDS = "Fonts\\FRIZQT__.TTF"
 Look.BORDER = 1

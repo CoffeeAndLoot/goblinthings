@@ -25,6 +25,15 @@ return function(h, loaded)
             h.eq(db.features.cinematics, "all")
             h.eq(db.features.autoRepair, true)
         end)
+        h.it("a kills setting the window could not have written falls back to its default", function()
+            local f = Options.Init({ features = { killsCorner = "middle", killsSize = 500, killsFont = "skurri",
+                killsAlpha = 0, killsX = 40 } }).features
+            h.eq(f.killsCorner, "topLeft")
+            h.eq(f.killsSize, 18)
+            h.eq(f.killsFont, "friz")
+            h.eq(f.killsAlpha, 30)
+            h.eq(f.killsX, 40)
+        end)
         h.it("junk values reset to defaults; unknown and camera keys are dropped", function()
             local db = Options.Init({ features = { autoAccept = "yes", cinematics = "sometimes",
                 cameraDistance = 3, autoDance = true } })

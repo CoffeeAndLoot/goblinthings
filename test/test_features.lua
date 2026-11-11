@@ -10,7 +10,16 @@ return function(h, loaded)
             h.eq(table.concat(keys, " "), "autoAccept autoTurnIn autoTrack zoneOnly hideAbove "
                 .. "sortFirst sortSecond sortThird autoSellJunk autoRepair autoTrain fastLoot "
                 .. "declineDuels declineGuild acceptGuild acceptFriends acceptSummons guildAlerts "
-                .. "cameraDistance cinematics mapInfo")
+                .. "cameraDistance cinematics mapInfo "
+                .. "killsLeft killsCorner killsX killsY killsAlpha killsSize killsFont")
+        end)
+        h.it("Kills to level is off by default, top left, 30% and Friz", function()
+            h.eq(Features.ByKey("killsLeft").default, false)
+            h.eq(Features.ByKey("killsCorner").default, "topLeft")
+            h.eq(Features.ByKey("killsAlpha").default, 30)
+            h.eq(Features.ByKey("killsFont").default, "friz")
+            h.eq(Features.SliderText(Features.ByKey("killsAlpha"), 30), "30%")
+            h.eq(Features.SliderText(Features.ByKey("killsX"), 0), "0")
         end)
         h.it("the three tracker sort slots are choices grouped under Quest tracker, starting at None", function()
             for _, key in ipairs({ "sortFirst", "sortSecond", "sortThird" }) do
@@ -153,8 +162,8 @@ return function(h, loaded)
                 names[#names + 1] = s.name
                 counts[#counts + 1] = #s.features
             end
-            h.eq(table.concat(names, " "), "Quests Vendors Loot Social Camera Cinematics Map")
-            h.eq(table.concat(counts, " "), "8 3 1 6 1 1 1")
+            h.eq(table.concat(names, " "), "Quests Vendors Loot Social Camera Cinematics Map XP")
+            h.eq(table.concat(counts, " "), "8 3 1 6 1 1 1 7")
         end)
         h.it("a section carries its note; the others have none", function()
             local sections = Features.Sections()

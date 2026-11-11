@@ -53,10 +53,29 @@ Features.LIST = {
     -- The world map's corner readout (spec 2026-11-10-map-zone-readout-design.md).
     { key = "mapInfo", label = "Zone levels and fishing on the map", section = "Map", control = "check",
         default = true },
+    -- Kills left to level, ghosted in a screen corner (spec 2026-11-11-kills-to-level-design.md).
+    { key = "killsLeft", label = "Kills to level", section = "XP", control = "check", default = false },
+    { key = "killsCorner", label = "Corner", section = "XP", control = "choice", default = "topLeft",
+        choices = { "topLeft", "topRight", "bottomLeft", "bottomRight" },
+        labels = { topLeft = "Top left", topRight = "Top right", bottomLeft = "Bottom left",
+            bottomRight = "Bottom right" } },
+    { key = "killsX", label = "Offset across", section = "XP", control = "slider",
+        min = 0, max = 400, step = 5, default = 20, format = "%d" },
+    { key = "killsY", label = "Offset down / up", section = "XP", control = "slider",
+        min = 0, max = 400, step = 5, default = 20, format = "%d" },
+    -- Stored as opacity: 30 is 30% visible.
+    { key = "killsAlpha", label = "Faintness", section = "XP", control = "slider",
+        min = 5, max = 100, step = 5, default = 30, format = "%d%%" },
+    { key = "killsSize", label = "Size", section = "XP", control = "slider",
+        min = 8, max = 48, step = 1, default = 18, format = "%d" },
+    { key = "killsFont", label = "Font", section = "XP", control = "choice", default = "friz",
+        choices = { "friz", "arial", "morpheus" },
+        labels = { friz = "Friz", arial = "Arial", morpheus = "Morpheus" } },
 }
 
 -- A dim line at the foot of a section's tab.
 Features.NOTES = {
+    XP = "Kills like your last ten; hidden until your first kill",
     Quests = "Off and all None = Blizzard's tracker (fully after /reload)",
     Map = "Hover a zone on the world map; read it bottom right",
 }
