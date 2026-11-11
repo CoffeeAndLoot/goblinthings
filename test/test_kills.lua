@@ -1,0 +1,73 @@
+return function(h, loaded)
+    local Kills = loaded.ns.Kills
+
+    h.describe("Kills.Add", function()
+        h.it("keeps the last ten", function()
+            local s = {}
+            for i = 1, 12 do
+                Kills.Add(s, i)
+            end
+            h.eq(#s, 10)
+            h.eq(s[1], 3)
+            h.eq(s[10], 12)
+        end)
+        h.it("ignores what is not XP", function()
+            local s = { 50 }
+            Kills.Add(s, 0)
+            Kills.Add(s, -5)
+            Kills.Add(s, "80")
+            Kills.Add(s, nil)
+            Kills.Add(s, 0 / 0)
+            h.eq(#s, 1)
+        end)
+    end)
+
+    h.describe("Kills.Left", function()
+        h.it("is XP still needed over the average kill, rounded up", function()
+            h.eq(Kills.Left(1000, 2000, { 100, 120, 80 }), 10)
+            h.eq(Kills.Left(1000, 2000, { 300 }), 4)
+            h.eq(Kills.Left(1999, 2000, { 500 }), 1)
+        end)
+        h.it("is nothing without a kill or a sane XP reading", function()
+            h.eq(Kills.Left(1000, 2000, {}), nil)
+            h.eq(Kills.Left(nil, 2000, { 100 }), nil)
+            h.eq(Kills.Left(1000, nil, { 100 }), nil)
+            h.eq(Kills.Left(0, 0, { 100 }), nil)
+            h.eq(Kills.Left(2000, 2000, { 100 }), nil)
+            h.eq(Kills.Left(2500, 2000, { 100 }), nil)
+            h.eq(Kills.Left(-1, 2000, { 100 }), nil)
+        end)
+    end)
+
+    h.describe("Kills.Anchor", function()
+        h.it("pushes in from each corner", function()
+            local function a(corner)
+                return table.concat({ Kills.Anchor(corner, 20, 30) }, " ")
+            end
+            h.eq(a("topLeft"), "TOPLEFT 20 -30")
+            h.eq(a("topRight"), "TOPRIGHT -20 -30")
+            h.eq(a("bottomLeft"), "BOTTOMLEFT 20 30")
+            h.eq(a("bottomRight"), "BOTTOMRIGHT -20 30")
+            h.eq(a("middle"), "TOPLEFT 20 -30")
+        end)
+    end)
+
+    h.describe("Kills.Font and Kills.Text", function()
+        h.it("an unknown face is Friz", function()
+            h.eq(Kills.Font("morpheus"), "Fonts\\MORPHEUS.ttf")
+            h.eq(Kills.Font("skurri"), "Fonts\\FRIZQT__.TTF")
+            h.eq(Kills.Font(nil), "Fonts\\FRIZQT__.TTF")
+        end)
+        h.it("the count, a sample while tuning, or nothing", function()
+            h.eq(Kills.Text(12, false), "12")
+            h.eq(Kills.Text(12, true), "12")
+            h.eq(Kills.Text(nil, true), "37")
+            h.eq(Kills.Text(nil, false), nil)
+        end)
+        h.it("every font choice in Features has a file", function()
+            for _, key in ipairs(loaded.ns.Features.ByKey("killsFont").choices) do
+                h.truthy(Kills.FONTS[key], key)
+            end
+        end)
+    end)
+end

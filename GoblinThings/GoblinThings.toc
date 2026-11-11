@@ -19,6 +19,7 @@ Accept.lua
 Loot.lua
 TrackerSort.lua
 MapInfo.lua
+Kills.lua
 Look.lua
 Options.lua
 Window.lua
