@@ -48,7 +48,10 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
   footnoted in the list). Both are read out of the pages in a browser: Wowhead answers a script with
   403, and after about 30 pages asks for human verification whatever the pace, which only the owner
   may pass. A node name the script does not know stops it: add it to `HERBS`, `ORE` or `QUEST_OBJECTS`.
-  Zone area IDs are in the script's `ZONES` (Mount Hyjal 616, Riverglades 16591). Never hand-edit
+  Zone area IDs are in the script's `ZONES` (Forever's own: Mount Hyjal 616, Riverglades 16591,
+  Zephras Isle 16593, Shen'dralas 16651). A zone with a catch list and no known fishing skill
+  (Riverglades, Zephras Isle) shows a bare "Fishing" line; one known only by its lists
+  (Shen'dralas) shows only while a list's switch is on. Never hand-edit
   `MapData.lua`; the script's `PENDING` set (empty since 2026-11-14) names any zone not read yet.
 - Adding a file to the TOC needs a full client restart, not `/reload`. Say so.
 - Calendar versions (`2026.10.13`, `.2` for a second that day), written only in the TOC.

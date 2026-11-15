@@ -2,6 +2,7 @@ return function(h, loaded)
     local MapInfo = loaded.ns.MapInfo
 
     local KALIMDOR, BARRENS, DUROTAR, ORGRIMMAR, BADLANDS, SHENDRALAS = 1414, 1413, 1411, 1454, 1418, 2652
+    local RIVERGLADES, ZEPHRAS = 2548, 2521
 
     h.describe("MapInfo.Pick", function()
         h.it("a continent shows the zone under the cursor", function()
@@ -118,8 +119,26 @@ return function(h, loaded)
         end)
         h.it("a zone known only for what grows there still shows, and can be picked", function()
             with(FAKE, function()
-                h.eq(joined(MapInfo.Lines(SHENDRALAS, nil, ALL)), "Herbs 290")
-                h.eq(MapInfo.Pick(KALIMDOR, SHENDRALAS), SHENDRALAS)
+                h.eq(joined(MapInfo.Lines(SHENDRALAS, "Shen'dralas", ALL)), "Shen'dralas / Herbs 290")
+                h.eq(MapInfo.Pick(KALIMDOR, SHENDRALAS, ALL), SHENDRALAS)
+                h.eq(MapInfo.Pick(BARRENS, SHENDRALAS, ALL), SHENDRALAS)
+            end)
+        end)
+        h.it("with its switch off such a zone is unknown again: no bare name, and never picked", function()
+            with(FAKE, function()
+                local noHerbs = { herbs = false, ore = true, fish = true }
+                h.eq(MapInfo.Lines(SHENDRALAS, "Shen'dralas", noHerbs), nil)
+                h.eq(MapInfo.Lines(SHENDRALAS, "Shen'dralas"), nil)
+                h.eq(MapInfo.Pick(KALIMDOR, SHENDRALAS, noHerbs), nil)
+                h.eq(MapInfo.Pick(BARRENS, SHENDRALAS), BARRENS)
+            end)
+        end)
+        h.it("a catch list with no known skill gets a bare Fishing line, only while Fish list is on", function()
+            with({ FISH = { [RIVERGLADES] = { { "Raw Rockscale Cod", 22 } } } }, function()
+                local lines = MapInfo.Lines(RIVERGLADES, "Riverglades", ALL)
+                h.eq(joined(lines), "Riverglades / Levels 36-44 / Fishing")
+                h.eq(kinds(lines), "- - fish")
+                h.eq(joined(MapInfo.Lines(RIVERGLADES, "Riverglades", { fish = false })), "Riverglades / Levels 36-44")
             end)
         end)
         h.it("a zone the data has never heard of keeps its old lines", function()
@@ -197,12 +216,13 @@ return function(h, loaded)
                 h.truthy(tiers[pair[1] .. " " .. pair[2]], id)
             end
         end)
-        h.it("has the 42 ranges copied from GoblinPS", function()
+        h.it("has the 42 ranges copied from GoblinPS and Zephras Isle's from Wowhead", function()
             local n = 0
             for _ in pairs(MapInfo.LEVELS) do
                 n = n + 1
             end
-            h.eq(n, 42)
+            h.eq(n, 43)
+            h.eq(table.concat(MapInfo.LEVELS[ZEPHRAS], "-"), "1-12")
         end)
         h.it("the starter zones and the second tier are told apart", function()
             h.eq(table.concat(MapInfo.FISHING[DUROTAR], " "), "1 25")

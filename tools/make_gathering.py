@@ -20,8 +20,9 @@ CLASSIC = ROOT / "tools" / "gathering" / "wowhead-classic.json"
 OUT = ROOT / "GoblinThings" / "MapData.lua"
 
 # UiMap ID -> (Wowhead area ID, the zone's name as the page titles it): every
-# zone in MapInfo.LEVELS. Mount Hyjal and Riverglades are Forever's own: only
-# its database has them.
+# zone the readout describes. Mount Hyjal, Riverglades, Zephras Isle and
+# Shen'dralas are Forever's own: only its database has them. (Its Darkspear
+# Islands page, area 16606, has no objects or fishing list.)
 ZONES = {
     1411: (14, "Durotar"), 1412: (215, "Mulgore"), 1438: (141, "Teldrassil"),
     1413: (17, "The Barrens"), 1439: (148, "Darkshore"), 1442: (406, "Stonetalon Mountains"),
@@ -38,15 +39,13 @@ ZONES = {
     1428: (46, "Burning Steppes"), 1422: (28, "Western Plaguelands"),
     1423: (139, "Eastern Plaguelands"), 1430: (41, "Deadwind Pass"),
     2482: (616, "Mount Hyjal"), 2548: (16591, "Riverglades"),
+    2521: (16593, "Zephras Isle"), 2652: (16651, "Shen'dralas"),
 }
 
 # Zones in neither source yet (Wowhead asks for human verification after about
 # 30 pages, and only the owner may pass it): they get no lists. Empty when
 # every page has been read.
 PENDING = set()
-
-# Zones with no Fishing line (not in MapInfo.FISHING): nowhere to hang a fish list.
-NO_FISHING_LINE = {1418, 1427, 1419, 2482, 2548}
 
 # Wowhead types quest objects as herbs and veins too, so every name must be
 # one of these (kept) or one of QUEST_OBJECTS (dropped); a name in neither
@@ -160,13 +159,11 @@ def main():
         ore = nodes(page["ore"], ORE, name)
         if ours is None and (herbs or ore):
             classic_nodes.add(map_id)
-        fish = []
-        if map_id not in NO_FISHING_LINE:
-            fish = catches(ours)
-            if not fish:
-                fish = catches(theirs)
-                if fish:
-                    classic_fish.add(map_id)
+        fish = catches(ours)
+        if not fish:
+            fish = catches(theirs)
+            if fish:
+                classic_fish.add(map_id)
         for key, rows in (("HERBS", herbs), ("ORE", ore), ("FISH", fish)):
             if rows:
                 lists[key][map_id] = rows
@@ -201,8 +198,8 @@ def main():
           % (OUT.relative_to(ROOT), len(lists["HERBS"]), len(lists["ORE"]), len(lists["FISH"])))
     print("herbs and ore from Classic's pages: " + named(classic_nodes))
     print("fish from Classic's pages: " + named(classic_fish))
-    no_fish = set(ZONES) - PENDING - NO_FISHING_LINE - set(lists["FISH"])
-    print("no fish list (too few catches in either source): " + named(no_fish))
+    no_fish = set(ZONES) - PENDING - set(lists["FISH"])
+    print("no fish list (none on the page, or too few catches, in either source): " + named(no_fish))
     if PENDING:
         print("NOT READ YET, no lists: " + named(PENDING))
 

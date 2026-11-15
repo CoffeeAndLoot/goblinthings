@@ -170,12 +170,12 @@ local function update(core, map)
     local id, shown, key
     local show = {}
     if core.Get("mapInfo") == true then
-        local hovered
-        shown, hovered = ns.API.MapUnderCursor(map)
-        id = ns.MapInfo.Pick(shown, hovered)
         for kind, switch in pairs(SWITCH) do
             show[kind] = core.Get(switch) == true
         end
+        local hovered
+        shown, hovered = ns.API.MapUnderCursor(map)
+        id = ns.MapInfo.Pick(shown, hovered, show)
     end
     -- The lists are for the map that is open: on a continent the cursor would
     -- cross other zones on its way to an icon.

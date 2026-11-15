@@ -87,8 +87,12 @@ local MapData = {
         [1452] = { { "Mountain Silversage", 280 }, { "Icecap", 290 }, { "Black Lotus", 300 } },
         -- Mount Hyjal
         [2482] = { { "Dreamfoil", 270 }, { "Mountain Silversage", 280 }, { "Black Lotus", 300 }, { "Demonsage", 300 } },
+        -- Zephras Isle
+        [2521] = { { "Peacebloom", 1 }, { "Silverleaf", 1 }, { "Earthroot", 15 }, { "Mageroyal", 50 } },
         -- Riverglades
         [2548] = { { "Stranglekelp", 85 }, { "Wild Steelbloom", 115 }, { "Liferoot", 150 }, { "Goldthorn", 170 }, { "Khadgar's Whisker", 185 } },
+        -- Shen'dralas
+        [2652] = { { "Bruiseweed", 100 }, { "Grave Moss", 120 } },
     },
     ORE = {
         -- Durotar
@@ -169,8 +173,12 @@ local MapData = {
         [1452] = { { "Gold Vein", 155 }, { "Mithril Deposit", 175 }, { "Truesilver Deposit", 230 }, { "Small Thorium Vein", 245 }, { "Rich Thorium Vein", 275 } },
         -- Mount Hyjal
         [2482] = { { "Rich Thorium Vein", 275 }, { "Heavy Thorium Vein", 300 } },
+        -- Zephras Isle
+        [2521] = { { "Copper Vein", 1 }, { "Poor Copper Vein", 1 } },
         -- Riverglades
         [2548] = { { "Tin Vein", 65 }, { "Silver Vein", 75 }, { "Iron Deposit", 125 }, { "Gold Vein", 155 }, { "Mithril Deposit", 175 }, { "Truesilver Deposit", 230 } },
+        -- Shen'dralas
+        [2652] = { { "Iron Deposit", 125 }, { "Mithril Deposit", 175 } },
     },
     FISH = {
         -- Durotar
@@ -239,6 +247,10 @@ local MapData = {
         [1451] = { { "Lightning Eel", 62 }, { "Raw Redgill", 19 } },
         -- Winterspring
         [1452] = { { "Raw Sunscale Salmon", 9 }, { "Raw Whitescale Salmon", 9 }, { "Plated Armorfish", 8 } },
+        -- Zephras Isle
+        [2521] = { { "Raw Brilliant Smallfish", 60 }, { "Raw Longjaw Mud Snapper", 38 } },
+        -- Riverglades
+        [2548] = { { "Raw Rockscale Cod", 22 }, { "Raw Greater Sagefish", 17 }, { "Oily Blackmouth", 11 }, { "Firefin Snapper", 10 }, { "Stonescale Eel", 9 }, { "Raw Mithril Head Trout", 8 }, { "Raw Spotted Yellowtail", 8 }, { "Raw Bristle Whisker Catfish", 5 } },
     },
     CLASSIC_NODES = {  },
     CLASSIC_FISH = { [1448] = true, [1451] = true, [1452] = true },

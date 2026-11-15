@@ -298,9 +298,16 @@ what the section above says of the Map tab's rows and note, and Badlands now has
 - [ ] Clicking through an icon: note whether a click on an icon is swallowed (it sits over the map)
       and whether that is a bother; tell Claude.
 - [ ] Mount Hyjal: "Herbs 270-300" (Demonsage 300) and "Ore 275-300" (Heavy Thorium Vein 300).
-      Riverglades: Herbs and Ore lines, no fish icon (no fishing skill is known for it; Wowhead has
-      its catch, so tell Claude the skill if the game shows one). The Hinterlands lists Star Lotus
-      250 and Starsilver Vein 245: real nodes on Forever?
+      The Hinterlands lists Star Lotus 250 and Starsilver Vein 245: real nodes on Forever?
+- [ ] Forever's new zones (2026-11-14, Wowhead's Forever figures). Riverglades now reads "Levels
+      36-44" (was 35-45), then a bare "Fishing" line with an icon (its catch is known, its skill is
+      not: tell Claude the skill if the game shows one), "Herbs 85-185", "Ore 65-230". Zephras Isle:
+      "Levels 1-12", bare "Fishing" with an icon (Brilliant Smallfish, Longjaw Mud Snapper), "Herbs
+      1-50", "Ore 1". Shen'dralas (no level range known): its name, "Herbs 100-120", "Ore 125-175".
+- [ ] With "Fish list on the map" off, Riverglades and Zephras Isle lose the Fishing line whole.
+      With Herbs and Ore both off, Shen'dralas shows nothing at all (no bare name), on its own map
+      and hovered on Kalimdor.
+- [ ] Are Riverglades' 36-44 and Zephras Isle's 1-12 right by the game's quests and mobs?
 - [ ] No fish icon, by design (too few catches recorded): Un'Goro Crater, Eastern Plaguelands,
       Burning Steppes, Deadwind Pass.
 - [ ] Against the game: in one zone you gather in, do the herbs, the veins and the catch match

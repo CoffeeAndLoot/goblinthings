@@ -8,7 +8,8 @@ local MapInfo = {}
 ns.MapInfo = MapInfo
 
 -- { low, high } per zone, copied from GoblinPS's Data/Zones.lua (Classic
--- ranges, plus Forever's Mount Hyjal and Riverglades). C_Map.GetMapLevels is
+-- ranges, plus Forever's Mount Hyjal; Riverglades and Zephras Isle are
+-- Wowhead's Forever figures, 2026-11-14). C_Map.GetMapLevels is
 -- present on this build and answers for no zone, so the client cannot say.
 MapInfo.LEVELS = {
     -- Kalimdor
@@ -31,6 +32,7 @@ MapInfo.LEVELS = {
     [1450] = { 55, 60 },  -- Moonglade
     [1451] = { 55, 60 },  -- Silithus
     [2482] = { 60, 60 },  -- Mount Hyjal
+    [2521] = { 1, 12 },   -- Zephras Isle
     -- Eastern Kingdoms
     [1420] = { 1, 10 },   -- Tirisfal Glades
     [1426] = { 1, 10 },   -- Dun Morogh
@@ -47,7 +49,7 @@ MapInfo.LEVELS = {
     [1434] = { 30, 45 },  -- Stranglethorn Vale
     [1418] = { 35, 45 },  -- Badlands
     [1435] = { 35, 45 },  -- Swamp of Sorrows
-    [2548] = { 35, 45 },  -- Riverglades
+    [2548] = { 36, 44 },  -- Riverglades
     [1425] = { 40, 50 },  -- The Hinterlands
     [1427] = { 43, 50 },  -- Searing Gorge
     [1419] = { 45, 55 },  -- Blasted Lands
@@ -109,19 +111,32 @@ local function rows(kind, mapID)
     return list
 end
 
-local function known(mapID)
-    return MapInfo.LEVELS[mapID] ~= nil or MapInfo.FISHING[mapID] ~= nil
-        or rows("herbs", mapID) ~= nil or rows("ore", mapID) ~= nil
+local KINDS = { "fish", "herbs", "ore" }
+
+-- Whether the corner has a line for this map: a level range, a fishing skill,
+-- or a list whose switch is on (Shen'dralas has only lists).
+local function known(mapID, show)
+    if MapInfo.LEVELS[mapID] ~= nil or MapInfo.FISHING[mapID] ~= nil then
+        return true
+    end
+    if type(show) == "table" then
+        for _, kind in ipairs(KINDS) do
+            if show[kind] == true and rows(kind, mapID) then
+                return true
+            end
+        end
+    end
+    return false
 end
 
 -- The map the corner describes: the one under the cursor when it is not the
 -- shown map and has data (a zone on a continent, a city on its zone's map),
--- else the shown map when it has data, else nil.
-function MapInfo.Pick(shown, hovered)
-    if hovered ~= shown and known(hovered) then
+-- else the shown map when it has data, else nil. show: as for Lines.
+function MapInfo.Pick(shown, hovered, show)
+    if hovered ~= shown and known(hovered, show) then
         return hovered
     end
-    if known(shown) then
+    if known(shown, show) then
         return shown
     end
     return nil
@@ -136,9 +151,10 @@ end
 -- out when unknown; nil for a map with no data. show = { herbs =, ore =,
 -- fish = } are the three switches (nil: all off). kind ("fish", "herbs",
 -- "ore") marks a line with a list to open; the fishing line has one only
--- with show.fish on and a fish list for the zone.
+-- with show.fish on and a fish list for the zone. A zone with a fish list
+-- and no known skill (Riverglades, Zephras Isle) gets a bare "Fishing" line.
 function MapInfo.Lines(mapID, name, show)
-    if not known(mapID) then
+    if not known(mapID, show) then
         return nil
     end
     show = type(show) == "table" and show or {}
@@ -152,9 +168,11 @@ function MapInfo.Lines(mapID, name, show)
             .. span(levels[1], levels[2]) }
     end
     local fishing = MapInfo.FISHING[mapID]
+    local fish = (show.fish == true and rows("fish", mapID)) and "fish" or nil
     if fishing then
-        lines[#lines + 1] = { text = ("Fishing %d (no getaways at %d)"):format(fishing[1], fishing[2]),
-            kind = (show.fish == true and rows("fish", mapID)) and "fish" or nil }
+        lines[#lines + 1] = { text = ("Fishing %d (no getaways at %d)"):format(fishing[1], fishing[2]), kind = fish }
+    elseif fish then
+        lines[#lines + 1] = { text = "Fishing", kind = fish }
     end
     for _, kind in ipairs({ "herbs", "ore" }) do
         local list = show[kind] == true and rows(kind, mapID)

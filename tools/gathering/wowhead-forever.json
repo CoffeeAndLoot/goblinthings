@@ -3607,6 +3607,77 @@
     ]
    ],
    "fishTotal": 4478
+  },
+  "16593": {
+   "title": "Zephras Isle",
+   "herbs": [
+    [
+     "Silverleaf",
+     1
+    ],
+    [
+     "Peacebloom",
+     1
+    ],
+    [
+     "Earthroot",
+     15
+    ],
+    [
+     "Mageroyal",
+     50
+    ]
+   ],
+   "ore": [
+    [
+     "Copper Vein",
+     1
+    ],
+    [
+     "Poor Copper Vein",
+     1
+    ]
+   ],
+   "fish": [
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     5611,
+     "7.8"
+    ],
+    [
+     6291,
+     "Raw Brilliant Smallfish",
+     8762,
+     "7.8"
+    ]
+   ],
+   "fishTotal": 14709
+  },
+  "16651": {
+   "title": "Shen'dralas",
+   "herbs": [
+    [
+     "Bruiseweed",
+     100
+    ],
+    [
+     "Grave Moss",
+     120
+    ]
+   ],
+   "ore": [
+    [
+     "Iron Deposit",
+     125
+    ],
+    [
+     "Mithril Deposit",
+     175
+    ]
+   ],
+   "fish": null,
+   "fishTotal": 0
   }
  }
 }

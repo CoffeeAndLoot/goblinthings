@@ -183,11 +183,21 @@ said above changes as follows.
   and Winterspring only. More Forever nodes kept: Star Lotus and Starsilver Vein (The Hinterlands),
   Demonsage and Heavy Thorium Vein (Mount Hyjal); more quest objects dropped: Violet Tragan, Hyjal
   Silphium (skill 1 in a level 60 zone: Claude's guess that it is a quest object).
+- **Forever's new zones** (the owner: "add in the new zones data"). Zephras Isle (UiMap 2521, area
+  16593) and Shen'dralas (UiMap 2652, area 16651) join Mount Hyjal and Riverglades; the UiMap IDs
+  are from GoblinPS's client export (`docs/research/data/UiMap.csv`). `MapInfo.LEVELS` gains Zephras
+  Isle 1-12 and Riverglades changes from 35-45 to 36-44, both Wowhead's Forever figures. Wowhead
+  gives Shen'dralas and Mount Hyjal no level range. Darkspear Islands (area 16606) has no objects
+  or fishing list on its page and is left out.
+- **A fish list no longer needs a fishing skill.** Riverglades (4,478 casts) and Zephras Isle
+  (14,709) have catches and no known skill, so with "Fish list on the map" on they get a bare
+  "Fishing" line carrying the icon. This overturns "a zone with no Fishing line shows no fish
+  list" above. No skill was guessed for either.
+- **A zone known only by its lists** (Shen'dralas) counts as known only while one of those lists'
+  switches is on: `MapInfo.Pick` and `Lines` take the switches, so it never shows a bare name and
+  is never picked over the map it sits on when it has nothing to say.
 - **Still missing**: fish for Un'Goro, Eastern Plaguelands, Burning Steppes and Deadwind Pass (too
-  few catches in both sources) and for Riverglades (Wowhead has its catch, 4,478 casts, but
-  `MapInfo.FISHING` has no skill for it, so there is no Fishing line to hang the list on).
-  Wowhead gives Riverglades levels 36-44 against `MapInfo.LEVELS`' 35-45, and lists Zephras Isle
-  (area 16593, levels 1-12), which the readout knows nothing of. Neither was changed here.
+  few catches in both sources); fishing skills for Riverglades and Zephras Isle.
 - **Other sources looked at**: LibTourist Classic Era (MIT) holds zones, flight points and fishing
   skill only, no nodes; its fishing skills agree with `MapInfo.FISHING` on the 19 zones compared.
   GatherMate2's Classic data states no licence. ItemTree_Data is All Rights Reserved.

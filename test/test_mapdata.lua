@@ -13,10 +13,10 @@ return function(h, loaded)
     end
 
     h.describe("MapData", function()
-        h.it("every list is rows of a name and a number, for a zone MapInfo knows", function()
+        h.it("every list is rows of a name and a number, keyed by a map ID", function()
             for _, key in ipairs({ "HERBS", "ORE", "FISH" }) do
                 for id, list in pairs(MapData[key]) do
-                    h.truthy(MapInfo.LEVELS[id], key .. " " .. id)
+                    h.truthy(type(id) == "number" and id > 1400, key .. " " .. tostring(id))
                     h.truthy(#list > 0, key .. " " .. id)
                     for _, row in ipairs(list) do
                         h.truthy(type(row[1]) == "string" and row[1] ~= "" and type(row[2]) == "number",
@@ -39,9 +39,8 @@ return function(h, loaded)
                 end
             end
         end)
-        h.it("fish run most common first, 3% or more, eight at most, only where there is a Fishing line", function()
+        h.it("fish run most common first, 3% or more, eight at most", function()
             for id, list in pairs(MapData.FISH) do
-                h.truthy(MapInfo.FISHING[id], id)
                 h.truthy(#list <= 8, id)
                 for i, row in ipairs(list) do
                     h.truthy(row[2] >= 3 and row[2] <= 100, id)
@@ -72,6 +71,15 @@ return function(h, loaded)
             end
             h.eq(MapData.CLASSIC_NODES[BARRENS], nil)
             h.eq(MapData.CLASSIC_FISH[BARRENS], nil)
+        end)
+        h.it("Forever's new zones are in: Zephras Isle, Riverglades, Shen'dralas, Mount Hyjal", function()
+            h.eq(names(MapData.HERBS[2521]), "Peacebloom, Silverleaf, Earthroot, Mageroyal")
+            h.eq(names(MapData.FISH[2521]), "Raw Brilliant Smallfish, Raw Longjaw Mud Snapper")
+            h.eq(MapData.FISH[2548][1][1], "Raw Rockscale Cod")
+            h.eq(names(MapData.HERBS[2652]), "Bruiseweed, Grave Moss")
+            h.eq(names(MapData.ORE[2652]), "Iron Deposit, Mithril Deposit")
+            h.eq(names(MapData.ORE[2482]), "Rich Thorium Vein, Heavy Thorium Vein")
+            h.eq(MapInfo.LEVELS[2652], nil)  -- Wowhead gives Shen'dralas no level range
         end)
     end)
 end
