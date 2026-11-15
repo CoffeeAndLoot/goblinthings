@@ -246,7 +246,7 @@ verified in source only.
       control; nothing overlaps; long names ("Stranglethorn Vale", "Fishing 330 (no getaways at
       425)") are not cut. Readable on the parchment at your UI scale (tell Claude the sizes to change).
 - [ ] Eastern Kingdoms: Badlands shows its name and "Levels 35-45" only (no fishing data);
-      Riverglades shows "Levels 35-45" only.
+      Riverglades shows "Levels 35-45" only (Herbs and Ore lines too, since 2026-11-14).
 - [ ] Open a zone's own map (Durotar): its lines show without hovering. Hover Orgrimmar on it:
       "Orgrimmar" and its fishing line, no levels. Kalimdor's own continent view with the cursor
       away: nothing. Shen'dralas: nothing.
@@ -282,24 +282,27 @@ what the section above says of the Map tab's rows and note, and Badlands now has
 - [ ] Hover the Ore icon: "Mining", Copper Vein 1, Tin Vein 65, Silver Vein 75. Hover the Fishing
       icon: "Fishing", seven rows from "Raw Rainbow Fin Albacore 22%" down, no footnote. No list is
       cut by the top or right of the map.
-- [ ] Stranglethorn Vale's own map: each of its three lists ends in the dim footnote "Classic
-      figures, not checked on Forever" (Wowhead's Forever page was not read for it). Felwood: the
-      footnote under Fishing only.
+- [ ] Felwood's own map: the Fishing list ends in the dim footnote "Classic figures, not checked on
+      Forever" (too few catches recorded on Forever yet); its Herbalism and Mining lists have none.
+      Winterspring and Silithus likewise.
 - [ ] Kalimdor, hovering the Barrens: the same five lines, **no icons**. Hovering across zones swaps
       the Herbs and Ore lines with the rest.
 - [ ] Durotar's own map, hovering Orgrimmar: the city's lines, no icons; off the city: Durotar's
       lines with icons again.
 - [ ] Moonglade's own map: no Herbs or Ore lines, no gap, a Fishing icon. Teldrassil: "Ore 1" (Chunk
       of Amber, Large Chunk of Amber) and Durotar "Poor Copper Vein": are those real veins on Forever?
-      Un'Goro Crater: no fish icon (too few catches recorded). Mount Hyjal and Riverglades: as before, nothing new.
+      Un'Goro Crater: no fish icon (too few catches recorded). 
 - [ ] Untick "Herbs on the map" with the map open: the Herbs line goes and Ore closes up. Untick "Ore
       on the map": likewise. Untick "Fish list on the map": the Fishing line stays, its icon goes.
       Untick "Zone levels and fishing on the map": everything goes, whatever the other three say.
 - [ ] Clicking through an icon: note whether a click on an icon is swallowed (it sits over the map)
       and whether that is a bother; tell Claude.
-- [ ] Not read yet (Wowhead asked for human verification, 2026-11-14): Swamp of Sorrows, The
-      Hinterlands, Searing Gorge, Blasted Lands, Burning Steppes, Western and Eastern Plaguelands and
-      Deadwind Pass show no Herbs or Ore lines and no fish icon. Expected until their pages are read.
+- [ ] Mount Hyjal: "Herbs 270-300" (Demonsage 300) and "Ore 275-300" (Heavy Thorium Vein 300).
+      Riverglades: Herbs and Ore lines, no fish icon (no fishing skill is known for it; Wowhead has
+      its catch, so tell Claude the skill if the game shows one). The Hinterlands lists Star Lotus
+      250 and Starsilver Vein 245: real nodes on Forever?
+- [ ] No fish icon, by design (too few catches recorded): Un'Goro Crater, Eastern Plaguelands,
+      Burning Steppes, Deadwind Pass.
 - [ ] Against the game: in one zone you gather in, do the herbs, the veins and the catch match
       the lists? Tell Claude what is missing or should not be there (the Barrens lists Grave Moss; a
       rare node reads the same as a common one).

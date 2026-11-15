@@ -20,8 +20,8 @@ CLASSIC = ROOT / "tools" / "gathering" / "wowhead-classic.json"
 OUT = ROOT / "GoblinThings" / "MapData.lua"
 
 # UiMap ID -> (Wowhead area ID, the zone's name as the page titles it): every
-# zone in MapInfo.LEVELS that Wowhead lists (Mount Hyjal's and Riverglades'
-# area IDs are not known yet).
+# zone in MapInfo.LEVELS. Mount Hyjal and Riverglades are Forever's own: only
+# its database has them.
 ZONES = {
     1411: (14, "Durotar"), 1412: (215, "Mulgore"), 1438: (141, "Teldrassil"),
     1413: (17, "The Barrens"), 1439: (148, "Darkshore"), 1442: (406, "Stonetalon Mountains"),
@@ -37,15 +37,16 @@ ZONES = {
     1425: (47, "The Hinterlands"), 1427: (51, "Searing Gorge"), 1419: (4, "Blasted Lands"),
     1428: (46, "Burning Steppes"), 1422: (28, "Western Plaguelands"),
     1423: (139, "Eastern Plaguelands"), 1430: (41, "Deadwind Pass"),
+    2482: (616, "Mount Hyjal"), 2548: (16591, "Riverglades"),
 }
 
-# In neither source yet: Wowhead asks for human verification after about 30
-# pages, and only the owner may pass it. These get no lists until their pages
-# are in a source; empty this set then.
-PENDING = {1435, 1425, 1427, 1419, 1428, 1422, 1423, 1430}
+# Zones in neither source yet (Wowhead asks for human verification after about
+# 30 pages, and only the owner may pass it): they get no lists. Empty when
+# every page has been read.
+PENDING = set()
 
 # Zones with no Fishing line (not in MapInfo.FISHING): nowhere to hang a fish list.
-NO_FISHING_LINE = {1418, 1427, 1419}
+NO_FISHING_LINE = {1418, 1427, 1419, 2482, 2548}
 
 # Wowhead types quest objects as herbs and veins too, so every name must be
 # one of these (kept) or one of QUEST_OBJECTS (dropped); a name in neither
@@ -58,6 +59,7 @@ HERBS = {
     "Plaguebloom", "Icecap", "Black Lotus",
     # Not Classic Era's, and on Forever's pages with a real skill:
     "Wilted Peacebloom", "Stunted Silverleaf", "Dreamroot", "Moonroot", "Nightmare Moss",
+    "Star Lotus", "Demonsage",
 }
 ORE = {
     "Copper Vein", "Tin Vein", "Silver Vein", "Iron Deposit", "Gold Vein", "Mithril Deposit",
@@ -66,11 +68,11 @@ ORE = {
     "Small Obsidian Chunk", "Large Obsidian Chunk",
     # Not Classic Era's, and on Forever's pages:
     "Poor Copper Vein", "Chunk of Amber", "Large Chunk of Amber", "Fool's Gold Vein",
-    "Cold Iron Deposit", "Greater Moonstone Formation",
+    "Cold Iron Deposit", "Greater Moonstone Formation", "Starsilver Vein", "Heavy Thorium Vein",
 }
 QUEST_OBJECTS = {
     "Beached Sea Creature", "Skeletal Sea Turtle", "Incendia Agave", "Gloom Weed", "Doom Weed",
-    "Tomb Weed", "Serpentbloom",
+    "Tomb Weed", "Serpentbloom", "Violet Tragan", "Hyjal Silphium",
 }
 # An ooze-covered vein is its plain vein to a miner.
 ORE_ALIAS = {"Thorium Vein": "Small Thorium Vein"}

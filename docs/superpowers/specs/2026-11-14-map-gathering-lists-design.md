@@ -159,8 +159,8 @@ Found after the first build: Wowhead has a **Forever** section (`wowhead.com/for
 with the same lists. It is Forever's own data, so it replaces Classic's as the authority, and what is
 said above changes as follows.
 
-- **Two sources.** `tools/gathering/wowhead-forever.json` (28 zones read before Wowhead asked for
-  human verification again, at 5 seconds a page) and `wowhead-classic.json` (32 zones). Per zone the
+- **Two sources.** `tools/gathering/wowhead-forever.json` (42 zones; Wowhead asks for human
+  verification about every 28 pages, even at 5 seconds a page) and `wowhead-classic.json` (32 zones). Per zone the
   script takes herbs and ore from Forever's page, else Classic's; and fish from Forever's when its
   whole catch is 100 or more, else Classic's on the same rule. Forever is young, so its high zones
   have few casts (Felwood 18, Winterspring 28, Silithus 3): those fish lists are Classic's.
@@ -177,10 +177,17 @@ said above changes as follows.
   A name in neither list stops the script, so a new one is a person's decision.
 - **Fish classes.** Forever files Oily Blackmouth, the eels and clams under trade goods "other"
   (7.11), so that class is kept too.
-- **Still missing**: the eight zones never read from either (Swamp of Sorrows, The Hinterlands,
-  Searing Gorge, Blasted Lands, Burning Steppes, Western and Eastern Plaguelands, Deadwind Pass);
-  Un'Goro's fish (too few catches in both); Mount Hyjal and Riverglades (their Wowhead area IDs are
-  not known yet, though Forever's database may have them).
+- **All 42 zones read** (the owner passed Wowhead's check twice): the 40 Classic zones plus Mount
+  Hyjal (area 616) and Riverglades (area 16591), which only Forever's database has. Herbs and ore
+  are Forever's for every zone; `CLASSIC_NODES` is empty. Fish are Classic's for Felwood, Silithus
+  and Winterspring only. More Forever nodes kept: Star Lotus and Starsilver Vein (The Hinterlands),
+  Demonsage and Heavy Thorium Vein (Mount Hyjal); more quest objects dropped: Violet Tragan, Hyjal
+  Silphium (skill 1 in a level 60 zone: Claude's guess that it is a quest object).
+- **Still missing**: fish for Un'Goro, Eastern Plaguelands, Burning Steppes and Deadwind Pass (too
+  few catches in both sources) and for Riverglades (Wowhead has its catch, 4,478 casts, but
+  `MapInfo.FISHING` has no skill for it, so there is no Fishing line to hang the list on).
+  Wowhead gives Riverglades levels 36-44 against `MapInfo.LEVELS`' 35-45, and lists Zephras Isle
+  (area 16593, levels 1-12), which the readout knows nothing of. Neither was changed here.
 - **Other sources looked at**: LibTourist Classic Era (MIT) holds zones, flight points and fishing
   skill only, no nodes; its fishing skills agree with `MapInfo.FISHING` on the 19 zones compared.
   GatherMate2's Classic data states no licence. ItemTree_Data is All Rights Reserved.

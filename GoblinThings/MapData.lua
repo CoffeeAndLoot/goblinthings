@@ -21,14 +21,26 @@ local MapData = {
         [1417] = { { "Stranglekelp", 85 }, { "Bruiseweed", 100 }, { "Wild Steelbloom", 115 }, { "Grave Moss", 120 }, { "Kingsblood", 125 }, { "Liferoot", 150 }, { "Fadeleaf", 160 }, { "Goldthorn", 170 }, { "Khadgar's Whisker", 185 } },
         -- Badlands
         [1418] = { { "Wild Steelbloom", 115 }, { "Kingsblood", 125 }, { "Fadeleaf", 160 }, { "Goldthorn", 170 }, { "Khadgar's Whisker", 185 }, { "Firebloom", 205 }, { "Purple Lotus", 210 } },
+        -- Blasted Lands
+        [1419] = { { "Firebloom", 205 }, { "Sungrass", 230 }, { "Gromsblood", 250 } },
         -- Tirisfal Glades
         [1420] = { { "Peacebloom", 1 }, { "Silverleaf", 1 }, { "Stunted Silverleaf", 1 }, { "Wilted Peacebloom", 1 }, { "Earthroot", 15 } },
         -- Silverpine Forest
         [1421] = { { "Peacebloom", 1 }, { "Silverleaf", 1 }, { "Earthroot", 15 }, { "Mageroyal", 50 }, { "Briarthorn", 70 }, { "Stranglekelp", 85 }, { "Bruiseweed", 100 }, { "Liferoot", 150 } },
+        -- Western Plaguelands
+        [1422] = { { "Arthas' Tears", 220 }, { "Sungrass", 230 }, { "Dreamfoil", 270 }, { "Mountain Silversage", 280 }, { "Plaguebloom", 285 } },
+        -- Eastern Plaguelands
+        [1423] = { { "Grave Moss", 120 }, { "Arthas' Tears", 220 }, { "Sungrass", 230 }, { "Golden Sansam", 260 }, { "Dreamfoil", 270 }, { "Mountain Silversage", 280 }, { "Plaguebloom", 285 }, { "Black Lotus", 300 } },
         -- Hillsbrad Foothills
         [1424] = { { "Mageroyal", 50 }, { "Briarthorn", 70 }, { "Stranglekelp", 85 }, { "Bruiseweed", 100 }, { "Wild Steelbloom", 115 }, { "Kingsblood", 125 }, { "Liferoot", 150 }, { "Khadgar's Whisker", 185 } },
+        -- The Hinterlands
+        [1425] = { { "Stranglekelp", 85 }, { "Liferoot", 150 }, { "Fadeleaf", 160 }, { "Goldthorn", 170 }, { "Khadgar's Whisker", 185 }, { "Purple Lotus", 210 }, { "Sungrass", 230 }, { "Ghost Mushroom", 245 }, { "Star Lotus", 250 }, { "Golden Sansam", 260 } },
         -- Dun Morogh
         [1426] = { { "Peacebloom", 1 }, { "Silverleaf", 1 }, { "Stunted Silverleaf", 1 }, { "Wilted Peacebloom", 1 }, { "Earthroot", 15 } },
+        -- Searing Gorge
+        [1427] = { { "Firebloom", 205 } },
+        -- Burning Steppes
+        [1428] = { { "Sungrass", 230 }, { "Golden Sansam", 260 }, { "Dreamfoil", 270 }, { "Mountain Silversage", 280 }, { "Black Lotus", 300 } },
         -- Elwynn Forest
         [1429] = { { "Peacebloom", 1 }, { "Silverleaf", 1 }, { "Stunted Silverleaf", 1 }, { "Wilted Peacebloom", 1 }, { "Earthroot", 15 } },
         -- Duskwood
@@ -39,6 +51,8 @@ local MapData = {
         [1433] = { { "Earthroot", 15 }, { "Mageroyal", 50 }, { "Briarthorn", 70 }, { "Bruiseweed", 100 } },
         -- Stranglethorn Vale
         [1434] = { { "Stranglekelp", 85 }, { "Wild Steelbloom", 115 }, { "Kingsblood", 125 }, { "Liferoot", 150 }, { "Fadeleaf", 160 }, { "Goldthorn", 170 }, { "Khadgar's Whisker", 185 }, { "Purple Lotus", 210 } },
+        -- Swamp of Sorrows
+        [1435] = { { "Stranglekelp", 85 }, { "Kingsblood", 125 }, { "Liferoot", 150 }, { "Fadeleaf", 160 }, { "Goldthorn", 170 }, { "Khadgar's Whisker", 185 }, { "Blindweed", 235 } },
         -- Westfall
         [1436] = { { "Peacebloom", 1 }, { "Silverleaf", 1 }, { "Earthroot", 15 }, { "Mageroyal", 50 }, { "Briarthorn", 70 }, { "Stranglekelp", 85 }, { "Bruiseweed", 100 } },
         -- Wetlands
@@ -71,6 +85,10 @@ local MapData = {
         [1451] = { { "Sungrass", 230 }, { "Golden Sansam", 260 }, { "Dreamfoil", 270 }, { "Mountain Silversage", 280 }, { "Black Lotus", 300 } },
         -- Winterspring
         [1452] = { { "Mountain Silversage", 280 }, { "Icecap", 290 }, { "Black Lotus", 300 } },
+        -- Mount Hyjal
+        [2482] = { { "Dreamfoil", 270 }, { "Mountain Silversage", 280 }, { "Black Lotus", 300 }, { "Demonsage", 300 } },
+        -- Riverglades
+        [2548] = { { "Stranglekelp", 85 }, { "Wild Steelbloom", 115 }, { "Liferoot", 150 }, { "Goldthorn", 170 }, { "Khadgar's Whisker", 185 } },
     },
     ORE = {
         -- Durotar
@@ -85,14 +103,26 @@ local MapData = {
         [1417] = { { "Tin Vein", 65 }, { "Lesser Bloodstone Deposit", 75 }, { "Silver Vein", 75 }, { "Iron Deposit", 125 }, { "Gold Vein", 155 }, { "Mithril Deposit", 175 }, { "Truesilver Deposit", 230 } },
         -- Badlands
         [1418] = { { "Silver Vein", 75 }, { "Iron Deposit", 125 }, { "Gold Vein", 155 }, { "Mithril Deposit", 175 }, { "Truesilver Deposit", 230 } },
+        -- Blasted Lands
+        [1419] = { { "Gold Vein", 155 }, { "Mithril Deposit", 175 }, { "Truesilver Deposit", 230 }, { "Small Thorium Vein", 245 } },
         -- Tirisfal Glades
         [1420] = { { "Copper Vein", 1 }, { "Poor Copper Vein", 1 } },
         -- Silverpine Forest
         [1421] = { { "Copper Vein", 1 }, { "Tin Vein", 65 }, { "Silver Vein", 75 } },
+        -- Western Plaguelands
+        [1422] = { { "Gold Vein", 155 }, { "Mithril Deposit", 175 }, { "Truesilver Deposit", 230 }, { "Small Thorium Vein", 245 }, { "Rich Thorium Vein", 275 } },
+        -- Eastern Plaguelands
+        [1423] = { { "Gold Vein", 155 }, { "Mithril Deposit", 175 }, { "Truesilver Deposit", 230 }, { "Small Thorium Vein", 245 }, { "Rich Thorium Vein", 275 } },
         -- Hillsbrad Foothills
         [1424] = { { "Copper Vein", 1 }, { "Tin Vein", 65 }, { "Silver Vein", 75 }, { "Iron Deposit", 125 }, { "Gold Vein", 155 }, { "Mithril Deposit", 175 }, { "Truesilver Deposit", 230 } },
+        -- The Hinterlands
+        [1425] = { { "Silver Vein", 75 }, { "Iron Deposit", 125 }, { "Gold Vein", 155 }, { "Mithril Deposit", 175 }, { "Truesilver Deposit", 230 }, { "Small Thorium Vein", 245 }, { "Starsilver Vein", 245 } },
         -- Dun Morogh
         [1426] = { { "Copper Vein", 1 }, { "Poor Copper Vein", 1 } },
+        -- Searing Gorge
+        [1427] = { { "Silver Vein", 75 }, { "Iron Deposit", 125 }, { "Gold Vein", 155 }, { "Mithril Deposit", 175 }, { "Dark Iron Deposit", 230 }, { "Truesilver Deposit", 230 }, { "Small Thorium Vein", 245 } },
+        -- Burning Steppes
+        [1428] = { { "Gold Vein", 155 }, { "Mithril Deposit", 175 }, { "Dark Iron Deposit", 230 }, { "Truesilver Deposit", 230 }, { "Small Thorium Vein", 245 }, { "Rich Thorium Vein", 275 } },
         -- Elwynn Forest
         [1429] = { { "Copper Vein", 1 }, { "Poor Copper Vein", 1 } },
         -- Duskwood
@@ -103,6 +133,8 @@ local MapData = {
         [1433] = { { "Copper Vein", 1 }, { "Tin Vein", 65 }, { "Silver Vein", 75 } },
         -- Stranglethorn Vale
         [1434] = { { "Tin Vein", 65 }, { "Silver Vein", 75 }, { "Iron Deposit", 125 }, { "Gold Vein", 155 }, { "Mithril Deposit", 175 }, { "Truesilver Deposit", 230 } },
+        -- Swamp of Sorrows
+        [1435] = { { "Silver Vein", 75 }, { "Iron Deposit", 125 }, { "Gold Vein", 155 }, { "Mithril Deposit", 175 }, { "Truesilver Deposit", 230 } },
         -- Westfall
         [1436] = { { "Copper Vein", 1 }, { "Tin Vein", 65 }, { "Silver Vein", 75 } },
         -- Wetlands
@@ -135,6 +167,10 @@ local MapData = {
         [1451] = { { "Gold Vein", 155 }, { "Mithril Deposit", 175 }, { "Truesilver Deposit", 230 }, { "Small Thorium Vein", 245 }, { "Rich Thorium Vein", 275 }, { "Large Obsidian Chunk", 305 }, { "Small Obsidian Chunk", 305 } },
         -- Winterspring
         [1452] = { { "Gold Vein", 155 }, { "Mithril Deposit", 175 }, { "Truesilver Deposit", 230 }, { "Small Thorium Vein", 245 }, { "Rich Thorium Vein", 275 } },
+        -- Mount Hyjal
+        [2482] = { { "Rich Thorium Vein", 275 }, { "Heavy Thorium Vein", 300 } },
+        -- Riverglades
+        [2548] = { { "Tin Vein", 65 }, { "Silver Vein", 75 }, { "Iron Deposit", 125 }, { "Gold Vein", 155 }, { "Mithril Deposit", 175 }, { "Truesilver Deposit", 230 } },
     },
     FISH = {
         -- Durotar
@@ -144,15 +180,19 @@ local MapData = {
         -- The Barrens
         [1413] = { { "Raw Rainbow Fin Albacore", 22 }, { "Oily Blackmouth", 20 }, { "Deviate Fish", 15 }, { "Raw Slitherskin Mackerel", 14 }, { "Raw Longjaw Mud Snapper", 10 }, { "Raw Bristle Whisker Catfish", 4 }, { "Raw Brilliant Smallfish", 3 } },
         -- Alterac Mountains
-        [1416] = { { "Raw Greater Sagefish", 64 }, { "Raw Mithril Head Trout", 4 }, { "Stranglekelp", 3 } },
+        [1416] = { { "Raw Greater Sagefish", 39 }, { "Raw Mithril Head Trout", 29 }, { "Raw Bristle Whisker Catfish", 18 } },
         -- Arathi Highlands
-        [1417] = { { "Raw Bristle Whisker Catfish", 56 }, { "Raw Rockscale Cod", 11 }, { "Firefin Snapper", 4 }, { "Raw Spotted Yellowtail", 4 } },
+        [1417] = { { "Raw Mithril Head Trout", 55 }, { "Raw Bristle Whisker Catfish", 30 }, { "Raw Rockscale Cod", 6 } },
         -- Tirisfal Glades
         [1420] = { { "Raw Brilliant Smallfish", 46 }, { "Raw Longjaw Mud Snapper", 30 }, { "Sickly Looking Fish", 15 } },
         -- Silverpine Forest
         [1421] = { { "Raw Longjaw Mud Snapper", 26 }, { "Raw Sagefish", 14 }, { "Oily Blackmouth", 9 }, { "Raw Bristle Whisker Catfish", 9 }, { "Raw Rainbow Fin Albacore", 9 }, { "Raw Brilliant Smallfish", 7 }, { "Raw Slitherskin Mackerel", 6 }, { "Sickly Looking Fish", 5 } },
+        -- Western Plaguelands
+        [1422] = { { "Raw Redgill", 48 }, { "Raw Sunscale Salmon", 19 }, { "Raw Mithril Head Trout", 10 }, { "Oily Blackmouth", 9 }, { "Raw Nightfin Snapper", 7 }, { "Lightning Eel", 5 } },
         -- Hillsbrad Foothills
         [1424] = { { "Raw Sagefish", 33 }, { "Raw Bristle Whisker Catfish", 15 }, { "Raw Rainbow Fin Albacore", 13 }, { "Oily Blackmouth", 11 }, { "Raw Longjaw Mud Snapper", 8 }, { "Firefin Snapper", 7 }, { "Stranglekelp", 4 } },
+        -- The Hinterlands
+        [1425] = { { "Raw Spotted Yellowtail", 23 }, { "Raw Redgill", 17 }, { "Raw Sunscale Salmon", 13 }, { "Firefin Snapper", 7 }, { "Raw Winter Squid", 7 }, { "Big-mouth Clam", 6 }, { "Raw Rockscale Cod", 5 }, { "Stonescale Eel", 5 } },
         -- Dun Morogh
         [1426] = { { "Raw Brilliant Smallfish", 60 }, { "Raw Longjaw Mud Snapper", 38 } },
         -- Elwynn Forest
@@ -164,7 +204,9 @@ local MapData = {
         -- Redridge Mountains
         [1433] = { { "Raw Bristle Whisker Catfish", 55 }, { "Raw Longjaw Mud Snapper", 30 }, { "Whimsyfin", 4 } },
         -- Stranglethorn Vale
-        [1434] = { { "Firefin Snapper", 28 }, { "Oily Blackmouth", 22 }, { "Raw Rockscale Cod", 22 }, { "Raw Spotted Yellowtail", 9 }, { "Stranglekelp", 9 }, { "Raw Mithril Head Trout", 8 } },
+        [1434] = { { "Raw Rockscale Cod", 33 }, { "Firefin Snapper", 13 }, { "Oily Blackmouth", 12 }, { "Raw Spotted Yellowtail", 11 }, { "Raw Mithril Head Trout", 9 }, { "Raw Bristle Whisker Catfish", 5 }, { "Raw Greater Sagefish", 4 } },
+        -- Swamp of Sorrows
+        [1435] = { { "Raw Rockscale Cod", 45 }, { "Raw Spotted Yellowtail", 13 }, { "Oily Blackmouth", 10 }, { "Firefin Snapper", 9 }, { "Raw Mithril Head Trout", 8 }, { "Raw Bristle Whisker Catfish", 4 } },
         -- Westfall
         [1436] = { { "Oily Blackmouth", 29 }, { "Raw Rainbow Fin Albacore", 17 }, { "Raw Longjaw Mud Snapper", 16 }, { "Raw Slitherskin Mackerel", 12 }, { "Raw Bristle Whisker Catfish", 7 }, { "Raw Brilliant Smallfish", 5 }, { "Stranglekelp", 4 }, { "Rumsey Rum Light", 3 } },
         -- Wetlands
@@ -198,8 +240,8 @@ local MapData = {
         -- Winterspring
         [1452] = { { "Raw Sunscale Salmon", 9 }, { "Raw Whitescale Salmon", 9 }, { "Plated Armorfish", 8 } },
     },
-    CLASSIC_NODES = { [1416] = true, [1417] = true, [1418] = true, [1434] = true },
-    CLASSIC_FISH = { [1416] = true, [1417] = true, [1434] = true, [1448] = true, [1451] = true, [1452] = true },
+    CLASSIC_NODES = {  },
+    CLASSIC_FISH = { [1448] = true, [1451] = true, [1452] = true },
 }
 ns.MapData = MapData
 
