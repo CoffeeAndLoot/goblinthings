@@ -12,8 +12,8 @@ local MapReadout = {}
 ns.MapReadout = MapReadout
 
 MapReadout.LAYOUT = {
-    RIGHT = -40,   -- clear of the quest-log toggle in the corner (32 px at -2, 1)
-    BOTTOM = 10,
+    RIGHT = -48,   -- clear of the quest-log toggle in the corner (32 px at -2, 1) and the frame's ornament
+    BOTTOM = 26,   -- six lines sat against the map frame's corner ornament at 10 (seen 2026-11-14)
     WIDTH = 300,
     GAP = 2,       -- between lines
     SIZES = { 16, 13, 13, 13, 13, 13 },  -- the name, then each line under it
