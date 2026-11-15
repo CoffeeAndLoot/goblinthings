@@ -2,7 +2,8 @@ local _, ns = ...
 
 -- What the world map's corner says about a zone (spec 2026-11-10-map-zone-
 -- readout-design.md): its level range and the fishing skill it needs, both
--- hand-written, keyed by UiMap ID. Pure: test/run.lua loads this file.
+-- hand-written, keyed by UiMap ID, and what is gathered there, from the
+-- generated MapData. Pure: test/run.lua loads this file.
 local MapInfo = {}
 ns.MapInfo = MapInfo
 
@@ -81,8 +82,34 @@ MapInfo.FISHING = {
     [1452] = TOP,  -- Burning Steppes, Deadwind Pass, E. Plaguelands, Silithus, Winterspring
 }
 
+-- What is gathered in a zone (spec 2026-11-14-map-gathering-lists-design.md):
+-- MapData's generated lists, read here and never at file load.
+local TABLE = { herbs = "HERBS", ore = "ORE", fish = "FISH" }
+local TITLE = { herbs = "Herbalism", ore = "Mining", fish = "Fishing" }
+local SPAN = { herbs = "Herbs", ore = "Ore" }
+MapInfo.FISH_NOTE = "Classic figures, not checked on Forever"
+
+-- The zone's { name, number } rows of a kind, or nil unless there are some
+-- and every one is well formed: a broken list shows nothing, never an error.
+local function rows(kind, mapID)
+    local data = ns.MapData
+    local lists = type(data) == "table" and TABLE[kind] and data[TABLE[kind]]
+    local list = type(lists) == "table" and mapID ~= nil and lists[mapID]
+    if type(list) ~= "table" or #list == 0 then
+        return nil
+    end
+    for i = 1, #list do
+        local row = list[i]
+        if type(row) ~= "table" or type(row[1]) ~= "string" or type(row[2]) ~= "number" then
+            return nil
+        end
+    end
+    return list
+end
+
 local function known(mapID)
     return MapInfo.LEVELS[mapID] ~= nil or MapInfo.FISHING[mapID] ~= nil
+        or rows("herbs", mapID) ~= nil or rows("ore", mapID) ~= nil
 end
 
 -- The map the corner describes: the one under the cursor when it is not the
@@ -98,26 +125,61 @@ function MapInfo.Pick(shown, hovered)
     return nil
 end
 
--- The corner's lines, top first: the name (when the game gave one), the
--- levels and the fishing, each left out when unknown; nil for a map with no data.
-function MapInfo.Lines(mapID, name)
+local function span(low, high)
+    return low == high and tostring(low) or (low .. "-" .. high)
+end
+
+-- The corner's lines, top first, each { text = , kind = }: the name (when the
+-- game gave one), the levels, the fishing, the herbs and the ore, each left
+-- out when unknown; nil for a map with no data. show = { herbs =, ore =,
+-- fish = } are the three switches (nil: all off). kind ("fish", "herbs",
+-- "ore") marks a line with a list to open; the fishing line has one only
+-- with show.fish on and a fish list for the zone.
+function MapInfo.Lines(mapID, name, show)
     if not known(mapID) then
         return nil
     end
+    show = type(show) == "table" and show or {}
     local lines = {}
     if type(name) == "string" and name ~= "" then
-        lines[#lines + 1] = name
+        lines[#lines + 1] = { text = name }
     end
     local levels = MapInfo.LEVELS[mapID]
     if levels then
-        lines[#lines + 1] = levels[1] == levels[2] and ("Level " .. levels[1])
-            or ("Levels " .. levels[1] .. "-" .. levels[2])
+        lines[#lines + 1] = { text = (levels[1] == levels[2] and "Level " or "Levels ")
+            .. span(levels[1], levels[2]) }
     end
     local fishing = MapInfo.FISHING[mapID]
     if fishing then
-        lines[#lines + 1] = ("Fishing %d (no getaways at %d)"):format(fishing[1], fishing[2])
+        lines[#lines + 1] = { text = ("Fishing %d (no getaways at %d)"):format(fishing[1], fishing[2]),
+            kind = (show.fish == true and rows("fish", mapID)) and "fish" or nil }
+    end
+    for _, kind in ipairs({ "herbs", "ore" }) do
+        local list = show[kind] == true and rows(kind, mapID)
+        if list then
+            local low, high = list[1][2], list[1][2]
+            for i = 2, #list do
+                low, high = math.min(low, list[i][2]), math.max(high, list[i][2])
+            end
+            lines[#lines + 1] = { text = SPAN[kind] .. " " .. span(low, high), kind = kind }
+        end
     end
     return lines
+end
+
+-- What a line's list prints: { title =, rows = { { left, right } ... }, note = },
+-- or nil when the zone has no such list. Herbs and ore read name and skill,
+-- fish name and share of the catch.
+function MapInfo.List(kind, mapID)
+    local list = rows(kind, mapID)
+    if not list then
+        return nil
+    end
+    local out = { title = TITLE[kind], rows = {}, note = kind == "fish" and MapInfo.FISH_NOTE or nil }
+    for i = 1, #list do
+        out.rows[i] = { list[i][1], kind == "fish" and (list[i][2] .. "%") or tostring(list[i][2]) }
+    end
+    return out
 end
 
 return MapInfo

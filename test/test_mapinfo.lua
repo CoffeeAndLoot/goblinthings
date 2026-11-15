@@ -29,7 +29,14 @@ return function(h, loaded)
     end)
 
     local function joined(lines)
-        return lines and table.concat(lines, " / ") or "nil"
+        if not lines then
+            return "nil"
+        end
+        local texts = {}
+        for i, line in ipairs(lines) do
+            texts[i] = line.text
+        end
+        return table.concat(texts, " / ")
     end
 
     h.describe("MapInfo.Lines", function()
@@ -38,7 +45,7 @@ return function(h, loaded)
                 "The Barrens / Levels 10-25 / Fishing 1 (no getaways at 75)")
         end)
         h.it("one level reads singular", function()
-            h.eq(MapInfo.Lines(2482, "Mount Hyjal")[2], "Level 60")
+            h.eq(MapInfo.Lines(2482, "Mount Hyjal")[2].text, "Level 60")
         end)
         h.it("a line it has no data for is left out", function()
             h.eq(joined(MapInfo.Lines(BADLANDS, "Badlands")), "Badlands / Levels 35-45")
@@ -50,6 +57,117 @@ return function(h, loaded)
         end)
         h.it("no name from the game still gives the numbers", function()
             h.eq(joined(MapInfo.Lines(BARRENS, nil)), "Levels 10-25 / Fishing 1 (no getaways at 75)")
+        end)
+    end)
+
+    -- The gathering lines against a small stand-in for the generated data.
+    local ns = loaded.ns
+    local ALL = { herbs = true, ore = true, fish = true }
+    local FAKE = {
+        HERBS = { [BARRENS] = { { "Peacebloom", 1 }, { "Kingsblood", 125 } }, [BADLANDS] = { { "Firebloom", 205 } },
+            [SHENDRALAS] = { { "Icecap", 290 } } },
+        ORE = { [BARRENS] = { { "Copper Vein", 1 }, { "Silver Vein", 75 } } },
+        FISH = { [BARRENS] = { { "Oily Blackmouth", 41 }, { "Stranglekelp", 6 } } },
+    }
+    local function with(data, fn)
+        local real = ns.MapData
+        ns.MapData = data
+        local ok, err = pcall(fn)
+        ns.MapData = real
+        if not ok then
+            error(err, 0)
+        end
+    end
+    local function kinds(lines)
+        local out = {}
+        for i, line in ipairs(lines) do
+            out[i] = line.kind or "-"
+        end
+        return table.concat(out, " ")
+    end
+
+    h.describe("MapInfo.Lines with gathering", function()
+        h.it("all on: herbs and ore lines follow fishing, each list marked", function()
+            with(FAKE, function()
+                local lines = MapInfo.Lines(BARRENS, "The Barrens", ALL)
+                h.eq(joined(lines),
+                    "The Barrens / Levels 10-25 / Fishing 1 (no getaways at 75) / Herbs 1-125 / Ore 1-75")
+                h.eq(kinds(lines), "- - fish herbs ore")
+            end)
+        end)
+        h.it("a switch off drops its line, or for fish only its mark", function()
+            with(FAKE, function()
+                local lines = MapInfo.Lines(BARRENS, nil, { herbs = false, ore = true, fish = false })
+                h.eq(joined(lines), "Levels 10-25 / Fishing 1 (no getaways at 75) / Ore 1-75")
+                h.eq(kinds(lines), "- - ore")
+            end)
+        end)
+        h.it("no switches given reads as the three lines there were before", function()
+            with(FAKE, function()
+                local lines = MapInfo.Lines(BARRENS, "The Barrens")
+                h.eq(joined(lines), "The Barrens / Levels 10-25 / Fishing 1 (no getaways at 75)")
+                h.eq(kinds(lines), "- - -")
+            end)
+        end)
+        h.it("herbs but no ore is one line, and one skill reads as one number", function()
+            with(FAKE, function()
+                h.eq(joined(MapInfo.Lines(BADLANDS, "Badlands", ALL)), "Badlands / Levels 35-45 / Herbs 205")
+            end)
+        end)
+        h.it("a zone known only for what grows there still shows, and can be picked", function()
+            with(FAKE, function()
+                h.eq(joined(MapInfo.Lines(SHENDRALAS, nil, ALL)), "Herbs 290")
+                h.eq(MapInfo.Pick(KALIMDOR, SHENDRALAS), SHENDRALAS)
+            end)
+        end)
+        h.it("a zone the data has never heard of keeps its old lines", function()
+            with(FAKE, function()
+                h.eq(joined(MapInfo.Lines(2482, "Mount Hyjal", ALL)), "Mount Hyjal / Level 60")
+                h.eq(MapInfo.Lines(KALIMDOR, "Kalimdor", ALL), nil)
+            end)
+        end)
+        h.it("missing or broken data shows the old lines, never an error", function()
+            local broken = { false, "junk", { HERBS = "junk" }, { HERBS = { [BARRENS] = "junk" } },
+                { HERBS = { [BARRENS] = { "Peacebloom" } } }, { ORE = { [BARRENS] = { { "Copper Vein" } } } },
+                { FISH = { [BARRENS] = { { 41, "Oily Blackmouth" } } } }, { HERBS = { [BARRENS] = {} } } }
+            for _, data in ipairs(broken) do
+                with(data or nil, function()
+                    local lines = MapInfo.Lines(BARRENS, "The Barrens", ALL)
+                    h.eq(joined(lines), "The Barrens / Levels 10-25 / Fishing 1 (no getaways at 75)")
+                    h.eq(kinds(lines), "- - -")
+                    h.eq(MapInfo.List("herbs", BARRENS), nil)
+                end)
+            end
+        end)
+    end)
+
+    h.describe("MapInfo.List", function()
+        local function flat(list)
+            local out = { list.title }
+            for i, row in ipairs(list.rows) do
+                out[i + 1] = row[1] .. "=" .. row[2]
+            end
+            out[#out + 1] = list.note or "no note"
+            return table.concat(out, " / ")
+        end
+        h.it("herbs and ore read name and skill", function()
+            with(FAKE, function()
+                h.eq(flat(MapInfo.List("herbs", BARRENS)), "Herbalism / Peacebloom=1 / Kingsblood=125 / no note")
+                h.eq(flat(MapInfo.List("ore", BARRENS)), "Mining / Copper Vein=1 / Silver Vein=75 / no note")
+            end)
+        end)
+        h.it("fish read name and share, with the Classic footnote", function()
+            with(FAKE, function()
+                h.eq(flat(MapInfo.List("fish", BARRENS)),
+                    "Fishing / Oily Blackmouth=41% / Stranglekelp=6% / Classic figures, not checked on Forever")
+            end)
+        end)
+        h.it("no such list, or no such kind, is nil", function()
+            with(FAKE, function()
+                h.eq(MapInfo.List("ore", BADLANDS), nil)
+                h.eq(MapInfo.List("skins", BARRENS), nil)
+                h.eq(MapInfo.List(nil, BARRENS), nil)
+            end)
         end)
     end)
 

@@ -545,6 +545,11 @@ function commands.probe()
     end
     say("Probe: map readout " .. (MapReadout.Built() and "built" or "NOT built (no world map)")
         .. "; map hover " .. hover .. ".")
+    local given = {}
+    for _, kind in ipairs({ "herbs", "ore", "fish" }) do
+        given[#given + 1] = kind .. " " .. (API.ProfessionIcon(kind) and "yes" or "NO (a letter is drawn)")
+    end
+    say("Probe: profession icons from the game: " .. table.concat(given, ", ") .. ".")
     say("Probe: kills readout " .. (KillsReadout.Built() and "built" or "not built yet") .. "; "
         .. #samples .. " kill sample(s).")
     if #xpLog == 0 then

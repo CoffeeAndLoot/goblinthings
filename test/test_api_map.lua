@@ -1,4 +1,4 @@
--- luacheck: globals C_Map
+-- luacheck: globals C_Map C_Spell
 -- API.MapUnderCursor against a stand-in map and C_Map: it only asks the game
 -- with the cursor on the canvas, and counts the asks and the answers so the
 -- probe can say when the game never answers.
@@ -65,5 +65,25 @@ return function(h)
         end)
     end)
 
+    h.describe("API.ProfessionIcon", function()
+        h.it("is the game's texture for the profession's spell", function()
+            C_Spell = { GetSpellTexture = function(spell) return spell == 2366 and 136065 or nil end }
+            local API = fresh(nil)
+            h.eq(API.ProfessionIcon("herbs"), 136065)
+            h.eq(API.ProfessionIcon("ore"), nil)
+        end)
+        h.it("is nil for a kind it has no spell for, and when the game cannot say", function()
+            C_Spell = { GetSpellTexture = function() error("no") end }
+            local API = fresh(nil)
+            h.eq(API.ProfessionIcon("skins"), nil)
+            h.eq(API.ProfessionIcon("fish"), nil)
+            C_Spell = { GetSpellTexture = function() return true end }
+            h.eq(API.ProfessionIcon("fish"), nil)
+            C_Spell = nil
+            h.eq(API.ProfessionIcon("fish"), nil)
+        end)
+    end)
+
     C_Map = nil  -- must not leak into the next suite
+    C_Spell = nil
 end

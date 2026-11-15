@@ -53,6 +53,10 @@ Features.LIST = {
     -- The world map's corner readout (spec 2026-11-10-map-zone-readout-design.md).
     { key = "mapInfo", label = "Zone levels and fishing on the map", section = "Map", control = "check",
         default = true },
+    -- What is gathered in the zone, on the same readout (spec 2026-11-14-map-gathering-lists-design.md).
+    { key = "mapHerbs", label = "Herbs on the map", section = "Map", control = "check", default = true },
+    { key = "mapOre", label = "Ore on the map", section = "Map", control = "check", default = true },
+    { key = "mapFish", label = "Fish list on the map", section = "Map", control = "check", default = true },
     -- Kills left to level, ghosted in a screen corner (spec 2026-11-11-kills-to-level-design.md).
     { key = "killsLeft", label = "Kills to level", section = "XP", control = "check", default = false },
     { key = "killsCorner", label = "Corner", section = "XP", control = "choice", default = "topLeft",
@@ -77,7 +81,7 @@ Features.LIST = {
 Features.NOTES = {
     XP = "Kills like your last ten; hidden until your first kill",
     Quests = "Off and all None = Blizzard's tracker (fully after /reload)",
-    Map = "Hover a zone on the world map; read it bottom right",
+    Map = "Read a zone at the world map's bottom right; open the zone for its lists",
 }
 
 function Features.ByKey(key)

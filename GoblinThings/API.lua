@@ -636,6 +636,25 @@ function API.MapName(mapID)
     return type(info) == "table" and str(info.name) or nil
 end
 
+-- The Apprentice spell of each gathering profession (Classic IDs, from memory:
+-- Wowhead asked for human verification before its spell pages could be
+-- checked, so the in-game checklist has the owner look at each icon).
+local PROFESSION_SPELL = { herbs = 2366, ore = 2575, fish = 7620 }
+
+-- The game's icon for a gathering profession (C_Spell.GetSpellTexture,
+-- SpellDocumentation.lua: nothing for a spell it does not know), or nil.
+function API.ProfessionIcon(kind)
+    local spell = PROFESSION_SPELL[kind]
+    if not spell then
+        return nil
+    end
+    local icon = call("GetSpellTexture", C_Spell and C_Spell.GetSpellTexture, spell)
+    if type(icon) == "number" or type(icon) == "string" then
+        return icon
+    end
+    return nil
+end
+
 -- ---- experience (spec 2026-11-11-kills-to-level-design.md) ----
 
 -- The player's XP into this level and the level's size (UnitDocumentation.lua),

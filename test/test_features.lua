@@ -10,7 +10,7 @@ return function(h, loaded)
             h.eq(table.concat(keys, " "), "autoAccept autoTurnIn autoTrack zoneOnly hideAbove "
                 .. "sortFirst sortSecond sortThird autoSellJunk autoRepair autoTrain fastLoot "
                 .. "declineDuels declineGuild acceptGuild acceptFriends acceptSummons guildAlerts "
-                .. "cameraDistance cinematics mapInfo "
+                .. "cameraDistance cinematics mapInfo mapHerbs mapOre mapFish "
                 .. "killsLeft killsCorner killsX killsY killsAlpha killsSize killsFont")
         end)
         h.it("Kills to level is off by default, top left, 30% and Friz", function()
@@ -163,13 +163,13 @@ return function(h, loaded)
                 counts[#counts + 1] = #s.features
             end
             h.eq(table.concat(names, " "), "Quests Vendors Loot Social Camera Cinematics Map XP")
-            h.eq(table.concat(counts, " "), "8 3 1 6 1 1 1 7")
+            h.eq(table.concat(counts, " "), "8 3 1 6 1 1 4 7")
         end)
         h.it("a section carries its note; the others have none", function()
             local sections = Features.Sections()
             h.eq(sections[1].note, "Off and all None = Blizzard's tracker (fully after /reload)")
             h.eq(sections[2].note, nil)
-            h.eq(sections[7].note, "Hover a zone on the world map; read it bottom right")
+            h.eq(sections[7].note, "Read a zone at the world map's bottom right; open the zone for its lists")
         end)
     end)
 end
