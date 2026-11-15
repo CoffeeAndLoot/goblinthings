@@ -512,8 +512,9 @@ the saved choice once there is one, not the game's read.
 
 - [x] Click New items fill bags left to right once: it ticks at once and stays ticked.
       (2026-11-15, the owner: "it stays ticked now".)
-- [ ] `/gt probe` with it ticked reads saved fill true; say what the game's value reads beside
+- [x] `/gt probe` with it ticked reads saved fill true; say what the game's value reads beside
       it, straight away and again after looting something.
+      (2026-11-15, the owner's screenshot: game true, saved true. So the game does take the write.)
 - [x] Loot or buy an item with it ticked: it lands at the other end of the bags from unticked.
       (2026-11-15, the owner: "items coming in are working".)
 

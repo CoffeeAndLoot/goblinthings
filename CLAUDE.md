@@ -164,7 +164,7 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
   write takes for `showInGameNavigation` and both `C_Container` setters, and something in Forever
   sorts bags. Bag fill direction (same day): with the box reading the game's getter, a tick was
   lost (a probe straight after ticking read game false, saved false); with the box reading the
-  saved choice it "stays ticked" and new items land at the chosen end. Why the getter misled is
+  saved choice it "stays ticked" and new items land at the chosen end, and a later probe read game true beside saved true. Why the getter misled is
   not known: lag is a guess. Untested: a write to the other ten CVars, and any of them in combat.
 - Solo XP lines (2026-11-14, `/gt probe`, Riverglades): "Glade Viper dies, you gain 260 experience."
   and the `UnitXP` change that follows is the same 260. One `PLAYER_XP_UPDATE` arrived with no
