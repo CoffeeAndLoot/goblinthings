@@ -28,10 +28,6 @@ Look.COLOUR = {
     gold = hex(0xF0, 0xD1, 0x40),      -- titles, headers, what is chosen
     glow = hex(0xF5, 0xE6, 0x99),      -- the lit top edge of the open tab
     red = hex(0x6E, 0x0C, 0x04),       -- the close button
-    -- The world map's own lettering, for the readout drawn on it (MapReadout.lua):
-    -- AREA_NAME_FONT_COLOR (1.0, 0.9294, 0.7607) and AREA_DESCRIPTION_FONT_COLOR (white).
-    areaName = hex(0xFF, 0xED, 0xC2),
-    areaText = hex(0xFF, 0xFF, 0xFF),
     ghost = hex(0xFF, 0xFF, 0xFF),     -- the kills-to-level number; its faintness is alpha (KillsReadout.lua)
 }
 

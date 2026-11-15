@@ -2,8 +2,10 @@ local _, ns = ...
 
 -- The world map's corner readout (specs 2026-11-10-map-zone-readout-design.md
 -- and 2026-11-14-map-gathering-lists-design.md): up to six right-justified
--- lines in the map's own lettering at the bottom right of the map, drawing
--- what MapInfo picks and decides nothing. Built on the map's canvas container
+-- lines on a small card at the bottom right of the map (the game's own look:
+-- brown in a bronze edge, as the list that opens above it; letters straight on
+-- the parchment washed out), drawing what MapInfo picks and deciding nothing.
+-- The card is as big as the lines showing and goes when there are none. Built on the map's canvas container
 -- at strata HIGH, as Blizzard's area label is, with the mouse off so the
 -- canvas keeps its hover. A line with a list (fish, herbs, ore, skins) ends in a
 -- small icon on a zone's own map; only those icons take the mouse, and
@@ -12,14 +14,17 @@ local MapReadout = {}
 ns.MapReadout = MapReadout
 
 MapReadout.LAYOUT = {
-    RIGHT = -48,   -- clear of the quest-log toggle in the corner (32 px at -2, 1) and the frame's ornament
-    BOTTOM = 26,   -- six lines sat against the map frame's corner ornament at 10 (seen 2026-11-14)
+    -- Where the words' bottom right corner sits; the card reaches CARD_PAD past
+    -- it, clear of the quest-log toggle (32 px at -2, 1) and the frame's ornament.
+    RIGHT = -50,
+    BOTTOM = 28,
+    CARD_PAD = 8,  -- between the card's edge and the words
     WIDTH = 300,
     GAP = 2,       -- between lines
     SIZES = { 16, 13, 13, 13, 13, 13 },  -- the name, then each line under it
     ICON = 14,     -- a list's icon at the end of its line
     ICON_GAP = 4,  -- between a line's words and its icon
-    LIST_GAP = 6,  -- between the top line and the list above it
+    LIST_GAP = 4,  -- between the card's top and the list above it
     LIST_PAD = 10,
     LIST_ROW = 15,
     LIST_COLUMN_GAP = 18,  -- between a row's name and its number
@@ -29,7 +34,7 @@ local L = MapReadout.LAYOUT
 MapReadout.LETTER = { fish = "F", herbs = "H", ore = "O", skins = "S" }
 local SWITCH = { herbs = "mapHerbs", ore = "mapOre", fish = "mapFish", skins = "mapSkins" }
 
-local frame, lines, icons, list, shownKey, shownID, topLine
+local frame, card, lines, icons, list, shownKey, shownID
 local textures = {}  -- kind -> the game's icon, once it has given one
 
 local function paint(strips, colour)
@@ -109,8 +114,7 @@ local function showList(icon)
     end
     list:SetSize(width + 2 * L.LIST_PAD, -y + L.LIST_PAD)
     list:ClearAllPoints()
-    -- Every line's left edge is the frame's, so this is the frame's right edge.
-    list:SetPoint("BOTTOMRIGHT", topLine or frame, "TOPLEFT", L.WIDTH, L.LIST_GAP)
+    list:SetPoint("BOTTOMRIGHT", card, "TOPRIGHT", 0, L.LIST_GAP)
     paint(icon.edge, "gold")
     list:Show()
 end
@@ -134,13 +138,14 @@ local function dressIcon(icon, kind, s)
 end
 
 -- rows[i] = { text =, kind = } on line i (the first in the name's size and,
--- when it is the name, its colour), stacked up from the bottom; nil hides
--- every line. withIcons: a row with a kind ends in its icon.
+-- when it is the name, its colour), stacked up from the bottom, and the card
+-- sized round them; nil hides every line and the card. withIcons: a row with
+-- a kind ends in its icon.
 local function draw(rows, named, withIcons)
     local Look = ns.Look
     hideList()
     local below
-    topLine = nil
+    local width, height = 0, 0
     for i = #lines, 1, -1 do
         local s, row, icon = lines[i], rows and rows[i], icons[i]
         s:ClearAllPoints()
@@ -148,19 +153,27 @@ local function draw(rows, named, withIcons)
         if row then
             local kind = withIcons and row.kind or nil
             s:SetText(row.text)
-            s:SetTextColor(Look.RGB((i == 1 and named) and "areaName" or "areaText"))
+            s:SetTextColor(Look.RGB((i == 1 and named) and "gold" or "text"))
             s:SetWidth(L.WIDTH - (kind and (L.ICON + L.ICON_GAP) or 0))
             s:SetPoint("BOTTOMLEFT", below or frame, below and "TOPLEFT" or "BOTTOMLEFT", 0, below and L.GAP or 0)
             s:Show()
             if kind then
                 dressIcon(icon, kind, s)
             end
+            -- Unbounded: the line is as wide as the frame, so its own width says nothing.
+            width = math.max(width, s:GetUnboundedStringWidth() + (kind and (L.ICON + L.ICON_GAP) or 0))
+            height = height + s:GetStringHeight() + (below and L.GAP or 0)
             below = s
-            topLine = s
         else
             s:SetText("")
             s:Hide()
         end
+    end
+    if below then
+        card:SetSize(math.ceil(width) + 2 * L.CARD_PAD, math.ceil(height) + 2 * L.CARD_PAD)
+        card:Show()
+    else
+        card:Hide()
     end
 end
 
@@ -190,9 +203,9 @@ local function update(core, map)
     draw(id and ns.MapInfo.Lines(id, name, show), name ~= nil, withIcons)
 end
 
-local function makeIcon(core)
+local function makeIcon(core, parent)
     local Look = ns.Look
-    local icon = CreateFrame("Frame", nil, frame)
+    local icon = CreateFrame("Frame", nil, parent)
     icon:SetSize(L.ICON, L.ICON)
     icon:EnableMouse(true)
     local fill = Look.Texture(icon, "BACKGROUND", Look.COLOUR.window)
@@ -229,13 +242,24 @@ function MapReadout.Create(core)
     frame:EnableMouse(false)
     frame:SetSize(L.WIDTH, 1)
     frame:SetPoint("BOTTOMRIGHT", canvas, "BOTTOMRIGHT", L.RIGHT, L.BOTTOM)
+    card = CreateFrame("Frame", nil, frame)
+    card:EnableMouse(false)
+    card:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", L.CARD_PAD, -L.CARD_PAD)
+    Look.Frame(card)
+    card:Hide()
+    -- The words and icons live on a frame above the card: a child frame draws
+    -- over its parent's own regions, so on `frame` itself the card would hide them.
+    local words = CreateFrame("Frame", nil, frame)
+    words:SetAllPoints(frame)
+    words:EnableMouse(false)
+    words:SetFrameLevel(card:GetFrameLevel() + 1)
     lines, icons = {}, {}
     for i, size in ipairs(L.SIZES) do
-        local s = Look.Text(frame, Look.WORDS, size, "areaText", "OUTLINE")
+        local s = Look.Text(words, Look.WORDS, size, "text")
         s:SetJustifyH("RIGHT")
         s:Hide()
         lines[i] = s
-        icons[i] = makeIcon(core)
+        icons[i] = makeIcon(core, words)
     end
     frame:SetScript("OnUpdate", function()
         core.Guard("Map", update, core, map)

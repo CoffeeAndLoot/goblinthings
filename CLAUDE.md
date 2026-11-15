@@ -100,8 +100,9 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
    also filters); all None leaves it in as a pass-through until /reload
    (XML `mixin=` copies methods onto the frame, so setting the field to nil would delete the
    tracker's own method). A player who never sorts never has the tracker touched.
-6. The world map readout: up to six lines at the map canvas's bottom right (name, levels, fishing,
-   herbs, ore, skins), drawn each frame the map is shown.
+6. The world map readout: up to six lines on a small card at the map canvas's bottom right (name,
+   levels, fishing, herbs, ore, skins), checked each frame the map is shown. The card is the game's
+   look (letters straight on the parchment washed out) and is sized to the lines showing.
    - `MapInfo` (pure) holds hand-written level ranges and fishing skills by UiMap ID, reads the
      generated `MapData` inside its functions, and decides everything: `Pick(shown, hovered, show)`
      the map to describe, `Lines(mapID, name, show)` each line as `{ text, kind }`, and
