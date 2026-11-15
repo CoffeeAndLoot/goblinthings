@@ -18,6 +18,7 @@ Decline.lua
 Accept.lua
 Loot.lua
 TrackerSort.lua
+MapData.lua
 MapInfo.lua
 Kills.lua
 Look.lua

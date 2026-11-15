@@ -1,0 +1,3285 @@
+{
+ "read": "2026-11-14",
+ "from": "https://www.wowhead.com/classic/zone=<area id>",
+ "note": "Per zone page: title; herbs and ore are the objects list's type -3 and -4 rows as [name, skill], one per distinct pair; fish is the fishing list as [item ID, name, count, item class.subclass], rows under 1% of the page's whole count left out, and fishTotal is that whole count. fish null: the page has no fishing list.",
+ "zones": {
+  "14": {
+   "title": "Durotar",
+   "herbs": [
+    [
+     "Silverleaf",
+     1
+    ],
+    [
+     "Peacebloom",
+     1
+    ],
+    [
+     "Earthroot",
+     15
+    ],
+    [
+     "Mageroyal",
+     50
+    ]
+   ],
+   "ore": [
+    [
+     "Copper Vein",
+     1
+    ]
+   ],
+   "fish": [
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     32,
+     "7.8"
+    ],
+    [
+     6291,
+     "Raw Brilliant Smallfish",
+     52,
+     "7.8"
+    ],
+    [
+     6295,
+     "15 Pound Mud Snapper",
+     12,
+     "4.-5"
+    ],
+    [
+     6303,
+     "Raw Slitherskin Mackerel",
+     262,
+     "7.8"
+    ],
+    [
+     6308,
+     "Raw Bristle Whisker Catfish",
+     4,
+     "7.8"
+    ],
+    [
+     6356,
+     "Battered Chest",
+     10,
+     "15.4"
+    ]
+   ],
+   "fishTotal": 399
+  },
+  "215": {
+   "title": "Mulgore",
+   "herbs": [
+    [
+     "Silverleaf",
+     1
+    ],
+    [
+     "Peacebloom",
+     1
+    ],
+    [
+     "Earthroot",
+     15
+    ]
+   ],
+   "ore": [
+    [
+     "Copper Vein",
+     1
+    ]
+   ],
+   "fish": [
+    [
+     4565,
+     "Simple Dagger",
+     5,
+     "2.15"
+    ],
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     150,
+     "7.8"
+    ],
+    [
+     6291,
+     "Raw Brilliant Smallfish",
+     232,
+     "7.8"
+    ],
+    [
+     6292,
+     "10 Pound Mud Snapper",
+     5,
+     "4.-5"
+    ],
+    [
+     8179,
+     "Cadet's Bow",
+     6,
+     "2.2"
+    ]
+   ],
+   "fishTotal": 436
+  },
+  "141": {
+   "title": "Teldrassil",
+   "herbs": [
+    [
+     "Silverleaf",
+     1
+    ],
+    [
+     "Peacebloom",
+     1
+    ],
+    [
+     "Earthroot",
+     15
+    ],
+    [
+     "Mageroyal",
+     50
+    ]
+   ],
+   "ore": [],
+   "fish": [
+    [
+     118,
+     "Minor Healing Potion",
+     5,
+     "0.1"
+    ],
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     82,
+     "7.8"
+    ],
+    [
+     6291,
+     "Raw Brilliant Smallfish",
+     146,
+     "7.8"
+    ],
+    [
+     6303,
+     "Raw Slitherskin Mackerel",
+     225,
+     "7.8"
+    ]
+   ],
+   "fishTotal": 485
+  },
+  "17": {
+   "title": "The Barrens",
+   "herbs": [
+    [
+     "Wild Steelbloom",
+     115
+    ],
+    [
+     "Kingsblood",
+     125
+    ],
+    [
+     "Grave Moss",
+     120
+    ],
+    [
+     "Stranglekelp",
+     85
+    ],
+    [
+     "Peacebloom",
+     1
+    ],
+    [
+     "Silverleaf",
+     1
+    ],
+    [
+     "Earthroot",
+     15
+    ],
+    [
+     "Mageroyal",
+     50
+    ],
+    [
+     "Briarthorn",
+     70
+    ],
+    [
+     "Bruiseweed",
+     100
+    ]
+   ],
+   "ore": [
+    [
+     "Copper Vein",
+     1
+    ],
+    [
+     "Tin Vein",
+     65
+    ],
+    [
+     "Silver Vein",
+     75
+    ]
+   ],
+   "fish": [
+    [
+     3820,
+     "Stranglekelp",
+     68,
+     "7.9"
+    ],
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     188,
+     "7.8"
+    ],
+    [
+     6291,
+     "Raw Brilliant Smallfish",
+     50,
+     "7.8"
+    ],
+    [
+     6303,
+     "Raw Slitherskin Mackerel",
+     147,
+     "7.8"
+    ],
+    [
+     6308,
+     "Raw Bristle Whisker Catfish",
+     67,
+     "7.8"
+    ],
+    [
+     6358,
+     "Oily Blackmouth",
+     470,
+     "15.1"
+    ],
+    [
+     6361,
+     "Raw Rainbow Fin Albacore",
+     113,
+     "7.8"
+    ]
+   ],
+   "fishTotal": 1156
+  },
+  "148": {
+   "title": "Darkshore",
+   "herbs": [
+    [
+     "Silverleaf",
+     1
+    ],
+    [
+     "Peacebloom",
+     1
+    ],
+    [
+     "Earthroot",
+     15
+    ],
+    [
+     "Mageroyal",
+     50
+    ],
+    [
+     "Briarthorn",
+     70
+    ],
+    [
+     "Bruiseweed",
+     100
+    ],
+    [
+     "Stranglekelp",
+     85
+    ],
+    [
+     "Beached Sea Creature",
+     1
+    ],
+    [
+     "Skeletal Sea Turtle",
+     1
+    ]
+   ],
+   "ore": [
+    [
+     "Copper Vein",
+     1
+    ],
+    [
+     "Tin Vein",
+     65
+    ],
+    [
+     "Silver Vein",
+     75
+    ]
+   ],
+   "fish": [
+    [
+     3820,
+     "Stranglekelp",
+     37,
+     "7.9"
+    ],
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     191,
+     "7.8"
+    ],
+    [
+     6291,
+     "Raw Brilliant Smallfish",
+     66,
+     "7.8"
+    ],
+    [
+     6303,
+     "Raw Slitherskin Mackerel",
+     249,
+     "7.8"
+    ],
+    [
+     6308,
+     "Raw Bristle Whisker Catfish",
+     64,
+     "7.8"
+    ],
+    [
+     6358,
+     "Oily Blackmouth",
+     282,
+     "15.1"
+    ],
+    [
+     6361,
+     "Raw Rainbow Fin Albacore",
+     368,
+     "7.8"
+    ],
+    [
+     6717,
+     "Gaffer Jack",
+     240,
+     "12.0"
+    ]
+   ],
+   "fishTotal": 1535
+  },
+  "406": {
+   "title": "Stonetalon Mountains",
+   "herbs": [
+    [
+     "Mageroyal",
+     50
+    ],
+    [
+     "Briarthorn",
+     70
+    ],
+    [
+     "Bruiseweed",
+     100
+    ],
+    [
+     "Wild Steelbloom",
+     115
+    ],
+    [
+     "Kingsblood",
+     125
+    ]
+   ],
+   "ore": [
+    [
+     "Copper Vein",
+     1
+    ],
+    [
+     "Tin Vein",
+     65
+    ],
+    [
+     "Silver Vein",
+     75
+    ],
+    [
+     "Gold Vein",
+     155
+    ],
+    [
+     "Iron Deposit",
+     125
+    ],
+    [
+     "Mithril Deposit",
+     175
+    ],
+    [
+     "Truesilver Deposit",
+     230
+    ]
+   ],
+   "fish": [
+    [
+     3820,
+     "Stranglekelp",
+     30,
+     "7.9"
+    ],
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     172,
+     "7.8"
+    ],
+    [
+     6308,
+     "Raw Bristle Whisker Catfish",
+     307,
+     "7.8"
+    ],
+    [
+     6359,
+     "Firefin Snapper",
+     114,
+     "15.1"
+    ],
+    [
+     21071,
+     "Raw Sagefish",
+     46,
+     "7.8"
+    ]
+   ],
+   "fishTotal": 755
+  },
+  "331": {
+   "title": "Ashenvale",
+   "herbs": [
+    [
+     "Mageroyal",
+     50
+    ],
+    [
+     "Briarthorn",
+     70
+    ],
+    [
+     "Bruiseweed",
+     100
+    ],
+    [
+     "Wild Steelbloom",
+     115
+    ],
+    [
+     "Kingsblood",
+     125
+    ],
+    [
+     "Liferoot",
+     150
+    ],
+    [
+     "Stranglekelp",
+     85
+    ],
+    [
+     "Purple Lotus",
+     210
+    ],
+    [
+     "Gromsblood",
+     250
+    ],
+    [
+     "Dreamroot",
+     205
+    ]
+   ],
+   "ore": [
+    [
+     "Copper Vein",
+     1
+    ],
+    [
+     "Tin Vein",
+     65
+    ],
+    [
+     "Silver Vein",
+     75
+    ],
+    [
+     "Gold Vein",
+     155
+    ],
+    [
+     "Iron Deposit",
+     125
+    ],
+    [
+     "Fool's Gold Vein",
+     175
+    ]
+   ],
+   "fish": [
+    [
+     1180,
+     "Scroll of Stamina",
+     8,
+     "0.4"
+    ],
+    [
+     3012,
+     "Scroll of Agility",
+     7,
+     "0.4"
+    ],
+    [
+     4364,
+     "Coarse Blasting Powder",
+     9,
+     "7.1"
+    ],
+    [
+     4377,
+     "Heavy Blasting Powder",
+     10,
+     "7.1"
+    ],
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     130,
+     "7.8"
+    ],
+    [
+     6299,
+     "Sickly Looking Fish",
+     12,
+     "0.5"
+    ],
+    [
+     6304,
+     "Damp Diary Page (Day 4)",
+     8,
+     "15.0"
+    ],
+    [
+     6308,
+     "Raw Bristle Whisker Catfish",
+     268,
+     "7.8"
+    ],
+    [
+     6358,
+     "Oily Blackmouth",
+     42,
+     "15.1"
+    ],
+    [
+     6359,
+     "Firefin Snapper",
+     12,
+     "15.1"
+    ],
+    [
+     6361,
+     "Raw Rainbow Fin Albacore",
+     73,
+     "7.8"
+    ]
+   ],
+   "fishTotal": 662
+  },
+  "400": {
+   "title": "Thousand Needles",
+   "herbs": [
+    [
+     "Bruiseweed",
+     100
+    ],
+    [
+     "Wild Steelbloom",
+     115
+    ],
+    [
+     "Kingsblood",
+     125
+    ],
+    [
+     "Incendia Agave",
+     1
+    ]
+   ],
+   "ore": [
+    [
+     "Copper Vein",
+     1
+    ],
+    [
+     "Tin Vein",
+     65
+    ],
+    [
+     "Silver Vein",
+     75
+    ],
+    [
+     "Gold Vein",
+     155
+    ],
+    [
+     "Iron Deposit",
+     125
+    ],
+    [
+     "Mithril Deposit",
+     175
+    ],
+    [
+     "Truesilver Deposit",
+     230
+    ],
+    [
+     "Ooze Covered Silver Vein",
+     75
+    ],
+    [
+     "Ooze Covered Gold Vein",
+     155
+    ],
+    [
+     "Ooze Covered Mithril Deposit",
+     175
+    ]
+   ],
+   "fish": [
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     16,
+     "7.8"
+    ],
+    [
+     6291,
+     "Raw Brilliant Smallfish",
+     8,
+     "7.8"
+    ],
+    [
+     6308,
+     "Raw Bristle Whisker Catfish",
+     23,
+     "7.8"
+    ],
+    [
+     6310,
+     "19 Pound Catfish",
+     8,
+     "4.-5"
+    ],
+    [
+     6311,
+     "22 Pound Catfish",
+     4,
+     "4.-5"
+    ],
+    [
+     6522,
+     "Deviate Fish",
+     14,
+     "0.5"
+    ],
+    [
+     8365,
+     "Raw Mithril Head Trout",
+     49,
+     "7.8"
+    ],
+    [
+     11996,
+     "Basalt Ring",
+     2,
+     "4.-2"
+    ]
+   ],
+   "fishTotal": 130
+  },
+  "405": {
+   "title": "Desolace",
+   "herbs": [
+    [
+     "Bruiseweed",
+     100
+    ],
+    [
+     "Wild Steelbloom",
+     115
+    ],
+    [
+     "Kingsblood",
+     125
+    ],
+    [
+     "Grave Moss",
+     120
+    ],
+    [
+     "Liferoot",
+     150
+    ],
+    [
+     "Stranglekelp",
+     85
+    ],
+    [
+     "Ghost Mushroom",
+     245
+    ],
+    [
+     "Gromsblood",
+     250
+    ]
+   ],
+   "ore": [
+    [
+     "Copper Vein",
+     1
+    ],
+    [
+     "Tin Vein",
+     65
+    ],
+    [
+     "Silver Vein",
+     75
+    ],
+    [
+     "Gold Vein",
+     155
+    ],
+    [
+     "Iron Deposit",
+     125
+    ],
+    [
+     "Mithril Deposit",
+     175
+    ],
+    [
+     "Truesilver Deposit",
+     230
+    ]
+   ],
+   "fish": [
+    [
+     3820,
+     "Stranglekelp",
+     5,
+     "7.9"
+    ],
+    [
+     3928,
+     "Superior Healing Potion",
+     4,
+     "0.1"
+    ],
+    [
+     4603,
+     "Raw Spotted Yellowtail",
+     23,
+     "7.8"
+    ],
+    [
+     6308,
+     "Raw Bristle Whisker Catfish",
+     50,
+     "7.8"
+    ],
+    [
+     6358,
+     "Oily Blackmouth",
+     46,
+     "15.1"
+    ],
+    [
+     6359,
+     "Firefin Snapper",
+     43,
+     "15.1"
+    ],
+    [
+     6362,
+     "Raw Rockscale Cod",
+     77,
+     "7.8"
+    ],
+    [
+     8365,
+     "Raw Mithril Head Trout",
+     75,
+     "7.8"
+    ],
+    [
+     10406,
+     "Scaled Leather Headband",
+     4,
+     "4.2"
+    ],
+    [
+     13757,
+     "Lightning Eel",
+     14,
+     "15.1"
+    ]
+   ],
+   "fishTotal": 387
+  },
+  "15": {
+   "title": "Dustwallow Marsh",
+   "herbs": [
+    [
+     "Kingsblood",
+     125
+    ],
+    [
+     "Liferoot",
+     150
+    ],
+    [
+     "Fadeleaf",
+     160
+    ],
+    [
+     "Khadgar's Whisker",
+     185
+    ],
+    [
+     "Stranglekelp",
+     85
+    ],
+    [
+     "Goldthorn",
+     170
+    ]
+   ],
+   "ore": [
+    [
+     "Tin Vein",
+     65
+    ],
+    [
+     "Silver Vein",
+     75
+    ],
+    [
+     "Gold Vein",
+     155
+    ],
+    [
+     "Iron Deposit",
+     125
+    ],
+    [
+     "Mithril Deposit",
+     175
+    ],
+    [
+     "Truesilver Deposit",
+     230
+    ]
+   ],
+   "fish": [
+    [
+     4603,
+     "Raw Spotted Yellowtail",
+     86,
+     "7.8"
+    ],
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     22,
+     "7.8"
+    ],
+    [
+     6308,
+     "Raw Bristle Whisker Catfish",
+     502,
+     "7.8"
+    ],
+    [
+     6358,
+     "Oily Blackmouth",
+     105,
+     "15.1"
+    ],
+    [
+     6359,
+     "Firefin Snapper",
+     103,
+     "15.1"
+    ],
+    [
+     6362,
+     "Raw Rockscale Cod",
+     246,
+     "7.8"
+    ],
+    [
+     6522,
+     "Deviate Fish",
+     24,
+     "0.5"
+    ],
+    [
+     8365,
+     "Raw Mithril Head Trout",
+     367,
+     "7.8"
+    ]
+   ],
+   "fishTotal": 1529
+  },
+  "357": {
+   "title": "Feralas",
+   "herbs": [
+    [
+     "Liferoot",
+     150
+    ],
+    [
+     "Khadgar's Whisker",
+     185
+    ],
+    [
+     "Stranglekelp",
+     85
+    ],
+    [
+     "Goldthorn",
+     170
+    ],
+    [
+     "Purple Lotus",
+     210
+    ],
+    [
+     "Sungrass",
+     230
+    ],
+    [
+     "Golden Sansam",
+     260
+    ],
+    [
+     "Moonroot",
+     250
+    ]
+   ],
+   "ore": [
+    [
+     "Small Thorium Vein",
+     245
+    ],
+    [
+     "Silver Vein",
+     75
+    ],
+    [
+     "Gold Vein",
+     155
+    ],
+    [
+     "Iron Deposit",
+     125
+    ],
+    [
+     "Mithril Deposit",
+     175
+    ],
+    [
+     "Truesilver Deposit",
+     230
+    ],
+    [
+     "Ooze Covered Gold Vein",
+     155
+    ],
+    [
+     "Ooze Covered Truesilver Deposit",
+     230
+    ],
+    [
+     "Ooze Covered Mithril Deposit",
+     175
+    ],
+    [
+     "Ooze Covered Thorium Vein",
+     245
+    ],
+    [
+     "Greater Moonstone Formation",
+     245
+    ]
+   ],
+   "fish": [
+    [
+     3820,
+     "Stranglekelp",
+     57,
+     "7.9"
+    ],
+    [
+     4603,
+     "Raw Spotted Yellowtail",
+     423,
+     "7.8"
+    ],
+    [
+     6358,
+     "Oily Blackmouth",
+     527,
+     "15.1"
+    ],
+    [
+     6359,
+     "Firefin Snapper",
+     372,
+     "15.1"
+    ],
+    [
+     6362,
+     "Raw Rockscale Cod",
+     106,
+     "7.8"
+    ],
+    [
+     7971,
+     "Black Pearl",
+     27,
+     "7.0"
+    ],
+    [
+     7973,
+     "Big-mouth Clam",
+     105,
+     "7.11"
+    ],
+    [
+     8365,
+     "Raw Mithril Head Trout",
+     338,
+     "7.8"
+    ],
+    [
+     13422,
+     "Stonescale Eel",
+     285,
+     "15.1"
+    ],
+    [
+     13443,
+     "Superior Mana Potion",
+     31,
+     "0.1"
+    ]
+   ],
+   "fishTotal": 2344
+  },
+  "440": {
+   "title": "Tanaris",
+   "herbs": [
+    [
+     "Stranglekelp",
+     85
+    ],
+    [
+     "Firebloom",
+     205
+    ],
+    [
+     "Purple Lotus",
+     210
+    ]
+   ],
+   "ore": [
+    [
+     "Small Thorium Vein",
+     245
+    ],
+    [
+     "Silver Vein",
+     75
+    ],
+    [
+     "Gold Vein",
+     155
+    ],
+    [
+     "Iron Deposit",
+     125
+    ],
+    [
+     "Mithril Deposit",
+     175
+    ],
+    [
+     "Truesilver Deposit",
+     230
+    ]
+   ],
+   "fish": [
+    [
+     3820,
+     "Stranglekelp",
+     77,
+     "7.9"
+    ],
+    [
+     4603,
+     "Raw Spotted Yellowtail",
+     1070,
+     "7.8"
+    ],
+    [
+     6358,
+     "Oily Blackmouth",
+     183,
+     "15.1"
+    ],
+    [
+     6359,
+     "Firefin Snapper",
+     538,
+     "15.1"
+    ],
+    [
+     6362,
+     "Raw Rockscale Cod",
+     276,
+     "7.8"
+    ],
+    [
+     7973,
+     "Big-mouth Clam",
+     189,
+     "7.11"
+    ],
+    [
+     13422,
+     "Stonescale Eel",
+     492,
+     "15.1"
+    ],
+    [
+     13754,
+     "Raw Glossy Mightfish",
+     317,
+     "7.8"
+    ],
+    [
+     13755,
+     "Winter Squid",
+     259,
+     "0.5"
+    ],
+    [
+     13756,
+     "Raw Summer Bass",
+     248,
+     "7.8"
+    ]
+   ],
+   "fishTotal": 3768
+  },
+  "16": {
+   "title": "Azshara",
+   "herbs": [
+    [
+     "Khadgar's Whisker",
+     185
+    ],
+    [
+     "Stranglekelp",
+     85
+    ],
+    [
+     "Goldthorn",
+     170
+    ],
+    [
+     "Purple Lotus",
+     210
+    ],
+    [
+     "Sungrass",
+     230
+    ],
+    [
+     "Golden Sansam",
+     260
+    ],
+    [
+     "Dreamfoil",
+     270
+    ],
+    [
+     "Mountain Silversage",
+     280
+    ]
+   ],
+   "ore": [
+    [
+     "Gold Vein",
+     155
+    ],
+    [
+     "Mithril Deposit",
+     175
+    ],
+    [
+     "Truesilver Deposit",
+     230
+    ],
+    [
+     "Rich Thorium Vein",
+     275
+    ]
+   ],
+   "fish": [
+    [
+     3820,
+     "Stranglekelp",
+     89,
+     "7.9"
+    ],
+    [
+     4603,
+     "Raw Spotted Yellowtail",
+     557,
+     "7.8"
+    ],
+    [
+     5500,
+     "Iridescent Pearl",
+     86,
+     "7.0"
+    ],
+    [
+     6291,
+     "Raw Brilliant Smallfish",
+     55,
+     "7.8"
+    ],
+    [
+     6358,
+     "Oily Blackmouth",
+     124,
+     "15.1"
+    ],
+    [
+     6359,
+     "Firefin Snapper",
+     241,
+     "15.1"
+    ],
+    [
+     6362,
+     "Raw Rockscale Cod",
+     71,
+     "7.8"
+    ],
+    [
+     6522,
+     "Deviate Fish",
+     113,
+     "0.5"
+    ],
+    [
+     7070,
+     "Elemental Water",
+     37,
+     "7.10"
+    ],
+    [
+     7079,
+     "Globe of Water",
+     38,
+     "7.10"
+    ],
+    [
+     7971,
+     "Black Pearl",
+     95,
+     "7.0"
+    ],
+    [
+     7973,
+     "Big-mouth Clam",
+     562,
+     "7.11"
+    ],
+    [
+     10505,
+     "Solid Blasting Powder",
+     37,
+     "7.1"
+    ],
+    [
+     13422,
+     "Stonescale Eel",
+     1373,
+     "15.1"
+    ],
+    [
+     13754,
+     "Raw Glossy Mightfish",
+     82,
+     "7.8"
+    ]
+   ],
+   "fishTotal": 3647
+  },
+  "361": {
+   "title": "Felwood",
+   "herbs": [
+    [
+     "Sungrass",
+     230
+    ],
+    [
+     "Gromsblood",
+     250
+    ],
+    [
+     "Golden Sansam",
+     260
+    ],
+    [
+     "Dreamfoil",
+     270
+    ],
+    [
+     "Mountain Silversage",
+     280
+    ],
+    [
+     "Plaguebloom",
+     285
+    ],
+    [
+     "Arthas' Tears",
+     220
+    ]
+   ],
+   "ore": [
+    [
+     "Small Thorium Vein",
+     245
+    ],
+    [
+     "Mithril Deposit",
+     175
+    ],
+    [
+     "Truesilver Deposit",
+     230
+    ],
+    [
+     "Gold Vein",
+     155
+    ]
+   ],
+   "fish": [
+    [
+     6358,
+     "Oily Blackmouth",
+     99,
+     "15.1"
+    ],
+    [
+     8365,
+     "Raw Mithril Head Trout",
+     96,
+     "7.8"
+    ],
+    [
+     13758,
+     "Raw Redgill",
+     405,
+     "7.8"
+    ],
+    [
+     13759,
+     "Raw Nightfin Snapper",
+     262,
+     "7.8"
+    ]
+   ],
+   "fishTotal": 907
+  },
+  "490": {
+   "title": "Un'Goro Crater",
+   "herbs": [
+    [
+     "Sungrass",
+     230
+    ],
+    [
+     "Blindweed",
+     235
+    ],
+    [
+     "Golden Sansam",
+     260
+    ],
+    [
+     "Dreamfoil",
+     270
+    ],
+    [
+     "Mountain Silversage",
+     280
+    ]
+   ],
+   "ore": [
+    [
+     "Small Thorium Vein",
+     245
+    ],
+    [
+     "Gold Vein",
+     155
+    ],
+    [
+     "Mithril Deposit",
+     175
+    ],
+    [
+     "Truesilver Deposit",
+     230
+    ],
+    [
+     "Ooze Covered Truesilver Deposit",
+     230
+    ],
+    [
+     "Ooze Covered Thorium Vein",
+     245
+    ],
+    [
+     "Rich Thorium Vein",
+     275
+    ]
+   ],
+   "fish": [
+    [
+     1640,
+     "Monstrous War Axe",
+     1,
+     "2.1"
+    ],
+    [
+     3857,
+     "Coal",
+     10,
+     "7.7"
+    ],
+    [
+     3928,
+     "Superior Healing Potion",
+     1,
+     "0.1"
+    ],
+    [
+     4062,
+     "Imperial Leather Pants",
+     1,
+     "4.2"
+    ],
+    [
+     6149,
+     "Greater Mana Potion",
+     2,
+     "0.1"
+    ],
+    [
+     6297,
+     "Old Skull",
+     5,
+     "15.0"
+    ],
+    [
+     6358,
+     "Oily Blackmouth",
+     25,
+     "15.1"
+    ],
+    [
+     7521,
+     "Gossamer Gloves",
+     1,
+     "4.1"
+    ],
+    [
+     7530,
+     "Cabalist Gloves",
+     2,
+     "4.2"
+    ],
+    [
+     7975,
+     "Plans: Heavy Mithril Pants",
+     2,
+     "9.4"
+    ],
+    [
+     8365,
+     "Raw Mithril Head Trout",
+     1,
+     "7.8"
+    ],
+    [
+     9878,
+     "Sorcerer Hat",
+     1,
+     "4.1"
+    ],
+    [
+     9961,
+     "Warmonger's Belt",
+     1,
+     "4.3"
+    ],
+    [
+     13757,
+     "Lightning Eel",
+     12,
+     "15.1"
+    ],
+    [
+     13758,
+     "Raw Redgill",
+     10,
+     "7.8"
+    ],
+    [
+     13759,
+     "Raw Nightfin Snapper",
+     1,
+     "7.8"
+    ],
+    [
+     13760,
+     "Raw Sunscale Salmon",
+     2,
+     "7.8"
+    ],
+    [
+     13881,
+     "Bloated Redgill",
+     3,
+     "0.0"
+    ],
+    [
+     13882,
+     "42 Pound Redgill",
+     1,
+     "4.-5"
+    ],
+    [
+     13883,
+     "45 Pound Redgill",
+     7,
+     "4.-5"
+    ],
+    [
+     13884,
+     "49 Pound Redgill",
+     5,
+     "4.-5"
+    ],
+    [
+     13885,
+     "34 Pound Redgill",
+     1,
+     "4.-5"
+    ],
+    [
+     13886,
+     "37 Pound Redgill",
+     1,
+     "4.-5"
+    ],
+    [
+     13887,
+     "52 Pound Redgill",
+     1,
+     "4.-5"
+    ],
+    [
+     15215,
+     "Furious Falchion",
+     1,
+     "2.7"
+    ],
+    [
+     15262,
+     "Greater Maul",
+     1,
+     "2.5"
+    ]
+   ],
+   "fishTotal": 99
+  },
+  "618": {
+   "title": "Winterspring",
+   "herbs": [
+    [
+     "Mountain Silversage",
+     280
+    ],
+    [
+     "Icecap",
+     290
+    ],
+    [
+     "Black Lotus",
+     300
+    ]
+   ],
+   "ore": [
+    [
+     "Small Thorium Vein",
+     245
+    ],
+    [
+     "Gold Vein",
+     155
+    ],
+    [
+     "Mithril Deposit",
+     175
+    ],
+    [
+     "Truesilver Deposit",
+     230
+    ],
+    [
+     "Rich Thorium Vein",
+     275
+    ]
+   ],
+   "fish": [
+    [
+     4500,
+     "Traveler's Backpack",
+     2,
+     "1.0"
+    ],
+    [
+     7910,
+     "Star Ruby",
+     2,
+     "7.0"
+    ],
+    [
+     13443,
+     "Superior Mana Potion",
+     3,
+     "0.1"
+    ],
+    [
+     13446,
+     "Major Healing Potion",
+     3,
+     "0.1"
+    ],
+    [
+     13757,
+     "Lightning Eel",
+     2,
+     "15.1"
+    ],
+    [
+     13759,
+     "Raw Nightfin Snapper",
+     3,
+     "7.8"
+    ],
+    [
+     13760,
+     "Raw Sunscale Salmon",
+     14,
+     "7.8"
+    ],
+    [
+     13889,
+     "Raw Whitescale Salmon",
+     14,
+     "7.8"
+    ],
+    [
+     13890,
+     "Plated Armorfish",
+     13,
+     "15.1"
+    ],
+    [
+     13891,
+     "Bloated Salmon",
+     12,
+     "0.0"
+    ],
+    [
+     13902,
+     "18 Pound Salmon",
+     44,
+     "4.-5"
+    ],
+    [
+     13903,
+     "22 Pound Salmon",
+     15,
+     "4.-5"
+    ],
+    [
+     13904,
+     "25 Pound Salmon",
+     6,
+     "4.-5"
+    ],
+    [
+     13905,
+     "29 Pound Salmon",
+     2,
+     "4.-5"
+    ],
+    [
+     15743,
+     "Pattern: Heavy Scorpid Belt",
+     2,
+     "9.1"
+    ],
+    [
+     19975,
+     "Zulian Mudskunk",
+     2,
+     "12.0"
+    ]
+   ],
+   "fishTotal": 160
+  },
+  "493": {
+   "title": "Moonglade",
+   "herbs": [],
+   "ore": [],
+   "fish": [
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     90,
+     "7.8"
+    ],
+    [
+     6358,
+     "Oily Blackmouth",
+     273,
+     "15.1"
+    ],
+    [
+     6522,
+     "Deviate Fish",
+     52,
+     "0.5"
+    ],
+    [
+     8365,
+     "Raw Mithril Head Trout",
+     307,
+     "7.8"
+    ],
+    [
+     13758,
+     "Raw Redgill",
+     1465,
+     "7.8"
+    ],
+    [
+     13759,
+     "Raw Nightfin Snapper",
+     773,
+     "7.8"
+    ],
+    [
+     13760,
+     "Raw Sunscale Salmon",
+     77,
+     "7.8"
+    ]
+   ],
+   "fishTotal": 3154
+  },
+  "1377": {
+   "title": "Silithus",
+   "herbs": [
+    [
+     "Sungrass",
+     230
+    ],
+    [
+     "Golden Sansam",
+     260
+    ],
+    [
+     "Dreamfoil",
+     270
+    ],
+    [
+     "Mountain Silversage",
+     280
+    ],
+    [
+     "Black Lotus",
+     300
+    ]
+   ],
+   "ore": [
+    [
+     "Small Thorium Vein",
+     245
+    ],
+    [
+     "Gold Vein",
+     155
+    ],
+    [
+     "Mithril Deposit",
+     175
+    ],
+    [
+     "Truesilver Deposit",
+     230
+    ],
+    [
+     "Ooze Covered Truesilver Deposit",
+     230
+    ],
+    [
+     "Ooze Covered Rich Thorium Vein",
+     275
+    ],
+    [
+     "Small Obsidian Chunk",
+     305
+    ],
+    [
+     "Large Obsidian Chunk",
+     305
+    ]
+   ],
+   "fish": [
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     4,
+     "7.8"
+    ],
+    [
+     6308,
+     "Raw Bristle Whisker Catfish",
+     3,
+     "7.8"
+    ],
+    [
+     6522,
+     "Deviate Fish",
+     6,
+     "0.5"
+    ],
+    [
+     13443,
+     "Superior Mana Potion",
+     6,
+     "0.1"
+    ],
+    [
+     13446,
+     "Major Healing Potion",
+     3,
+     "0.1"
+    ],
+    [
+     13757,
+     "Lightning Eel",
+     130,
+     "15.1"
+    ],
+    [
+     13758,
+     "Raw Redgill",
+     40,
+     "7.8"
+    ],
+    [
+     13889,
+     "Raw Whitescale Salmon",
+     4,
+     "7.8"
+    ],
+    [
+     19975,
+     "Zulian Mudskunk",
+     5,
+     "12.0"
+    ]
+   ],
+   "fishTotal": 210
+  },
+  "85": {
+   "title": "Tirisfal Glades",
+   "herbs": [
+    [
+     "Silverleaf",
+     1
+    ],
+    [
+     "Peacebloom",
+     1
+    ],
+    [
+     "Earthroot",
+     15
+    ],
+    [
+     "Gloom Weed",
+     1
+    ],
+    [
+     "Doom Weed",
+     1
+    ]
+   ],
+   "ore": [
+    [
+     "Copper Vein",
+     1
+    ]
+   ],
+   "fish": [
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     102,
+     "7.8"
+    ],
+    [
+     6291,
+     "Raw Brilliant Smallfish",
+     167,
+     "7.8"
+    ],
+    [
+     6297,
+     "Old Skull",
+     20,
+     "15.0"
+    ],
+    [
+     6299,
+     "Sickly Looking Fish",
+     51,
+     "0.5"
+    ],
+    [
+     6303,
+     "Raw Slitherskin Mackerel",
+     123,
+     "7.8"
+    ]
+   ],
+   "fishTotal": 519
+  },
+  "1": {
+   "title": "Dun Morogh",
+   "herbs": [
+    [
+     "Silverleaf",
+     1
+    ],
+    [
+     "Peacebloom",
+     1
+    ],
+    [
+     "Earthroot",
+     15
+    ]
+   ],
+   "ore": [
+    [
+     "Copper Vein",
+     1
+    ]
+   ],
+   "fish": [
+    [
+     768,
+     "Lumberjack Axe",
+     3,
+     "2.0"
+    ],
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     66,
+     "7.8"
+    ],
+    [
+     6291,
+     "Raw Brilliant Smallfish",
+     101,
+     "7.8"
+    ]
+   ],
+   "fishTotal": 203
+  },
+  "12": {
+   "title": "Elwynn Forest",
+   "herbs": [
+    [
+     "Silverleaf",
+     1
+    ],
+    [
+     "Peacebloom",
+     1
+    ],
+    [
+     "Earthroot",
+     15
+    ]
+   ],
+   "ore": [
+    [
+     "Copper Vein",
+     1
+    ]
+   ],
+   "fish": [
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     405,
+     "7.8"
+    ],
+    [
+     6291,
+     "Raw Brilliant Smallfish",
+     637,
+     "7.8"
+    ],
+    [
+     19975,
+     "Zulian Mudskunk",
+     30,
+     "12.0"
+    ]
+   ],
+   "fishTotal": 1169
+  },
+  "130": {
+   "title": "Silverpine Forest",
+   "herbs": [
+    [
+     "Silverleaf",
+     1
+    ],
+    [
+     "Peacebloom",
+     1
+    ],
+    [
+     "Earthroot",
+     15
+    ],
+    [
+     "Mageroyal",
+     50
+    ],
+    [
+     "Briarthorn",
+     70
+    ],
+    [
+     "Bruiseweed",
+     100
+    ],
+    [
+     "Liferoot",
+     150
+    ],
+    [
+     "Stranglekelp",
+     85
+    ]
+   ],
+   "ore": [
+    [
+     "Copper Vein",
+     1
+    ],
+    [
+     "Tin Vein",
+     65
+    ],
+    [
+     "Silver Vein",
+     75
+    ]
+   ],
+   "fish": [
+    [
+     3820,
+     "Stranglekelp",
+     4,
+     "7.9"
+    ],
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     49,
+     "7.8"
+    ],
+    [
+     6291,
+     "Raw Brilliant Smallfish",
+     19,
+     "7.8"
+    ],
+    [
+     6297,
+     "Old Skull",
+     9,
+     "15.0"
+    ],
+    [
+     6299,
+     "Sickly Looking Fish",
+     15,
+     "0.5"
+    ],
+    [
+     6308,
+     "Raw Bristle Whisker Catfish",
+     19,
+     "7.8"
+    ],
+    [
+     6358,
+     "Oily Blackmouth",
+     85,
+     "15.1"
+    ],
+    [
+     8350,
+     "The 1 Ring",
+     3,
+     "4.-2"
+    ],
+    [
+     20708,
+     "Tightly Sealed Trunk",
+     15,
+     "15.4"
+    ],
+    [
+     21071,
+     "Raw Sagefish",
+     9,
+     "7.8"
+    ]
+   ],
+   "fishTotal": 245
+  },
+  "40": {
+   "title": "Westfall",
+   "herbs": [
+    [
+     "Silverleaf",
+     1
+    ],
+    [
+     "Peacebloom",
+     1
+    ],
+    [
+     "Earthroot",
+     15
+    ],
+    [
+     "Mageroyal",
+     50
+    ],
+    [
+     "Briarthorn",
+     70
+    ],
+    [
+     "Bruiseweed",
+     100
+    ],
+    [
+     "Stranglekelp",
+     85
+    ]
+   ],
+   "ore": [
+    [
+     "Copper Vein",
+     1
+    ],
+    [
+     "Tin Vein",
+     65
+    ],
+    [
+     "Silver Vein",
+     75
+    ]
+   ],
+   "fish": [
+    [
+     3820,
+     "Stranglekelp",
+     31,
+     "7.9"
+    ],
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     7,
+     "7.8"
+    ],
+    [
+     6303,
+     "Raw Slitherskin Mackerel",
+     16,
+     "7.8"
+    ],
+    [
+     6353,
+     "Small Chest",
+     5,
+     "15.4"
+    ],
+    [
+     6358,
+     "Oily Blackmouth",
+     266,
+     "15.1"
+    ],
+    [
+     6361,
+     "Raw Rainbow Fin Albacore",
+     15,
+     "7.8"
+    ],
+    [
+     19975,
+     "Zulian Mudskunk",
+     5,
+     "12.0"
+    ],
+    [
+     20708,
+     "Tightly Sealed Trunk",
+     48,
+     "15.4"
+    ],
+    [
+     20709,
+     "Rumsey Rum Light",
+     25,
+     "0.5"
+    ]
+   ],
+   "fishTotal": 444
+  },
+  "38": {
+   "title": "Loch Modan",
+   "herbs": [
+    [
+     "Silverleaf",
+     1
+    ],
+    [
+     "Peacebloom",
+     1
+    ],
+    [
+     "Earthroot",
+     15
+    ],
+    [
+     "Mageroyal",
+     50
+    ],
+    [
+     "Briarthorn",
+     70
+    ],
+    [
+     "Bruiseweed",
+     100
+    ]
+   ],
+   "ore": [
+    [
+     "Copper Vein",
+     1
+    ],
+    [
+     "Tin Vein",
+     65
+    ],
+    [
+     "Silver Vein",
+     75
+    ]
+   ],
+   "fish": [
+    [
+     3820,
+     "Stranglekelp",
+     10,
+     "7.9"
+    ],
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     54,
+     "7.8"
+    ],
+    [
+     6291,
+     "Raw Brilliant Smallfish",
+     17,
+     "7.8"
+    ],
+    [
+     6308,
+     "Raw Bristle Whisker Catfish",
+     18,
+     "7.8"
+    ],
+    [
+     6317,
+     "Raw Loch Frenzy",
+     54,
+     "7.8"
+    ],
+    [
+     20708,
+     "Tightly Sealed Trunk",
+     34,
+     "15.4"
+    ],
+    [
+     20709,
+     "Rumsey Rum Light",
+     16,
+     "0.5"
+    ],
+    [
+     21071,
+     "Raw Sagefish",
+     204,
+     "7.8"
+    ]
+   ],
+   "fishTotal": 428
+  },
+  "44": {
+   "title": "Redridge Mountains",
+   "herbs": [
+    [
+     "Earthroot",
+     15
+    ],
+    [
+     "Mageroyal",
+     50
+    ],
+    [
+     "Briarthorn",
+     70
+    ],
+    [
+     "Bruiseweed",
+     100
+    ]
+   ],
+   "ore": [
+    [
+     "Copper Vein",
+     1
+    ],
+    [
+     "Tin Vein",
+     65
+    ],
+    [
+     "Silver Vein",
+     75
+    ]
+   ],
+   "fish": [
+    [
+     1467,
+     "Spotted Sunfish",
+     49,
+     "12.0"
+    ],
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     189,
+     "7.8"
+    ],
+    [
+     6291,
+     "Raw Brilliant Smallfish",
+     10,
+     "7.8"
+    ],
+    [
+     6308,
+     "Raw Bristle Whisker Catfish",
+     320,
+     "7.8"
+    ]
+   ],
+   "fishTotal": 624
+  },
+  "10": {
+   "title": "Duskwood",
+   "herbs": [
+    [
+     "Mageroyal",
+     50
+    ],
+    [
+     "Briarthorn",
+     70
+    ],
+    [
+     "Bruiseweed",
+     100
+    ],
+    [
+     "Wild Steelbloom",
+     115
+    ],
+    [
+     "Kingsblood",
+     125
+    ],
+    [
+     "Grave Moss",
+     120
+    ],
+    [
+     "Nightmare Moss",
+     125
+    ]
+   ],
+   "ore": [
+    [
+     "Copper Vein",
+     1
+    ],
+    [
+     "Tin Vein",
+     65
+    ],
+    [
+     "Silver Vein",
+     75
+    ],
+    [
+     "Gold Vein",
+     155
+    ],
+    [
+     "Iron Deposit",
+     125
+    ],
+    [
+     "Cold Iron Deposit",
+     125
+    ]
+   ],
+   "fish": [
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     92,
+     "7.8"
+    ],
+    [
+     6294,
+     "12 Pound Mud Snapper",
+     3,
+     "4.-5"
+    ],
+    [
+     6308,
+     "Raw Bristle Whisker Catfish",
+     114,
+     "7.8"
+    ],
+    [
+     6309,
+     "17 Pound Catfish",
+     4,
+     "4.-5"
+    ],
+    [
+     13446,
+     "Major Healing Potion",
+     3,
+     "0.1"
+    ],
+    [
+     13757,
+     "Lightning Eel",
+     3,
+     "15.1"
+    ],
+    [
+     13889,
+     "Raw Whitescale Salmon",
+     7,
+     "7.8"
+    ],
+    [
+     13890,
+     "Plated Armorfish",
+     7,
+     "15.1"
+    ],
+    [
+     19975,
+     "Zulian Mudskunk",
+     3,
+     "12.0"
+    ]
+   ],
+   "fishTotal": 259
+  },
+  "267": {
+   "title": "Hillsbrad Foothills",
+   "herbs": [
+    [
+     "Mageroyal",
+     50
+    ],
+    [
+     "Briarthorn",
+     70
+    ],
+    [
+     "Bruiseweed",
+     100
+    ],
+    [
+     "Wild Steelbloom",
+     115
+    ],
+    [
+     "Kingsblood",
+     125
+    ],
+    [
+     "Liferoot",
+     150
+    ],
+    [
+     "Khadgar's Whisker",
+     185
+    ],
+    [
+     "Stranglekelp",
+     85
+    ]
+   ],
+   "ore": [
+    [
+     "Copper Vein",
+     1
+    ],
+    [
+     "Tin Vein",
+     65
+    ],
+    [
+     "Silver Vein",
+     75
+    ],
+    [
+     "Gold Vein",
+     155
+    ],
+    [
+     "Iron Deposit",
+     125
+    ],
+    [
+     "Mithril Deposit",
+     175
+    ],
+    [
+     "Truesilver Deposit",
+     230
+    ]
+   ],
+   "fish": [
+    [
+     3820,
+     "Stranglekelp",
+     28,
+     "7.9"
+    ],
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     73,
+     "7.8"
+    ],
+    [
+     6308,
+     "Raw Bristle Whisker Catfish",
+     136,
+     "7.8"
+    ],
+    [
+     6358,
+     "Oily Blackmouth",
+     114,
+     "15.1"
+    ],
+    [
+     6359,
+     "Firefin Snapper",
+     56,
+     "15.1"
+    ],
+    [
+     6361,
+     "Raw Rainbow Fin Albacore",
+     100,
+     "7.8"
+    ],
+    [
+     8365,
+     "Raw Mithril Head Trout",
+     24,
+     "7.8"
+    ],
+    [
+     21071,
+     "Raw Sagefish",
+     239,
+     "7.8"
+    ],
+    [
+     21113,
+     "Watertight Trunk",
+     274,
+     "15.4"
+    ]
+   ],
+   "fishTotal": 1093
+  },
+  "11": {
+   "title": "Wetlands",
+   "herbs": [
+    [
+     "Mageroyal",
+     50
+    ],
+    [
+     "Briarthorn",
+     70
+    ],
+    [
+     "Bruiseweed",
+     100
+    ],
+    [
+     "Wild Steelbloom",
+     115
+    ],
+    [
+     "Kingsblood",
+     125
+    ],
+    [
+     "Grave Moss",
+     120
+    ],
+    [
+     "Liferoot",
+     150
+    ],
+    [
+     "Stranglekelp",
+     85
+    ]
+   ],
+   "ore": [
+    [
+     "Incendicite Mineral Vein",
+     65
+    ],
+    [
+     "Copper Vein",
+     1
+    ],
+    [
+     "Tin Vein",
+     65
+    ],
+    [
+     "Silver Vein",
+     75
+    ],
+    [
+     "Gold Vein",
+     155
+    ],
+    [
+     "Iron Deposit",
+     125
+    ]
+   ],
+   "fish": [
+    [
+     3820,
+     "Stranglekelp",
+     24,
+     "7.9"
+    ],
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     8,
+     "7.8"
+    ],
+    [
+     6307,
+     "Message in a Bottle",
+     7,
+     "15.4"
+    ],
+    [
+     6308,
+     "Raw Bristle Whisker Catfish",
+     15,
+     "7.8"
+    ],
+    [
+     6310,
+     "19 Pound Catfish",
+     7,
+     "4.-5"
+    ],
+    [
+     6358,
+     "Oily Blackmouth",
+     157,
+     "15.1"
+    ],
+    [
+     6359,
+     "Firefin Snapper",
+     173,
+     "15.1"
+    ],
+    [
+     6361,
+     "Raw Rainbow Fin Albacore",
+     145,
+     "7.8"
+    ],
+    [
+     21113,
+     "Watertight Trunk",
+     51,
+     "15.4"
+    ],
+    [
+     21114,
+     "Rumsey Rum Dark",
+     19,
+     "0.5"
+    ]
+   ],
+   "fishTotal": 626
+  },
+  "36": {
+   "title": "Alterac Mountains",
+   "herbs": [
+    [
+     "Bruiseweed",
+     100
+    ],
+    [
+     "Wild Steelbloom",
+     115
+    ],
+    [
+     "Kingsblood",
+     125
+    ],
+    [
+     "Grave Moss",
+     120
+    ],
+    [
+     "Liferoot",
+     150
+    ],
+    [
+     "Fadeleaf",
+     160
+    ],
+    [
+     "Khadgar's Whisker",
+     185
+    ],
+    [
+     "Wintersbite",
+     195
+    ],
+    [
+     "Stranglekelp",
+     85
+    ],
+    [
+     "Goldthorn",
+     170
+    ]
+   ],
+   "ore": [
+    [
+     "Copper Vein",
+     1
+    ],
+    [
+     "Tin Vein",
+     65
+    ],
+    [
+     "Silver Vein",
+     75
+    ],
+    [
+     "Gold Vein",
+     155
+    ],
+    [
+     "Iron Deposit",
+     125
+    ],
+    [
+     "Mithril Deposit",
+     175
+    ],
+    [
+     "Truesilver Deposit",
+     230
+    ]
+   ],
+   "fish": [
+    [
+     3820,
+     "Stranglekelp",
+     9,
+     "7.9"
+    ],
+    [
+     4352,
+     "Pattern: Boots of the Enchanter",
+     3,
+     "9.2"
+    ],
+    [
+     6308,
+     "Raw Bristle Whisker Catfish",
+     4,
+     "7.8"
+    ],
+    [
+     6309,
+     "17 Pound Catfish",
+     4,
+     "4.-5"
+    ],
+    [
+     6363,
+     "26 Pound Catfish",
+     5,
+     "4.-5"
+    ],
+    [
+     8365,
+     "Raw Mithril Head Trout",
+     12,
+     "7.8"
+    ],
+    [
+     8366,
+     "Bloated Trout",
+     3,
+     "0.0"
+    ],
+    [
+     21150,
+     "Iron Bound Trunk",
+     31,
+     "15.4"
+    ],
+    [
+     21151,
+     "Rumsey Rum Black Label",
+     5,
+     "0.5"
+    ],
+    [
+     21153,
+     "Raw Greater Sagefish",
+     175,
+     "7.8"
+    ]
+   ],
+   "fishTotal": 273
+  },
+  "45": {
+   "title": "Arathi Highlands",
+   "herbs": [
+    [
+     "Bruiseweed",
+     100
+    ],
+    [
+     "Wild Steelbloom",
+     115
+    ],
+    [
+     "Kingsblood",
+     125
+    ],
+    [
+     "Grave Moss",
+     120
+    ],
+    [
+     "Liferoot",
+     150
+    ],
+    [
+     "Fadeleaf",
+     160
+    ],
+    [
+     "Khadgar's Whisker",
+     185
+    ],
+    [
+     "Stranglekelp",
+     85
+    ],
+    [
+     "Goldthorn",
+     170
+    ]
+   ],
+   "ore": [
+    [
+     "Tin Vein",
+     65
+    ],
+    [
+     "Silver Vein",
+     75
+    ],
+    [
+     "Gold Vein",
+     155
+    ],
+    [
+     "Iron Deposit",
+     125
+    ],
+    [
+     "Mithril Deposit",
+     175
+    ],
+    [
+     "Truesilver Deposit",
+     230
+    ],
+    [
+     "Lesser Bloodstone Deposit",
+     75
+    ]
+   ],
+   "fish": [
+    [
+     4603,
+     "Raw Spotted Yellowtail",
+     8,
+     "7.8"
+    ],
+    [
+     6289,
+     "Raw Longjaw Mud Snapper",
+     4,
+     "7.8"
+    ],
+    [
+     6308,
+     "Raw Bristle Whisker Catfish",
+     125,
+     "7.8"
+    ],
+    [
+     6310,
+     "19 Pound Catfish",
+     3,
+     "4.-5"
+    ],
+    [
+     6311,
+     "22 Pound Catfish",
+     3,
+     "4.-5"
+    ],
+    [
+     6358,
+     "Oily Blackmouth",
+     3,
+     "15.1"
+    ],
+    [
+     6359,
+     "Firefin Snapper",
+     9,
+     "15.1"
+    ],
+    [
+     6362,
+     "Raw Rockscale Cod",
+     25,
+     "7.8"
+    ],
+    [
+     8366,
+     "Bloated Trout",
+     10,
+     "0.0"
+    ],
+    [
+     21150,
+     "Iron Bound Trunk",
+     4,
+     "15.4"
+    ]
+   ],
+   "fishTotal": 224
+  },
+  "33": {
+   "title": "Stranglethorn Vale",
+   "herbs": [
+    [
+     "Wild Steelbloom",
+     115
+    ],
+    [
+     "Kingsblood",
+     125
+    ],
+    [
+     "Liferoot",
+     150
+    ],
+    [
+     "Fadeleaf",
+     160
+    ],
+    [
+     "Khadgar's Whisker",
+     185
+    ],
+    [
+     "Stranglekelp",
+     85
+    ],
+    [
+     "Goldthorn",
+     170
+    ],
+    [
+     "Purple Lotus",
+     210
+    ]
+   ],
+   "ore": [
+    [
+     "Tin Vein",
+     65
+    ],
+    [
+     "Silver Vein",
+     75
+    ],
+    [
+     "Gold Vein",
+     155
+    ],
+    [
+     "Iron Deposit",
+     125
+    ],
+    [
+     "Mithril Deposit",
+     175
+    ],
+    [
+     "Truesilver Deposit",
+     230
+    ]
+   ],
+   "fish": [
+    [
+     3820,
+     "Stranglekelp",
+     297,
+     "7.9"
+    ],
+    [
+     4603,
+     "Raw Spotted Yellowtail",
+     286,
+     "7.8"
+    ],
+    [
+     6358,
+     "Oily Blackmouth",
+     738,
+     "15.1"
+    ],
+    [
+     6359,
+     "Firefin Snapper",
+     944,
+     "15.1"
+    ],
+    [
+     6362,
+     "Raw Rockscale Cod",
+     750,
+     "7.8"
+    ],
+    [
+     8365,
+     "Raw Mithril Head Trout",
+     270,
+     "7.8"
+    ]
+   ],
+   "fishTotal": 3355
+  },
+  "3": {
+   "title": "Badlands",
+   "herbs": [
+    [
+     "Wild Steelbloom",
+     115
+    ],
+    [
+     "Kingsblood",
+     125
+    ],
+    [
+     "Fadeleaf",
+     160
+    ],
+    [
+     "Khadgar's Whisker",
+     185
+    ],
+    [
+     "Goldthorn",
+     170
+    ],
+    [
+     "Firebloom",
+     205
+    ],
+    [
+     "Purple Lotus",
+     210
+    ]
+   ],
+   "ore": [
+    [
+     "Silver Vein",
+     75
+    ],
+    [
+     "Gold Vein",
+     155
+    ],
+    [
+     "Iron Deposit",
+     125
+    ],
+    [
+     "Mithril Deposit",
+     175
+    ],
+    [
+     "Truesilver Deposit",
+     230
+    ]
+   ],
+   "fish": null,
+   "fishTotal": 0
+  }
+ }
+}
