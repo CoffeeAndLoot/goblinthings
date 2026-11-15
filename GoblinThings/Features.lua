@@ -39,7 +39,8 @@ Features.LIST = {
     { key = "autoTrain", label = "Auto train", section = "Vendors", control = "check", default = false },
     { key = "fastLoot", label = "Fast loot", section = "Loot", control = "check", default = true },
     -- Not CVars: the game keeps each behind a C_Container get/set pair (API.BagDirection) that
-    -- no Blizzard window calls, so like a cvar they have no default of ours.
+    -- no Blizzard window calls, so like a cvar they have no default of ours. The game forgets
+    -- them at /reload, so once one is chosen here it is saved and set again at each login.
     { key = "bagsFillLeft", label = "New items fill bags left to right", section = "Loot", control = "check",
         bag = "insert" },
     { key = "bagsSortRight", label = "Sort bags right to left", section = "Loot", control = "check",

@@ -488,6 +488,18 @@ probe all sit at the game's default: seven on, three off.
       Say what it lists; if nothing changes on this client, the switch comes out.
 - [ ] Each keeps its value through a `/reload` and a relog.
 
+## Bag directions kept through a reload (2026-11-15)
+
+The owner saw "New items fill bags left to right" tick itself off at `/reload`: the game does not
+keep it. Goblin Things now saves a bag direction once it is chosen in the window and sets it again
+on every login and reload. A `/reload` is enough.
+
+- [ ] Tick New items fill bags left to right, `/reload`: still ticked, and new loot still lands
+      at that end.
+- [ ] The same through a full relog, and on another character (the choice is account-wide).
+- [ ] Sort bags right to left: untick it, `/reload`: still unticked.
+- [ ] No "action blocked" popup at login or on a `/reload` in combat.
+
 ## Quest diamond and bag directions (2026-11-15)
 
 A `/reload` is enough (no new file). The game stores all three; Goblin Things keeps no copy.

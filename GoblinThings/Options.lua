@@ -39,6 +39,10 @@ function Options.Init(db)
             else
                 features[feature.key] = feature.default
             end
+        elseif feature.bag and type(saved[feature.key]) == "boolean" then
+            -- The game forgets a bag direction at /reload (seen 2026-11-15), so a choice made
+            -- here is kept and Core hands it back at login. Never chosen: nil, the game's own.
+            features[feature.key] = saved[feature.key]
         end
     end
     db.features = features

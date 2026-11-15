@@ -140,6 +140,7 @@ function Core.Set(key, value)
         elseif feature.cvar then
             API.SetCVar(feature.cvar, Features.CVarText(value))
         elseif feature.bag then
+            db().features[key] = value  -- the game forgets it at /reload; applyBags hands it back
             API.SetBagDirection(feature.bag, value)
         elseif TrackerSort.IsSlot(key) then
             for slot, slotValue in pairs(TrackerSort.Assign(db().features, key, value)) do
@@ -422,8 +423,19 @@ end)
 
 -- Every loading screen: an addon that turns auto-track off at login is
 -- undone after it, while the switch is ticked.
+-- A bag direction chosen in the window, given back to the game, which does not keep it.
+local function applyBags()
+    for _, feature in ipairs(Features.LIST) do
+        local value = feature.bag and db().features[feature.key]
+        if type(value) == "boolean" then
+            API.SetBagDirection(feature.bag, value)
+        end
+    end
+end
+
 API.OnEvents({ "PLAYER_ENTERING_WORLD" }, function()
     guard("Auto-track", applyAutoTrack, false)
+    guard("Bags", applyBags)
 end)
 
 -- "This zone" changes with the map, and Hide quests above me with the
