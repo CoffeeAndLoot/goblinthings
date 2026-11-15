@@ -87,7 +87,9 @@ MapInfo.FISHING = {
 local TABLE = { herbs = "HERBS", ore = "ORE", fish = "FISH" }
 local TITLE = { herbs = "Herbalism", ore = "Mining", fish = "Fishing" }
 local SPAN = { herbs = "Herbs", ore = "Ore" }
-MapInfo.FISH_NOTE = "Classic figures, not checked on Forever"
+-- Under a list that came from Classic Era's pages, Forever's having none yet.
+MapInfo.CLASSIC_NOTE = "Classic figures, not checked on Forever"
+local CLASSIC = { herbs = "CLASSIC_NODES", ore = "CLASSIC_NODES", fish = "CLASSIC_FISH" }
 
 -- The zone's { name, number } rows of a kind, or nil unless there are some
 -- and every one is well formed: a broken list shows nothing, never an error.
@@ -169,13 +171,15 @@ end
 
 -- What a line's list prints: { title =, rows = { { left, right } ... }, note = },
 -- or nil when the zone has no such list. Herbs and ore read name and skill,
--- fish name and share of the catch.
+-- fish name and share of the catch; the note marks a list from Classic's data.
 function MapInfo.List(kind, mapID)
     local list = rows(kind, mapID)
     if not list then
         return nil
     end
-    local out = { title = TITLE[kind], rows = {}, note = kind == "fish" and MapInfo.FISH_NOTE or nil }
+    local classic = ns.MapData[CLASSIC[kind]]
+    local out = { title = TITLE[kind], rows = {},
+        note = (type(classic) == "table" and classic[mapID] == true) and MapInfo.CLASSIC_NOTE or nil }
     for i = 1, #list do
         out.rows[i] = { list[i][1], kind == "fish" and (list[i][2] .. "%") or tostring(list[i][2]) }
     end

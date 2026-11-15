@@ -153,6 +153,38 @@ lists ship with the addon.
   sibling for `make_gathering.py`), `docs/manual-test-checklist.md` entries, and at the next release
   the Wago description by hand.
 
+## Amendment, 2026-11-14: Wowhead's Forever database
+
+Found after the first build: Wowhead has a **Forever** section (`wowhead.com/forever/zone=<area id>`)
+with the same lists. It is Forever's own data, so it replaces Classic's as the authority, and what is
+said above changes as follows.
+
+- **Two sources.** `tools/gathering/wowhead-forever.json` (28 zones read before Wowhead asked for
+  human verification again, at 5 seconds a page) and `wowhead-classic.json` (32 zones). Per zone the
+  script takes herbs and ore from Forever's page, else Classic's; and fish from Forever's when its
+  whole catch is 100 or more, else Classic's on the same rule. Forever is young, so its high zones
+  have few casts (Felwood 18, Winterspring 28, Silithus 3): those fish lists are Classic's.
+- **The footnote marks the source, not the kind.** `MapData.CLASSIC_NODES` and `CLASSIC_FISH` name the
+  zones whose lists are Classic's; only those lists carry "Classic figures, not checked on Forever".
+  A Forever list has no footnote. On 2026-11-14: nodes for Alterac, Arathi, Badlands and
+  Stranglethorn; fish for Alterac, Arathi, Stranglethorn, Felwood, Silithus and Winterspring.
+- **Node names: known, quest object, or stop.** Forever's pages carry nodes Classic Era lacks, each
+  with a real skill, so they are kept: Wilted Peacebloom, Stunted Silverleaf, Poor Copper Vein,
+  Chunk of Amber and Large Chunk of Amber (Teldrassil), Dreamroot, Moonroot, Nightmare Moss, Fool's
+  Gold Vein, Cold Iron Deposit, Greater Moonstone Formation. The first build dropped six of those
+  as "not Classic"; that was wrong for Forever. Quest objects are dropped by name (Beached Sea
+  Creature, Skeletal Sea Turtle, Incendia Agave, Gloom Weed, Doom Weed, Tomb Weed, Serpentbloom).
+  A name in neither list stops the script, so a new one is a person's decision.
+- **Fish classes.** Forever files Oily Blackmouth, the eels and clams under trade goods "other"
+  (7.11), so that class is kept too.
+- **Still missing**: the eight zones never read from either (Swamp of Sorrows, The Hinterlands,
+  Searing Gorge, Blasted Lands, Burning Steppes, Western and Eastern Plaguelands, Deadwind Pass);
+  Un'Goro's fish (too few catches in both); Mount Hyjal and Riverglades (their Wowhead area IDs are
+  not known yet, though Forever's database may have them).
+- **Other sources looked at**: LibTourist Classic Era (MIT) holds zones, flight points and fishing
+  skill only, no nodes; its fishing skills agree with `MapInfo.FISHING` on the 19 zones compared.
+  GatherMate2's Classic data states no licence. ItemTree_Data is All Rights Reserved.
+
 ## Not doing
 
 Skins. Colouring a row by the player's own skill. Node positions or map pins. Icons on the continent

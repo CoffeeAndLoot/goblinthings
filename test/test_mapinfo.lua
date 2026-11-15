@@ -68,6 +68,8 @@ return function(h, loaded)
             [SHENDRALAS] = { { "Icecap", 290 } } },
         ORE = { [BARRENS] = { { "Copper Vein", 1 }, { "Silver Vein", 75 } } },
         FISH = { [BARRENS] = { { "Oily Blackmouth", 41 }, { "Stranglekelp", 6 } } },
+        CLASSIC_NODES = { [BADLANDS] = true },
+        CLASSIC_FISH = {},
     }
     local function with(data, fn)
         local real = ns.MapData
@@ -156,10 +158,21 @@ return function(h, loaded)
                 h.eq(flat(MapInfo.List("ore", BARRENS)), "Mining / Copper Vein=1 / Silver Vein=75 / no note")
             end)
         end)
-        h.it("fish read name and share, with the Classic footnote", function()
+        h.it("fish read name and share", function()
             with(FAKE, function()
-                h.eq(flat(MapInfo.List("fish", BARRENS)),
-                    "Fishing / Oily Blackmouth=41% / Stranglekelp=6% / Classic figures, not checked on Forever")
+                h.eq(flat(MapInfo.List("fish", BARRENS)), "Fishing / Oily Blackmouth=41% / Stranglekelp=6% / no note")
+            end)
+        end)
+        h.it("a list from Classic's pages says so; missing marks read as Forever's", function()
+            with(FAKE, function()
+                h.eq(flat(MapInfo.List("herbs", BADLANDS)),
+                    "Herbalism / Firebloom=205 / Classic figures, not checked on Forever")
+            end)
+            with({ FISH = FAKE.FISH, CLASSIC_FISH = { [BARRENS] = true } }, function()
+                h.eq(MapInfo.List("fish", BARRENS).note, "Classic figures, not checked on Forever")
+            end)
+            with({ FISH = FAKE.FISH, CLASSIC_FISH = "junk" }, function()
+                h.eq(MapInfo.List("fish", BARRENS).note, nil)
             end)
         end)
         h.it("no such list, or no such kind, is nil", function()

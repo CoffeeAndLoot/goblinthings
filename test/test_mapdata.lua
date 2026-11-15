@@ -49,16 +49,29 @@ return function(h, loaded)
                 end
             end
         end)
-        h.it("the Barrens reads as its Wowhead page did on 2026-11-14", function()
+        h.it("the Barrens reads as its Wowhead Forever page did on 2026-11-14", function()
             h.eq(names(MapData.HERBS[BARRENS]), "Peacebloom, Silverleaf, Earthroot, Mageroyal, Briarthorn, "
                 .. "Stranglekelp, Bruiseweed, Wild Steelbloom, Grave Moss, Kingsblood")
             h.eq(names(MapData.ORE[BARRENS]), "Copper Vein, Tin Vein, Silver Vein")
-            h.eq(MapData.FISH[BARRENS][1][1] .. " " .. MapData.FISH[BARRENS][1][2], "Oily Blackmouth 41")
+            h.eq(MapData.FISH[BARRENS][1][1] .. " " .. MapData.FISH[BARRENS][1][2], "Raw Rainbow Fin Albacore 22")
             h.eq(#MapData.FISH[BARRENS], 7)
         end)
         h.it("quest objects and quest items never made it in", function()
             h.eq(names(MapData.HERBS[DARKSHORE]):find("Sea"), nil)         -- Beached Sea Creature
-            h.eq(names(MapData.FISH[DARKSHORE]):find("Gaffer Jack"), nil)  -- 16% of its catch
+            h.eq(names(MapData.FISH[DARKSHORE]):find("Gaffer Jack"), nil)  -- a quest item, 4% of its catch
+            h.eq(names(MapData.HERBS[BARRENS]):find("Serpentbloom"), nil)
+        end)
+        h.it("Forever's own nodes are in, and the Classic marks name zones that have such a list", function()
+            h.eq(names(MapData.ORE[1411]), "Copper Vein, Poor Copper Vein")  -- Durotar
+            h.eq(names(MapData.ORE[1438]), "Chunk of Amber, Large Chunk of Amber")  -- Teldrassil
+            for id in pairs(MapData.CLASSIC_NODES) do
+                h.truthy(MapData.HERBS[id] or MapData.ORE[id], id)
+            end
+            for id in pairs(MapData.CLASSIC_FISH) do
+                h.truthy(MapData.FISH[id], id)
+            end
+            h.eq(MapData.CLASSIC_NODES[BARRENS], nil)
+            h.eq(MapData.CLASSIC_FISH[BARRENS], nil)
         end)
     end)
 end

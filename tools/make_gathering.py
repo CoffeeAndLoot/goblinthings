@@ -1,24 +1,27 @@
-"""Writes GoblinThings/MapData.lua from tools/gathering/wowhead-classic.json.
+"""Writes GoblinThings/MapData.lua from the sources in tools/gathering/.
 
     python tools/make_gathering.py
 
 Spec: docs/superpowers/specs/2026-11-14-map-gathering-lists-design.md. The
-source is read out of Wowhead's Classic zone pages in a browser (Wowhead
-refuses a plain script); this turns it into the lists the map's corner shows.
-MapData.lua is never hand-edited: change the source or the rules here and run
-this again. It writes nothing unless every check passes.
+sources are read out of Wowhead's zone pages in a browser (Wowhead refuses a
+plain script): wowhead-forever.json is Forever's own database, the authority;
+wowhead-classic.json is Classic Era's, used for a zone or a fish list Forever's
+does not have yet and marked as such in the output. MapData.lua is never
+hand-edited: change a source or the rules here and run this again. It writes
+nothing unless every check passes.
 """
 import json
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SOURCE = ROOT / "tools" / "gathering" / "wowhead-classic.json"
+FOREVER = ROOT / "tools" / "gathering" / "wowhead-forever.json"
+CLASSIC = ROOT / "tools" / "gathering" / "wowhead-classic.json"
 OUT = ROOT / "GoblinThings" / "MapData.lua"
 
 # UiMap ID -> (Wowhead area ID, the zone's name as the page titles it): every
-# zone in MapInfo.LEVELS that Wowhead Classic has (Mount Hyjal and Riverglades
-# are Forever's own).
+# zone in MapInfo.LEVELS that Wowhead lists (Mount Hyjal's and Riverglades'
+# area IDs are not known yet).
 ZONES = {
     1411: (14, "Durotar"), 1412: (215, "Mulgore"), 1438: (141, "Teldrassil"),
     1413: (17, "The Barrens"), 1439: (148, "Darkshore"), 1442: (406, "Stonetalon Mountains"),
@@ -36,37 +39,47 @@ ZONES = {
     1423: (139, "Eastern Plaguelands"), 1430: (41, "Deadwind Pass"),
 }
 
-# Not read yet: Wowhead asked for human verification after 32 pages on
-# 2026-11-14. These get no lists until their pages are in the source; empty
-# this set then.
+# In neither source yet: Wowhead asks for human verification after about 30
+# pages, and only the owner may pass it. These get no lists until their pages
+# are in a source; empty this set then.
 PENDING = {1435, 1425, 1427, 1419, 1428, 1422, 1423, 1430}
 
-# Zones with a Fishing line (MapInfo.FISHING): only these can show a fish list.
+# Zones with no Fishing line (not in MapInfo.FISHING): nowhere to hang a fish list.
 NO_FISHING_LINE = {1418, 1427, 1419}
 
-# Wowhead types quest objects as herbs and veins too (Darkshore's "Beached Sea
-# Creature"), and its Classic pages carry other seasons' nodes, so a name must
-# be a Classic one to be kept. Every name dropped is printed.
+# Wowhead types quest objects as herbs and veins too, so every name must be
+# one of these (kept) or one of QUEST_OBJECTS (dropped); a name in neither
+# stops the run, so a new one is decided by a person, not let through.
 HERBS = {
     "Peacebloom", "Silverleaf", "Earthroot", "Mageroyal", "Briarthorn", "Stranglekelp", "Bruiseweed",
     "Wild Steelbloom", "Grave Moss", "Kingsblood", "Liferoot", "Fadeleaf", "Goldthorn",
     "Khadgar's Whisker", "Wintersbite", "Firebloom", "Purple Lotus", "Arthas' Tears", "Sungrass",
     "Blindweed", "Ghost Mushroom", "Gromsblood", "Golden Sansam", "Dreamfoil", "Mountain Silversage",
     "Plaguebloom", "Icecap", "Black Lotus",
+    # Not Classic Era's, and on Forever's pages with a real skill:
+    "Wilted Peacebloom", "Stunted Silverleaf", "Dreamroot", "Moonroot", "Nightmare Moss",
 }
 ORE = {
     "Copper Vein", "Tin Vein", "Silver Vein", "Iron Deposit", "Gold Vein", "Mithril Deposit",
     "Truesilver Deposit", "Dark Iron Deposit", "Small Thorium Vein", "Rich Thorium Vein",
     "Incendicite Mineral Vein", "Lesser Bloodstone Deposit", "Indurium Mineral Vein",
     "Small Obsidian Chunk", "Large Obsidian Chunk",
+    # Not Classic Era's, and on Forever's pages:
+    "Poor Copper Vein", "Chunk of Amber", "Large Chunk of Amber", "Fool's Gold Vein",
+    "Cold Iron Deposit", "Greater Moonstone Formation",
+}
+QUEST_OBJECTS = {
+    "Beached Sea Creature", "Skeletal Sea Turtle", "Incendia Agave", "Gloom Weed", "Doom Weed",
+    "Tomb Weed", "Serpentbloom",
 }
 # An ooze-covered vein is its plain vein to a miner.
 ORE_ALIAS = {"Thorium Vein": "Small Thorium Vein"}
 
 # Wowhead item class.subclass of a catch worth listing: meat (the raw fish),
-# herbs (Stranglekelp), clams, reagents (Oily Blackmouth, Firefin Snapper, the
-# eels) and food and drink (Deviate Fish, Winter Squid). Gear, potions, trunks
-# and quest items are not.
+# herbs (Stranglekelp), "other" trade goods (Forever files Oily Blackmouth,
+# the eels and clams here), reagents (Classic's place for the same) and food
+# and drink (Deviate Fish, Darkshore Grouper). Gear, potions, trunks and
+# quest items are not.
 FISH_CLASSES = {"7.8", "7.9", "7.11", "15.1", "0.5"}
 FISH_SHARE = 3    # percent of the zone's whole catch
 FISH_ROWS = 8
@@ -78,35 +91,46 @@ def fail(message):
     sys.exit("make_gathering: " + message + " (nothing written)")
 
 
-def nodes(rows, allowed, dropped):
+def nodes(rows, allowed, where):
     best = {}
     for name, skill in rows:
         if name.startswith("Ooze Covered "):
             name = name[len("Ooze Covered "):]
         name = ORE_ALIAS.get(name, name)
+        if name in QUEST_OBJECTS:
+            continue
         if name not in allowed:
-            dropped.add(name)
-        elif name not in best or skill < best[name]:
+            fail("%s lists %r: add it to HERBS, ORE or QUEST_OBJECTS" % (where, name))
+        if name not in best or skill < best[name]:
             best[name] = skill
     return sorted(best.items(), key=lambda row: (row[1], row[0]))
 
 
-def catches(rows, total):
-    if total < FISH_CASTS:
+def catches(page):
+    if page is None or page.get("fish") is None or page["fishTotal"] < FISH_CASTS:
         return []
-    kept = []
-    for _item, name, count, kind in rows:
-        share = round(count * 100 / total)
-        if kind in FISH_CLASSES and count * 100 >= FISH_SHARE * total:
-            kept.append((name, share))
+    total = page["fishTotal"]
+    kept = [(name, round(count * 100 / total)) for _item, name, count, kind in page["fish"]
+            if kind in FISH_CLASSES and count * 100 >= FISH_SHARE * total]
     kept.sort(key=lambda row: (-row[1], row[0]))
     return kept[:FISH_ROWS]
 
 
-def lua_table(name, lists, fmt):
+def page_of(source, area, name):
+    page = source["zones"].get(str(area))
+    if page is None:
+        return None
+    if not page["title"].startswith(name):
+        fail("area %d is titled %r, not %s" % (area, page["title"], name))
+    if page.get("herbs") is None or page.get("ore") is None:
+        fail("%s has no objects list" % name)
+    return page
+
+
+def lua_lists(name, lists):
     out = ["    %s = {" % name]
     for map_id in sorted(lists):
-        rows = ", ".join(fmt % (row[0].replace("\\", "\\\\").replace('"', '\\"'), row[1])
+        rows = ", ".join('{ "%s", %d }' % (row[0].replace("\\", "\\\\").replace('"', '\\"'), row[1])
                          for row in lists[map_id])
         out.append("        -- %s" % ZONES[map_id][1])
         out.append("        [%d] = { %s }," % (map_id, rows))
@@ -114,26 +138,33 @@ def lua_table(name, lists, fmt):
     return out
 
 
+def lua_set(name, ids):
+    return ["    %s = { %s }," % (name, ", ".join("[%d] = true" % i for i in sorted(ids)))]
+
+
 def main():
-    source = json.loads(SOURCE.read_text(encoding="utf-8"))
-    pages = source["zones"]
+    forever = json.loads(FOREVER.read_text(encoding="utf-8"))
+    classic = json.loads(CLASSIC.read_text(encoding="utf-8"))
     lists = {"HERBS": {}, "ORE": {}, "FISH": {}}
-    dropped = set()
+    classic_nodes, classic_fish = set(), set()
     for map_id, (area, name) in ZONES.items():
         if map_id in PENDING:
             continue
-        page = pages.get(str(area))
+        ours, theirs = page_of(forever, area, name), page_of(classic, area, name)
+        page = ours or theirs
         if page is None:
-            fail("%s (area %d) is not in the source" % (name, area))
-        if not page["title"].startswith(name):
-            fail("area %d is titled %r, not %s" % (area, page["title"], name))
-        if page.get("herbs") is None or page.get("ore") is None:
-            fail("%s has no objects list" % name)
-        herbs = nodes(page["herbs"], HERBS, dropped)
-        ore = nodes(page["ore"], ORE, dropped)
+            fail("%s (area %d) is in neither source" % (name, area))
+        herbs = nodes(page["herbs"], HERBS, name)
+        ore = nodes(page["ore"], ORE, name)
+        if ours is None and (herbs or ore):
+            classic_nodes.add(map_id)
         fish = []
-        if page.get("fish") is not None and map_id not in NO_FISHING_LINE:
-            fish = catches(page["fish"], page["fishTotal"])
+        if map_id not in NO_FISHING_LINE:
+            fish = catches(ours)
+            if not fish:
+                fish = catches(theirs)
+                if fish:
+                    classic_fish.add(map_id)
         for key, rows in (("HERBS", herbs), ("ORE", ore), ("FISH", fish)):
             if rows:
                 lists[key][map_id] = rows
@@ -145,26 +176,33 @@ def main():
     lines = [
         "local _, ns = ...",
         "",
-        "-- GENERATED by tools/make_gathering.py from tools/gathering/wowhead-classic.json",
-        "-- (Wowhead's Classic zone pages, read %s). Never hand-edited: change the" % source["read"],
-        "-- source or the script and run it again. Classic figures, unverified on Forever.",
+        "-- GENERATED by tools/make_gathering.py from tools/gathering/*.json: Wowhead's",
+        "-- Forever zone pages (read %s) and, for the zones and fish lists in" % forever["read"],
+        "-- CLASSIC_NODES and CLASSIC_FISH, its Classic Era pages (read %s)." % classic["read"],
+        "-- Never hand-edited: change a source or the script and run it again.",
         "-- HERBS and ORE: { name, skill } easiest first. FISH: { name, percent of the",
         "-- zone's catch } most common first. Keyed by UiMap ID. Pure data.",
         "-- luacheck: no max line length",
         "local MapData = {",
     ]
-    lines += lua_table("HERBS", lists["HERBS"], '{ "%s", %d }')
-    lines += lua_table("ORE", lists["ORE"], '{ "%s", %d }')
-    lines += lua_table("FISH", lists["FISH"], '{ "%s", %d }')
+    for key in ("HERBS", "ORE", "FISH"):
+        lines += lua_lists(key, lists[key])
+    lines += lua_set("CLASSIC_NODES", classic_nodes)
+    lines += lua_set("CLASSIC_FISH", classic_fish)
     lines += ["}", "ns.MapData = MapData", "", "return MapData", ""]
     OUT.write_text("\n".join(lines), encoding="utf-8", newline="\n")
 
+    def named(ids):
+        return ", ".join(ZONES[i][1] for i in sorted(ids)) or "none"
+
     print("wrote %s: %d zones with herbs, %d with ore, %d with fish"
           % (OUT.relative_to(ROOT), len(lists["HERBS"]), len(lists["ORE"]), len(lists["FISH"])))
-    if dropped:
-        print("dropped (not a Classic node name): " + ", ".join(sorted(dropped)))
+    print("herbs and ore from Classic's pages: " + named(classic_nodes))
+    print("fish from Classic's pages: " + named(classic_fish))
+    no_fish = set(ZONES) - PENDING - NO_FISHING_LINE - set(lists["FISH"])
+    print("no fish list (too few catches in either source): " + named(no_fish))
     if PENDING:
-        print("NOT READ YET, no lists: " + ", ".join(ZONES[i][1] for i in sorted(PENDING)))
+        print("NOT READ YET, no lists: " + named(PENDING))
 
 
 if __name__ == "__main__":

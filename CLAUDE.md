@@ -42,9 +42,12 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
   script's crop box. `Media/icons/close-*.tga` are Goblin Flyout's, copied. `images/banner.png` is
   the README's hero only. A new or changed TGA needs a full client restart.
 - The gathering lists are generated too: `python tools/make_gathering.py` writes
-  `GoblinThings/MapData.lua` from `tools/gathering/wowhead-classic.json`, the source read out of
-  Wowhead's Classic zone pages in a browser (Wowhead answers a script with 403, and after about 30
-  pages asks for human verification, which only the owner may pass: read slowly). Never hand-edit
+  `GoblinThings/MapData.lua` from `tools/gathering/wowhead-forever.json` (Wowhead's Forever database,
+  `wowhead.com/forever/zone=<area id>`, the authority) and `wowhead-classic.json` (Classic Era's, the
+  fallback for a zone or fish list Forever's lacks, marked in `CLASSIC_NODES` / `CLASSIC_FISH` and
+  footnoted in the list). Both are read out of the pages in a browser: Wowhead answers a script with
+  403, and after about 30 pages asks for human verification whatever the pace, which only the owner
+  may pass. A node name the script does not know stops it: add it to `HERBS`, `ORE` or `QUEST_OBJECTS`. Never hand-edit
   `MapData.lua`; the script's `PENDING` set names the zones not read yet.
 - Adding a file to the TOC needs a full client restart, not `/reload`. Say so.
 - Calendar versions (`2026.10.13`, `.2` for a second that day), written only in the TOC.
