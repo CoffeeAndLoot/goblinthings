@@ -636,9 +636,8 @@ function API.MapName(mapID)
     return type(info) == "table" and str(info.name) or nil
 end
 
--- The Apprentice spell of each gathering profession (Classic IDs, from memory:
--- Wowhead asked for human verification before its spell pages could be
--- checked, so the in-game checklist has the owner look at each icon).
+-- The Apprentice spell of each gathering profession. Seen in game 2026-11-14:
+-- each gives its profession's own icon.
 local PROFESSION_SPELL = { herbs = 2366, ore = 2575, fish = 7620, skins = 8613 }
 
 -- The game's icon for a gathering profession (C_Spell.GetSpellTexture,

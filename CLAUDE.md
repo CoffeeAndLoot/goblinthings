@@ -114,8 +114,8 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
      describes the map that is open: on a continent the cursor would cross other zones on its way
      to the corner. The frame is mouse-off so the canvas keeps its hover; the icons are its only
      mouse-live frames, and hovering one opens the list.
-   - Icons are `API.ProfessionIcon(kind)`, a spell's texture; the four spell IDs are from memory
-     and unchecked, so a letter square is drawn whenever the game gives nothing.
+   - Icons are `API.ProfessionIcon(kind)`, a spell's texture (see Client facts); a letter square is
+     drawn whenever the game gives nothing.
    - `C_Map.GetMapLevels` exists on this build and answers for no zone, so never switch to it
      without an in-game check; `/gt probe` counts the hover API's answers and the icons given.
 7. Kills to level: `Kills` (pure) keeps the last ten kills' XP and divides the XP still needed by
@@ -139,6 +139,13 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
   Stonetalon quests (1060, 1069, 1483) with `mapID` 1442, and `C_QuestLog.IsOnMap` counts them as
   on the map. Only an entry whose `mapID` is the player's map is really here (`TrackerSort.HereSet`).
   `GetMapForQuestPOIs()` and `GetBestMapForUnit("player")` both read 1413 there.
+- Profession icons (2026-11-14, `/gt probe` and the owner's screenshot of Riverglades' map):
+  `C_Spell.GetSpellTexture` answers for spells 2366 (Herbalism), 2575 (Mining), 7620 (Fishing) and
+  8613 (Skinning), and each picture is that profession's own icon.
+- The map hover (2026-11-14, `/gt probe`): `C_Map.GetMapInfoAtPosition` answered 267 of 267 asks.
+- Solo XP lines (2026-11-14, `/gt probe`, Riverglades): "Glade Viper dies, you gain 260 experience."
+  and the `UnitXP` change that follows is the same 260. One `PLAYER_XP_UPDATE` arrived with no
+  change (+0) between kills.
 - XP lines (2026-11-11, `/gt probe` in a party, the owner's screenshot): `CHAT_MSG_COMBAT_XP_GAIN`'s text is readable
   (not secret). `COMBATLOG_XPGAIN_FIRSTPERSON` is "%s dies, you gain %d experience.",
   `COMBATLOG_XPGAIN_FIRSTPERSON_UNNAMED` is "You gain %d experience." and

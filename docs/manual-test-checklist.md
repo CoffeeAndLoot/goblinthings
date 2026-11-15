@@ -251,9 +251,9 @@ verified in source only.
       "Orgrimmar" and its fishing line, no levels. Kalimdor's own continent view with the cursor
       away: nothing. Shen'dralas: nothing.
 - [ ] Untick the switch with the map open: the lines vanish; tick it: they return on the next hover.
-- [ ] `/gt probe` after hovering a few zones: "map readout built; map hover asked N times, M
+- [x] `/gt probe` after hovering a few zones: "map readout built; map hover asked N times, M
       answered with a map" with M above 0. If it says **NO answers**, the hover API is silent on this
-      build: tell Claude.
+      build: tell Claude. (seen 2026-11-14, the owner's `/gt probe` and screenshots)
 - [ ] Forever's fishing: in one zone you know, does the game's "need more skill" message or catch
       rate match the line (Classic values, unverified on Forever)? Tell Claude what differs.
 - [ ] Level ranges: compare a few zones with the game's own idea (quest levels, mob levels); the
@@ -303,11 +303,11 @@ what the section above says of the Map tab's rows and note, and Badlands now has
 - [ ] Open the Barrens' own map: five lines bottom right: "The Barrens", "Levels 10-25", "Fishing 1
       (no getaways at 75)", "Herbs 1-125", "Ore 1-75". The last three each end in a small square
       icon, right edges in a line, nothing overlapping the quest-log toggle or the map's controls.
-- [ ] The three icons are the game's Fishing, Herbalism and Mining icons (not some other spell's, and
+- [x] The three icons are the game's Fishing, Herbalism and Mining icons (not some other spell's, and
       not the letters F, H, O). `/gt probe` says "profession icons from the game: herbs yes, ore yes,
       fish yes". A NO there, or a wrong picture, tell Claude: the spell IDs are from memory.
       Seen 2026-11-14 (the owner's screenshots): on Riverglades' map the three are pictures, not letters (a hook, a herb, a pick). `/gt probe`
-      not yet pasted.
+      not yet pasted. (seen 2026-11-14, the owner's `/gt probe` and screenshots)
 - [ ] Hover the Herbs icon: its edge turns gold and a dark list opens above the corner, titled
       "Herbalism" in gold, ten rows from "Peacebloom 1" to "Kingsblood 125", names left, skills right
       and dim. Move off: it closes. The list stays put while the cursor rests on the icon (no flicker).
@@ -357,8 +357,8 @@ Wowhead's Forever figures, from each leather's skinned-from list. Verified in so
       **full client restart**. The Map tab shows five checks, the new one "Skins on the map", ticked. (seen 2026-11-14, the owner's screenshots)
 - [ ] The Barrens' own map: a sixth line, "Skins: Ruined, Light, Medium", ending in an icon; all six
       lines fit above the corner and clear the map's controls.
-- [ ] The icon is the game's Skinning icon (else the letter S); `/gt probe` lists "skins yes".
-      Seen 2026-11-14 (the owner's screenshots): a picture, not the letter S, its outline gold while hovered. `/gt probe` not yet pasted.
+- [x] The icon is the game's Skinning icon (else the letter S); `/gt probe` lists "skins yes".
+      Seen 2026-11-14 (the owner's screenshots): a picture, not the letter S, its outline gold while hovered. `/gt probe` not yet pasted. (seen 2026-11-14, the owner's `/gt probe` and screenshots)
 - [ ] Hover it: "Skinning", then Light Leather 61%, Ruined Leather Scraps 20%, Medium Leather 11%,
       Light Hide 5%, Pristine Leather 1%, Deviate Scale <1%, Perfect Deviate Scale <1%.
 - [ ] Pristine Leather, Pristine Hide and Pristine Scale show in most zones' lists at a percent or
@@ -401,10 +401,10 @@ Wowhead's Forever figures, from each leather's skinned-from list. Verified in so
 - [ ] Leave the XP tab, or close the window (the X, Escape, `/gt`): the sample `37` goes. Back on
       the XP tab it returns. Untick the switch: it goes and stays gone.
 - [ ] `/reload`: corner, offsets, faintness, size and font are as you left them.
-- [ ] The probe (yours to tick; your 2026-11-11 screenshot, in a party, showed it): the XP lines are
+- [x] The probe (yours to tick; your 2026-11-11 screenshot, in a party, showed it): the XP lines are
       readable, the three "COMBATLOG_" format strings exist, and a kill reads "<mob> dies, you gain
       N experience." with N the whole gain. Not in that screenshot: a quest turn-in or a discovery
-      (its twelve lines were all kills).
+      (its twelve lines were all kills). (seen 2026-11-14, the owner's `/gt probe` and screenshots)
 - [ ] The count (a `/reload` is enough): with the switch on, the number appears after your first
       kill and drops by about one a kill on like mobs.
       Seen so far (2026-11-14, the owner's screenshot, hunting Plains Buzzards): a ghosted `59` in
