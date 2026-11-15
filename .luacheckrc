@@ -17,7 +17,7 @@ read_globals = {
     "SelectActiveQuest", "SelectAvailableQuest", "AcceptQuest", "AcknowledgeAutoAcceptQuest",
     "CompleteQuest", "GetQuestReward",
     "C_Container", "C_Item", "CanMerchantRepair", "GetRepairAllCost", "GetMoney", "RepairAllItems",
-    "C_CVar", "CancelDuel", "DeclineGuild",
+    "C_CVar", "ConsoleGetAllCommands", "CancelDuel", "DeclineGuild",
     "StopCinematic", "MovieFrame", "GetCurrentCinematicSummary", "UnitRace", "C_Map", "C_Spell",
     "QuestObjectiveTrackerMixin",
     "AcceptGroup", "IsGuildMember", "C_FriendList", "C_BattleNet", "WillAcceptInviteRemoveQueues", "StaticPopup_FindVisible",

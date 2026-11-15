@@ -503,6 +503,26 @@ local function size(t)
     return n
 end
 
+-- docs/cvar-candidates.md's first picks: names found in the client, unproven in game. The probe
+-- only reads them; a name the game does not answer for reads "missing".
+local CANDIDATES = { "showInGameNavigation", "alwaysCompareItems", "mapFade", "AutoPushSpellToActionBar",
+    "stopAutoAttackOnTargetChange", "assistAttack", "autoStand", "autoDismount", "autoUnshift",
+    "showTargetCastbar", "minimapTrackingShowAll" }
+
+local function probeCandidates()
+    local parts = {}
+    for _, name in ipairs(CANDIDATES) do
+        local value = API.GetCVar(name)
+        parts[#parts + 1] = name .. " " .. (value == nil and "missing"
+            or (tostring(value) .. " (default " .. tostring(API.GetCVarDefault(name)) .. ")"))
+    end
+    say("Probe: candidate CVars: " .. table.concat(parts, "; ") .. ".")
+    local sortRight, insertLeft = API.BagDirections()
+    say("Probe: bags sort right to left " .. tostring(sortRight) .. ", new items left to right "
+        .. tostring(insertLeft) .. " (nil is no answer).")
+    say("Probe: the console lists " .. tostring(API.ConsoleCommandCount()) .. " command(s) to an addon.")
+end
+
 -- What the addon sees, to settle in-game unknowns (the spec's Open facts).
 function commands.probe()
     for _, feature in ipairs(Features.LIST) do
@@ -564,6 +584,7 @@ function commands.probe()
         local value = API.GlobalText(name)
         say("Probe: " .. name .. " = " .. (value and ('"' .. value .. '"') or "missing"))
     end
+    probeCandidates()
     local missing = API.MissingAcceptCalls()
     say("Probe: accept calls missing: " .. (#missing > 0 and table.concat(missing, ", ") or "none") .. ".")
     for name, message in pairs(API.Errors()) do

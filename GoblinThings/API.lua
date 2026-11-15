@@ -295,6 +295,24 @@ function API.SetCVar(name, value)
     call("SetCVar", C_CVar and C_CVar.SetCVar, name, value)
 end
 
+-- ---- /gt probe's candidates (docs/cvar-candidates.md): read only, nothing is set ----
+
+function API.GetCVarDefault(name)
+    return call("GetCVarDefault", C_CVar and C_CVar.GetCVarDefault, name)
+end
+
+-- ContainerDocumentation.lua: sort right to left, new items left to right; nil is no answer.
+function API.BagDirections()
+    return call("GetSortBagsRightToLeft", C_Container and C_Container.GetSortBagsRightToLeft),
+        call("GetInsertItemsLeftToRight", C_Container and C_Container.GetInsertItemsLeftToRight)
+end
+
+-- ConsoleDocumentation.lua:59: how many commands and CVars the game lists for an addon, or nil.
+function API.ConsoleCommandCount()
+    local list = call("ConsoleGetAllCommands", ConsoleGetAllCommands)
+    return type(list) == "table" and #list or nil
+end
+
 -- ---- declines: what Blizzard's own popups call ----
 
 -- Blizzard_StaticPopup_Game/GameDialogDefs.lua, DUEL_REQUESTED's decline.

@@ -457,3 +457,15 @@ Wowhead's Forever figures, from each leather's skinned-from list. Verified in so
 - [ ] A level-up recomputes it against the new level. At max level, or with XP turned off, it
       never shows.
 - [ ] Solo and rested, then unrested: the count jumps when rested runs out and settles within ten kills.
+
+## Console-only candidates (the probe, 2026-11-15)
+
+Nothing is switched here: `/gt probe` only reads. A `/reload` is enough. The list is `docs/cvar-candidates.md`.
+
+- [ ] `/gt probe` prints one "candidate CVars" line: each of the eleven names with its value and
+      default, or "missing". Paste the line to Claude; a missing name comes off the list.
+- [ ] The "bags sort right to left ... new items left to right ..." line reads true or false for
+      both, not nil. Paste it.
+- [ ] The "console lists N command(s)" line gives a number, not nil. Paste it.
+- [ ] No "threw:" line names GetCVarDefault, GetSortBagsRightToLeft, GetInsertItemsLeftToRight or
+      ConsoleGetAllCommands.
