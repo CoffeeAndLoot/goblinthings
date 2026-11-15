@@ -20,7 +20,7 @@ MapReadout.LAYOUT = {
     ICON = 14,     -- a list's icon at the end of its line
     ICON_GAP = 4,  -- between a line's words and its icon
     LIST_GAP = 6,  -- between the top line and the list above it
-    LIST_PAD = 8,
+    LIST_PAD = 10,
     LIST_ROW = 15,
     LIST_COLUMN_GAP = 18,  -- between a row's name and its number
 }
@@ -71,9 +71,7 @@ local function showList(icon)
         list = CreateFrame("Frame", nil, frame)
         list:SetFrameStrata("TOOLTIP")
         list:EnableMouse(false)
-        local fill = Look.Texture(list, "BACKGROUND", Look.COLOUR.window)
-        fill:SetAllPoints(list)
-        Look.Outline(list, Look.COLOUR.line)
+        Look.Frame(list)
         list.title = Look.Text(list, Look.WORDS, 13, "gold")
         list.title:SetPoint("TOPLEFT", list, "TOPLEFT", L.LIST_PAD, -L.LIST_PAD)
         list.note = Look.Text(list, Look.WORDS, 11, "dim")

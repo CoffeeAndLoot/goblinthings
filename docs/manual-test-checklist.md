@@ -259,6 +259,32 @@ verified in source only.
 - [ ] Level ranges: compare a few zones with the game's own idea (quest levels, mob levels); the
       ranges are Classic's, copied from GoblinPS.
 
+## The game's own look ("back to roots")
+
+Built 2026-11-14, verified in source only. The window, options page and the map readout's lists
+were restyled to the colours of the game's own Statistics and Professions windows; the plaque banner
+is gone. This section replaces what "Window and minimap" above says of the banner and the gold tab.
+`/reload` is enough (no new file; `header.tga` was removed).
+
+- [ ] `/gt`: no Lua error. The window is warm brown, not grey-black, inside a bronze edge with a thin
+      dark rim; no banner art. Hold it beside the game's Professions window: do the browns, the
+      bronze and the gold sit together, or does ours read too flat, too red or too yellow?
+- [ ] A title bar across the top: "Goblin Things" centred in bright gold, a bronze line under it, a
+      red square close button with a gold X at its right. The X closes the window; Escape too.
+- [ ] Dragging by the title bar moves the window and it stays put after `/reload`.
+- [ ] Tabs: the open one is a lighter brown with gold words and a pale gold line along its top; the
+      others are dark with tan words. All eight names fit.
+- [ ] Rows: check boxes are now at the **left** of each row, a dark square in a bronze outline, a
+      gold square inside when on. Words are white. Sliders and choices stay at the right; the
+      picked choice has gold words and the pale top line.
+- [ ] Quests tab: "Quest tracker" sits in a brown header bar across the page, gold words.
+- [ ] The dim notes and "Hold Shift at an NPC or vendor to skip." are light tan and readable.
+- [ ] The window is shorter than before (the banner's 126 px became a 30 px bar) and still fits.
+- [ ] Esc > Options > AddOns > Goblin Things: its button reads in the same look.
+- [ ] World map, a zone's own map: a list opened from an icon is brown in the bronze edge, gold
+      title, white names, tan numbers; an icon's outline turns gold while hovered.
+- [ ] Anything that now looks wrong or unfinished next to the game's own windows: tell Claude what.
+
 ## Herbs, ore and fish on the map
 
 Spec `docs/superpowers/specs/2026-11-14-map-gathering-lists-design.md`. Built 2026-11-14, verified in

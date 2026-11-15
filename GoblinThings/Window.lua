@@ -1,27 +1,23 @@
 local _, ns = ...
 
 -- The settings window (spec 2026-10-13-tracker-sort-and-tabs-design.md, Tabs)
--- in the Goblin look (Look.lua): a dark window with a gold top edge, a header
--- to drag it by, a strip of tabs (one per Features section), and under it one
--- inset page per tab: that section's rows, a gold sub-header over each group
--- and the section's dim note. Every page is as tall as the tallest, so
--- switching tabs never resizes the window. Rows read and write through
--- core.Get / core.Set. Plain frames, no Blizzard templates. PageHeight and
--- Height are pure; the rest makes frames only when called.
+-- in the game's own look (Look.lua): a brown window in a bronze edge, a title
+-- bar to drag it by with the name in gold and a red close button, a strip of
+-- tabs (one per Features section, the open one lit), and under it one inset
+-- page per tab: that section's rows, a header bar over each group and the
+-- section's dim note. Every page is as tall as the tallest, so switching tabs
+-- never resizes the window. Rows read and write through core.Get / core.Set.
+-- Plain frames, no Blizzard templates. PageHeight and Height are pure; the
+-- rest makes frames only when called.
 local Window = {}
 ns.Window = Window
 
 Window.NAME = "GoblinThingsWindow"  -- UISpecialFrames closes frames by name on Escape
 Window.WIDTH = 684  -- eight tabs at 82px each, so every tab name fits
 Window.HOME = { "CENTER", "CENTER", 0, 40 }  -- where it opens until dragged
--- The plaque banner (tools/make_art.py, docs/art-spec.md): the art's own
--- pixels in the top-left of a power-of-two canvas, so the TexCoords crop the
--- rest. Its backdrop is the window colour, so it is drawn from the window's
--- left edge, HEADER tall, and simply is the header.
-Window.BANNER = { file = "Interface\\AddOns\\GoblinThings\\Media\\header", w = 2000, h = 508, cw = 2048, ch = 512 }
 Window.LAYOUT = {
-    TOP_EDGE = 2, HEADER = 126, PAD = 16, CLOSE = 28, TAB_H = 26, WELL_PAD = 4, GROUP = 26, ROW = 40,
-    NOTE = 22, INDENT = 26, CHECK = 18, SLIDER_W = 160, SLIDER_H = 16, VALUE_W = 34, CHOICE_H = 24,
+    TOP_EDGE = 3, HEADER = 30, PAD = 16, CLOSE = 22, TAB_H = 26, WELL_PAD = 4, GROUP = 26, ROW = 40,
+    NOTE = 22, INDENT = 38, CHECK = 18, SLIDER_W = 160, SLIDER_H = 16, VALUE_W = 34, CHOICE_H = 24,
     CHOICE_PAD = 20, FOOT = 62,
 }
 local L = Window.LAYOUT
@@ -59,11 +55,13 @@ local pages = {}     -- section name -> its page
 local minimapCheck
 local refreshing = false  -- a slider moved by Refresh is not the player moving it
 
+-- The title bar: the handle the window is dragged by, the name centred in
+-- gold, the close button at its right, a bronze line under it.
 local function buildHeader(core)
     local Look = ns.Look
     local head = CreateFrame("Frame", nil, frame)
-    head:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, -L.TOP_EDGE)
-    head:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, -L.TOP_EDGE)
+    head:SetPoint("TOPLEFT", frame, "TOPLEFT", L.TOP_EDGE, -L.TOP_EDGE)
+    head:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -L.TOP_EDGE, -L.TOP_EDGE)
     head:SetHeight(L.HEADER)
     head:EnableMouse(true)
     head:RegisterForDrag("LeftButton")
@@ -78,26 +76,18 @@ local function buildHeader(core)
             core.SaveWindow("TOPLEFT", "BOTTOMLEFT", x, y)
         end
     end)
+    Look.Texture(head, "BACKGROUND", Look.COLOUR.title):SetAllPoints(head)
+    local under = Look.Texture(head, "BORDER", Look.COLOUR.edge)
+    under:SetPoint("BOTTOMLEFT", head, "BOTTOMLEFT")
+    under:SetPoint("BOTTOMRIGHT", head, "BOTTOMRIGHT")
+    under:SetHeight(2)
     local close = Look.IconButton(head, "close", L.CLOSE, function() frame:Hide() end, "X")
-    close:SetPoint("RIGHT", head, "RIGHT", -12, 0)
-    -- The banner carries the name and tagline; the window's text fallback
-    -- stands in if the client cannot load the file.
-    local B = Window.BANNER
-    local banner = head:CreateTexture(nil, "ARTWORK")
-    banner:SetSize(L.HEADER * B.w / B.h, L.HEADER)
-    banner:SetPoint("LEFT", head, "LEFT", 0, 0)
-    if banner:SetTexture(B.file) then
-        banner:SetTexCoord(0, B.w / B.cw, 0, B.h / B.ch)
-    else
-        banner:Hide()
-        local name = Look.Text(head, Look.WORDS, 17, "gold")
-        name:SetPoint("TOPLEFT", head, "TOPLEFT", L.PAD, -12)
-        name:SetPoint("RIGHT", close, "LEFT", -12, 0)
-        name:SetText(ns.Options.NAME)
-        local tagline = Look.Text(head, Look.WORDS, 10, "dim")
-        tagline:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -4)
-        tagline:SetText("Time is money, friend.")
-    end
+    close:SetPoint("RIGHT", head, "RIGHT", -4, 1)
+    local name = Look.Text(head, Look.WORDS, 15, "gold")
+    name:SetJustifyH("CENTER")
+    name:SetPoint("LEFT", head, "LEFT", L.CLOSE + 8, 1)
+    name:SetPoint("RIGHT", head, "RIGHT", -(L.CLOSE + 8), 1)
+    name:SetText(ns.Options.NAME)
 end
 
 -- One button per section, equal widths, borders overlapping into one strip.
@@ -118,7 +108,7 @@ local function checkControl(core, r, feature)
     local check = ns.Look.Check(r, L.CHECK, function()
         core.Set(feature.key, not core.Get(feature.key))
     end)
-    check:SetPoint("RIGHT", r, "RIGHT", -10, 0)
+    check:SetPoint("LEFT", r, "LEFT", 10, 0)
     return { check = check }
 end
 
@@ -175,9 +165,18 @@ local function row(core, page, feature, y)
     name:SetText(feature.label)
 end
 
+-- A bar across the page with the group's name in gold, as the game heads a
+-- run of rows ("Character" in its Statistics window).
 local function groupHeader(page, name, y)
-    local text = ns.Look.Text(page, ns.Look.WORDS, 12, "gold")
-    text:SetPoint("TOPLEFT", page, "TOPLEFT", L.WELL_PAD + 10, y - 8)
+    local Look = ns.Look
+    local bar = CreateFrame("Frame", nil, page)
+    bar:SetHeight(L.GROUP - 4)
+    bar:SetPoint("TOPLEFT", page, "TOPLEFT", L.WELL_PAD + 4, y - 2)
+    bar:SetPoint("TOPRIGHT", page, "TOPRIGHT", -(L.WELL_PAD + 4), y - 2)
+    Look.Texture(bar, "BACKGROUND", Look.COLOUR.header):SetAllPoints(bar)
+    Look.Outline(bar, Look.COLOUR.line)
+    local text = Look.Text(bar, Look.WORDS, 12, "gold")
+    text:SetPoint("LEFT", bar, "LEFT", 8, 0)
     text:SetText(name)
 end
 
@@ -221,12 +220,7 @@ local function make(core)
     frame:SetClampedToScreen(true)
     frame:SetMovable(true)
     frame:EnableMouse(true)
-    Look.Texture(frame, "BACKGROUND", Look.COLOUR.window):SetAllPoints(frame)
-    Look.Outline(frame, Look.COLOUR.line)
-    local topEdge = Look.Texture(frame, "ARTWORK", Look.COLOUR.gold)
-    topEdge:SetPoint("TOPLEFT", frame, "TOPLEFT")
-    topEdge:SetPoint("TOPRIGHT", frame, "TOPRIGHT")
-    topEdge:SetHeight(L.TOP_EDGE)
+    Look.Frame(frame)
     buildHeader(core)
 
     local tabTop = -(L.TOP_EDGE + L.HEADER + L.PAD)
@@ -269,7 +263,7 @@ function Window.Shown()
     return frame ~= nil and frame:IsShown()
 end
 
--- Shows the open tab's page with its tab gold, and draws every control from
+-- Shows the open tab's page with its tab lit, and draws every control from
 -- core.Get: checks on or off, each slider and its number (Features.SliderText;
 -- the camera's CVar is read fresh, "?" when the game gives no answer), the chosen choice gold, and
 -- the minimap check.

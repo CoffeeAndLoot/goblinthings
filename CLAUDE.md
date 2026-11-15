@@ -18,7 +18,8 @@ per switch. Docs:
   that readout (its plan is `docs/superpowers/plans/2026-11-14-map-gathering-lists.md`). Read its
   dated amendments: they overturn parts of the text above them.
 - `docs/manual-test-checklist.md`: every in-game check, ticked only by the owner.
-- `docs/art-spec.md`: the brief for regenerating the header banner.
+- `docs/art-spec.md`: the brief for the plaque banner the window wore until 2026-11-14; kept for
+  the record, no longer built.
 
 Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came from GoblinQuest
 (`D:\goblinquest`, shelved).
@@ -33,16 +34,18 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
 - `API.lua` is the only file that calls Blizzard game APIs, each through `attempt()`.
 - Pure modules touch no Blizzard global at file load; test/run.lua loads them.
 - No libraries. An unknown answer from the game means do nothing.
-- The window, options page and minimap button wear the Goblin look (`Look.lua`, from Goblin
-  Flyout): plain frames and colour textures, **no Blizzard frame templates**, colours only from
-  `Look.COLOUR`.
+- The window, options page, minimap button and the map readout's lists wear **the game's own look**
+  (`Look.lua`; the owner's "back to roots", 2026-11-14): the palette is sampled from WoW Forever's
+  Statistics and Professions windows (brown panels, bronze edges, bright gold titles, white words),
+  drawn with plain frames and colour textures. **No Blizzard frame templates or art files**, so no
+  texture name is guessed and a renamed template cannot break it; colours only from `Look.COLOUR`.
+  Do not add art to the window: a title bar, not a banner. Goblin Flyout keeps the older Goblin
+  look, so the two no longer match.
 - Art is generated, never hand-edited: `python tools/make_art.py [preview_dir]` cuts
-  `GoblinThings/Media/header.tga` (the plaque banner) from `tools/art/header-source.png` (made to
-  `docs/art-spec.md`) and `Media/icon.tga` plus `images/thumbnail.png` (the round goblin) from
-  `tools/art/concept-sheet.png`. The banner keeps its source pixels (sharp at 4K) and its backdrop
-  is set to `Look.COLOUR.window`, so it is laid edge to edge; `Window.BANNER` must match the
-  script's crop box. `Media/icons/close-*.tga` are Goblin Flyout's, copied. `images/banner.png` is
-  the README's hero only. A new or changed TGA needs a full client restart.
+  `Media/icon.tga` plus `images/thumbnail.png` (the round goblin: the minimap button and the
+  AddOns-list icon) from `tools/art/concept-sheet.png`. `Media/icons/close-*.tga` are Goblin
+  Flyout's, copied. `images/banner.png` is the README's hero only. A new or changed TGA needs a
+  full client restart.
 - The gathering lists are generated too, never hand-edited: `python tools/make_gathering.py` writes
   `GoblinThings/MapData.lua` from three sources in `tools/gathering/`. `wowhead-forever.json`
   (`wowhead.com/forever/zone=<area id>`, Forever's own database) is the authority for herbs, ore
