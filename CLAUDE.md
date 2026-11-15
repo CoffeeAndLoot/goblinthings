@@ -13,8 +13,10 @@ per switch. Docs:
 - `docs/superpowers/specs/2026-10-13-tracker-sort-and-tabs-design.md`: the tracker sort and the tabs.
 - `docs/superpowers/specs/2026-11-11-kills-to-level-design.md`: the kills-to-level number (its plan is
   `docs/superpowers/plans/2026-11-11-kills-to-level.md`).
-- `docs/superpowers/specs/2026-11-14-map-gathering-lists-design.md`: herbs, ore and fish lists on the
-  map readout (its plan is `docs/superpowers/plans/2026-11-14-map-gathering-lists.md`).
+- `docs/superpowers/specs/2026-11-10-map-zone-readout-design.md`: the world map's corner readout.
+- `docs/superpowers/specs/2026-11-14-map-gathering-lists-design.md`: herbs, ore, fish and skins on
+  that readout (its plan is `docs/superpowers/plans/2026-11-14-map-gathering-lists.md`). Read its
+  dated amendments: they overturn parts of the text above them.
 - `docs/manual-test-checklist.md`: every in-game check, ticked only by the owner.
 - `docs/art-spec.md`: the brief for regenerating the header banner.
 
@@ -41,18 +43,19 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
   is set to `Look.COLOUR.window`, so it is laid edge to edge; `Window.BANNER` must match the
   script's crop box. `Media/icons/close-*.tga` are Goblin Flyout's, copied. `images/banner.png` is
   the README's hero only. A new or changed TGA needs a full client restart.
-- The gathering lists are generated too: `python tools/make_gathering.py` writes
-  `GoblinThings/MapData.lua` from `tools/gathering/wowhead-forever.json` (Wowhead's Forever database,
-  `wowhead.com/forever/zone=<area id>`, the authority) and `wowhead-classic.json` (Classic Era's, the
-  fallback for a zone or fish list Forever's lacks, marked in `CLASSIC_NODES` / `CLASSIC_FISH` and
-  footnoted in the list). Both are read out of the pages in a browser: Wowhead answers a script with
-  403, and after about 30 pages asks for human verification whatever the pace, which only the owner
-  may pass. A node name the script does not know stops it: add it to `HERBS`, `ORE` or `QUEST_OBJECTS`.
-  Zone area IDs are in the script's `ZONES` (Forever's own: Mount Hyjal 616, Riverglades 16591,
-  Zephras Isle 16593, Shen'dralas 16651). A zone with a catch list and no known fishing skill
-  (Riverglades, Zephras Isle) shows a bare "Fishing" line; one known only by its lists
-  (Shen'dralas) shows only while a list's switch is on. Never hand-edit
-  `MapData.lua`; the script's `PENDING` set (empty since 2026-11-14) names any zone not read yet.
+- The gathering lists are generated too, never hand-edited: `python tools/make_gathering.py` writes
+  `GoblinThings/MapData.lua` from three sources in `tools/gathering/`. `wowhead-forever.json`
+  (`wowhead.com/forever/zone=<area id>`, Forever's own database) is the authority for herbs, ore
+  and fish; `wowhead-classic.json` is the fallback for a fish list Forever has too few catches
+  for, marked in `CLASSIC_NODES` / `CLASSIC_FISH` and footnoted in the list;
+  `wowhead-forever-skins.json` is each leather's skinned-from list (`/forever/item=<id>`).
+  - The sources are read out of the pages in the browser pane. Wowhead answers a script with 403
+    and asks for human verification about every 28 pages whatever the pace; **only the owner may
+    pass it**, so stop and ask.
+  - The script writes nothing unless every check passes. A node name it does not know stops it:
+    add it to `HERBS`, `ORE` or `QUEST_OBJECTS` (Wowhead types quest objects as herbs and veins).
+  - UiMap ID to Wowhead area ID is the script's `ZONES`; UiMap IDs come from
+    `D:\GoblinPS\docs\research\data\UiMap.csv` (the client's own table).
 - Adding a file to the TOC needs a full client restart, not `/reload`. Say so.
 - Calendar versions (`2026.10.13`, `.2` for a second that day), written only in the TOC.
 - Commit after each change: `Area: plain sentence`. Push only when the owner asks. CI runs the suite
@@ -82,30 +85,36 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
    sub-header), control (`check`, `slider`, `choice`) and default; `Features.NOTES` gives a tab its
    dim note. The window builds its tabs and rows from it; `Options.Init` stores every feature with a
    default. One with a `cvar` (the camera, Guild login alerts) has none: the game's own CVar is its store.
-2. `Hands` (quests), `Vendor`, `Trainer`, `Camera`, `Cinematics`, `Decline`, `Accept`, `Loot` and `Kills` are pure: each takes plain values
-   (views built by `API.lua`) and the settings, and says what to do.
+2. `Hands` (quests), `Vendor`, `Trainer`, `Camera`, `Cinematics`, `Decline`, `Accept`, `Loot` and
+   `Kills` are pure: each takes plain values (views built by `API.lua`) and the settings, and says
+   what to do.
 3. `Core` routes events to them behind `guard(label, ...)` (one error per label per session) and has
    `API` carry out the result. `Core.Get(key)` / `Core.Set(key, value)` are the one door to every
    setting, the camera's CVar included.
 4. Holding Shift as an NPC or vendor window opens skips every quest and vendor action that visit.
 5. The tracker sort (`TrackerSort`, pure) wraps `QuestObjectiveTracker.BuildQuestWatchInfos` via
-   `API.SetTrackerSort` once a tier is set, Only this zone is on or Hide quests above me is set (it also filters); all None leaves it in as a pass-through until /reload
+   `API.SetTrackerSort` once a tier is set, Only this zone is on or Hide quests above me is set (it
+   also filters); all None leaves it in as a pass-through until /reload
    (XML `mixin=` copies methods onto the frame, so setting the field to nil would delete the
    tracker's own method). A player who never sorts never has the tracker touched.
-6. The world map readout (`docs/superpowers/specs/2026-11-10-map-zone-readout-design.md`):
-   `MapInfo` (pure) holds hand-written level ranges (copied from GoblinPS) and Classic fishing
-   skills by UiMap ID, and picks the map to describe; `MapReadout` draws it at the map canvas's
-   bottom right each frame the map is shown, from `API.MapUnderCursor` (as Blizzard's area label
-   finds the hovered zone). `C_Map.GetMapLevels` exists on this build and answers for no zone, so
-   never switch to it without an in-game check; `/gt probe` counts the hover API's answers.
-   `MapData` (generated, pure) adds herbs, ore and fish per zone: `MapInfo.Lines` gives each line as
-   `{ text, kind }` and `MapInfo.List(kind, mapID)` a list's rows. A line with a `kind` ends in an
-   icon only when the readout describes the map that is open (on a continent the cursor would cross
-   other zones on its way to the corner). The icons are the readout's only mouse-live frames; their
-   pictures come from `API.ProfessionIcon` (a spell's texture), a letter when the game gives none.
-   Skins come from `tools/gathering/wowhead-forever-skins.json` (each leather's skinned-from list,
-   `wowhead.com/forever/item=<id>`); the Skins line names the leather grades worth a tenth of the
-   zone's skins.
+6. The world map readout: up to six lines at the map canvas's bottom right (name, levels, fishing,
+   herbs, ore, skins), drawn each frame the map is shown.
+   - `MapInfo` (pure) holds hand-written level ranges and fishing skills by UiMap ID, reads the
+     generated `MapData` inside its functions, and decides everything: `Pick(shown, hovered, show)`
+     the map to describe, `Lines(mapID, name, show)` each line as `{ text, kind }`, and
+     `List(kind, mapID)` a list's title, rows and footnote. `show` is the four list switches
+     (`mapHerbs`, `mapOre`, `mapFish`, `mapSkins`); a zone known only by its lists (Shen'dralas)
+     is known only while one is on, and a catch list with no known skill (Riverglades, Zephras
+     Isle) gets a bare "Fishing" line.
+   - `MapReadout` draws and decides nothing. It finds the hovered zone with `API.MapUnderCursor`,
+     as Blizzard's area label does. A line with a `kind` ends in an icon only when the readout
+     describes the map that is open: on a continent the cursor would cross other zones on its way
+     to the corner. The frame is mouse-off so the canvas keeps its hover; the icons are its only
+     mouse-live frames, and hovering one opens the list.
+   - Icons are `API.ProfessionIcon(kind)`, a spell's texture; the four spell IDs are from memory
+     and unchecked, so a letter square is drawn whenever the game gives nothing.
+   - `C_Map.GetMapLevels` exists on this build and answers for no zone, so never switch to it
+     without an in-game check; `/gt probe` counts the hover API's answers and the icons given.
 7. Kills to level: `Kills` (pure) keeps the last ten kills' XP and divides the XP still needed by
    their average; `KillsReadout` draws the one ghosted number `Core`'s `drawKills` hands it, on
    `UIParent` at strata BACKGROUND with the mouse off. A kill is a `CHAT_MSG_COMBAT_XP_GAIN` line
@@ -161,3 +170,14 @@ lua-language-server --check D:\GoblinThings --checklevel=Warning --check_out_pat
 ```
 
 Keep both at zero warnings. A new WoW global goes in both `.luacheckrc` and `.luarc.json`.
+
+The generators, from the repo root (each rewrites its outputs whole; see Rules):
+
+```
+python tools/make_art.py [preview_dir]
+python tools/make_gathering.py
+```
+
+The Bash tool here is Git Bash and has twice failed to parse a heredoc holding Lua or Python with
+apostrophes ("unexpected EOF while looking for matching `'`"), running nothing. For a multi-file
+edit write a script with the Write tool and run that, or use Edit.
