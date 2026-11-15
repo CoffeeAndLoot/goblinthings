@@ -510,10 +510,12 @@ saved false needs a click made while the box read on, so the likeliest story is 
 read lags its write: the tick did not show, and a second click undid it. A bag check now shows
 the saved choice once there is one, not the game's read.
 
-- [ ] Click New items fill bags left to right once: it ticks at once and stays ticked. `/gt probe`
-      reads saved fill true; say what the game's value reads beside it, straight away and again
-      after looting something.
-- [ ] Loot or buy an item with it ticked: it lands at the other end of the bags from unticked.
+- [x] Click New items fill bags left to right once: it ticks at once and stays ticked.
+      (2026-11-15, the owner: "it stays ticked now".)
+- [ ] `/gt probe` with it ticked reads saved fill true; say what the game's value reads beside
+      it, straight away and again after looting something.
+- [x] Loot or buy an item with it ticked: it lands at the other end of the bags from unticked.
+      (2026-11-15, the owner: "items coming in are working".)
 
 ## Quest diamond and bag directions (2026-11-15)
 

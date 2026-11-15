@@ -91,9 +91,10 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
    dim note. The window builds its tabs and rows from it; `Options.Init` stores every feature with a
    default. One with a `cvar` (the camera, Guild login alerts, the quest diamond, the Combat tab) has none: the
    game's own CVar is its store. Likewise one with a `bag` (the two bag directions on the Loot
-   tab): the game keeps it behind a `C_Container` get/set pair (`API.BagDirection`), but forgets it at
-   `/reload` (seen 2026-11-15), so once chosen it is also saved and `Core`'s `applyBags` sets it
-   again at `PLAYER_ENTERING_WORLD`; never chosen, the game's own stays untouched.
+   tab): the game keeps it behind a `C_Container` get/set pair (`API.BagDirection`), but its read is not
+   to be trusted after a write, so once chosen the choice is also saved: `Core.Get` answers with
+   the saved choice and `applyBags` sets it again at `PLAYER_ENTERING_WORLD` and every
+   `BAG_UPDATE_DELAYED`. Never chosen, the game's own stays untouched.
 2. `Hands` (quests), `Vendor`, `Trainer`, `Camera`, `Cinematics`, `Decline`, `Accept`, `Loot` and
    `Kills` are pure: each takes plain values (views built by `API.lua`) and the settings, and says
    what to do.
@@ -161,7 +162,10 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
   `GetInsertItemsLeftToRight` false. `ConsoleGetAllCommands()` gave an addon 1878 entries.
   The owner then saw the quest diamond and both bag switches work ("all three work"): an addon's
   write takes for `showInGameNavigation` and both `C_Container` setters, and something in Forever
-  sorts bags. Untested: a write to the other ten CVars, and any of them in combat.
+  sorts bags. Bag fill direction (same day): with the box reading the game's getter, a tick was
+  lost (a probe straight after ticking read game false, saved false); with the box reading the
+  saved choice it "stays ticked" and new items land at the chosen end. Why the getter misled is
+  not known: lag is a guess. Untested: a write to the other ten CVars, and any of them in combat.
 - Solo XP lines (2026-11-14, `/gt probe`, Riverglades): "Glade Viper dies, you gain 260 experience."
   and the `UnitXP` change that follows is the same 260. One `PLAYER_XP_UPDATE` arrived with no
   change (+0) between kills.
