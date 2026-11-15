@@ -333,6 +333,8 @@ what the section above says of the Map tab's rows and note, and Badlands now has
       and whether that is a bother; tell Claude.
 - [ ] Mount Hyjal: "Herbs 270-300" (Demonsage 300) and "Ore 275-300" (Heavy Thorium Vein 300).
       The Hinterlands lists Star Lotus 250 and Starsilver Vein 245: real nodes on Forever?
+      Seen 2026-11-14 (the owner's screenshot): Mount Hyjal reads Level 60, Herbs 270-300, Ore 275-300,
+      Skins: Rugged, with Fel Leather 28% and Fel Hide 2% in its list. The Hinterlands not yet seen.
 - [ ] Forever's new zones (2026-11-14, Wowhead's Forever figures). Riverglades now reads "Levels
       36-44" (was 35-45), then a bare "Fishing" line with an icon (its catch is known, its skill is
       not: tell Claude the skill if the game shows one), "Herbs 85-185", "Ore 65-230". Zephras Isle:
@@ -377,11 +379,13 @@ Wowhead's Forever figures, from each leather's skinned-from list. Verified in so
       lines; nothing showing, no card. It stands clear of the map frame's corner and the
       quest-log toggle. The icons still take the mouse and a list opens just above the card.
       Seen 2026-11-14 (the owner's screenshots of Stranglethorn Vale and Eastern Plaguelands).
-- [ ] A neighbour at the edge of a zone's own map (2026-11-14, the owner: Winterspring on Mount
+- [x] A neighbour at the edge of a zone's own map (2026-11-14, the owner: Winterspring on Mount
       Hyjal's map took the card over and Hyjal's icons could not be reached): with Mount Hyjal's
       map open, move the cursor over Winterspring's edge: the card stays Mount Hyjal's, icons and
       all, and each icon can be reached and hovered. On Durotar's map, hovering Orgrimmar still
       shows the city. On Kalimdor the card still follows the cursor from zone to zone.
+      Seen 2026-11-14 (the owner: "the mt hyjal fix worked", with Hyjal's Skinning list open).
+      Orgrimmar on Durotar's map and the continent not rechecked since the fix.
 - [ ] On a continent the card follows the hovered zone, resizing without a flicker, and goes over
       the sea. Does it hide anything on the map you want to see? Tell Claude.
 - [ ] As a skinner: in a zone you work, is anything missing or wrong? A beast that roams several
