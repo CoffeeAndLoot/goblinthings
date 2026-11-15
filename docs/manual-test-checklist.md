@@ -494,6 +494,11 @@ The owner saw "New items fill bags left to right" tick itself off at `/reload`: 
 keep it. Goblin Things now saves a bag direction once it is chosen in the window and sets it again
 on every login and reload. A `/reload` is enough.
 
+Second try: the owner ticked it, reloaded, and it was off again, so setting it as the world loads
+does not stick. It is now also checked at every bag change (`BAG_UPDATE_DELAYED`) and set where
+the game's differs. If it still comes up unticked, run `/gt probe` and send the "bags" line: it
+shows the game's value beside the saved choice.
+
 - [ ] Tick New items fill bags left to right, `/reload`: still ticked, and new loot still lands
       at that end.
 - [ ] The same through a full relog, and on another character (the choice is account-wide).

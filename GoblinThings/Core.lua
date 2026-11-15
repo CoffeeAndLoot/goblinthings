@@ -424,18 +424,28 @@ end)
 -- Every loading screen: an addon that turns auto-track off at login is
 -- undone after it, while the switch is ticked.
 -- A bag direction chosen in the window, given back to the game, which does not keep it.
+-- Setting it as the world loads did not stick (seen 2026-11-15), so it is checked again at
+-- every bag change and set only where the game's differs.
 local function applyBags()
+    local changed = false
     for _, feature in ipairs(Features.LIST) do
         local value = feature.bag and db().features[feature.key]
-        if type(value) == "boolean" then
+        if type(value) == "boolean" and API.BagDirection(feature.bag) ~= value then
             API.SetBagDirection(feature.bag, value)
+            changed = true
         end
+    end
+    if changed then
+        Window.Refresh(Core)
     end
 end
 
+API.OnEvents({ "PLAYER_ENTERING_WORLD", "BAG_UPDATE_DELAYED" }, function()
+    guard("Bags", applyBags)
+end)
+
 API.OnEvents({ "PLAYER_ENTERING_WORLD" }, function()
     guard("Auto-track", applyAutoTrack, false)
-    guard("Bags", applyBags)
 end)
 
 -- "This zone" changes with the map, and Hide quests above me with the
@@ -536,7 +546,9 @@ local function probeCandidates()
     say("Probe: candidate CVars: " .. table.concat(parts, "; ") .. ".")
     local sortRight, insertLeft = API.BagDirection("sort"), API.BagDirection("insert")
     say("Probe: bags sort right to left " .. tostring(sortRight) .. ", new items left to right "
-        .. tostring(insertLeft) .. " (nil is no answer).")
+        .. tostring(insertLeft) .. " (nil is no answer); saved choice: sort "
+        .. tostring(db().features.bagsSortRight) .. ", fill " .. tostring(db().features.bagsFillLeft)
+        .. " (nil is never chosen).")
     say("Probe: the console lists " .. tostring(API.ConsoleCommandCount()) .. " command(s) to an addon.")
 end
 
