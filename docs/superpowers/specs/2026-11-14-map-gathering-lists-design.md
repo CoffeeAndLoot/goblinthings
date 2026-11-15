@@ -37,6 +37,9 @@ profession icon:
   harmless and answers the "worth my time" question from the continent view.
 - A zone with no herbs, or no ore, or no fish list has no such line or icon. A city shown on its
   zone's map has none.
+- The fish icon lives on the Fishing line, so a zone with no Fishing line (Badlands, Searing Gorge,
+  Blasted Lands have no fishing skill in `MapInfo.FISHING`) shows no fish list even if Wowhead has
+  one; the script leaves those out of `FISH`.
 - **No skins** **(owner)**: Wowhead has no skinning list per zone, and working leather out from beast
   levels is an estimate, not data.
 
@@ -73,12 +76,20 @@ lists ship with the addon.
   Stranglekelp 6%, Bristle Whisker Catfish 6%, Brilliant Smallfish 4%) and drops the gear, potions
   and crates without a class rule. A page whose counts sum to under 100 gives no fish list: too few
   casts to trust.
-- **Generated, never hand-edited**, as the art is: `python tools/make_gathering.py` reads the pages
-  and writes `GoblinThings/MapData.lua`. The script holds the one hand-kept table, UiMap ID to
-  Wowhead area ID (the Barrens: 1413 to 17), for every zone in `MapInfo.LEVELS` that Wowhead Classic
-  has. It waits between requests, sends a generic client name and nothing about the owner, and fails
-  loudly (writing nothing) if any page lacks the lists it expects, so a changed page layout never
-  ships a half-empty file.
+- **Generated, never hand-edited**, as the art is, in two steps because Wowhead refuses a plain
+  script (HTTP 403 to Python on 2026-11-14) and serves a browser:
+  - `tools/gathering/wowhead-classic.json` is the **source**, as `tools/art/*.png` are: per zone, the
+    page's title, its herb and ore rows (name, skill) and its fishing rows (item ID, name, count) with
+    the sum of all counts. It is read out of the pages in a browser, one page at a time with a pause,
+    sending nothing about the owner. The file records the day it was read.
+  - `python tools/make_gathering.py` turns that source into `GoblinThings/MapData.lua`, applying the
+    de-duplication, the fish filter and the sorting. It holds the one hand-kept table, UiMap ID to
+    Wowhead area ID (the Barrens: 1413 to 17), for every zone in `MapInfo.LEVELS` that Wowhead Classic
+    has, each with the zone's name.
+  - **It fails loudly, writing nothing**, when: a zone in its table is missing from the source; a
+    page's title does not start with the zone's name; a zone has no `objects` list at all (every zone
+    page has one; `fishing` is allowed to be absent, a landlocked zone has none); or fewer than 30
+    zones yield herbs, 30 yield ore or 20 yield fish (a changed page layout would empty them all).
 - **Not in the data**: Mount Hyjal and Riverglades are Forever's own and Wowhead Classic does not have
   them, so they get no gathering lines.
 - **English names**: node and fish names are Wowhead's English, not the client's language.
@@ -115,11 +126,13 @@ lists ship with the addon.
   - While the cursor is on an icon it is off the canvas, so `API.MapUnderCursor` reports no hovered
     child and the pick stays the shown map: the list cannot flicker away under the cursor. This is
     from reading `IsCanvasMouseFocusOrPinFocus`, not from the game; the checklist covers it.
-- **Icons**: the game's own profession icons, asked for through `API.lua` and `attempt()` like every
-  other game call. Their texture names are not in the Blizzard addon source, so nothing is assumed:
-  the builder adds the lookup to `/gt probe` and the owner confirms the three in game. Until an icon
-  is confirmed, and whenever the game gives none, the icon is a Goblin-look square with the letter
-  H, O or F, so a list is always reachable.
+- **Icons**: the game's own profession icons, in one pass. `API.ProfessionIcon(kind)` asks
+  `C_Spell.GetSpellTexture` (`SpellDocumentation.lua`: returns nothing for an unknown spell) for the
+  profession's Apprentice spell: Herbalism 2366, Mining 2575, Fishing 7620, each ID checked against
+  its Wowhead Classic spell page's title when the source is read. The texture names themselves are
+  not in the Blizzard addon source, so none is written down. Whenever the game gives no texture the
+  icon is a Goblin-look square with the letter H, O or F, so a list is always reachable; `/gt probe`
+  says which of the three the game answered, and the checklist has the owner look at them.
 - `Features.LIST` gains the three switches (section `Map`); `Options.Init` stores their defaults.
 - Tests: `MapInfo`'s new lines and lists against a small fake `MapData`; a data test that every
   shipped list is non-empty, sorted as promised and keyed by a zone `MapInfo` knows.
@@ -135,8 +148,6 @@ later.
 
 ## Left to the builder
 
-- How the script fetches (plain HTTP first; the pages are public) and how it finds each list in the
-  page, provided it fails loudly on a shape it does not recognise.
 - The UiMap to Wowhead area ID table: from the client's own data or Wowhead's zone list, each one
   checked by the page's title matching the zone's name.
 - Exact pixel offsets of the icons and the list frame, within the Goblin look.
