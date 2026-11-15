@@ -269,20 +269,24 @@ is gone. This section replaces what "Window and minimap" above says of the banne
 - [ ] `/gt`: no Lua error. The window is warm brown, not grey-black, inside a bronze edge with a thin
       dark rim; no banner art. Hold it beside the game's Professions window: do the browns, the
       bronze and the gold sit together, or does ours read too flat, too red or too yellow?
+      Seen 2026-11-14 (the owner's screenshots): the window is warm brown in a bronze edge, no banner. Not yet said: whether an error showed, and
+      how it sits beside the game's own windows.
 - [ ] A title bar across the top: "Goblin Things" centred in bright gold, a bronze line under it, a
       red square close button with a gold X at its right. The X closes the window; Escape too.
+      Seen 2026-11-14 (the owner's screenshots): the bar, the gold name, the bronze line and the red button with its X. Not yet said: that the X
+      and Escape close it.
 - [ ] Dragging by the title bar moves the window and it stays put after `/reload`.
-- [ ] Tabs: the open one is a lighter brown with gold words and a pale gold line along its top; the
-      others are dark with tan words. All eight names fit.
-- [ ] Rows: check boxes are now at the **left** of each row, a dark square in a bronze outline, a
+- [x] Tabs: the open one is a lighter brown with gold words and a pale gold line along its top; the
+      others are dark with tan words. All eight names fit. (seen 2026-11-14, the owner's screenshots)
+- [x] Rows: check boxes are now at the **left** of each row, a dark square in a bronze outline, a
       gold square inside when on. Words are white. Sliders and choices stay at the right; the
-      picked choice has gold words and the pale top line.
-- [ ] Quests tab: "Quest tracker" sits in a brown header bar across the page, gold words.
-- [ ] The dim notes and "Hold Shift at an NPC or vendor to skip." are light tan and readable.
+      picked choice has gold words and the pale top line. (seen 2026-11-14, the owner's screenshots)
+- [x] Quests tab: "Quest tracker" sits in a brown header bar across the page, gold words. (seen 2026-11-14, the owner's screenshots)
+- [x] The dim notes and "Hold Shift at an NPC or vendor to skip." are light tan and readable. (seen 2026-11-14, the owner's screenshots)
 - [ ] The window is shorter than before (the banner's 126 px became a 30 px bar) and still fits.
 - [ ] Esc > Options > AddOns > Goblin Things: its button reads in the same look.
-- [ ] World map, a zone's own map: a list opened from an icon is brown in the bronze edge, gold
-      title, white names, tan numbers; an icon's outline turns gold while hovered.
+- [x] World map, a zone's own map: a list opened from an icon is brown in the bronze edge, gold
+      title, white names, tan numbers; an icon's outline turns gold while hovered. (seen 2026-11-14, the owner's screenshots)
 - [ ] Anything that now looks wrong or unfinished next to the game's own windows: tell Claude what.
 
 ## Herbs, ore and fish on the map
@@ -302,6 +306,8 @@ what the section above says of the Map tab's rows and note, and Badlands now has
 - [ ] The three icons are the game's Fishing, Herbalism and Mining icons (not some other spell's, and
       not the letters F, H, O). `/gt probe` says "profession icons from the game: herbs yes, ore yes,
       fish yes". A NO there, or a wrong picture, tell Claude: the spell IDs are from memory.
+      Seen 2026-11-14 (the owner's screenshots): on Riverglades' map the three are pictures, not letters (a hook, a herb, a pick). `/gt probe`
+      not yet pasted.
 - [ ] Hover the Herbs icon: its edge turns gold and a dark list opens above the corner, titled
       "Herbalism" in gold, ten rows from "Peacebloom 1" to "Kingsblood 125", names left, skills right
       and dim. Move off: it closes. The list stays put while the cursor rests on the icon (no flicker).
@@ -330,6 +336,9 @@ what the section above says of the Map tab's rows and note, and Badlands now has
       not: tell Claude the skill if the game shows one), "Herbs 85-185", "Ore 65-230". Zephras Isle:
       "Levels 1-12", bare "Fishing" with an icon (Brilliant Smallfish, Longjaw Mud Snapper), "Herbs
       1-50", "Ore 1". Shen'dralas (no level range known): its name, "Herbs 100-120", "Ore 125-175".
+      Seen 2026-11-14 (the owner's screenshots): Riverglades exactly as written, six lines clear of the map's frame, and its Skinning list (Heavy
+      Leather 68%, Thick Leather 26%, Heavy Hide 3%, Pristine Hide 1%, then Worn Dragonscale, Thick
+      Wolfhide and Turtle Scale under 1%). Zephras Isle and Shen'dralas not yet seen.
 - [ ] With "Fish list on the map" off, Riverglades and Zephras Isle lose the Fishing line whole.
       With Herbs and Ore both off, Shen'dralas shows nothing at all (no bare name), on its own map
       and hovered on Kalimdor.
@@ -344,11 +353,12 @@ what the section above says of the Map tab's rows and note, and Badlands now has
 
 Wowhead's Forever figures, from each leather's skinned-from list. Verified in source only.
 
-- [ ] `/reload` is enough if MapData.lua was already loaded by a restart since 2026-11-14; else a
-      **full client restart**. The Map tab shows five checks, the new one "Skins on the map", ticked.
+- [x] `/reload` is enough if MapData.lua was already loaded by a restart since 2026-11-14; else a
+      **full client restart**. The Map tab shows five checks, the new one "Skins on the map", ticked. (seen 2026-11-14, the owner's screenshots)
 - [ ] The Barrens' own map: a sixth line, "Skins: Ruined, Light, Medium", ending in an icon; all six
       lines fit above the corner and clear the map's controls.
 - [ ] The icon is the game's Skinning icon (else the letter S); `/gt probe` lists "skins yes".
+      Seen 2026-11-14 (the owner's screenshots): a picture, not the letter S, its outline gold while hovered. `/gt probe` not yet pasted.
 - [ ] Hover it: "Skinning", then Light Leather 61%, Ruined Leather Scraps 20%, Medium Leather 11%,
       Light Hide 5%, Pristine Leather 1%, Deviate Scale <1%, Perfect Deviate Scale <1%.
 - [ ] Pristine Leather, Pristine Hide and Pristine Scale show in most zones' lists at a percent or
