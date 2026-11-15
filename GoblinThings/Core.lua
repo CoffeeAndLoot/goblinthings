@@ -122,7 +122,14 @@ function Core.Get(key)
     if feature and feature.cvar then  -- a check the game's own CVar stores
         return Features.CVarOn(API.GetCVar(feature.cvar))
     end
-    if feature and feature.bag then  -- a check the game's bag setting stores; no answer reads off
+    if feature and feature.bag then
+        -- Once chosen, the choice is the answer: the game's own read lagged the write (a tick
+        -- still read off, and a second click undid it; seen 2026-11-15) and applyBags enforces
+        -- it. Never chosen: the game's; no answer reads off.
+        local chosen = db().features[key]
+        if type(chosen) == "boolean" then
+            return chosen
+        end
         return API.BagDirection(feature.bag) == true
     end
     return db().features[key]
