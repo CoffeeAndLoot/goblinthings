@@ -1,6 +1,6 @@
 # Console-only settings: candidates for Goblin Things
 
-Researched 2026-11-15. A list to choose from, not a plan: nothing here is built.
+Researched 2026-11-15. A list to choose from, not a plan. The first picks are built (see Built).
 
 ## How the list was made
 
@@ -30,8 +30,17 @@ functions, which is why `/console` has nothing for them and players paste `/run`
 - `ConsoleGetAllCommands()` gave an addon 1878 entries, so the full list can be dumped.
 - Still unseen: whether an addon's write to any of these takes, and what each does here.
 
-## Built (2026-11-15, unseen in game)
+## Built (2026-11-15)
 
+The first three the owner has seen working ("all three work": an addon's write takes for the
+CVar and for both bag functions, and something in Forever does sort bags). The other ten are
+unseen in game.
+
+- Always compare gear (`alwaysCompareItems`), on the Loot tab.
+- A new Combat tab: Stop attacking on target change, Attack after /assist, Auto stand, Auto
+  dismount, Auto leave shapeshift form, Target's cast bar, New spells go on the action bar.
+- World map fades while moving (`mapFade`) and Every tracking type on the minimap
+  (`minimapTrackingShowAll`), on the Map tab.
 - Quest diamond on screen (`showInGameNavigation`), on the Quests tab.
 - New items fill bags left to right and Sort bags right to left, on the Loot tab. A feature
   with `bag = "insert"` or `"sort"` is stored by the game through `API.BagDirection` /

@@ -9,9 +9,10 @@ return function(h, loaded)
             end
             h.eq(table.concat(keys, " "), "autoAccept autoTurnIn autoTrack questDiamond zoneOnly hideAbove "
                 .. "sortFirst sortSecond sortThird autoSellJunk autoRepair autoTrain fastLoot "
-                .. "bagsFillLeft bagsSortRight "
+                .. "bagsFillLeft bagsSortRight compareItems "
                 .. "declineDuels declineGuild acceptGuild acceptFriends acceptSummons guildAlerts "
-                .. "cameraDistance cinematics mapInfo mapHerbs mapOre mapFish mapSkins "
+                .. "stopAttack assistAttack autoStand autoDismount autoUnshift targetCastbar spellsToBar "
+                .. "cameraDistance cinematics mapInfo mapHerbs mapOre mapFish mapSkins mapFade trackAll "
                 .. "killsLeft killsCorner killsX killsY killsAlpha killsSize killsFont")
         end)
         h.it("Kills to level is off by default, top left, 30% and Friz", function()
@@ -89,6 +90,25 @@ return function(h, loaded)
             h.eq(f.group, nil)
             h.eq(f.control, "check")
             h.eq(f.cvar, "showInGameNavigation")
+        end)
+        h.it("the first picks are checks on the client's own CVars, each on its tab", function()
+            local picks = {
+                compareItems = "Loot alwaysCompareItems",
+                stopAttack = "Combat stopAutoAttackOnTargetChange",
+                assistAttack = "Combat assistAttack",
+                autoStand = "Combat autoStand",
+                autoDismount = "Combat autoDismount",
+                autoUnshift = "Combat autoUnshift",
+                targetCastbar = "Combat showTargetCastbar",
+                spellsToBar = "Combat AutoPushSpellToActionBar",
+                mapFade = "Map mapFade",
+                trackAll = "Map minimapTrackingShowAll",
+            }
+            for key, want in pairs(picks) do
+                local f = Features.ByKey(key)
+                h.eq(f.control, "check", key)
+                h.eq(f.section .. " " .. f.cvar, want, key)
+            end
         end)
         h.it("a slider's number: Off at its off value, else its format; ? when unknown", function()
             local hide, camera = Features.ByKey("hideAbove"), Features.ByKey("cameraDistance")
@@ -180,14 +200,14 @@ return function(h, loaded)
                 names[#names + 1] = s.name
                 counts[#counts + 1] = #s.features
             end
-            h.eq(table.concat(names, " "), "Quests Vendors Loot Social Camera Cinematics Map XP")
-            h.eq(table.concat(counts, " "), "9 3 3 6 1 1 5 7")
+            h.eq(table.concat(names, " "), "Quests Vendors Loot Social Combat Camera Cinematics Map XP")
+            h.eq(table.concat(counts, " "), "9 3 4 6 7 1 1 7 7")
         end)
         h.it("a section carries its note; the others have none", function()
             local sections = Features.Sections()
             h.eq(sections[1].note, "Off and all None = Blizzard's tracker (fully after /reload)")
             h.eq(sections[2].note, nil)
-            h.eq(sections[7].note, "Read a zone at the world map's bottom right; open the zone for its lists")
+            h.eq(sections[8].note, "Read a zone at the world map's bottom right; open the zone for its lists")
         end)
     end)
 end

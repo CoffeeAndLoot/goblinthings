@@ -17,8 +17,8 @@ return function(h, loaded)
     end)
 
     h.describe("Window.WIDTH", function()
-        h.it("is wide enough for eight tabs at 82 px", function()
-            h.eq(math.floor((Window.WIDTH - 2 * L.PAD + 7) / 8), 82)
+        h.it("is wide enough for nine tabs at 82 px", function()
+            h.eq(math.floor((Window.WIDTH - 2 * L.PAD + 8) / 9), 82)
         end)
     end)
 

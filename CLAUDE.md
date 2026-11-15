@@ -89,7 +89,7 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
 1. `Features.LIST` is every switch as data: key, label, section (its tab), optional group (a
    sub-header), control (`check`, `slider`, `choice`) and default; `Features.NOTES` gives a tab its
    dim note. The window builds its tabs and rows from it; `Options.Init` stores every feature with a
-   default. One with a `cvar` (the camera, Guild login alerts, the quest diamond) has none: the
+   default. One with a `cvar` (the camera, Guild login alerts, the quest diamond, the Combat tab) has none: the
    game's own CVar is its store. Likewise one with a `bag` (the two bag directions on the Loot
    tab): the game keeps it behind a `C_Container` get/set pair (`API.BagDirection`).
 2. `Hands` (quests), `Vendor`, `Trainer`, `Camera`, `Cinematics`, `Decline`, `Accept`, `Loot` and
@@ -157,7 +157,9 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
   `showInGameNavigation` read 1 with default 0, so Forever ships the quest diamond off (the exe's
   help text says default 1; trust the game). `C_Container.GetSortBagsRightToLeft` read true and
   `GetInsertItemsLeftToRight` false. `ConsoleGetAllCommands()` gave an addon 1878 entries.
-  Untested: whether an addon's write to any of them takes.
+  The owner then saw the quest diamond and both bag switches work ("all three work"): an addon's
+  write takes for `showInGameNavigation` and both `C_Container` setters, and something in Forever
+  sorts bags. Untested: a write to the other ten CVars, and any of them in combat.
 - Solo XP lines (2026-11-14, `/gt probe`, Riverglades): "Glade Viper dies, you gain 260 experience."
   and the `UnitXP` change that follows is the same 260. One `PLAYER_XP_UPDATE` arrived with no
   change (+0) between kills.

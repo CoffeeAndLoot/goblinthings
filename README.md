@@ -20,12 +20,20 @@ and forget them.
 | Loot | Fast loot | When the game auto-loots, takes everything at once instead of at the loot window's pace | On |
 | | New items fill bags left to right | Which end of your bags new loot lands in. The game's own setting, which it gives no option for | Untouched |
 | | Sort bags right to left | Which way the game's bag sort packs. The game's own setting, which it gives no option for | Untouched |
+| | Always compare gear | Item tooltips show what you're wearing beside them without holding Shift | Untouched |
 | Social | Decline duels | Refuses every duel request | Off |
 | | Decline guild invites | Refuses every guild invite | Off |
 | | Accept invites from guild | Joins a party or raid when a guild member invites you | Off |
 | | Accept invites from friends | The same for your friends list and Battle.net friends | Off |
 | | Accept summons | Takes a summon at once, unless you're in combat | Off |
 | | Guild login alerts | Blizzard's own Guild Member Alert (the ding when a guildie logs in), here for convenience | On |
+| Combat | Stop attacking on target change | Auto-attack stops when you pick a new target | Untouched |
+| | Attack after /assist | Start attacking the target /assist gives you | Untouched |
+| | Auto stand | Stand up by yourself when an action needs it | Untouched |
+| | Auto dismount | Dismount by yourself when an action needs it | Untouched |
+| | Auto leave shapeshift form | Drop your form by yourself when an action needs it | Untouched |
+| | Target's cast bar | Shows the spell your target is casting | Untouched |
+| | New spells go on the action bar | Whether a newly learned spell is put on your bars for you | Untouched |
 | Camera | Camera distance | Zooms the camera out to 4.0, past Blizzard's 2.0 | Untouched |
 | Cinematics | Skip cinematics | Off, repeats only, or all | Repeats only |
 | Map | Zone levels and fishing on the map | On the world map, hover a zone (or open its map) to see its level range and the fishing skill it needs, bottom right | On |
@@ -33,6 +41,8 @@ and forget them.
 | Map | Ore on the map | The same for mining: the skill range, and each vein with its skill | On |
 | Map | Fish list on the map | On the zone's own map, an icon on the fishing line lists what is caught there and how often | On |
 | Map | Skins on the map | Adds the leather grades the zone's beasts give to that readout ("Skins: Light, Medium"); on the zone's own map, hover the line's icon to list every leather, hide and scale skinned there and how common each is | On |
+| Map | World map fades while moving | Whether the open world map turns see-through as you walk | Untouched |
+| Map | Every tracking type on the minimap | The minimap's tracking menu offers every tracking type the game has | Untouched |
 | XP | Kills to level | A faint number in a screen corner: how many more kills like your last ten it takes to level. Pick the corner, offsets, faintness, size and font | Off |
 
 Hold **Shift** while talking to an NPC, a vendor or a trainer to skip everything that visit. Hold it on a

@@ -416,7 +416,8 @@ Wowhead's Forever figures, from each leather's skinned-from list. Verified in so
 
 - [ ] **Full client restart** first (Kills.lua and KillsReadout.lua are new in the TOC). No Lua
       error on login; nothing new on screen (the switch is off by default).
-- [ ] The window is 684 wide and shows eight tabs, XP last; every tab name is fully visible
+- [ ] (Superseded 2026-11-15: 766 wide and nine tabs, see "The rest of the first picks".)
+      The window is 684 wide and shows eight tabs, XP last; every tab name is fully visible
       ("Cinematics"), the X still clears the banner, and the window fits on screen.
 - [ ] The XP tab: a "Kills to level" check, Corner (Top left | Top right | Bottom left | Bottom
       right, every word visible), Offset across, Offset down / up, Faintness (reads "30%"), Size,
@@ -458,6 +459,35 @@ Wowhead's Forever figures, from each leather's skinned-from list. Verified in so
       never shows.
 - [ ] Solo and rested, then unrested: the count jumps when rested runs out and settles within ten kills.
 
+## The rest of the first picks (2026-11-15)
+
+A `/reload` is enough (no new file). Ten more checks, each stored by the game's own CVar. By the
+probe all sit at the game's default: seven on, three off.
+
+- [ ] The window is 766 wide and shows nine tabs, Combat between Social and Camera; every tab
+      name is fully visible ("Cinematics") and the window fits on screen.
+- [ ] Each new check opens showing the game's value. On: Always compare gear (Loot); Auto stand,
+      Auto dismount, Auto leave shapeshift form, Target's cast bar, New spells go on the action
+      bar (Combat); World map fades while moving (Map). Off: Stop attacking on target change,
+      Attack after /assist (Combat); Every tracking type on the minimap (Map).
+- [ ] Flip each and run `/gt probe`: its CVar follows, 1 to 0 or 0 to 1.
+- [ ] Always compare gear off: hovering gear in a bag shows no worn item beside it until Shift is
+      held. On: it shows without Shift.
+- [ ] Stop attacking on target change on: mid-fight, target another mob; auto-attack stops. Off:
+      it carries on at the new target.
+- [ ] Attack after /assist on: `/assist` a fighting party member; you start attacking.
+- [ ] Auto stand off: sit, then cast or attack; the game refuses ("You must be standing"). On: you
+      stand and it goes.
+- [ ] Auto dismount off: mounted, cast a spell; the game refuses. On: you dismount and cast.
+- [ ] Auto leave shapeshift form (a druid, or skip with the reason): off, a caster spell in form
+      is refused; on, the form drops.
+- [ ] Target's cast bar off: a casting mob shows no bar under the target frame. On: it does.
+- [ ] New spells go on the action bar off: train a new spell; no bar slot fills. On: one does.
+- [ ] World map fades while moving off: walk with the map open; it stays solid. On: it fades.
+- [ ] Every tracking type on the minimap on: the minimap's tracking menu lists more than before.
+      Say what it lists; if nothing changes on this client, the switch comes out.
+- [ ] Each keeps its value through a `/reload` and a relog.
+
 ## Quest diamond and bag directions (2026-11-15)
 
 A `/reload` is enough (no new file). The game stores all three; Goblin Things keeps no copy.
@@ -467,12 +497,13 @@ A `/reload` is enough (no new file). The game stores all three; Goblin Things ke
       loot, "New items fill bags left to right" and "Sort bags right to left".
 - [ ] Each opens showing the game's own value (2026-11-15's probe: diamond on, fill left to right
       off, sort right to left on).
-- [ ] Untick Quest diamond with a quest tracked: the diamond and its distance go at once. Tick it:
+- [x] Untick Quest diamond with a quest tracked: the diamond and its distance go at once. Tick it:
       they come back. `/gt probe` reads showInGameNavigation 0, then 1.
-- [ ] Tick New items fill bags left to right, loot or buy an item: it lands at the other end of
+- [x] Tick New items fill bags left to right, loot or buy an item: it lands at the other end of
       your bags from before. Untick: back to the first end. The probe's bags line follows.
-- [ ] Sort bags right to left: tick and untick it, and say whether anything in Forever sorts bags
+- [x] Sort bags right to left: tick and untick it, and say whether anything in Forever sorts bags
       at all (no sort button was found in its files). If nothing does, this switch comes out.
+      (2026-11-15, the owner: "all three work", so the switch stays.)
 - [ ] Each switch keeps its value through a `/reload` and a relog, and on another character.
 - [ ] In combat, each switch still takes, or the game refuses it quietly: no error, no
       "action blocked" popup. Tell Claude which.
