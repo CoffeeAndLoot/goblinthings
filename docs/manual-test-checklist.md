@@ -462,10 +462,17 @@ Wowhead's Forever figures, from each leather's skinned-from list. Verified in so
 
 Nothing is switched here: `/gt probe` only reads. A `/reload` is enough. The list is `docs/cvar-candidates.md`.
 
-- [ ] `/gt probe` prints one "candidate CVars" line: each of the eleven names with its value and
+- [x] `/gt probe` prints one "candidate CVars" line: each of the eleven names with its value and
       default, or "missing". Paste the line to Claude; a missing name comes off the list.
-- [ ] The "bags sort right to left ... new items left to right ..." line reads true or false for
+      Seen 2026-11-15: all eleven answered, none missing. showInGameNavigation 1 (default 0); every
+      other at its default: alwaysCompareItems, mapFade, AutoPushSpellToActionBar, autoStand,
+      autoDismount, autoUnshift and showTargetCastbar 1; stopAutoAttackOnTargetChange, assistAttack
+      and minimapTrackingShowAll 0. (seen 2026-11-15, the owner's `/gt probe` screenshot)
+- [x] The "bags sort right to left ... new items left to right ..." line reads true or false for
       both, not nil. Paste it.
-- [ ] The "console lists N command(s)" line gives a number, not nil. Paste it.
-- [ ] No "threw:" line names GetCVarDefault, GetSortBagsRightToLeft, GetInsertItemsLeftToRight or
+      Seen 2026-11-15: sort right to left true, new items left to right false. (seen 2026-11-15, the owner's `/gt probe` screenshot)
+- [x] The "console lists N command(s)" line gives a number, not nil. Paste it.
+      Seen 2026-11-15: 1878. (seen 2026-11-15, the owner's `/gt probe` screenshot)
+- [x] No "threw:" line names GetCVarDefault, GetSortBagsRightToLeft, GetInsertItemsLeftToRight or
       ConsoleGetAllCommands.
+      Seen 2026-11-15: the chat ends at "accept calls missing: none.", with no threw line after it. (seen 2026-11-15, the owner's `/gt probe` screenshot)

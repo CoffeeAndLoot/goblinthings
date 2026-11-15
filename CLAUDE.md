@@ -150,6 +150,12 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
   `C_Spell.GetSpellTexture` answers for spells 2366 (Herbalism), 2575 (Mining), 7620 (Fishing) and
   8613 (Skinning), and each picture is that profession's own icon.
 - The map hover (2026-11-14, `/gt probe`): `C_Map.GetMapInfoAtPosition` answered 267 of 267 asks.
+- Console-only candidates (2026-11-15, `/gt probe`, the owner's screenshot): `C_CVar.GetCVar` and
+  `GetCVarDefault` answer for all eleven first picks of `docs/cvar-candidates.md`.
+  `showInGameNavigation` read 1 with default 0, so Forever ships the quest diamond off (the exe's
+  help text says default 1; trust the game). `C_Container.GetSortBagsRightToLeft` read true and
+  `GetInsertItemsLeftToRight` false. `ConsoleGetAllCommands()` gave an addon 1878 entries.
+  Untested: whether an addon's write to any of them takes.
 - Solo XP lines (2026-11-14, `/gt probe`, Riverglades): "Glade Viper dies, you gain 260 experience."
   and the `UnitXP` change that follows is the same 260. One `PLAYER_XP_UPDATE` arrived with no
   change (+0) between kills.

@@ -18,6 +18,18 @@ Researched 2026-11-15. A list to choose from, not a plan: nothing here is built.
 Two of the owner's three examples are **not CVars**: bag direction is a pair of `C_Container`
 functions, which is why `/console` has nothing for them and players paste `/run` lines instead.
 
+## Seen in game (2026-11-15, the owner's `/gt probe`)
+
+- All eleven first-pick CVars answer, with a default. Only `showInGameNavigation` was off its
+  default: it read 1 against a default of **0**. So Forever ships the quest diamond off, whatever
+  the exe's help text says, and the switch would be one most players have never seen on.
+- At default 1 (the switch would turn them off): `alwaysCompareItems`, `mapFade`,
+  `AutoPushSpellToActionBar`, `autoStand`, `autoDismount`, `autoUnshift`, `showTargetCastbar`.
+  At default 0: `stopAutoAttackOnTargetChange`, `assistAttack`, `minimapTrackingShowAll`.
+- Both bag functions answer: sort right to left true, new items left to right false.
+- `ConsoleGetAllCommands()` gave an addon 1878 entries, so the full list can be dumped.
+- Still unseen: whether an addon's write to any of these takes, and what each does here.
+
 ## What it costs
 
 - A **check** on a CVar is one row in `Features.LIST` with `cvar = "..."` (as Guild login alerts).
