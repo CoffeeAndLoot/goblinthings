@@ -275,7 +275,9 @@ is gone. This section replaces what "Window and minimap" above says of the banne
       red square close button with a gold X at its right. The X closes the window; Escape too.
       Seen 2026-11-14 (the owner's screenshots): the bar, the gold name, the bronze line and the red button with its X. Not yet said: that the X
       and Escape close it.
-- [ ] Dragging by the title bar moves the window and it stays put after `/reload`.
+- [x] Dragging by the title bar moves the window and it stays put after `/reload`.
+      Seen 2026-11-15 (the owner: "dragging the window works fine, no issues"); whether the
+      `/reload` half was tried was not said.
 - [x] Tabs: the open one is a lighter brown with gold words and a pale gold line along its top; the
       others are dark with tan words. All eight names fit. (seen 2026-11-14, the owner's screenshots)
 - [x] Rows: check boxes are now at the **left** of each row, a dark square in a bronze outline, a
@@ -388,6 +390,10 @@ Wowhead's Forever figures, from each leather's skinned-from list. Verified in so
       Orgrimmar on Durotar's map and the continent not rechecked since the fix.
 - [ ] On a continent the card follows the hovered zone, resizing without a flicker, and goes over
       the sea. Does it hide anything on the map you want to see? Tell Claude.
+- [ ] A city's own map (2026-11-15, the owner: with Orgrimmar's map up, Durotar showed when the
+      cursor reached the edge): with Orgrimmar's map open, move the cursor to where Durotar is
+      drawn round it: the card stays Orgrimmar's. On Durotar's own map, hovering Orgrimmar still
+      shows the city (not said either way yet).
 - [ ] As a skinner: in a zone you work, is anything missing or wrong? A beast that roams several
       zones counts only for the first zone Wowhead lists it in, so a list can miss a type its
       neighbour claims; tell Claude which.

@@ -138,12 +138,15 @@ end
 -- The map the corner describes: the one under the cursor when it is not the
 -- shown map and has data (a zone on a continent, a city on its zone's map),
 -- else the shown map when it has data, else nil. show: as for Lines.
--- A zone's own map also draws the edges of its neighbours, and the game names
--- them under the cursor (seen 2026-11-14: Winterspring at the edge of Mount
--- Hyjal's map took the card over, so Hyjal's icons could not be reached). A
--- zone is a map with a level range: on one, another zone never takes over.
+-- A map the corner can describe also draws the edges of the zones round it,
+-- and the game names them under the cursor (seen in game: Winterspring at the
+-- edge of Mount Hyjal's map took the card over, so Hyjal's icons could not be
+-- reached, 2026-11-14; Durotar at the edge of Orgrimmar's, 2026-11-15). A
+-- zone is a map with a level range: one never takes over a map that has its
+-- own card, whether that is another zone's or a city's. A city still takes
+-- over its zone's map, and a continent follows the cursor.
 function MapInfo.Pick(shown, hovered, show)
-    local neighbour = MapInfo.LEVELS[shown] ~= nil and MapInfo.LEVELS[hovered] ~= nil
+    local neighbour = MapInfo.LEVELS[hovered] ~= nil and known(shown, show)
     if hovered ~= shown and not neighbour and known(hovered, show) then
         return hovered
     end
