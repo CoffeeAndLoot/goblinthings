@@ -17,6 +17,8 @@ per switch. Docs:
 - `docs/superpowers/specs/2026-11-14-map-gathering-lists-design.md`: herbs, ore, fish and skins on
   that readout (its plan is `docs/superpowers/plans/2026-11-14-map-gathering-lists.md`). Read its
   dated amendments: they overturn parts of the text above them.
+- `docs/cvar-candidates.md`: console-only settings that could become switches (researched
+  2026-11-15 from the client exe's own strings; a list to pick from, nothing built or seen in game).
 - `docs/manual-test-checklist.md`: every in-game check, ticked only by the owner.
 - `docs/art-spec.md`: the brief for the plaque banner the window wore until 2026-11-14; kept for
   the record, no longer built.
