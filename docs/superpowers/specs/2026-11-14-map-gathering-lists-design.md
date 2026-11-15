@@ -1,0 +1,142 @@
+# Herbs, ore and fish on the world map
+
+2026-11-14. The owner asked: "can we also add what fish are found in each zone? ... can we also add
+other herbs, skins, ore, etc as options?" It extends the corner readout of
+`2026-11-10-map-zone-readout-design.md`. Choices the owner made are marked **(owner)**; the rest are
+Claude's calls, stated so the owner can overturn them.
+
+## Why
+
+The corner already says whether a zone suits your level and your fishing skill. A gatherer asks the
+same of herbs and ore ("is this zone worth my time, and what will I find?") and today has to leave
+the game to answer it.
+
+## What it does
+
+On a zone's own map the corner grows from three lines to five, each gathering line ending in a small
+profession icon:
+
+```
+                          The Barrens
+                         Levels 10-25
+     Fishing 1 (no getaways at 75) [F]
+                      Herbs 1-125 [H]
+                         Ore 1-75 [O]
+```
+
+- **Herbs** and **Ore** lines **(owner: layout B of the mockup)**: the lowest and highest skill among
+  that zone's nodes. One number when they are equal (`Ore 1`), as the level line does.
+- **Hovering an icon** **(owner)** opens a list above the corner in the Goblin look:
+  - Herbalism and Mining: each node's name and the skill to gather it, easiest first, ties by name.
+  - Fishing: each catch's name and its share of the zone's catch as a whole percent, most common
+    first, then one dim footnote: `Classic figures, not checked on Forever`.
+- **A zone's own map only** **(owner)**: the icons are drawn only when the readout describes the map
+  that is open. On a continent the cursor would cross other zones on its way to the corner, so the
+  icons could never be reached for the zone you meant.
+- On a continent, hovering a zone shows the Herbs and Ore **text** lines with no icons: the text is
+  harmless and answers the "worth my time" question from the continent view.
+- A zone with no herbs, or no ore, or no fish list has no such line or icon. A city shown on its
+  zone's map has none.
+- **No skins** **(owner)**: Wowhead has no skinning list per zone, and working leather out from beast
+  levels is an estimate, not data.
+
+## Switches
+
+Three check boxes on the **Map** tab under "Zone levels and fishing on the map", **on by default**
+(they only read):
+
+| Key | Label | Off means |
+|---|---|---|
+| `mapHerbs` | Herbs on the map | no Herbs line or icon |
+| `mapOre` | Ore on the map | no Ore line or icon |
+| `mapFish` | Fish list on the map | no icon on the Fishing line; the line stays |
+
+All three do nothing while `mapInfo` is off. The Map tab's note becomes
+"Hover a zone on the world map; read it bottom right. Open the zone for its lists."
+
+## The data
+
+The client cannot say what grows in a zone (as with the fishing skill, the server holds it), so the
+lists ship with the addon.
+
+- **Source**: Wowhead's Classic zone pages (`wowhead.com/classic/zone=<area id>`), read 2026-11-14 for
+  the Barrens to confirm the shape. Each page embeds its lists as JSON:
+  - `objects`: every object in the zone with `name`, `type` and `skill`. `type == -3` is a herb,
+    `-4` a mining node. A name appears once per object ID (three "Copper Vein" rows in the Barrens),
+    so rows are de-duplicated by name, keeping the lowest skill. `location` holds only the object's
+    three busiest zones and a `-1` for "more", so it cannot be used to filter: the page listing the
+    object is the fact that it is in the zone.
+  - `fishing`: every item ever fished there with `id`, `name` and `count`.
+- **Fish filter**: a row's share is its `count` over the sum of all the page's counts. Keep rows at 3%
+  or more, the eight largest at most. In the Barrens that keeps exactly the seven real catches (Oily
+  Blackmouth 41%, Longjaw Mud Snapper 16%, Slitherskin Mackerel 13%, Rainbow Fin Albacore 10%,
+  Stranglekelp 6%, Bristle Whisker Catfish 6%, Brilliant Smallfish 4%) and drops the gear, potions
+  and crates without a class rule. A page whose counts sum to under 100 gives no fish list: too few
+  casts to trust.
+- **Generated, never hand-edited**, as the art is: `python tools/make_gathering.py` reads the pages
+  and writes `GoblinThings/MapData.lua`. The script holds the one hand-kept table, UiMap ID to
+  Wowhead area ID (the Barrens: 1413 to 17), for every zone in `MapInfo.LEVELS` that Wowhead Classic
+  has. It waits between requests, sends a generic client name and nothing about the owner, and fails
+  loudly (writing nothing) if any page lacks the lists it expects, so a changed page layout never
+  ships a half-empty file.
+- **Not in the data**: Mount Hyjal and Riverglades are Forever's own and Wowhead Classic does not have
+  them, so they get no gathering lines.
+- **English names**: node and fish names are Wowhead's English, not the client's language.
+- **Standing**: Classic Era figures, **unverified on Forever**. The checklist asks the owner to
+  compare one zone's herbs, ore and fish against what is seen in game.
+- **Known weak spot**: a zone page lists a node however rare it is there (the Barrens lists Grave
+  Moss and Wild Steelbloom). The page gives no per-zone count to cut strays with. Accepted for now;
+  if a list reads wrong in game, the fix is a per-zone drop list in the script, not an edit to the
+  generated file.
+
+## How it fits (verified in source where said; nothing yet in game)
+
+- `MapData.lua` (new, generated, pure): `ns.MapData = { HERBS = { [uiMapID] = { { "Peacebloom", 1 },
+  ... } }, ORE = { ... }, FISH = { [uiMapID] = { { "Oily Blackmouth", 41 }, ... } } }`, each list
+  already filtered and sorted by the script. **A new TOC file: a full client restart, not `/reload`.**
+  It loads before `MapInfo`, and `test/run.lua`'s hand-kept module list gains it.
+- `MapInfo.lua` (pure, tested) grows; it reads `ns.MapData` inside its functions, never at file load:
+  - `known(mapID)` also counts a zone that has only gathering data.
+  - `Lines(mapID, name, settings)` returns the lines as before plus, per switch, the Herbs and Ore
+    lines; each line now says which list it carries (`fish`, `herbs`, `ore` or none) so the readout
+    knows where an icon goes.
+  - `List(kind, mapID)` returns the title, the rows as `{ left, right }` text pairs and the optional
+    footnote: everything the tooltip prints, so the readout decides nothing.
+- `MapReadout.lua`:
+  - Five lines instead of three (`LAYOUT.SIZES` gains two 13s).
+  - Each line can show a 14 px icon at its right end; the text is inset to make room. The readout
+    frame itself stays mouse-off so the canvas keeps its hover; **only the icons take the mouse**.
+    Icons are shown only when the picked map is the shown map.
+  - One list frame, built once in the Goblin look (`Look.COLOUR.window` fill, `line` border, gold
+    title, dim right column and footnote; no `GameTooltip`, no Blizzard template), anchored above the
+    corner, shown on an icon's `OnEnter`, hidden on `OnLeave` and when the map hides.
+  - The redraw key becomes the picked map plus whether icons show plus the three switches, so
+    flipping a switch with the map open redraws.
+  - While the cursor is on an icon it is off the canvas, so `API.MapUnderCursor` reports no hovered
+    child and the pick stays the shown map: the list cannot flicker away under the cursor. This is
+    from reading `IsCanvasMouseFocusOrPinFocus`, not from the game; the checklist covers it.
+- **Icons**: the game's own profession icons, asked for through `API.lua` and `attempt()` like every
+  other game call. Their texture names are not in the Blizzard addon source, so nothing is assumed:
+  the builder adds the lookup to `/gt probe` and the owner confirms the three in game. Until an icon
+  is confirmed, and whenever the game gives none, the icon is a Goblin-look square with the letter
+  H, O or F, so a list is always reachable.
+- `Features.LIST` gains the three switches (section `Map`); `Options.Init` stores their defaults.
+- Tests: `MapInfo`'s new lines and lists against a small fake `MapData`; a data test that every
+  shipped list is non-empty, sorted as promised and keyed by a zone `MapInfo` knows.
+- Docs: README table rows for the three switches, `CLAUDE.md` (load order, item 6, the art rule's
+  sibling for `make_gathering.py`), `docs/manual-test-checklist.md` entries, and at the next release
+  the Wago description by hand.
+
+## Not doing
+
+Skins. Colouring a row by the player's own skill. Node positions or map pins. Icons on the continent
+view. Subzone or dungeon lists. Translating names. Fishing pools as their own list. All possible
+later.
+
+## Left to the builder
+
+- How the script fetches (plain HTTP first; the pages are public) and how it finds each list in the
+  page, provided it fails loudly on a shape it does not recognise.
+- The UiMap to Wowhead area ID table: from the client's own data or Wowhead's zone list, each one
+  checked by the page's title matching the zone's name.
+- Exact pixel offsets of the icons and the list frame, within the Goblin look.
