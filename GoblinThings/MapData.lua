@@ -258,87 +258,87 @@ local MapData = {
         -- Durotar
         [1411] = { { "Ruined Leather Scraps", 76 }, { "Light Leather", 24 } },
         -- Mulgore
-        [1412] = { { "Ruined Leather Scraps", 74 }, { "Light Leather", 26 } },
+        [1412] = { { "Ruined Leather Scraps", 74 }, { "Light Leather", 26 }, { "Pristine Leather", 0 } },
         -- The Barrens
-        [1413] = { { "Light Leather", 62 }, { "Ruined Leather Scraps", 21 }, { "Medium Leather", 11 }, { "Light Hide", 5 }, { "Deviate Scale", 0 }, { "Perfect Deviate Scale", 0 } },
+        [1413] = { { "Light Leather", 61 }, { "Ruined Leather Scraps", 20 }, { "Medium Leather", 11 }, { "Light Hide", 5 }, { "Pristine Leather", 1 }, { "Deviate Scale", 0 }, { "Perfect Deviate Scale", 0 } },
         -- Alterac Mountains
-        [1416] = { { "Medium Leather", 56 }, { "Heavy Leather", 37 }, { "Medium Hide", 4 }, { "Heavy Hide", 3 }, { "Worn Dragonscale", 0 } },
+        [1416] = { { "Medium Leather", 56 }, { "Heavy Leather", 37 }, { "Medium Hide", 4 }, { "Heavy Hide", 3 }, { "Pristine Hide", 0 }, { "Worn Dragonscale", 0 } },
         -- Arathi Highlands
-        [1417] = { { "Medium Leather", 49 }, { "Heavy Leather", 39 }, { "Thick Leather", 5 }, { "Medium Hide", 4 }, { "Heavy Hide", 3 } },
+        [1417] = { { "Medium Leather", 48 }, { "Heavy Leather", 39 }, { "Thick Leather", 5 }, { "Medium Hide", 4 }, { "Heavy Hide", 3 }, { "Pristine Hide", 1 } },
         -- Badlands
-        [1418] = { { "Heavy Leather", 67 }, { "Thick Leather", 19 }, { "Medium Leather", 9 }, { "Heavy Hide", 3 }, { "Thick Wolfhide", 0 }, { "Worn Dragonscale", 0 } },
+        [1418] = { { "Heavy Leather", 66 }, { "Thick Leather", 18 }, { "Medium Leather", 8 }, { "Heavy Hide", 3 }, { "Pristine Hide", 1 }, { "Thick Wolfhide", 0 }, { "Worn Dragonscale", 0 } },
         -- Blasted Lands
-        [1419] = { { "Thick Leather", 59 }, { "Rugged Leather", 30 }, { "Thick Hide", 4 }, { "Thick Wolfhide", 2 }, { "Scorpid Scale", 2 }, { "Heavy Scorpid Scale", 1 } },
+        [1419] = { { "Thick Leather", 59 }, { "Rugged Leather", 30 }, { "Thick Hide", 4 }, { "Thick Wolfhide", 2 }, { "Scorpid Scale", 2 }, { "Heavy Scorpid Scale", 1 }, { "Pristine Hide", 0 } },
         -- Tirisfal Glades
         [1420] = { { "Ruined Leather Scraps", 70 }, { "Light Leather", 30 } },
         -- Silverpine Forest
-        [1421] = { { "Light Leather", 60 }, { "Ruined Leather Scraps", 35 }, { "Light Hide", 5 } },
+        [1421] = { { "Light Leather", 59 }, { "Ruined Leather Scraps", 34 }, { "Light Hide", 5 }, { "Pristine Leather", 1 } },
         -- Western Plaguelands
-        [1422] = { { "Rugged Leather", 50 }, { "Thick Leather", 29 }, { "Warbear Leather", 10 }, { "Rugged Hide", 5 }, { "Thick Hide", 3 }, { "Light Leather", 3 } },
+        [1422] = { { "Rugged Leather", 49 }, { "Thick Leather", 28 }, { "Warbear Leather", 10 }, { "Rugged Hide", 5 }, { "Thick Hide", 3 }, { "Light Leather", 2 }, { "Pristine Hide", 2 } },
         -- Eastern Plaguelands
-        [1423] = { { "Thick Leather", 50 }, { "Rugged Hide", 23 }, { "Thick Hide", 18 }, { "Rugged Leather", 10 } },
+        [1423] = { { "Thick Leather", 50 }, { "Rugged Hide", 23 }, { "Thick Hide", 18 }, { "Rugged Leather", 10 }, { "Pristine Hide", 0 } },
         -- Hillsbrad Foothills
-        [1424] = { { "Medium Leather", 54 }, { "Light Leather", 27 }, { "Heavy Leather", 11 }, { "Medium Hide", 5 }, { "Light Hide", 2 } },
+        [1424] = { { "Medium Leather", 54 }, { "Light Leather", 27 }, { "Heavy Leather", 11 }, { "Medium Hide", 5 }, { "Pristine Leather", 0 }, { "Pristine Hide", 0 } },
         -- The Hinterlands
-        [1425] = { { "Thick Leather", 42 }, { "Rugged Leather", 27 }, { "Turtle Scale", 15 }, { "Green Dragonscale", 4 }, { "Heavy Leather", 4 }, { "Worn Dragonscale", 3 }, { "Thick Hide", 2 }, { "Thick Wolfhide", 1 } },
+        [1425] = { { "Thick Leather", 42 }, { "Rugged Leather", 27 }, { "Turtle Scale", 14 }, { "Green Dragonscale", 4 }, { "Heavy Leather", 4 }, { "Worn Dragonscale", 3 }, { "Thick Hide", 2 }, { "Pristine Hide", 1 }, { "Thick Wolfhide", 1 }, { "Pristine Scale", 0 } },
         -- Dun Morogh
         [1426] = { { "Ruined Leather Scraps", 69 }, { "Light Leather", 31 } },
         -- Searing Gorge
-        [1427] = { { "Thick Leather", 73 }, { "Rugged Leather", 24 }, { "Thick Hide", 4 } },
+        [1427] = { { "Thick Leather", 71 }, { "Rugged Leather", 24 }, { "Thick Hide", 4 }, { "Pristine Hide", 2 } },
         -- Burning Steppes
         [1428] = { { "Rugged Leather", 33 }, { "Thick Leather", 16 }, { "Heavy Scorpid Scale", 14 }, { "Black Dragonscale", 10 }, { "Scorpid Scale", 8 }, { "Rugged Hide", 8 }, { "Worn Dragonscale", 5 }, { "Thick Hide", 5 }, { "Thick Wolfhide", 1 } },
         -- Elwynn Forest
         [1429] = { { "Ruined Leather Scraps", 74 }, { "Light Leather", 26 } },
         -- Duskwood
-        [1431] = { { "Light Leather", 43 }, { "Medium Leather", 42 }, { "Heavy Leather", 7 }, { "Medium Hide", 4 }, { "Light Hide", 3 } },
+        [1431] = { { "Light Leather", 42 }, { "Medium Leather", 42 }, { "Heavy Leather", 7 }, { "Medium Hide", 4 }, { "Light Hide", 3 }, { "Pristine Hide", 0 }, { "Pristine Leather", 0 } },
         -- Loch Modan
-        [1432] = { { "Light Leather", 58 }, { "Ruined Leather Scraps", 35 }, { "Light Hide", 4 }, { "Medium Leather", 2 } },
+        [1432] = { { "Light Leather", 58 }, { "Ruined Leather Scraps", 34 }, { "Light Hide", 4 }, { "Medium Leather", 2 }, { "Pristine Leather", 1 } },
         -- Redridge Mountains
-        [1433] = { { "Light Leather", 66 }, { "Black Whelp Scale", 15 }, { "Medium Leather", 12 }, { "Light Hide", 5 }, { "Medium Hide", 2 } },
+        [1433] = { { "Light Leather", 66 }, { "Black Whelp Scale", 15 }, { "Medium Leather", 12 }, { "Light Hide", 5 }, { "Medium Hide", 2 }, { "Pristine Leather", 1 } },
         -- Stranglethorn Vale
-        [1434] = { { "Heavy Leather", 49 }, { "Medium Leather", 38 }, { "Thick Leather", 6 }, { "Medium Hide", 3 }, { "Heavy Hide", 3 }, { "Shadowcat Hide", 1 } },
+        [1434] = { { "Heavy Leather", 49 }, { "Medium Leather", 38 }, { "Thick Leather", 6 }, { "Medium Hide", 3 }, { "Heavy Hide", 3 }, { "Shadowcat Hide", 1 }, { "Pristine Hide", 1 } },
         -- Swamp of Sorrows
-        [1435] = { { "Heavy Leather", 50 }, { "Thick Leather", 22 }, { "Medium Leather", 11 }, { "Green Whelp Scale", 6 }, { "Heavy Hide", 4 }, { "Green Dragonscale", 3 }, { "Worn Dragonscale", 1 }, { "Shadowcat Hide", 0 } },
+        [1435] = { { "Heavy Leather", 49 }, { "Thick Leather", 22 }, { "Medium Leather", 11 }, { "Green Whelp Scale", 6 }, { "Heavy Hide", 4 }, { "Green Dragonscale", 3 }, { "Pristine Hide", 1 }, { "Worn Dragonscale", 1 }, { "Shadowcat Hide", 0 } },
         -- Westfall
-        [1436] = { { "Light Leather", 57 }, { "Ruined Leather Scraps", 38 }, { "Light Hide", 4 } },
+        [1436] = { { "Light Leather", 57 }, { "Ruined Leather Scraps", 38 }, { "Light Hide", 4 }, { "Pristine Leather", 1 } },
         -- Wetlands
-        [1437] = { { "Medium Leather", 54 }, { "Light Leather", 25 }, { "Heavy Leather", 6 }, { "Medium Hide", 5 }, { "Rugged Leather", 4 }, { "Red Whelp Scale", 1 }, { "Worn Dragonscale", 1 } },
+        [1437] = { { "Medium Leather", 53 }, { "Light Leather", 25 }, { "Heavy Leather", 6 }, { "Medium Hide", 5 }, { "Rugged Leather", 4 }, { "Red Whelp Scale", 1 }, { "Worn Dragonscale", 1 }, { "Pristine Leather", 1 }, { "Pristine Hide", 0 } },
         -- Teldrassil
         [1438] = { { "Ruined Leather Scraps", 85 }, { "Light Leather", 15 } },
         -- Darkshore
-        [1439] = { { "Light Leather", 56 }, { "Ruined Leather Scraps", 36 }, { "Light Hide", 4 }, { "Medium Leather", 4 } },
+        [1439] = { { "Light Leather", 55 }, { "Ruined Leather Scraps", 36 }, { "Light Hide", 4 }, { "Medium Leather", 4 }, { "Pristine Leather", 1 } },
         -- Ashenvale
-        [1440] = { { "Medium Leather", 46 }, { "Light Leather", 39 }, { "Medium Hide", 4 }, { "Heavy Leather", 4 }, { "Light Hide", 3 }, { "Rugged Leather", 2 }, { "Green Dragonscale", 0 }, { "Worn Dragonscale", 0 } },
+        [1440] = { { "Medium Leather", 45 }, { "Light Leather", 39 }, { "Medium Hide", 4 }, { "Heavy Leather", 4 }, { "Light Hide", 3 }, { "Rugged Leather", 2 }, { "Green Dragonscale", 0 }, { "Pristine Leather", 0 }, { "Worn Dragonscale", 0 }, { "Pristine Hide", 0 } },
         -- Thousand Needles
-        [1441] = { { "Medium Leather", 58 }, { "Heavy Leather", 34 }, { "Medium Hide", 5 }, { "Heavy Hide", 2 } },
+        [1441] = { { "Medium Leather", 58 }, { "Heavy Leather", 33 }, { "Medium Hide", 5 }, { "Heavy Hide", 2 }, { "Pristine Hide", 0 } },
         -- Stonetalon Mountains
-        [1442] = { { "Medium Leather", 51 }, { "Light Leather", 40 }, { "Medium Hide", 5 }, { "Light Hide", 3 } },
+        [1442] = { { "Medium Leather", 51 }, { "Light Leather", 40 }, { "Medium Hide", 5 }, { "Light Hide", 3 }, { "Pristine Leather", 1 }, { "Pristine Hide", 0 } },
         -- Desolace
-        [1443] = { { "Heavy Leather", 59 }, { "Medium Leather", 30 }, { "Thick Leather", 5 }, { "Heavy Hide", 4 }, { "Medium Hide", 3 } },
+        [1443] = { { "Heavy Leather", 58 }, { "Medium Leather", 29 }, { "Thick Leather", 5 }, { "Heavy Hide", 4 }, { "Medium Hide", 3 }, { "Pristine Hide", 1 } },
         -- Feralas
-        [1444] = { { "Rugged Leather", 39 }, { "Thick Leather", 35 }, { "Heavy Leather", 14 }, { "Thick Hide", 3 }, { "Rugged Hide", 2 }, { "Green Dragonscale", 2 }, { "Worn Dragonscale", 2 }, { "Thick Wolfhide", 1 }, { "Chimera Leather", 0 } },
+        [1444] = { { "Rugged Leather", 39 }, { "Thick Leather", 34 }, { "Heavy Leather", 14 }, { "Thick Hide", 3 }, { "Rugged Hide", 2 }, { "Green Dragonscale", 2 }, { "Worn Dragonscale", 2 }, { "Thick Wolfhide", 1 }, { "Pristine Hide", 0 }, { "Chimera Leather", 0 } },
         -- Dustwallow Marsh
-        [1445] = { { "Heavy Leather", 57 }, { "Thick Leather", 27 }, { "Heavy Hide", 4 }, { "Turtle Scale", 4 }, { "Thick Hide", 3 }, { "Worn Dragonscale", 1 }, { "Black Dragonscale", 1 } },
+        [1445] = { { "Heavy Leather", 56 }, { "Thick Leather", 27 }, { "Heavy Hide", 4 }, { "Turtle Scale", 4 }, { "Thick Hide", 3 }, { "Worn Dragonscale", 1 }, { "Black Dragonscale", 1 }, { "Pristine Hide", 1 } },
         -- Tanaris
-        [1446] = { { "Thick Leather", 39 }, { "Heavy Leather", 24 }, { "Rugged Leather", 16 }, { "Turtle Scale", 8 }, { "Thick Hide", 5 }, { "Scorpid Scale", 5 }, { "Worn Dragonscale", 0 } },
+        [1446] = { { "Thick Leather", 39 }, { "Heavy Leather", 24 }, { "Rugged Leather", 16 }, { "Turtle Scale", 8 }, { "Thick Hide", 5 }, { "Scorpid Scale", 5 }, { "Pristine Hide", 1 }, { "Worn Dragonscale", 0 } },
         -- Azshara
-        [1447] = { { "Rugged Leather", 42 }, { "Thick Leather", 32 }, { "Turtle Scale", 8 }, { "Worn Dragonscale", 6 }, { "Thick Hide", 5 }, { "Rugged Hide", 4 }, { "Chimera Leather", 3 } },
+        [1447] = { { "Rugged Leather", 42 }, { "Thick Leather", 32 }, { "Turtle Scale", 8 }, { "Worn Dragonscale", 6 }, { "Thick Hide", 5 }, { "Rugged Hide", 4 }, { "Chimera Leather", 3 }, { "Pristine Hide", 0 } },
         -- Felwood
-        [1448] = { { "Rugged Leather", 52 }, { "Thick Leather", 40 }, { "Rugged Hide", 4 }, { "Thick Hide", 3 }, { "Warbear Leather", 1 } },
+        [1448] = { { "Rugged Leather", 51 }, { "Thick Leather", 39 }, { "Rugged Hide", 4 }, { "Thick Hide", 3 }, { "Pristine Hide", 2 }, { "Warbear Leather", 1 } },
         -- Un'Goro Crater
-        [1449] = { { "Thick Leather", 52 }, { "Rugged Leather", 39 }, { "Devilsaur Leather", 4 }, { "Thick Hide", 3 }, { "Rugged Hide", 3 } },
+        [1449] = { { "Thick Leather", 51 }, { "Rugged Leather", 39 }, { "Devilsaur Leather", 4 }, { "Thick Hide", 3 }, { "Rugged Hide", 2 }, { "Pristine Hide", 1 } },
         -- Silithus
-        [1451] = { { "Silithid Chitin", 99 }, { "Heavy Scorpid Scale", 0 } },
+        [1451] = { { "Silithid Chitin", 83 }, { "Light Silithid Carapace", 10 }, { "Heavy Silithid Carapace", 6 }, { "Heavy Scorpid Scale", 0 } },
         -- Winterspring
-        [1452] = { { "Rugged Leather", 48 }, { "Thick Leather", 21 }, { "Warbear Leather", 8 }, { "Rugged Hide", 8 }, { "Worn Dragonscale", 7 }, { "Frostsaber Leather", 5 }, { "Chimera Leather", 0 } },
+        [1452] = { { "Rugged Leather", 48 }, { "Thick Leather", 21 }, { "Warbear Leather", 8 }, { "Rugged Hide", 8 }, { "Worn Dragonscale", 7 }, { "Frostsaber Leather", 5 }, { "Chimera Leather", 0 }, { "Pristine Hide", 0 } },
         -- Mount Hyjal
-        [2482] = { { "Rugged Leather", 61 }, { "Fel Leather", 29 }, { "Thick Leather", 5 }, { "Rugged Hide", 4 }, { "Fel Hide", 2 } },
+        [2482] = { { "Rugged Leather", 59 }, { "Fel Leather", 28 }, { "Thick Leather", 5 }, { "Rugged Hide", 4 }, { "Pristine Hide", 3 }, { "Fel Hide", 2 } },
         -- Zephras Isle
         [2521] = { { "Ruined Leather Scraps", 79 }, { "Light Leather", 21 } },
         -- Riverglades
-        [2548] = { { "Heavy Leather", 69 }, { "Thick Leather", 26 }, { "Heavy Hide", 3 }, { "Worn Dragonscale", 0 }, { "Thick Wolfhide", 0 }, { "Turtle Scale", 0 } },
+        [2548] = { { "Heavy Leather", 68 }, { "Thick Leather", 26 }, { "Heavy Hide", 3 }, { "Pristine Hide", 1 }, { "Worn Dragonscale", 0 }, { "Thick Wolfhide", 0 }, { "Turtle Scale", 0 } },
         -- Shen'dralas
-        [2652] = { { "Heavy Leather", 47 }, { "Thick Leather", 47 }, { "Thick Hide", 4 }, { "Heavy Hide", 3 } },
+        [2652] = { { "Heavy Leather", 46 }, { "Thick Leather", 46 }, { "Thick Hide", 4 }, { "Heavy Hide", 3 } },
     },
     CLASSIC_NODES = {  },
     CLASSIC_FISH = { [1448] = true, [1451] = true, [1452] = true },

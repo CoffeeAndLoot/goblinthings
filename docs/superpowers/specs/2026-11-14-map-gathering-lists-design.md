@@ -215,7 +215,7 @@ list of creatures with their zones and how often each was skinned. That is data,
   "Skinning", reads every type and its share of the zone's skins, most common first; a rare one
   reads "<1%". A fourth switch, "Skins on the map" (`mapSkins`), on by default.
 - **Source**: `tools/gathering/wowhead-forever-skins.json`. The item list is Wowhead's own
-  (`/forever/items/trade-goods/leather`, the items it marks as skinned), not memory: 32 read. Per
+  (`/forever/items/trade-goods/leather`, the items it marks as skinned), not memory: 37 read. Per
   item, per zone: creatures, skins, lowest and highest creature level.
 - **Rules** (Claude's calls): a creature counts for the first zone Wowhead lists it in (it gives up
   to three and one total, so counting all would hand Silverpine Hillsbrad's turtles). A zone's row
@@ -225,8 +225,10 @@ list of creatures with their zones and how often each was skinned. That is data,
   at most. A zone with under 100 skins recorded gets no list.
 - **Levels and skill are not shown.** Wowhead gives creature levels, not the skill to skin them, and
   the level spans are thrown wide by rares and bosses. The owner asked for types.
-- **Not read** (Wowhead's check came up): Light and Heavy Silithid Carapace, Irradiated Leather
-  Scraps, Pristine Leather, Pristine Hide, Pristine Scale. The script prints them every run.
+- **All of Wowhead's skinned items are read** (37): the last five after the owner passed its check
+  again. Pristine Leather, Pristine Hide and Pristine Scale are Forever's own: a rare extra skin
+  off ordinary beasts in most zones, so they show in most lists at a percent or two. Irradiated
+  Leather Scraps' page has no lists at all and is left out.
 - **The icon**: `API.ProfessionIcon("skins")` asks for spell 8613's texture (from memory, like the
   other three); the letter is S.
 

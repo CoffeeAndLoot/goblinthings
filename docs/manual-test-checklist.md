@@ -323,11 +323,13 @@ Wowhead's Forever figures, from each leather's skinned-from list. Verified in so
 - [ ] The Barrens' own map: a sixth line, "Skins: Ruined, Light, Medium", ending in an icon; all six
       lines fit above the corner and clear the map's controls.
 - [ ] The icon is the game's Skinning icon (else the letter S); `/gt probe` lists "skins yes".
-- [ ] Hover it: "Skinning", then Light Leather 62%, Ruined Leather Scraps 21%, Medium Leather 11%,
-      Light Hide 5%, Deviate Scale <1%, Perfect Deviate Scale <1%.
+- [ ] Hover it: "Skinning", then Light Leather 61%, Ruined Leather Scraps 20%, Medium Leather 11%,
+      Light Hide 5%, Pristine Leather 1%, Deviate Scale <1%, Perfect Deviate Scale <1%.
+- [ ] Pristine Leather, Pristine Hide and Pristine Scale show in most zones' lists at a percent or
+      two: are they a rare extra skin off ordinary beasts on Forever, as Wowhead has them?
 - [ ] Un'Goro Crater: "Skins: Thick, Rugged", and the list has Devilsaur Leather 4%. Winterspring:
       Warbear Leather and Frostsaber Leather in the list. Redridge: Black Whelp Scale. Silithus: a
-      bare "Skins" line (Silithid Chitin 99%).
+      bare "Skins" line (Silithid Chitin, then Light and Heavy Silithid Carapace).
 - [ ] Kalimdor, hovering the Barrens: the Skins line shows, no icon.
 - [ ] Untick "Skins on the map": the line goes. Moonglade and Deadwind Pass have no Skins line.
 - [ ] As a skinner: in a zone you work, is anything missing or wrong? A beast that roams several

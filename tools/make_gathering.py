@@ -237,7 +237,8 @@ def main():
           % (OUT.relative_to(ROOT), len(lists["HERBS"]), len(lists["ORE"]), len(lists["FISH"]),
              len(lists["SKINS"])))
     print("no skins list: " + named(set(ZONES) - set(lists["SKINS"])))
-    print("skin types not read yet: " + ", ".join(skinned.get("notRead", [])))
+    if skinned.get("notRead"):
+        print("skin types not read yet: " + ", ".join(skinned["notRead"]))
     print("herbs and ore from Classic's pages: " + named(classic_nodes))
     print("fish from Classic's pages: " + named(classic_fish))
     no_fish = set(ZONES) - PENDING - set(lists["FISH"])
