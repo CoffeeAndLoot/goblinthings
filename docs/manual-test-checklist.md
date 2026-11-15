@@ -371,11 +371,17 @@ Wowhead's Forever figures, from each leather's skinned-from list. Verified in so
 - [x] Kalimdor, hovering the Barrens: the Skins line shows, no icon.
       Seen 2026-11-14 on Eastern Kingdoms, hovering Riverglades: "Skins: Heavy, Thick", no icon.
 - [ ] Untick "Skins on the map": the line goes. Moonglade and Deadwind Pass have no Skins line.
-- [ ] The readout sits on a card (2026-11-14, the owner: letters on the parchment "washed out
+- [x] The readout sits on a card (2026-11-14, the owner: letters on the parchment "washed out
       easily"): solid brown in the bronze edge, the zone's name in gold, the lines in white, no
       outline round the letters. The card hugs the lines showing: small for a city, tall for six
       lines; nothing showing, no card. It stands clear of the map frame's corner and the
       quest-log toggle. The icons still take the mouse and a list opens just above the card.
+      Seen 2026-11-14 (the owner's screenshots of Stranglethorn Vale and Eastern Plaguelands).
+- [ ] A neighbour at the edge of a zone's own map (2026-11-14, the owner: Winterspring on Mount
+      Hyjal's map took the card over and Hyjal's icons could not be reached): with Mount Hyjal's
+      map open, move the cursor over Winterspring's edge: the card stays Mount Hyjal's, icons and
+      all, and each icon can be reached and hovered. On Durotar's map, hovering Orgrimmar still
+      shows the city. On Kalimdor the card still follows the cursor from zone to zone.
 - [ ] On a continent the card follows the hovered zone, resizing without a flicker, and goes over
       the sea. Does it hide anything on the map you want to see? Tell Claude.
 - [ ] As a skinner: in a zone you work, is anything missing or wrong? A beast that roams several

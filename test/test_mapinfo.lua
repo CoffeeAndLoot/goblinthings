@@ -16,6 +16,11 @@ return function(h, loaded)
             h.eq(MapInfo.Pick(BARRENS, nil), BARRENS)
             h.eq(MapInfo.Pick(BARRENS, BARRENS), BARRENS)
         end)
+        h.it("a neighbouring zone at the edge of a zone's own map never takes over", function()
+            h.eq(MapInfo.Pick(2482, 1452), 2482)        -- Winterspring at the edge of Mount Hyjal's map
+            h.eq(MapInfo.Pick(BARRENS, DUROTAR), BARRENS)
+            h.eq(MapInfo.Pick(KALIMDOR, 1452), 1452)    -- a continent still follows the cursor
+        end)
         h.it("a city drawn inside a zone's map shows the city while hovered", function()
             h.eq(MapInfo.Pick(DUROTAR, ORGRIMMAR), ORGRIMMAR)
         end)

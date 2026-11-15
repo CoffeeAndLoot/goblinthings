@@ -140,6 +140,9 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
   Stonetalon quests (1060, 1069, 1483) with `mapID` 1442, and `C_QuestLog.IsOnMap` counts them as
   on the map. Only an entry whose `mapID` is the player's map is really here (`TrackerSort.HereSet`).
   `GetMapForQuestPOIs()` and `GetBestMapForUnit("player")` both read 1413 there.
+- A zone's own map names its neighbours (2026-11-14, Mount Hyjal's map): `C_Map.GetMapInfoAtPosition`
+  answers with Winterspring's map where Winterspring's edge is drawn. `MapInfo.Pick` therefore never
+  lets one zone (a map with a level range) take over another's map; a city on its zone's map still does.
 - Profession icons (2026-11-14, `/gt probe` and the owner's screenshot of Riverglades' map):
   `C_Spell.GetSpellTexture` answers for spells 2366 (Herbalism), 2575 (Mining), 7620 (Fishing) and
   8613 (Skinning), and each picture is that profession's own icon.
