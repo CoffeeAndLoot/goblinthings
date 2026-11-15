@@ -286,7 +286,8 @@ is gone. This section replaces what "Window and minimap" above says of the banne
 - [x] Quests tab: "Quest tracker" sits in a brown header bar across the page, gold words. (seen 2026-11-14, the owner's screenshots)
 - [x] The dim notes and "Hold Shift at an NPC or vendor to skip." are light tan and readable. (seen 2026-11-14, the owner's screenshots)
 - [ ] The window is shorter than before (the banner's 126 px became a 30 px bar) and still fits.
-- [ ] Esc > Options > AddOns > Goblin Things: its button reads in the same look.
+- [x] Esc > Options > AddOns > Goblin Things: its button reads in the same look.
+      Seen 2026-11-15 (the owner's screenshots): "Open Goblin Things" in the brown and bronze, lit along its top.
 - [x] World map, a zone's own map: a list opened from an icon is brown in the bronze edge, gold
       title, white names, tan numbers; an icon's outline turns gold while hovered. (seen 2026-11-14, the owner's screenshots)
 - [ ] Anything that now looks wrong or unfinished next to the game's own windows: tell Claude what.
@@ -302,20 +303,24 @@ what the section above says of the Map tab's rows and note, and Badlands now has
       tab shows four checks, all ticked: "Zone levels and fishing on the map", "Herbs on the map",
       "Ore on the map", "Fish list on the map", and the dim note "Read a zone at the world map's
       bottom right; open the zone for its lists", not cut off at the window's edge.
-- [ ] Open the Barrens' own map: five lines bottom right: "The Barrens", "Levels 10-25", "Fishing 1
+- [x] Open the Barrens' own map: five lines bottom right: "The Barrens", "Levels 10-25", "Fishing 1
       (no getaways at 75)", "Herbs 1-125", "Ore 1-75". The last three each end in a small square
       icon, right edges in a line, nothing overlapping the quest-log toggle or the map's controls.
+      Seen 2026-11-15 (the owner's screenshots): the Barrens' card with those lines and a sixth, Skins, each list line ending in its icon.
 - [x] The three icons are the game's Fishing, Herbalism and Mining icons (not some other spell's, and
       not the letters F, H, O). `/gt probe` says "profession icons from the game: herbs yes, ore yes,
       fish yes". A NO there, or a wrong picture, tell Claude: the spell IDs are from memory.
       Seen 2026-11-14 (the owner's screenshots): on Riverglades' map the three are pictures, not letters (a hook, a herb, a pick). `/gt probe`
       not yet pasted. (seen 2026-11-14, the owner's `/gt probe` and screenshots)
-- [ ] Hover the Herbs icon: its edge turns gold and a dark list opens above the corner, titled
+- [x] Hover the Herbs icon: its edge turns gold and a dark list opens above the corner, titled
       "Herbalism" in gold, ten rows from "Peacebloom 1" to "Kingsblood 125", names left, skills right
       and dim. Move off: it closes. The list stays put while the cursor rests on the icon (no flicker).
+      Seen 2026-11-15 (the owner's screenshots): the Herbalism list, ten rows from Peacebloom 1 to Kingsblood 125, the icon's edge gold.
 - [ ] Hover the Ore icon: "Mining", Copper Vein 1, Tin Vein 65, Silver Vein 75. Hover the Fishing
       icon: "Fishing", seven rows from "Raw Rainbow Fin Albacore 22%" down, no footnote. No list is
       cut by the top or right of the map.
+      Seen 2026-11-15 (the owner's screenshots): not the Barrens' Mining or Fishing lists, but Mulgore's Fishing list opened the same way (Raw
+      Brilliant Smallfish 59%, Raw Longjaw Mud Snapper 38%, no footnote).
 - [ ] Felwood's own map: the Fishing list ends in the dim footnote "Classic figures, not checked on
       Forever" (too few catches recorded on Forever yet); its Herbalism and Mining lists have none.
       Winterspring and Silithus likewise.
@@ -327,7 +332,9 @@ what the section above says of the Map tab's rows and note, and Badlands now has
       lines with icons again.
 - [ ] Moonglade's own map: no Herbs or Ore lines, no gap, a Fishing icon. Teldrassil: "Ore 1" (Chunk
       of Amber, Large Chunk of Amber) and Durotar "Poor Copper Vein": are those real veins on Forever?
-      Un'Goro Crater: no fish icon (too few catches recorded). 
+      Un'Goro Crater: no fish icon (too few catches recorded).
+      Seen 2026-11-15 (the owner's screenshots): Teldrassil reads "Ore 1" and Mulgore "Ore 1"; whether those veins are real on Forever was not
+      said. Moonglade and Un'Goro not yet seen. 
 - [ ] Untick "Herbs on the map" with the map open: the Herbs line goes and Ore closes up. Untick "Ore
       on the map": likewise. Untick "Fish list on the map": the Fishing line stays, its icon goes.
       Untick "Zone levels and fishing on the map": everything goes, whatever the other three say.
@@ -354,6 +361,9 @@ what the section above says of the Map tab's rows and note, and Badlands now has
 - [ ] Against the game: in one zone you gather in, do the herbs, the veins and the catch match
       the lists? Tell Claude what is missing or should not be there (the Barrens lists Grave Moss; a
       rare node reads the same as a common one).
+      Seen 2026-11-15 (the owner's screenshots): cards for Mulgore (Herbs 1-15, Skins: Ruined, Light), Teldrassil (Herbs 1-50) and Azshara (Fishing
+      205, Herbs 85-280, Ore 155-275, Skins: Thick, Rugged) drew as the data has them. Whether they
+      match what grows there is still the owner's to say.
 
 ### Skins (2026-11-14)
 
@@ -361,8 +371,9 @@ Wowhead's Forever figures, from each leather's skinned-from list. Verified in so
 
 - [x] `/reload` is enough if MapData.lua was already loaded by a restart since 2026-11-14; else a
       **full client restart**. The Map tab shows five checks, the new one "Skins on the map", ticked. (seen 2026-11-14, the owner's screenshots)
-- [ ] The Barrens' own map: a sixth line, "Skins: Ruined, Light, Medium", ending in an icon; all six
+- [x] The Barrens' own map: a sixth line, "Skins: Ruined, Light, Medium", ending in an icon; all six
       lines fit above the corner and clear the map's controls.
+      Seen 2026-11-15 (the owner's screenshots): as written, on the card.
 - [x] The icon is the game's Skinning icon (else the letter S); `/gt probe` lists "skins yes".
       Seen 2026-11-14 (the owner's screenshots): a picture, not the letter S, its outline gold while hovered. `/gt probe` not yet pasted. (seen 2026-11-14, the owner's `/gt probe` and screenshots)
 - [ ] Hover it: "Skinning", then Light Leather 61%, Ruined Leather Scraps 20%, Medium Leather 11%,
@@ -390,10 +401,11 @@ Wowhead's Forever figures, from each leather's skinned-from list. Verified in so
       Orgrimmar on Durotar's map and the continent not rechecked since the fix.
 - [ ] On a continent the card follows the hovered zone, resizing without a flicker, and goes over
       the sea. Does it hide anything on the map you want to see? Tell Claude.
-- [ ] A city's own map (2026-11-15, the owner: with Orgrimmar's map up, Durotar showed when the
+- [x] A city's own map (2026-11-15, the owner: with Orgrimmar's map up, Durotar showed when the
       cursor reached the edge): with Orgrimmar's map open, move the cursor to where Durotar is
       drawn round it: the card stays Orgrimmar's. On Durotar's own map, hovering Orgrimmar still
       shows the city (not said either way yet).
+      Seen 2026-11-15 (the owner's screenshots): the owner, "orgrimmar fix works".
 - [ ] As a skinner: in a zone you work, is anything missing or wrong? A beast that roams several
       zones counts only for the first zone Wowhead lists it in, so a list can miss a type its
       neighbour claims; tell Claude which.
