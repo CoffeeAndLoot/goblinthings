@@ -35,12 +35,16 @@ and forget them.
 Hold **Shift** while talking to an NPC, a vendor or a trainer to skip everything that visit. Hold it on a
 corpse to get the normal loot window. Everything else is one click in the window.
 
-![The Goblin Things window on its Quests tab: the auto-quest checks, Only this zone, the Hide quests above me slider at +3, and the three tracker sort tiers](https://raw.githubusercontent.com/CoffeeAndLoot/goblinthings/master/images/quests.png)
+![The Goblin Things window on its Quests tab, in the game's own browns and gold: the auto-quest checks, Only this zone, the Hide quests above me slider, and the three tracker sort tiers](https://raw.githubusercontent.com/CoffeeAndLoot/goblinthings/master/images/quests.png)
 
 <p>
 <img src="https://raw.githubusercontent.com/CoffeeAndLoot/goblinthings/master/images/vendors.png" width="49%" alt="The Vendors tab: Auto sell junk, Auto repair and Auto train">
 <img src="https://raw.githubusercontent.com/CoffeeAndLoot/goblinthings/master/images/social.png" width="49%" alt="The Social tab: decline duels and guild invites, accept invites from guild or friends, accept summons, guild login alerts">
 </p>
+
+![The Map tab: Zone levels and fishing, Herbs, Ore, Fish list and Skins on the map](https://raw.githubusercontent.com/CoffeeAndLoot/goblinthings/master/images/map.png)
+
+![The world map's corner on Mount Hyjal: a card reading Level 60, Herbs 270-300, Ore 275-300 and Skins: Rugged, with the Skinning list open above it](https://raw.githubusercontent.com/CoffeeAndLoot/goblinthings/master/images/map-readout.png)
 
 ## Getting started
 
