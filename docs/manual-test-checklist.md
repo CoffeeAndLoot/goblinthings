@@ -259,6 +259,46 @@ verified in source only.
 - [ ] Level ranges: compare a few zones with the game's own idea (quest levels, mob levels); the
       ranges are Classic's, copied from GoblinPS.
 
+## Herbs, ore and fish on the map
+
+Spec `docs/superpowers/specs/2026-11-14-map-gathering-lists-design.md`. Built 2026-11-14, verified in
+source only. The lists are Wowhead's Classic figures, unverified on Forever. This section replaces
+what the section above says of the Map tab's rows and note, and Badlands now has Herbs and Ore lines.
+
+- [ ] **Full client restart** first (MapData.lua is new in the TOC). No Lua error on login. The Map
+      tab shows four checks, all ticked: "Zone levels and fishing on the map", "Herbs on the map",
+      "Ore on the map", "Fish list on the map", and the dim note "Read a zone at the world map's
+      bottom right; open the zone for its lists", not cut off at the window's edge.
+- [ ] Open the Barrens' own map: five lines bottom right: "The Barrens", "Levels 10-25", "Fishing 1
+      (no getaways at 75)", "Herbs 1-125", "Ore 1-75". The last three each end in a small square
+      icon, right edges in a line, nothing overlapping the quest-log toggle or the map's controls.
+- [ ] The three icons are the game's Fishing, Herbalism and Mining icons (not some other spell's, and
+      not the letters F, H, O). `/gt probe` says "profession icons from the game: herbs yes, ore yes,
+      fish yes". A NO there, or a wrong picture, tell Claude: the spell IDs are from memory.
+- [ ] Hover the Herbs icon: its edge turns gold and a dark list opens above the corner, titled
+      "Herbalism" in gold, ten rows from "Peacebloom 1" to "Kingsblood 125", names left, skills right
+      and dim. Move off: it closes. The list stays put while the cursor rests on the icon (no flicker).
+- [ ] Hover the Ore icon: "Mining", Copper Vein 1, Tin Vein 65, Silver Vein 75. Hover the Fishing
+      icon: "Fishing", seven rows from "Oily Blackmouth 41%" down, then the dim footnote "Classic
+      figures, not checked on Forever". No list is cut by the top or right of the map.
+- [ ] Kalimdor, hovering the Barrens: the same five lines, **no icons**. Hovering across zones swaps
+      the Herbs and Ore lines with the rest.
+- [ ] Durotar's own map, hovering Orgrimmar: the city's lines, no icons; off the city: Durotar's
+      lines with icons again.
+- [ ] Teldrassil's own map: a Herbs line and no Ore line, no gap. Moonglade: no Herbs or Ore lines,
+      a Fishing icon. Mount Hyjal and Riverglades: as before, nothing new.
+- [ ] Untick "Herbs on the map" with the map open: the Herbs line goes and Ore closes up. Untick "Ore
+      on the map": likewise. Untick "Fish list on the map": the Fishing line stays, its icon goes.
+      Untick "Zone levels and fishing on the map": everything goes, whatever the other three say.
+- [ ] Clicking through an icon: note whether a click on an icon is swallowed (it sits over the map)
+      and whether that is a bother; tell Claude.
+- [ ] Not read yet (Wowhead asked for human verification, 2026-11-14): Swamp of Sorrows, The
+      Hinterlands, Searing Gorge, Blasted Lands, Burning Steppes, Western and Eastern Plaguelands and
+      Deadwind Pass show no Herbs or Ore lines and no fish icon. Expected until their pages are read.
+- [ ] Forever against Classic: in one zone you gather in, do the herbs, the veins and the catch match
+      the lists? Tell Claude what is missing or should not be there (the Barrens lists Grave Moss; a
+      rare node reads the same as a common one).
+
 ## Kills to level
 
 - [ ] With a count showing, untick Kills to level and tick it again: no number until the next kill, and `/gt probe` reads 0 kill sample(s) before it.

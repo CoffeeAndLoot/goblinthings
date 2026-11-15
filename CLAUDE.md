@@ -13,6 +13,8 @@ per switch. Docs:
 - `docs/superpowers/specs/2026-10-13-tracker-sort-and-tabs-design.md`: the tracker sort and the tabs.
 - `docs/superpowers/specs/2026-11-11-kills-to-level-design.md`: the kills-to-level number (its plan is
   `docs/superpowers/plans/2026-11-11-kills-to-level.md`).
+- `docs/superpowers/specs/2026-11-14-map-gathering-lists-design.md`: herbs, ore and fish lists on the
+  map readout (its plan is `docs/superpowers/plans/2026-11-14-map-gathering-lists.md`).
 - `docs/manual-test-checklist.md`: every in-game check, ticked only by the owner.
 - `docs/art-spec.md`: the brief for regenerating the header banner.
 
@@ -39,6 +41,11 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
   is set to `Look.COLOUR.window`, so it is laid edge to edge; `Window.BANNER` must match the
   script's crop box. `Media/icons/close-*.tga` are Goblin Flyout's, copied. `images/banner.png` is
   the README's hero only. A new or changed TGA needs a full client restart.
+- The gathering lists are generated too: `python tools/make_gathering.py` writes
+  `GoblinThings/MapData.lua` from `tools/gathering/wowhead-classic.json`, the source read out of
+  Wowhead's Classic zone pages in a browser (Wowhead answers a script with 403, and after about 30
+  pages asks for human verification, which only the owner may pass: read slowly). Never hand-edit
+  `MapData.lua`; the script's `PENDING` set names the zones not read yet.
 - Adding a file to the TOC needs a full client restart, not `/reload`. Say so.
 - Calendar versions (`2026.10.13`, `.2` for a second that day), written only in the TOC.
 - Commit after each change: `Area: plain sentence`. Push only when the owner asks. CI runs the suite
@@ -62,7 +69,7 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
 
 ## How it fits together
 
-TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, Decline, Accept, Loot, TrackerSort, MapInfo, Kills, Look, Options, Window, MinimapButton, MapReadout, KillsReadout, Core`.
+TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, Decline, Accept, Loot, TrackerSort, MapData, MapInfo, Kills, Look, Options, Window, MinimapButton, MapReadout, KillsReadout, Core`.
 
 1. `Features.LIST` is every switch as data: key, label, section (its tab), optional group (a
    sub-header), control (`check`, `slider`, `choice`) and default; `Features.NOTES` gives a tab its
@@ -84,6 +91,11 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
    bottom right each frame the map is shown, from `API.MapUnderCursor` (as Blizzard's area label
    finds the hovered zone). `C_Map.GetMapLevels` exists on this build and answers for no zone, so
    never switch to it without an in-game check; `/gt probe` counts the hover API's answers.
+   `MapData` (generated, pure) adds herbs, ore and fish per zone: `MapInfo.Lines` gives each line as
+   `{ text, kind }` and `MapInfo.List(kind, mapID)` a list's rows. A line with a `kind` ends in an
+   icon only when the readout describes the map that is open (on a continent the cursor would cross
+   other zones on its way to the corner). The icons are the readout's only mouse-live frames; their
+   pictures come from `API.ProfessionIcon` (a spell's texture), a letter when the game gives none.
 7. Kills to level: `Kills` (pure) keeps the last ten kills' XP and divides the XP still needed by
    their average; `KillsReadout` draws the one ghosted number `Core`'s `drawKills` hands it, on
    `UIParent` at strata BACKGROUND with the mouse off. A kill is a `CHAT_MSG_COMBAT_XP_GAIN` line

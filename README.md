@@ -26,6 +26,9 @@ and forget them.
 | Camera | Camera distance | Zooms the camera out to 4.0, past Blizzard's 2.0 | Untouched |
 | Cinematics | Skip cinematics | Off, repeats only, or all | Repeats only |
 | Map | Zone levels and fishing on the map | On the world map, hover a zone (or open its map) to see its level range and the fishing skill it needs, bottom right | On |
+| Map | Herbs on the map | Adds the zone's herbalism skill range to that readout; on the zone's own map, hover the line's icon to list each herb and the skill it needs (Classic figures) | On |
+| Map | Ore on the map | The same for mining: the skill range, and each vein with its skill | On |
+| Map | Fish list on the map | On the zone's own map, an icon on the fishing line lists what is caught there and how often (Classic figures) | On |
 | XP | Kills to level | A faint number in a screen corner: how many more kills like your last ten it takes to level. Pick the corner, offsets, faintness, size and font | Off |
 
 Hold **Shift** while talking to an NPC, a vendor or a trainer to skip everything that visit. Hold it on a

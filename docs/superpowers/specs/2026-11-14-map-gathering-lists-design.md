@@ -55,7 +55,7 @@ Three check boxes on the **Map** tab under "Zone levels and fishing on the map",
 | `mapFish` | Fish list on the map | no icon on the Fishing line; the line stays |
 
 All three do nothing while `mapInfo` is off. The Map tab's note becomes
-"Hover a zone on the world map; read it bottom right. Open the zone for its lists."
+"Read a zone at the world map's bottom right; open the zone for its lists".
 
 ## The data
 
@@ -74,7 +74,9 @@ lists ship with the addon.
   or more, the eight largest at most. In the Barrens that keeps exactly the seven real catches (Oily
   Blackmouth 41%, Longjaw Mud Snapper 16%, Slitherskin Mackerel 13%, Rainbow Fin Albacore 10%,
   Stranglekelp 6%, Bristle Whisker Catfish 6%, Brilliant Smallfish 4%) and drops the gear, potions
-  and crates without a class rule. A page whose counts sum to under 100 gives no fish list: too few
+  and crates. The share alone is not enough elsewhere (Darkshore's quest item Gaffer Jack is 16% of
+  its catch, Hillsbrad's Watertight Trunk 25%), so a row must also be of an item class a fisher
+  means by a catch: meat, herbs, clams, reagents (Oily Blackmouth, the eels) or food and drink. A page whose counts sum to under 100 gives no fish list: too few
   casts to trust.
 - **Generated, never hand-edited**, as the art is, in two steps because Wowhead refuses a plain
   script (HTTP 403 to Python on 2026-11-14) and serves a browser:
@@ -88,8 +90,19 @@ lists ship with the addon.
     has, each with the zone's name.
   - **It fails loudly, writing nothing**, when: a zone in its table is missing from the source; a
     page's title does not start with the zone's name; a zone has no `objects` list at all (every zone
-    page has one; `fishing` is allowed to be absent, a landlocked zone has none); or fewer than 30
-    zones yield herbs, 30 yield ore or 20 yield fish (a changed page layout would empty them all).
+    page has one; `fishing` is allowed to be absent, a landlocked zone has none); or fewer than 25
+    zones yield herbs, 25 yield ore or 20 yield fish (a changed page layout would empty them all).
+- **Node names are checked against Classic's**: Wowhead types quest objects as herbs and veins
+  (Darkshore's Beached Sea Creature) and its Classic pages carry other seasons' nodes, so the script
+  keeps a hand-kept list of Classic herb and vein names, folds an "Ooze Covered" vein into its plain
+  one, and prints every name it drops. Dropped on 2026-11-14: Beached Sea Creature, Cold Iron
+  Deposit, Doom Weed, Dreamroot, Fool's Gold Vein, Gloom Weed, Greater Moonstone Formation, Incendia
+  Agave, Moonroot, Nightmare Moss, Skeletal Sea Turtle. If Forever has any of those as real nodes,
+  add the name to the script's list.
+- **Not read yet**: Wowhead asked for human verification after 32 of the 40 pages. Swamp of
+  Sorrows, The Hinterlands, Searing Gorge, Blasted Lands, Burning Steppes, Western and Eastern
+  Plaguelands and Deadwind Pass are in the script's `PENDING` set and get no lists until read. The
+  three spell pages were not reached either, so the icons' spell IDs are from memory.
 - **Not in the data**: Mount Hyjal and Riverglades are Forever's own and Wowhead Classic does not have
   them, so they get no gathering lines.
 - **English names**: node and fish names are Wowhead's English, not the client's language.
@@ -128,8 +141,8 @@ lists ship with the addon.
     from reading `IsCanvasMouseFocusOrPinFocus`, not from the game; the checklist covers it.
 - **Icons**: the game's own profession icons, in one pass. `API.ProfessionIcon(kind)` asks
   `C_Spell.GetSpellTexture` (`SpellDocumentation.lua`: returns nothing for an unknown spell) for the
-  profession's Apprentice spell: Herbalism 2366, Mining 2575, Fishing 7620, each ID checked against
-  its Wowhead Classic spell page's title when the source is read. The texture names themselves are
+  profession's Apprentice spell: Herbalism 2366, Mining 2575, Fishing 7620, IDs from memory, not yet checked
+  against anything (see "Not read yet"). The texture names themselves are
   not in the Blizzard addon source, so none is written down. Whenever the game gives no texture the
   icon is a Goblin-look square with the letter H, O or F, so a list is always reachable; `/gt probe`
   says which of the three the game answered, and the checklist has the owner look at them.
