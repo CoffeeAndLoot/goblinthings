@@ -89,7 +89,9 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
 1. `Features.LIST` is every switch as data: key, label, section (its tab), optional group (a
    sub-header), control (`check`, `slider`, `choice`) and default; `Features.NOTES` gives a tab its
    dim note. The window builds its tabs and rows from it; `Options.Init` stores every feature with a
-   default. One with a `cvar` (the camera, Guild login alerts) has none: the game's own CVar is its store.
+   default. One with a `cvar` (the camera, Guild login alerts, the quest diamond) has none: the
+   game's own CVar is its store. Likewise one with a `bag` (the two bag directions on the Loot
+   tab): the game keeps it behind a `C_Container` get/set pair (`API.BagDirection`).
 2. `Hands` (quests), `Vendor`, `Trainer`, `Camera`, `Cinematics`, `Decline`, `Accept`, `Loot` and
    `Kills` are pure: each takes plain values (views built by `API.lua`) and the settings, and says
    what to do.

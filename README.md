@@ -10,6 +10,7 @@ and forget them.
 | Quests | Auto accept quests | Takes offered quests, except gray, repeatable, dungeon, raid, group and PvP quests | On |
 | | Auto turn-in quests | Hands in finished quests, except ones that cost gold or offer a reward choice | On |
 | | Auto-track new quests | Keeps Blizzard's own auto-tracking on, even if another addon turns it off | Off |
+| | Quest diamond on screen | The gold diamond and distance that point at your tracked quest. The game has it but ships it off, with no option of its own | Untouched |
 | | Only this zone | The quest tracker shows only quests in the zone you're in | Off |
 | | Hide quests above me | The quest tracker hides quests more than 1-20 levels (your pick) above you | Off |
 | | Tracker sort | Orders the quest tracker by up to three tiers: Level (lowest first), Finished first, This zone first | Off |
@@ -17,6 +18,8 @@ and forget them.
 | | Auto repair | Repairs with your own gold at vendors who repair | On |
 | | Auto train | Skips a trainer's lone "Train me" and trains everything you can afford at class and profession trainers; never takes up a new profession | Off |
 | Loot | Fast loot | When the game auto-loots, takes everything at once instead of at the loot window's pace | On |
+| | New items fill bags left to right | Which end of your bags new loot lands in. The game's own setting, which it gives no option for | Untouched |
+| | Sort bags right to left | Which way the game's bag sort packs. The game's own setting, which it gives no option for | Untouched |
 | Social | Decline duels | Refuses every duel request | Off |
 | | Decline guild invites | Refuses every guild invite | Off |
 | | Accept invites from guild | Joins a party or raid when a guild member invites you | Off |

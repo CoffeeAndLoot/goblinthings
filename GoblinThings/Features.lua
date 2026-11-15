@@ -2,7 +2,7 @@ local _, ns = ...
 
 -- The switches as data (spec 2026-10-13-goblin-things-design.md, Scope). The
 -- window builds its rows from LIST and Options.Init stores every feature with
--- a default; one with a cvar has none, because the game's own CVar is its store.
+-- a default; one with a cvar or a bag has none, because the game itself is its store.
 -- Pure: test/run.lua loads this file.
 local Features = {}
 ns.Features = Features
@@ -22,6 +22,11 @@ Features.LIST = {
     { key = "autoTurnIn", label = "Auto turn-in quests", section = "Quests", control = "check", default = true },
     { key = "autoTrack", label = "Auto-track new quests", section = "Quests", control = "check",
         default = false },
+    -- The diamond and its distance, pointing at the tracked quest. Retail's Options has the
+    -- checkbox; Forever blanks it (SettingsDefinitions_Frame/Camelot/InterfaceOverrides.lua:2)
+    -- and ships the CVar at 0, so this is its only switch.
+    { key = "questDiamond", label = "Quest diamond on screen", section = "Quests", control = "check",
+        cvar = "showInGameNavigation" },
     { key = "zoneOnly", label = "Only this zone", section = "Quests", group = "Quest tracker", control = "check",
         default = false },
     { key = "hideAbove", label = "Hide quests above me", section = "Quests", group = "Quest tracker",
@@ -33,6 +38,12 @@ Features.LIST = {
     { key = "autoRepair", label = "Auto repair", section = "Vendors", control = "check", default = true },
     { key = "autoTrain", label = "Auto train", section = "Vendors", control = "check", default = false },
     { key = "fastLoot", label = "Fast loot", section = "Loot", control = "check", default = true },
+    -- Not CVars: the game keeps each behind a C_Container get/set pair (API.BagDirection) that
+    -- no Blizzard window calls, so like a cvar they have no default of ours.
+    { key = "bagsFillLeft", label = "New items fill bags left to right", section = "Loot", control = "check",
+        bag = "insert" },
+    { key = "bagsSortRight", label = "Sort bags right to left", section = "Loot", control = "check",
+        bag = "sort" },
     { key = "declineDuels", label = "Decline duels", section = "Social", control = "check", default = false },
     { key = "declineGuild", label = "Decline guild invites", section = "Social", control = "check",
         default = false },

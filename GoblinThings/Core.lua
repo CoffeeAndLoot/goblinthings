@@ -122,6 +122,9 @@ function Core.Get(key)
     if feature and feature.cvar then  -- a check the game's own CVar stores
         return Features.CVarOn(API.GetCVar(feature.cvar))
     end
+    if feature and feature.bag then  -- a check the game's bag setting stores; no answer reads off
+        return API.BagDirection(feature.bag) == true
+    end
     return db().features[key]
 end
 
@@ -136,6 +139,8 @@ function Core.Set(key, value)
             API.SetCVar(Camera.CVAR, Camera.Text(Camera.Clamp(value)))
         elseif feature.cvar then
             API.SetCVar(feature.cvar, Features.CVarText(value))
+        elseif feature.bag then
+            API.SetBagDirection(feature.bag, value)
         elseif TrackerSort.IsSlot(key) then
             for slot, slotValue in pairs(TrackerSort.Assign(db().features, key, value)) do
                 db().features[slot] = slotValue
@@ -517,7 +522,7 @@ local function probeCandidates()
             or (tostring(value) .. " (default " .. tostring(API.GetCVarDefault(name)) .. ")"))
     end
     say("Probe: candidate CVars: " .. table.concat(parts, "; ") .. ".")
-    local sortRight, insertLeft = API.BagDirections()
+    local sortRight, insertLeft = API.BagDirection("sort"), API.BagDirection("insert")
     say("Probe: bags sort right to left " .. tostring(sortRight) .. ", new items left to right "
         .. tostring(insertLeft) .. " (nil is no answer).")
     say("Probe: the console lists " .. tostring(API.ConsoleCommandCount()) .. " command(s) to an addon.")

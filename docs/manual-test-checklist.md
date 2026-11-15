@@ -458,6 +458,25 @@ Wowhead's Forever figures, from each leather's skinned-from list. Verified in so
       never shows.
 - [ ] Solo and rested, then unrested: the count jumps when rested runs out and settles within ten kills.
 
+## Quest diamond and bag directions (2026-11-15)
+
+A `/reload` is enough (no new file). The game stores all three; Goblin Things keeps no copy.
+
+- [ ] The window is one row taller and nothing is cut off: the Quests tab shows "Quest diamond on
+      screen" under Auto-track new quests, above the Quest tracker header; the Loot tab shows Fast
+      loot, "New items fill bags left to right" and "Sort bags right to left".
+- [ ] Each opens showing the game's own value (2026-11-15's probe: diamond on, fill left to right
+      off, sort right to left on).
+- [ ] Untick Quest diamond with a quest tracked: the diamond and its distance go at once. Tick it:
+      they come back. `/gt probe` reads showInGameNavigation 0, then 1.
+- [ ] Tick New items fill bags left to right, loot or buy an item: it lands at the other end of
+      your bags from before. Untick: back to the first end. The probe's bags line follows.
+- [ ] Sort bags right to left: tick and untick it, and say whether anything in Forever sorts bags
+      at all (no sort button was found in its files). If nothing does, this switch comes out.
+- [ ] Each switch keeps its value through a `/reload` and a relog, and on another character.
+- [ ] In combat, each switch still takes, or the game refuses it quietly: no error, no
+      "action blocked" popup. Tell Claude which.
+
 ## Console-only candidates (the probe, 2026-11-15)
 
 Nothing is switched here: `/gt probe` only reads. A `/reload` is enough. The list is `docs/cvar-candidates.md`.

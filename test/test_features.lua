@@ -7,8 +7,9 @@ return function(h, loaded)
             for _, f in ipairs(Features.LIST) do
                 keys[#keys + 1] = f.key
             end
-            h.eq(table.concat(keys, " "), "autoAccept autoTurnIn autoTrack zoneOnly hideAbove "
+            h.eq(table.concat(keys, " "), "autoAccept autoTurnIn autoTrack questDiamond zoneOnly hideAbove "
                 .. "sortFirst sortSecond sortThird autoSellJunk autoRepair autoTrain fastLoot "
+                .. "bagsFillLeft bagsSortRight "
                 .. "declineDuels declineGuild acceptGuild acceptFriends acceptSummons guildAlerts "
                 .. "cameraDistance cinematics mapInfo mapHerbs mapOre mapFish mapSkins "
                 .. "killsLeft killsCorner killsX killsY killsAlpha killsSize killsFont")
@@ -65,12 +66,29 @@ return function(h, loaded)
             h.eq(f.control, "check")
             h.eq(f.default, true)
         end)
-        h.it("Fast loot is the Loot tab's one check, on by default", function()
+        h.it("Fast loot is a Loot check, on by default", function()
             local f = Features.ByKey("fastLoot")
             h.eq(f.label, "Fast loot")
             h.eq(f.section, "Loot")
             h.eq(f.control, "check")
             h.eq(f.default, true)
+        end)
+        h.it("the bag directions are Loot checks the game stores, one per C_Container pair", function()
+            local fill, sort = Features.ByKey("bagsFillLeft"), Features.ByKey("bagsSortRight")
+            h.eq(fill.section, "Loot")
+            h.eq(fill.control, "check")
+            h.eq(fill.bag, "insert")
+            h.eq(sort.section, "Loot")
+            h.eq(sort.control, "check")
+            h.eq(sort.bag, "sort")
+        end)
+        h.it("the quest diamond is a Quests check stored in showInGameNavigation, outside the tracker group", function()
+            local f = Features.ByKey("questDiamond")
+            h.eq(f.label, "Quest diamond on screen")
+            h.eq(f.section, "Quests")
+            h.eq(f.group, nil)
+            h.eq(f.control, "check")
+            h.eq(f.cvar, "showInGameNavigation")
         end)
         h.it("a slider's number: Off at its off value, else its format; ? when unknown", function()
             local hide, camera = Features.ByKey("hideAbove"), Features.ByKey("cameraDistance")
@@ -97,9 +115,9 @@ return function(h, loaded)
             h.eq(Features.CVarText(true), "1")
             h.eq(Features.CVarText(false), "0")
         end)
-        h.it("every stored switch's default is valid; a CVar-stored one has none", function()
+        h.it("every stored switch's default is valid; one the game stores has none", function()
             for _, f in ipairs(Features.LIST) do
-                if f.cvar then  -- the game's CVar is its store
+                if f.cvar or f.bag then  -- the game is its store
                     h.eq(f.default, nil, f.key)
                 else
                     h.truthy(Features.Valid(f, f.default), f.key)
@@ -163,7 +181,7 @@ return function(h, loaded)
                 counts[#counts + 1] = #s.features
             end
             h.eq(table.concat(names, " "), "Quests Vendors Loot Social Camera Cinematics Map XP")
-            h.eq(table.concat(counts, " "), "8 3 1 6 1 1 5 7")
+            h.eq(table.concat(counts, " "), "9 3 3 6 1 1 5 7")
         end)
         h.it("a section carries its note; the others have none", function()
             local sections = Features.Sections()

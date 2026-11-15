@@ -30,6 +30,13 @@ functions, which is why `/console` has nothing for them and players paste `/run`
 - `ConsoleGetAllCommands()` gave an addon 1878 entries, so the full list can be dumped.
 - Still unseen: whether an addon's write to any of these takes, and what each does here.
 
+## Built (2026-11-15, unseen in game)
+
+- Quest diamond on screen (`showInGameNavigation`), on the Quests tab.
+- New items fill bags left to right and Sort bags right to left, on the Loot tab. A feature
+  with `bag = "insert"` or `"sort"` is stored by the game through `API.BagDirection` /
+  `API.SetBagDirection`, as one with `cvar` is stored by its CVar.
+
 ## What it costs
 
 - A **check** on a CVar is one row in `Features.LIST` with `cvar = "..."` (as Guild login alerts).

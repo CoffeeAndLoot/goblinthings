@@ -301,10 +301,23 @@ function API.GetCVarDefault(name)
     return call("GetCVarDefault", C_CVar and C_CVar.GetCVarDefault, name)
 end
 
--- ContainerDocumentation.lua: sort right to left, new items left to right; nil is no answer.
-function API.BagDirections()
-    return call("GetSortBagsRightToLeft", C_Container and C_Container.GetSortBagsRightToLeft),
-        call("GetInsertItemsLeftToRight", C_Container and C_Container.GetInsertItemsLeftToRight)
+-- ContainerDocumentation.lua: "sort" is sort right to left, "insert" is new items left to right.
+local BAG = {
+    sort = { get = "GetSortBagsRightToLeft", set = "SetSortBagsRightToLeft" },
+    insert = { get = "GetInsertItemsLeftToRight", set = "SetInsertItemsLeftToRight" },
+}
+
+-- true or false; nil is no answer.
+function API.BagDirection(which)
+    local names = BAG[which]
+    return names and call(names.get, C_Container and C_Container[names.get])
+end
+
+function API.SetBagDirection(which, on)
+    local names = BAG[which]
+    if names then
+        call(names.set, C_Container and C_Container[names.set], on == true)
+    end
 end
 
 -- ConsoleDocumentation.lua:59: how many commands and CVars the game lists for an addon, or nil.
