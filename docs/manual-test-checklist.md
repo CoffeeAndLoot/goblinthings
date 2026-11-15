@@ -397,6 +397,9 @@ Wowhead's Forever figures, from each leather's skinned-from list. Verified in so
       (its twelve lines were all kills).
 - [ ] The count (a `/reload` is enough): with the switch on, the number appears after your first
       kill and drops by about one a kill on like mobs.
+      Seen so far (2026-11-14, the owner's screenshot, hunting Plains Buzzards): a ghosted `59` in
+      the top left, no frame or label, the world plain to see through and around it. Not yet
+      confirmed: that it drops by about one a kill.
 - [ ] Turn in a quest and discover an area: the number drops and `/gt probe`'s "kill sample(s)"
       count does not rise. Send Claude those two "XP line" msg lines (never yet seen).
 - [ ] An unnamed gain ("You gain N experience.", seen once in a party) lowers the number and adds
