@@ -371,6 +371,9 @@ Wowhead's Forever figures, from each leather's skinned-from list. Verified in so
 - [x] Kalimdor, hovering the Barrens: the Skins line shows, no icon.
       Seen 2026-11-14 on Eastern Kingdoms, hovering Riverglades: "Skins: Heavy, Thick", no icon.
 - [ ] Untick "Skins on the map": the line goes. Moonglade and Deadwind Pass have no Skins line.
+- [ ] The readout was lifted 16 px and moved 8 px in (2026-11-14, after the bottom line sat against
+      the map frame's corner ornament): six lines now stand clear of the corner on a zone's own map
+      and on a continent. Still too low, or now too high? Tell Claude the feel.
 - [ ] As a skinner: in a zone you work, is anything missing or wrong? A beast that roams several
       zones counts only for the first zone Wowhead lists it in, so a list can miss a type its
       neighbour claims; tell Claude which.
