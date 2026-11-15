@@ -103,6 +103,9 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
    icon only when the readout describes the map that is open (on a continent the cursor would cross
    other zones on its way to the corner). The icons are the readout's only mouse-live frames; their
    pictures come from `API.ProfessionIcon` (a spell's texture), a letter when the game gives none.
+   Skins come from `tools/gathering/wowhead-forever-skins.json` (each leather's skinned-from list,
+   `wowhead.com/forever/item=<id>`); the Skins line names the leather grades worth a tenth of the
+   zone's skins.
 7. Kills to level: `Kills` (pure) keeps the last ten kills' XP and divides the XP still needed by
    their average; `KillsReadout` draws the one ghosted number `Core`'s `drawKills` hands it, on
    `UIParent` at strata BACKGROUND with the mouse off. A kill is a `CHAT_MSG_COMBAT_XP_GAIN` line

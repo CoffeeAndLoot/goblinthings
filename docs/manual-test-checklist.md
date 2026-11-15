@@ -314,6 +314,26 @@ what the section above says of the Map tab's rows and note, and Badlands now has
       the lists? Tell Claude what is missing or should not be there (the Barrens lists Grave Moss; a
       rare node reads the same as a common one).
 
+### Skins (2026-11-14)
+
+Wowhead's Forever figures, from each leather's skinned-from list. Verified in source only.
+
+- [ ] `/reload` is enough if MapData.lua was already loaded by a restart since 2026-11-14; else a
+      **full client restart**. The Map tab shows five checks, the new one "Skins on the map", ticked.
+- [ ] The Barrens' own map: a sixth line, "Skins: Ruined, Light, Medium", ending in an icon; all six
+      lines fit above the corner and clear the map's controls.
+- [ ] The icon is the game's Skinning icon (else the letter S); `/gt probe` lists "skins yes".
+- [ ] Hover it: "Skinning", then Light Leather 62%, Ruined Leather Scraps 21%, Medium Leather 11%,
+      Light Hide 5%, Deviate Scale <1%, Perfect Deviate Scale <1%.
+- [ ] Un'Goro Crater: "Skins: Thick, Rugged", and the list has Devilsaur Leather 4%. Winterspring:
+      Warbear Leather and Frostsaber Leather in the list. Redridge: Black Whelp Scale. Silithus: a
+      bare "Skins" line (Silithid Chitin 99%).
+- [ ] Kalimdor, hovering the Barrens: the Skins line shows, no icon.
+- [ ] Untick "Skins on the map": the line goes. Moonglade and Deadwind Pass have no Skins line.
+- [ ] As a skinner: in a zone you work, is anything missing or wrong? A beast that roams several
+      zones counts only for the first zone Wowhead lists it in, so a list can miss a type its
+      neighbour claims; tell Claude which.
+
 ## Kills to level
 
 - [ ] With a count showing, untick Kills to level and tick it again: no number until the next kill, and `/gt probe` reads 0 kill sample(s) before it.

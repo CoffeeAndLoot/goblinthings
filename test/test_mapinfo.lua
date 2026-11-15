@@ -63,12 +63,14 @@ return function(h, loaded)
 
     -- The gathering lines against a small stand-in for the generated data.
     local ns = loaded.ns
-    local ALL = { herbs = true, ore = true, fish = true }
+    local ALL = { herbs = true, ore = true, fish = true, skins = true }
     local FAKE = {
         HERBS = { [BARRENS] = { { "Peacebloom", 1 }, { "Kingsblood", 125 } }, [BADLANDS] = { { "Firebloom", 205 } },
             [SHENDRALAS] = { { "Icecap", 290 } } },
         ORE = { [BARRENS] = { { "Copper Vein", 1 }, { "Silver Vein", 75 } } },
         FISH = { [BARRENS] = { { "Oily Blackmouth", 41 }, { "Stranglekelp", 6 } } },
+        SKINS = { [BARRENS] = { { "Light Leather", 62 }, { "Ruined Leather Scraps", 21 }, { "Medium Leather", 11 },
+            { "Light Hide", 5 }, { "Deviate Scale", 0 } }, [ZEPHRAS] = { { "Silithid Chitin", 100 } } },
         CLASSIC_NODES = { [BADLANDS] = true },
         CLASSIC_FISH = {},
     }
@@ -94,8 +96,9 @@ return function(h, loaded)
             with(FAKE, function()
                 local lines = MapInfo.Lines(BARRENS, "The Barrens", ALL)
                 h.eq(joined(lines),
-                    "The Barrens / Levels 10-25 / Fishing 1 (no getaways at 75) / Herbs 1-125 / Ore 1-75")
-                h.eq(kinds(lines), "- - fish herbs ore")
+                    "The Barrens / Levels 10-25 / Fishing 1 (no getaways at 75) / Herbs 1-125 / Ore 1-75"
+                    .. " / Skins: Ruined, Light, Medium")
+                h.eq(kinds(lines), "- - fish herbs ore skins")
             end)
         end)
         h.it("a switch off drops its line, or for fish only its mark", function()
@@ -110,6 +113,16 @@ return function(h, loaded)
                 local lines = MapInfo.Lines(BARRENS, "The Barrens")
                 h.eq(joined(lines), "The Barrens / Levels 10-25 / Fishing 1 (no getaways at 75)")
                 h.eq(kinds(lines), "- - -")
+            end)
+        end)
+        h.it("the Skins line names the grades worth a tenth of the skins, lowest first, or none", function()
+            with(FAKE, function()
+                local only = { skins = true }
+                h.eq(joined(MapInfo.Lines(BARRENS, nil, only)),
+                    "Levels 10-25 / Fishing 1 (no getaways at 75) / Skins: Ruined, Light, Medium")
+                h.eq(joined(MapInfo.Lines(ZEPHRAS, nil, only)), "Levels 1-12 / Skins")
+                h.eq(joined(MapInfo.Lines(BARRENS, nil, { skins = false })),
+                    "Levels 10-25 / Fishing 1 (no getaways at 75)")
             end)
         end)
         h.it("herbs but no ore is one line, and one skill reads as one number", function()
@@ -194,10 +207,16 @@ return function(h, loaded)
                 h.eq(MapInfo.List("fish", BARRENS).note, nil)
             end)
         end)
+        h.it("skins read name and share, a rare one as under one percent", function()
+            with(FAKE, function()
+                h.eq(flat(MapInfo.List("skins", BARRENS)), "Skinning / Light Leather=62% / Ruined Leather Scraps=21%"
+                    .. " / Medium Leather=11% / Light Hide=5% / Deviate Scale=<1% / no note")
+            end)
+        end)
         h.it("no such list, or no such kind, is nil", function()
             with(FAKE, function()
                 h.eq(MapInfo.List("ore", BADLANDS), nil)
-                h.eq(MapInfo.List("skins", BARRENS), nil)
+                h.eq(MapInfo.List("tailoring", BARRENS), nil)
                 h.eq(MapInfo.List(nil, BARRENS), nil)
             end)
         end)

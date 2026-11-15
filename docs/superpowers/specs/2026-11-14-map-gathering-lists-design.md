@@ -202,6 +202,34 @@ said above changes as follows.
   skill only, no nodes; its fishing skills agree with `MapInfo.FISHING` on the 19 zones compared.
   GatherMate2's Classic data states no licence. ItemTree_Data is All Rights Reserved.
 
+## Amendment, 2026-11-14: skins
+
+The owner, a skinner: "i am interested in the types of skin i find in each zone, light, medium,
+heavy, rugged, the different types oh hides, devilsaur leather, etc." "No skins" above is overturned:
+Wowhead's zone pages have no skinning list, but each leather's **item** page has a "skinned from"
+list of creatures with their zones and how often each was skinned. That is data, not an estimate.
+
+- **What shows**: a sixth line, "Skins: Light, Medium", naming the leather grades (Ruined, Light,
+  Medium, Heavy, Thick, Rugged, lowest first) that are a tenth or more of the zone's skins; a bare
+  "Skins" when none is (Silithus is all chitin). On the zone's own map it ends in an icon whose list,
+  "Skinning", reads every type and its share of the zone's skins, most common first; a rare one
+  reads "<1%". A fourth switch, "Skins on the map" (`mapSkins`), on by default.
+- **Source**: `tools/gathering/wowhead-forever-skins.json`. The item list is Wowhead's own
+  (`/forever/items/trade-goods/leather`, the items it marks as skinned), not memory: 32 read. Per
+  item, per zone: creatures, skins, lowest and highest creature level.
+- **Rules** (Claude's calls): a creature counts for the first zone Wowhead lists it in (it gives up
+  to three and one total, so counting all would hand Silverpine Hillsbrad's turtles). A zone's row
+  whose lowest creature is level 63 or more is a raid boss and is dropped (Duskwood's Dreamscale).
+  The eleven everyday leathers and hides need 2% of the zone's skins to be listed; anything else
+  (Devilsaur Leather, a scale, a special hide) is listed however rare, from five skins up. Ten rows
+  at most. A zone with under 100 skins recorded gets no list.
+- **Levels and skill are not shown.** Wowhead gives creature levels, not the skill to skin them, and
+  the level spans are thrown wide by rares and bosses. The owner asked for types.
+- **Not read** (Wowhead's check came up): Light and Heavy Silithid Carapace, Irradiated Leather
+  Scraps, Pristine Leather, Pristine Hide, Pristine Scale. The script prints them every run.
+- **The icon**: `API.ProfessionIcon("skins")` asks for spell 8613's texture (from memory, like the
+  other three); the letter is S.
+
 ## Not doing
 
 Skins. Colouring a row by the player's own skill. Node positions or map pins. Icons on the continent

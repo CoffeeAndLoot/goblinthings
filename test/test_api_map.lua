@@ -71,11 +71,13 @@ return function(h)
             local API = fresh(nil)
             h.eq(API.ProfessionIcon("herbs"), 136065)
             h.eq(API.ProfessionIcon("ore"), nil)
+            C_Spell = { GetSpellTexture = function(spell) return spell == 8613 and "skin" or nil end }
+            h.eq(API.ProfessionIcon("skins"), "skin")
         end)
         h.it("is nil for a kind it has no spell for, and when the game cannot say", function()
             C_Spell = { GetSpellTexture = function() error("no") end }
             local API = fresh(nil)
-            h.eq(API.ProfessionIcon("skins"), nil)
+            h.eq(API.ProfessionIcon("tailoring"), nil)
             h.eq(API.ProfessionIcon("fish"), nil)
             C_Spell = { GetSpellTexture = function() return true end }
             h.eq(API.ProfessionIcon("fish"), nil)

@@ -546,7 +546,7 @@ function commands.probe()
     say("Probe: map readout " .. (MapReadout.Built() and "built" or "NOT built (no world map)")
         .. "; map hover " .. hover .. ".")
     local given = {}
-    for _, kind in ipairs({ "herbs", "ore", "fish" }) do
+    for _, kind in ipairs({ "herbs", "ore", "fish", "skins" }) do
         given[#given + 1] = kind .. " " .. (API.ProfessionIcon(kind) and "yes" or "NO (a letter is drawn)")
     end
     say("Probe: profession icons from the game: " .. table.concat(given, ", ") .. ".")

@@ -1,11 +1,11 @@
 local _, ns = ...
 
 -- The world map's corner readout (specs 2026-11-10-map-zone-readout-design.md
--- and 2026-11-14-map-gathering-lists-design.md): up to five right-justified
+-- and 2026-11-14-map-gathering-lists-design.md): up to six right-justified
 -- lines in the map's own lettering at the bottom right of the map, drawing
 -- what MapInfo picks and decides nothing. Built on the map's canvas container
 -- at strata HIGH, as Blizzard's area label is, with the mouse off so the
--- canvas keeps its hover. A line with a list (fish, herbs, ore) ends in a
+-- canvas keeps its hover. A line with a list (fish, herbs, ore, skins) ends in a
 -- small icon on a zone's own map; only those icons take the mouse, and
 -- hovering one opens the list. Its OnUpdate only runs while the map is shown.
 local MapReadout = {}
@@ -16,7 +16,7 @@ MapReadout.LAYOUT = {
     BOTTOM = 10,
     WIDTH = 300,
     GAP = 2,       -- between lines
-    SIZES = { 16, 13, 13, 13, 13 },  -- the name, then each line under it
+    SIZES = { 16, 13, 13, 13, 13, 13 },  -- the name, then each line under it
     ICON = 14,     -- a list's icon at the end of its line
     ICON_GAP = 4,  -- between a line's words and its icon
     LIST_GAP = 6,  -- between the top line and the list above it
@@ -26,8 +26,8 @@ MapReadout.LAYOUT = {
 }
 local L = MapReadout.LAYOUT
 
-MapReadout.LETTER = { fish = "F", herbs = "H", ore = "O" }
-local SWITCH = { herbs = "mapHerbs", ore = "mapOre", fish = "mapFish" }
+MapReadout.LETTER = { fish = "F", herbs = "H", ore = "O", skins = "S" }
+local SWITCH = { herbs = "mapHerbs", ore = "mapOre", fish = "mapFish", skins = "mapSkins" }
 
 local frame, lines, icons, list, shownKey, shownID, topLine
 local textures = {}  -- kind -> the game's icon, once it has given one
@@ -182,7 +182,7 @@ local function update(core, map)
     local withIcons = id ~= nil and id == shown
     if id then
         key = table.concat({ id, withIcons and 1 or 0, show.herbs and 1 or 0, show.ore and 1 or 0,
-            show.fish and 1 or 0 }, " ")
+            show.fish and 1 or 0, show.skins and 1 or 0 }, " ")
     end
     if key == shownKey then
         return

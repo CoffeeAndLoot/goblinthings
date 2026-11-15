@@ -57,6 +57,7 @@ Features.LIST = {
     { key = "mapHerbs", label = "Herbs on the map", section = "Map", control = "check", default = true },
     { key = "mapOre", label = "Ore on the map", section = "Map", control = "check", default = true },
     { key = "mapFish", label = "Fish list on the map", section = "Map", control = "check", default = true },
+    { key = "mapSkins", label = "Skins on the map", section = "Map", control = "check", default = true },
     -- Kills left to level, ghosted in a screen corner (spec 2026-11-11-kills-to-level-design.md).
     { key = "killsLeft", label = "Kills to level", section = "XP", control = "check", default = false },
     { key = "killsCorner", label = "Corner", section = "XP", control = "choice", default = "topLeft",

@@ -86,8 +86,14 @@ MapInfo.FISHING = {
 
 -- What is gathered in a zone (spec 2026-11-14-map-gathering-lists-design.md):
 -- MapData's generated lists, read here and never at file load.
-local TABLE = { herbs = "HERBS", ore = "ORE", fish = "FISH" }
-local TITLE = { herbs = "Herbalism", ore = "Mining", fish = "Fishing" }
+local TABLE = { herbs = "HERBS", ore = "ORE", fish = "FISH", skins = "SKINS" }
+local TITLE = { herbs = "Herbalism", ore = "Mining", fish = "Fishing", skins = "Skinning" }
+-- The leather grades the Skins line names, lowest first, when one is a tenth
+-- or more of the zone's skins.
+local GRADES = { { "Ruined Leather Scraps", "Ruined" }, { "Light Leather", "Light" },
+    { "Medium Leather", "Medium" }, { "Heavy Leather", "Heavy" }, { "Thick Leather", "Thick" },
+    { "Rugged Leather", "Rugged" } }
+local GRADE_SHARE = 10
 local SPAN = { herbs = "Herbs", ore = "Ore" }
 -- Under a list that came from Classic Era's pages, Forever's having none yet.
 MapInfo.CLASSIC_NOTE = "Classic figures, not checked on Forever"
@@ -111,7 +117,7 @@ local function rows(kind, mapID)
     return list
 end
 
-local KINDS = { "fish", "herbs", "ore" }
+local KINDS = { "fish", "herbs", "ore", "skins" }
 
 -- Whether the corner has a line for this map: a level range, a fishing skill,
 -- or a list whose switch is on (Shen'dralas has only lists).
@@ -142,15 +148,31 @@ function MapInfo.Pick(shown, hovered, show)
     return nil
 end
 
+-- "Skins: Light, Medium": the grades worth naming, or a bare "Skins" when the
+-- zone gives only oddities (Silithus' chitin).
+local function skinsText(list)
+    local share = {}
+    for i = 1, #list do
+        share[list[i][1]] = list[i][2]
+    end
+    local names = {}
+    for _, grade in ipairs(GRADES) do
+        if (share[grade[1]] or 0) >= GRADE_SHARE then
+            names[#names + 1] = grade[2]
+        end
+    end
+    return #names > 0 and ("Skins: " .. table.concat(names, ", ")) or "Skins"
+end
+
 local function span(low, high)
     return low == high and tostring(low) or (low .. "-" .. high)
 end
 
 -- The corner's lines, top first, each { text = , kind = }: the name (when the
--- game gave one), the levels, the fishing, the herbs and the ore, each left
--- out when unknown; nil for a map with no data. show = { herbs =, ore =,
--- fish = } are the three switches (nil: all off). kind ("fish", "herbs",
--- "ore") marks a line with a list to open; the fishing line has one only
+-- game gave one), the levels, the fishing, the herbs, the ore and the skins,
+-- each left out when unknown; nil for a map with no data. show = { herbs =,
+-- ore =, fish =, skins = } are the four switches (nil: all off). kind ("fish",
+-- "herbs", "ore", "skins") marks a line with a list to open; the fishing line has one only
 -- with show.fish on and a fish list for the zone. A zone with a fish list
 -- and no known skill (Riverglades, Zephras Isle) gets a bare "Fishing" line.
 function MapInfo.Lines(mapID, name, show)
@@ -184,12 +206,17 @@ function MapInfo.Lines(mapID, name, show)
             lines[#lines + 1] = { text = SPAN[kind] .. " " .. span(low, high), kind = kind }
         end
     end
+    local skins = show.skins == true and rows("skins", mapID)
+    if skins then
+        lines[#lines + 1] = { text = skinsText(skins), kind = "skins" }
+    end
     return lines
 end
 
 -- What a line's list prints: { title =, rows = { { left, right } ... }, note = },
 -- or nil when the zone has no such list. Herbs and ore read name and skill,
--- fish name and share of the catch; the note marks a list from Classic's data.
+-- fish and skins name and share of the zone's catch or skins ("<1%" for a
+-- rare one); the note marks a list from Classic's data.
 function MapInfo.List(kind, mapID)
     local list = rows(kind, mapID)
     if not list then
@@ -199,7 +226,12 @@ function MapInfo.List(kind, mapID)
     local out = { title = TITLE[kind], rows = {},
         note = (type(classic) == "table" and classic[mapID] == true) and MapInfo.CLASSIC_NOTE or nil }
     for i = 1, #list do
-        out.rows[i] = { list[i][1], kind == "fish" and (list[i][2] .. "%") or tostring(list[i][2]) }
+        local n = list[i][2]
+        local right = tostring(n)
+        if kind == "fish" or kind == "skins" then
+            right = n < 1 and "<1%" or (n .. "%")
+        end
+        out.rows[i] = { list[i][1], right }
     end
     return out
 end

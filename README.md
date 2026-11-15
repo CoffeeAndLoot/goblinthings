@@ -29,6 +29,7 @@ and forget them.
 | Map | Herbs on the map | Adds the zone's herbalism skill range to that readout; on the zone's own map, hover the line's icon to list each herb and the skill it needs | On |
 | Map | Ore on the map | The same for mining: the skill range, and each vein with its skill | On |
 | Map | Fish list on the map | On the zone's own map, an icon on the fishing line lists what is caught there and how often | On |
+| Map | Skins on the map | Adds the leather grades the zone's beasts give to that readout ("Skins: Light, Medium"); on the zone's own map, hover the line's icon to list every leather, hide and scale skinned there and how common each is | On |
 | XP | Kills to level | A faint number in a screen corner: how many more kills like your last ten it takes to level. Pick the corner, offsets, faintness, size and font | Off |
 
 Hold **Shift** while talking to an NPC, a vendor or a trainer to skip everything that visit. Hold it on a

@@ -14,7 +14,7 @@ return function(h, loaded)
 
     h.describe("MapData", function()
         h.it("every list is rows of a name and a number, keyed by a map ID", function()
-            for _, key in ipairs({ "HERBS", "ORE", "FISH" }) do
+            for _, key in ipairs({ "HERBS", "ORE", "FISH", "SKINS" }) do
                 for id, list in pairs(MapData[key]) do
                     h.truthy(type(id) == "number" and id > 1400, key .. " " .. tostring(id))
                     h.truthy(#list > 0, key .. " " .. id)
@@ -47,6 +47,21 @@ return function(h, loaded)
                     h.truthy(i == 1 or list[i - 1][2] >= row[2], id)
                 end
             end
+        end)
+        h.it("skins run most common first, ten at most, and the special ones are in however rare", function()
+            for id, list in pairs(MapData.SKINS) do
+                h.truthy(#list <= 10, id)
+                for i, row in ipairs(list) do
+                    h.truthy(row[2] >= 0 and row[2] <= 100, id)
+                    h.truthy(i == 1 or list[i - 1][2] >= row[2], id)
+                end
+            end
+            h.eq(MapData.SKINS[BARRENS][1][1], "Light Leather")
+            h.truthy(names(MapData.SKINS[BARRENS]):find("Deviate Scale"))
+            h.truthy(names(MapData.SKINS[1449]):find("Devilsaur Leather"))   -- Un'Goro Crater
+            h.truthy(names(MapData.SKINS[1452]):find("Frostsaber Leather"))  -- Winterspring
+            h.truthy(names(MapData.SKINS[1433]):find("Black Whelp Scale"))   -- Redridge Mountains
+            h.eq(names(MapData.SKINS[1431]):find("Dreamscale"), nil)         -- Duskwood's raid dragon
         end)
         h.it("the Barrens reads as its Wowhead Forever page did on 2026-11-14", function()
             h.eq(names(MapData.HERBS[BARRENS]), "Peacebloom, Silverleaf, Earthroot, Mageroyal, Briarthorn, "

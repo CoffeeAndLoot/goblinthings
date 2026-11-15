@@ -639,7 +639,7 @@ end
 -- The Apprentice spell of each gathering profession (Classic IDs, from memory:
 -- Wowhead asked for human verification before its spell pages could be
 -- checked, so the in-game checklist has the owner look at each icon).
-local PROFESSION_SPELL = { herbs = 2366, ore = 2575, fish = 7620 }
+local PROFESSION_SPELL = { herbs = 2366, ore = 2575, fish = 7620, skins = 8613 }
 
 -- The game's icon for a gathering profession (C_Spell.GetSpellTexture,
 -- SpellDocumentation.lua: nothing for a spell it does not know), or nil.

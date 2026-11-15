@@ -17,6 +17,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 FOREVER = ROOT / "tools" / "gathering" / "wowhead-forever.json"
 CLASSIC = ROOT / "tools" / "gathering" / "wowhead-classic.json"
+SKINS = ROOT / "tools" / "gathering" / "wowhead-forever-skins.json"
 OUT = ROOT / "GoblinThings" / "MapData.lua"
 
 # UiMap ID -> (Wowhead area ID, the zone's name as the page titles it): every
@@ -85,7 +86,21 @@ FISH_CLASSES = {"7.8", "7.9", "7.11", "15.1", "0.5"}
 FISH_SHARE = 3    # percent of the zone's whole catch
 FISH_ROWS = 8
 FISH_CASTS = 100  # fewer catches than this is too few to trust
-FLOORS = {"HERBS": 25, "ORE": 25, "FISH": 20}  # zones that must yield a list
+FLOORS = {"HERBS": 25, "ORE": 25, "FISH": 20, "SKINS": 25}  # zones that must yield a list
+
+# Skins come the other way round: each leather's page lists the creatures it
+# is skinned from, and a creature counts for the first zone Wowhead lists it
+# in. The everyday leathers and hides need a share of the zone's skins to be
+# listed; anything else (Devilsaur Leather, a scale) is listed however rare.
+COMMON_SKINS = {
+    "Ruined Leather Scraps", "Light Leather", "Light Hide", "Medium Leather", "Medium Hide",
+    "Heavy Leather", "Heavy Hide", "Thick Leather", "Thick Hide", "Rugged Leather", "Rugged Hide",
+}
+SKIN_SHARE = 2    # percent of the zone's skins, for a common one
+SKIN_COUNT = 5    # fewer skins than this is a stray
+SKIN_ROWS = 10
+SKIN_TOTAL = 100  # fewer skins in the zone than this is too few to trust
+BOSS_LEVEL = 63   # a zone's row whose lowest creature is this level or more is a raid boss
 
 
 def fail(message):
@@ -117,6 +132,27 @@ def catches(page):
     return kept[:FISH_ROWS]
 
 
+def skins(source):
+    """{ UiMap ID: [(name, percent of the zone's skins)] }, most common first."""
+    map_of = {area: map_id for map_id, (area, _name) in ZONES.items()}
+    per = {}
+    for item in source["items"].values():
+        for area, (_creatures, count, low, _high) in item["zones"].items():
+            map_id = map_of.get(int(area))
+            if map_id is not None and low < BOSS_LEVEL:
+                per.setdefault(map_id, {})[item["name"]] = count
+    out = {}
+    for map_id, counts in per.items():
+        total = sum(counts.values())
+        if total < SKIN_TOTAL:
+            continue
+        kept = [(name, count) for name, count in counts.items()
+                if count >= SKIN_COUNT and (count * 100 >= SKIN_SHARE * total or name not in COMMON_SKINS)]
+        kept.sort(key=lambda row: (-row[1], row[0]))
+        out[map_id] = [(name, round(count * 100 / total)) for name, count in kept[:SKIN_ROWS]]
+    return out
+
+
 def page_of(source, area, name):
     page = source["zones"].get(str(area))
     if page is None:
@@ -146,7 +182,8 @@ def lua_set(name, ids):
 def main():
     forever = json.loads(FOREVER.read_text(encoding="utf-8"))
     classic = json.loads(CLASSIC.read_text(encoding="utf-8"))
-    lists = {"HERBS": {}, "ORE": {}, "FISH": {}}
+    skinned = json.loads(SKINS.read_text(encoding="utf-8"))
+    lists = {"HERBS": {}, "ORE": {}, "FISH": {}, "SKINS": skins(skinned)}
     classic_nodes, classic_fish = set(), set()
     for map_id, (area, name) in ZONES.items():
         if map_id in PENDING:
@@ -180,11 +217,13 @@ def main():
         "-- CLASSIC_NODES and CLASSIC_FISH, its Classic Era pages (read %s)." % classic["read"],
         "-- Never hand-edited: change a source or the script and run it again.",
         "-- HERBS and ORE: { name, skill } easiest first. FISH: { name, percent of the",
-        "-- zone's catch } most common first. Keyed by UiMap ID. Pure data.",
+        "-- zone's catch } most common first. SKINS: { name, percent of the zone's skins }",
+        "-- most common first, from each leather's skinned-from list (0: under half a",
+        "-- percent). Keyed by UiMap ID. Pure data.",
         "-- luacheck: no max line length",
         "local MapData = {",
     ]
-    for key in ("HERBS", "ORE", "FISH"):
+    for key in ("HERBS", "ORE", "FISH", "SKINS"):
         lines += lua_lists(key, lists[key])
     lines += lua_set("CLASSIC_NODES", classic_nodes)
     lines += lua_set("CLASSIC_FISH", classic_fish)
@@ -194,8 +233,11 @@ def main():
     def named(ids):
         return ", ".join(ZONES[i][1] for i in sorted(ids)) or "none"
 
-    print("wrote %s: %d zones with herbs, %d with ore, %d with fish"
-          % (OUT.relative_to(ROOT), len(lists["HERBS"]), len(lists["ORE"]), len(lists["FISH"])))
+    print("wrote %s: %d zones with herbs, %d with ore, %d with fish, %d with skins"
+          % (OUT.relative_to(ROOT), len(lists["HERBS"]), len(lists["ORE"]), len(lists["FISH"]),
+             len(lists["SKINS"])))
+    print("no skins list: " + named(set(ZONES) - set(lists["SKINS"])))
+    print("skin types not read yet: " + ", ".join(skinned.get("notRead", [])))
     print("herbs and ore from Classic's pages: " + named(classic_nodes))
     print("fish from Classic's pages: " + named(classic_fish))
     no_fish = set(ZONES) - PENDING - set(lists["FISH"])
