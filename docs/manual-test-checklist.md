@@ -317,8 +317,10 @@ what the section above says of the Map tab's rows and note, and Badlands now has
 - [ ] Felwood's own map: the Fishing list ends in the dim footnote "Classic figures, not checked on
       Forever" (too few catches recorded on Forever yet); its Herbalism and Mining lists have none.
       Winterspring and Silithus likewise.
-- [ ] Kalimdor, hovering the Barrens: the same five lines, **no icons**. Hovering across zones swaps
+- [x] Kalimdor, hovering the Barrens: the same five lines, **no icons**. Hovering across zones swaps
       the Herbs and Ore lines with the rest.
+      Seen 2026-11-14 (the owner's screenshot) on Eastern Kingdoms instead, hovering Riverglades: its
+      six lines and no icons.
 - [ ] Durotar's own map, hovering Orgrimmar: the city's lines, no icons; off the city: Durotar's
       lines with icons again.
 - [ ] Moonglade's own map: no Herbs or Ore lines, no gap, a Fishing icon. Teldrassil: "Ore 1" (Chunk
@@ -366,7 +368,8 @@ Wowhead's Forever figures, from each leather's skinned-from list. Verified in so
 - [ ] Un'Goro Crater: "Skins: Thick, Rugged", and the list has Devilsaur Leather 4%. Winterspring:
       Warbear Leather and Frostsaber Leather in the list. Redridge: Black Whelp Scale. Silithus: a
       bare "Skins" line (Silithid Chitin, then Light and Heavy Silithid Carapace).
-- [ ] Kalimdor, hovering the Barrens: the Skins line shows, no icon.
+- [x] Kalimdor, hovering the Barrens: the Skins line shows, no icon.
+      Seen 2026-11-14 on Eastern Kingdoms, hovering Riverglades: "Skins: Heavy, Thick", no icon.
 - [ ] Untick "Skins on the map": the line goes. Moonglade and Deadwind Pass have no Skins line.
 - [ ] As a skinner: in a zone you work, is anything missing or wrong? A beast that roams several
       zones counts only for the first zone Wowhead lists it in, so a list can miss a type its
@@ -405,11 +408,12 @@ Wowhead's Forever figures, from each leather's skinned-from list. Verified in so
       readable, the three "COMBATLOG_" format strings exist, and a kill reads "<mob> dies, you gain
       N experience." with N the whole gain. Not in that screenshot: a quest turn-in or a discovery
       (its twelve lines were all kills). (seen 2026-11-14, the owner's `/gt probe` and screenshots)
-- [ ] The count (a `/reload` is enough): with the switch on, the number appears after your first
+- [x] The count (a `/reload` is enough): with the switch on, the number appears after your first
       kill and drops by about one a kill on like mobs.
       Seen so far (2026-11-14, the owner's screenshot, hunting Plains Buzzards): a ghosted `59` in
       the top left, no frame or label, the world plain to see through and around it. Not yet
       confirmed: that it drops by about one a kill.
+      Seen 2026-11-14: the owner, "kill count works fine", with a second screenshot reading `29`.
 - [ ] Turn in a quest and discover an area: the number drops and `/gt probe`'s "kill sample(s)"
       count does not rise. Send Claude those two "XP line" msg lines (never yet seen).
 - [ ] An unnamed gain ("You gain N experience.", seen once in a party) lowers the number and adds
