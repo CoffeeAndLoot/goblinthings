@@ -15,7 +15,7 @@
     "CompleteQuest", "GetQuestReward",
     "C_Container", "C_Item", "CanMerchantRepair", "GetRepairAllCost", "GetMoney", "RepairAllItems",
     "C_CVar", "ConsoleGetAllCommands", "CancelDuel", "DeclineGuild",
-    "StopCinematic", "MovieFrame", "GetCurrentCinematicSummary", "UnitRace", "C_Map", "C_Spell",
+    "StopCinematic", "MovieFrame", "GetCurrentCinematicSummary", "UnitRace", "C_Map", "C_Spell", "C_Texture",
     "QuestObjectiveTracker", "QuestObjectiveTrackerMixin",
     "AcceptGroup", "IsGuildMember", "C_FriendList", "C_BattleNet", "WillAcceptInviteRemoveQueues", "StaticPopup_FindVisible", "StaticPopup_Hide", "C_SummonInfo", "Enum", "UnitAffectingCombat", "PlayerCanTeleport",
     "GetNumLootItems", "GetLootSlotInfo", "LootSlot", "UnitLevel",

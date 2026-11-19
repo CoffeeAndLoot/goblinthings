@@ -8,7 +8,7 @@ local _, ns = ...
 local API, Accept, Camera, Cinematics, Decline, Features, Hands, Loot, MapReadout, MinimapButton, Options, Trainer,
     TrackerSort, Vendor, Window = ns.API, ns.Accept, ns.Camera, ns.Cinematics, ns.Decline, ns.Features, ns.Hands,
     ns.Loot, ns.MapReadout, ns.MinimapButton, ns.Options, ns.Trainer, ns.TrackerSort, ns.Vendor, ns.Window
-local Kills, KillsReadout = ns.Kills, ns.KillsReadout
+local Kills, KillsReadout, MapEntrances = ns.Kills, ns.KillsReadout, ns.MapEntrances
 local Core = {}
 ns.Core = Core
 
@@ -25,7 +25,7 @@ local function guard(label, fn, ...)
     end
     return ok
 end
-Core.Guard = guard  -- for MapReadout's OnUpdate
+Core.Guard = guard  -- for MapReadout's and MapEntrances' OnUpdate
 
 -- Looked up lazily: SavedVariables load after this file runs, before any
 -- handler or command can ask. Checked and repaired once, then read as is.
@@ -606,6 +606,13 @@ function commands.probe()
         given[#given + 1] = kind .. " " .. (API.ProfessionIcon(kind) and "yes" or "NO (a letter is drawn)")
     end
     say("Probe: profession icons from the game: " .. table.concat(given, ", ") .. ".")
+    say("Probe: entrance icons from the game: dungeon "
+        .. (API.EntranceIcon("dungeon") and "yes" or "NO (a square is drawn)") .. ", raid "
+        .. (API.EntranceIcon("raid") and "yes" or "NO (a square is drawn)") .. "; entrance pins "
+        .. (MapEntrances.Built() and "built" or "NOT built (no world map)") .. ".")
+    local hereMap, hereX, hereY = API.PlayerPosition()
+    say(hereMap and ("Probe: you stand at %.1f, %.1f on map %d."):format(hereX, hereY, hereMap)
+        or "Probe: the game gives no position here.")
     say("Probe: kills readout " .. (KillsReadout.Built() and "built" or "not built yet") .. "; "
         .. #samples .. " kill sample(s).")
     if #xpLog == 0 then
@@ -645,15 +652,17 @@ API.OnEvents({ "PLAYER_LOGIN" }, function()
         end
         MinimapButton.Create(Core)
         MapReadout.Create(Core)
+        MapEntrances.Create(Core)
         applyTrackerSort()
     end)
 end)
 
 -- The world map loads at startup on this build; should it ever come later,
--- the readout is built when it does.
+-- the readout and the entrance pins are built when it does.
 API.OnEvents({ "ADDON_LOADED" }, function(_, name)
     if name == "Blizzard_WorldMap" then
         guard("Map", MapReadout.Create, Core)
+        guard("Map", MapEntrances.Create, Core)
     end
 end)
 

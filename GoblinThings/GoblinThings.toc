@@ -27,5 +27,6 @@ Options.lua
 Window.lua
 MinimapButton.lua
 MapReadout.lua
+MapEntrances.lua
 KillsReadout.lua
 Core.lua

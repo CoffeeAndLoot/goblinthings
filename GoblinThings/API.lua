@@ -633,11 +633,61 @@ function API.WorldMap()
     return map, canvas
 end
 
+-- The ID of the map the world map shows, or nil.
+function API.MapID(map)
+    local shown = call("map:GetMapID", map.GetMapID, map)
+    return type(shown) == "number" and shown or nil
+end
+
+-- The canvas the map's art and pins sit on, and its scale (it grows as the
+-- map zooms; 1 when the game gives none), or nil without a canvas
+-- (Blizzard_MapCanvas.lua: GetCanvas, GetCanvasScale).
+function API.MapCanvas(map)
+    local canvas = call("map:GetCanvas", map.GetCanvas, map)
+    if type(canvas) ~= "table" then
+        return nil
+    end
+    local scale = call("map:GetCanvasScale", map.GetCanvasScale, map)
+    return canvas, (type(scale) == "number" and scale > 0) and scale or 1
+end
+
+-- The game's own entrance swirl for a kind of door: an atlas name the client
+-- has just answered for, or nil (the pin then draws a coloured square). The
+-- addon's one use of Blizzard art; seen in game 2026-11-19: both answer.
+local ENTRANCE_ATLAS = { dungeon = "Dungeon", raid = "Raid" }
+
+function API.EntranceIcon(kind)
+    local atlas = ENTRANCE_ATLAS[kind]
+    if not atlas then
+        return nil
+    end
+    local info = call("GetAtlasInfo", C_Texture and C_Texture.GetAtlasInfo, atlas)
+    return type(info) == "table" and atlas or nil
+end
+
+-- The player's map and spot on it in map percent, or nil where the game
+-- gives none (an instance).
+function API.PlayerPosition()
+    local mapID = API.PlayerMap()
+    if not mapID then
+        return nil
+    end
+    local position = call("GetPlayerMapPosition", C_Map and C_Map.GetPlayerMapPosition, mapID, "player")
+    if type(position) ~= "table" then
+        return nil
+    end
+    local x, y = call("position:GetXY", position.GetXY, position)
+    if type(x) ~= "number" or type(y) ~= "number" then
+        return nil
+    end
+    return mapID, x * 100, y * 100
+end
+
 -- The shown map's ID and the one under the cursor (nil off the canvas, or
 -- when the game names none there); nil, nil when the map gives no ID.
 function API.MapUnderCursor(map)
-    local shown = call("map:GetMapID", map.GetMapID, map)
-    if type(shown) ~= "number" then
+    local shown = API.MapID(map)
+    if not shown then
         return nil, nil
     end
     if not call("map:IsCanvasMouseFocusOrPinFocus", map.IsCanvasMouseFocusOrPinFocus, map) then

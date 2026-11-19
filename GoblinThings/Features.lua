@@ -87,6 +87,9 @@ Features.LIST = {
     { key = "mapOre", label = "Ore on the map", section = "Map", control = "check", default = true },
     { key = "mapFish", label = "Fish list on the map", section = "Map", control = "check", default = true },
     { key = "mapSkins", label = "Skins on the map", section = "Map", control = "check", default = true },
+    -- A swirl at each dungeon and raid door (spec 2026-11-19-map-entrance-pins-design.md).
+    { key = "mapEntrances", label = "Dungeon and raid entrances on the map", section = "Map", control = "check",
+        default = true },
     { key = "mapFade", label = "World map fades while moving", section = "Map", control = "check",
         cvar = "mapFade" },
     { key = "trackAll", label = "Every tracking type on the minimap", section = "Map", control = "check",

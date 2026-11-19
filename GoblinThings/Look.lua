@@ -28,6 +28,8 @@ Look.COLOUR = {
     gold = hex(0xF0, 0xD1, 0x40),      -- titles, headers, what is chosen
     glow = hex(0xF5, 0xE6, 0x99),      -- the lit top edge of the open tab
     red = hex(0x6E, 0x0C, 0x04),       -- the close button
+    dungeon = hex(0x3F, 0x8F, 0xE0),   -- a dungeon door's square, when the game gives no swirl
+    raid = hex(0x3F, 0xB0, 0x4F),      -- a raid door's
     ghost = hex(0xFF, 0xFF, 0xFF),     -- the kills-to-level number; its faintness is alpha (KillsReadout.lua)
 }
 

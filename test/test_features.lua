@@ -12,7 +12,7 @@ return function(h, loaded)
                 .. "bagsFillLeft bagsSortRight compareItems "
                 .. "declineDuels declineGuild acceptGuild acceptFriends acceptSummons guildAlerts "
                 .. "stopAttack assistAttack autoStand autoDismount autoUnshift targetCastbar spellsToBar "
-                .. "cameraDistance cinematics mapInfo mapHerbs mapOre mapFish mapSkins mapFade trackAll "
+                .. "cameraDistance cinematics mapInfo mapHerbs mapOre mapFish mapSkins mapEntrances mapFade trackAll "
                 .. "killsLeft killsCorner killsX killsY killsAlpha killsSize killsFont")
         end)
         h.it("Kills to level is off by default, top left, 30% and Friz", function()
@@ -201,7 +201,7 @@ return function(h, loaded)
                 counts[#counts + 1] = #s.features
             end
             h.eq(table.concat(names, " "), "Quests Vendors Loot Social Combat Camera Cinematics Map XP")
-            h.eq(table.concat(counts, " "), "9 3 4 6 7 1 1 7 7")
+            h.eq(table.concat(counts, " "), "9 3 4 6 7 1 1 8 7")
         end)
         h.it("a section carries its note; the others have none", function()
             local sections = Features.Sections()
