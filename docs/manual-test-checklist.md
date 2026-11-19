@@ -567,7 +567,7 @@ Spec `docs/superpowers/specs/2026-11-19-map-entrance-pins-design.md`. Verified i
 - [x] `C_Texture.GetAtlasInfo` answers for "Dungeon" and "Raid".
       (seen 2026-11-19, the owner's `/run` line: "true true")
 - [ ] **Full client restart** first (MapPins.lua and MapEntrances.lua are new in the TOC). No Lua
-      error on login; the Map tab shows a sixth check, "Dungeon and raid entrances on the map",
+      error on login; the Map tab shows eight checks, the sixth the new "Dungeon and raid entrances on the map",
       ticked, and the window still fits its rows.
 - [ ] The Barrens' own map: a blue swirl at Wailing Caverns (45.5, 35.5), Razorfen Kraul
       (42.6, 88.5) and Razorfen Downs (50.0, 92.0), each on its door. Say if one is a square, not a
