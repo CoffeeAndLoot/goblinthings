@@ -20,6 +20,7 @@ Loot.lua
 TrackerSort.lua
 MapData.lua
 MapInfo.lua
+MapPins.lua
 Kills.lua
 Look.lua
 Options.lua
