@@ -11,8 +11,8 @@ local MapEntrances = {}
 ns.MapEntrances = MapEntrances
 
 MapEntrances.LAYOUT = {
-    PIN = 22,        -- a swirl, in the map's own units whatever its zoom
-    SQUARE = 12,     -- the coloured square drawn without a swirl
+    PIN = 32,        -- a swirl, in the map's own units whatever its zoom (22 read small, the owner 2026-11-19)
+    SQUARE = 16,     -- the coloured square drawn without a swirl
     CARD_GAP = 2,    -- between a pin and its card
     CARD_PAD = 8,
     CARD_ROW = 15,

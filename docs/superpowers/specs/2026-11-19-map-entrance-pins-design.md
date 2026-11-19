@@ -112,3 +112,22 @@ In game, added to `docs/manual-test-checklist.md`: a blue swirl at each of the B
 hover names and levels; one merged pin at Blackrock Mountain listing three; no swirl on Kalimdor's
 map; the switch off removes them; right-click over a pin still zooms out; the probe's position line.
 The README's table gains the switch's row; the Wago description is edited by hand at release.
+
+## Amendment, 2026-11-19 (the owner, after the first look in game)
+
+"You've come up really short": Krol'dok Stronghold and the other new dungeons had no swirl, and
+the swirls read small. This overturns "No pin until the owner reads out the spot" above.
+
+- **A spot from another site's Forever guide counts as a source.** Wowhead's guide leaves the new
+  dungeons blank; Warcraft Tavern, wow.gg, Mobalytics and others give them. Eight went in, each
+  marked in `MapPins.ENTRANCES` with how well the sites agree, each on the checklist to be seen
+  on its door. Ruins of Lordaeron is on two maps (Undercity's and Tirisfal's): the sites'
+  "Tirisfal 71.6, 11.4" is plainly Undercity's map, and one site gives Tirisfal's own 61.9, 64.7.
+- **Still out:** Excavation Site (two spots, and the sites disagree which is the door); Barrow
+  Deeps and Hyjal Summit (Blizzard's raid overview gives no spot); Onyxia's Lair (only Classic and
+  Wrath figures, which disagree).
+- **Zul'Gurub and the other Classic raids** (Molten Core, Blackwing Lair, both Ahn'Qiraj,
+  Naxxramas) are in Wowhead's Forever database but Blizzard has announced none of them for
+  Forever (its raid overview names three; "other vanilla raids will return" is all it says), and
+  no spot was found in a source. Not pinned; the owner's call.
+- **Pin size 22 to 32.**

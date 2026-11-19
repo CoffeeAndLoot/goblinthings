@@ -9,33 +9,43 @@ local MapPins = {}
 ns.MapPins = MapPins
 
 -- { map, x, y, kind, name, low, high }: x and y in map percent, as Wowhead's
--- /way gives them on the door's own zone or city map. From Wowhead's Forever
--- dungeon guide (updated 2026-11-15). A door goes in only once its spot is
--- known: never a guessed one. Still to come, each read off the door by the
--- owner (/gt probe prints the spot): Ruins of Lordaeron, Excavation Site, City
--- of Dalaran, The Drowned City, Krol'dok Stronghold, Alcaz Prison, Blackmaw
--- Hold, Shaper's Terrace, and the raids Barrow Deeps, Hyjal Summit and
--- Onyxia's Lair (2026-12-09).
+-- /way gives them on the door's own zone or city map. A door goes in only
+-- once a source for Forever gives its spot: never a guessed one. The Classic
+-- dungeons are from Wowhead's Forever dungeon guide (updated 2026-11-15); the
+-- new ones, which that guide leaves blank, from other sites' Forever guides
+-- (read 2026-11-19; "others'" below), none yet seen on its door by the owner.
+-- Still to come, each read off the door (/gt probe prints the spot):
+-- Excavation Site (the guides give 48.1, 56.5 and 53.4, 65.3 in Wetlands and
+-- disagree which is the door), and the raids Barrow Deeps, Hyjal Summit and
+-- Onyxia's Lair (2026-12-09; no Forever source has a spot).
 local D = "dungeon"
 MapPins.ENTRANCES = {
     { 1454, 52.0, 49.0, D, "Ragefire Chasm", 13, 18 },            -- Orgrimmar
-    { 1455, 43.0, 51.0, D, "The Hall of Thanes", 13, 18 },        -- Ironforge; a reader's comment, unchecked
+    { 1455, 43.5, 52.0, D, "The Hall of Thanes", 13, 18 },        -- Ironforge; others', several agree
+    { 1458, 71.6, 11.4, D, "Ruins of Lordaeron", 15, 20 },        -- Undercity; others', several agree
+    { 1420, 61.9, 64.7, D, "Ruins of Lordaeron", 15, 20 },        -- Tirisfal Glades; others', one source
     { 1413, 45.5, 35.5, D, "Wailing Caverns", 15, 25 },           -- The Barrens
     { 1436, 42.4, 70.4, D, "The Deadmines", 18, 23 },             -- Westfall
     { 1421, 42.6, 66.6, D, "Shadowfang Keep", 22, 30 },           -- Silverpine Forest
     { 1453, 41.0, 57.0, D, "The Stockade", 22, 30 },              -- Stormwind City
     { 1440, 13.4, 12.8, D, "Blackfathom Deeps", 24, 32 },         -- Ashenvale
+    { 1416, 8.8, 59.6, D, "City of Dalaran", 28, 33 },            -- Alterac Mountains; others', several agree
     { 1420, 83.5, 32.0, D, "Scarlet Monastery", 28, 45 },         -- Tirisfal Glades
     { 1426, 30.5, 36.3, D, "Gnomeregan", 29, 38 },                -- Dun Morogh
     { 1413, 42.6, 88.5, D, "Razorfen Kraul", 30, 40 },            -- The Barrens
     { 1413, 50.0, 92.0, D, "Razorfen Downs", 40, 50 },            -- The Barrens
+    { 1434, 21.4, 27.9, D, "The Drowned City", 35, 40 },          -- Stranglethorn Vale; others', underwater
+    { 2548, 37.5, 37.5, D, "Krol'dok Stronghold", 40, 45 },       -- Riverglades; others', several near agree
     { 1418, 42.6, 10.8, D, "Uldaman", 42, 52 },                   -- Badlands
     { 1446, 39.5, 21.3, D, "Zul'Farrak", 44, 54 },                -- Tanaris
     { 1443, 29.5, 57.8, D, "Maraudon", 45, 57 },                  -- Desolace
+    { 1445, 75.3, 14.1, D, "Alcaz Prison", 48, 53 },              -- Dustwallow Marsh; others', several near agree
     { 1435, 69.6, 53.2, D, "Temple of Atal'Hakkar", 50, 60 },     -- Swamp of Sorrows
     { 1427, 35.2, 84.2, D, "Blackrock Depths", 52, 60 },          -- Searing Gorge
+    { 1447, 38.7, 33.4, D, "Blackmaw Hold", 55, 60 },             -- Azshara; others', the tunnel's mouth
     { 1427, 35.2, 84.2, D, "Lower Blackrock Spire", 55, 60 },     -- Searing Gorge
     { 1427, 35.2, 84.2, D, "Upper Blackrock Spire", 58, 60 },     -- Searing Gorge
+    { 1449, 48.1, 6.1, D, "Shaper's Terrace", 58, 60 },           -- Un'Goro Crater; others', one source
     { 1444, 58.9, 41.5, D, "Dire Maul", 58, 60 },                 -- Feralas
     { 1422, 69.8, 76.0, D, "Scholomance", 58, 60 },               -- Western Plaguelands
     { 1423, 30.9, 15.2, D, "Stratholme: Living Side", 58, 60 },   -- Eastern Plaguelands

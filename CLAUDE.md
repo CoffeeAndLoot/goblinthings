@@ -136,8 +136,10 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
    share a pin). `MapEntrances` draws them and decides nothing: plain frames on the map's canvas
    (`API.MapCanvas`, not the container the readout sits on), placed and scaled as Blizzard's
    `ApplyPinPosition` does, hover-only so clicks reach the map. Zone and city maps only: a door is
-   listed on its own map and nowhere else. **Never a guessed spot**: a door goes in when a source
-   for Forever gives it or the owner reads it off the door with `/gt probe`'s "you stand at" line.
+   listed on its own map and nowhere else (Ruins of Lordaeron on two: Undercity's and Tirisfal's).
+   **Never a guessed spot**: a door goes in when a source for Forever gives it (Wowhead's guide,
+   or another site's Forever guide, marked as such in the table) or the owner reads it off the
+   door with `/gt probe`'s "you stand at" line. Where sources disagree, the door stays out.
 8. Kills to level: `Kills` (pure) keeps the last ten kills' XP and divides the XP still needed by
    their average; `KillsReadout` draws the one ghosted number `Core`'s `drawKills` hands it, on
    `UIParent` at strata BACKGROUND with the mouse off. A kill is a `CHAT_MSG_COMBAT_XP_GAIN` line

@@ -577,8 +577,14 @@ Spec `docs/superpowers/specs/2026-11-19-map-entrance-pins-design.md`. Verified i
 - [ ] Searing Gorge's map: one swirl at Blackrock Mountain; its card lists Blackrock Depths,
       Lower and Upper Blackrock Spire with their levels.
 - [ ] A city: Orgrimmar's map shows Ragefire Chasm's swirl, Stormwind's The Stockade's.
-- [ ] Ironforge's map: The Hall of Thanes' swirl at 43, 51 (a Wowhead reader's figure). Say
-      whether it is on the door.
+- [ ] The swirls are big enough to find at a glance (32 units since 2026-11-19; they read small
+      at 22, the owner). Say if they now crowd the map.
+- [ ] The doors taken from other sites' guides (2026-11-19), each on its door or say how far off:
+      The Hall of Thanes (Ironforge 43.5, 52.0), Ruins of Lordaeron (Undercity 71.6, 11.4 and
+      Tirisfal Glades 61.9, 64.7), City of Dalaran (Alterac Mountains 8.8, 59.6), The Drowned City
+      (Stranglethorn Vale 21.4, 27.9, underwater), Krol'dok Stronghold (Riverglades 37.5, 37.5),
+      Alcaz Prison (Dustwallow Marsh 75.3, 14.1), Blackmaw Hold (Azshara 38.7, 33.4, the tunnel's
+      mouth), Shaper's Terrace (Un'Goro Crater 48.1, 6.1).
 - [ ] Kalimdor's and Eastern Kingdoms' maps show no swirl; nor does a zone with no dungeon (Durotar).
 - [ ] Zoom the map with the mouse wheel, if this build zooms: the swirls stay on their doors and
       keep their size.
@@ -591,6 +597,6 @@ Spec `docs/superpowers/specs/2026-11-19-map-entrance-pins-design.md`. Verified i
 - [ ] `/gt probe` prints "entrance icons from the game: dungeon yes, raid yes; entrance pins built"
       and "you stand at X, Y on map N". Paste both.
 - [ ] Standing at a door the table lacks, `/gt probe`'s "you stand at" line, pasted to Claude with
-      the door's name, for each of: Ruins of Lordaeron, Excavation Site, City of Dalaran, The
-      Drowned City, Krol'dok Stronghold, Alcaz Prison, Blackmaw Hold, Shaper's Terrace, and from
-      2026-12-09 Barrow Deeps, Hyjal Summit and Onyxia's Lair.
+      the door's name, for each of: Excavation Site (the guides give Wetlands 48.1, 56.5 and
+      53.4, 65.3 and disagree which is the door), and from 2026-12-09 Barrow Deeps, Hyjal Summit
+      and Onyxia's Lair.
