@@ -17,6 +17,8 @@ per switch. Docs:
 - `docs/superpowers/specs/2026-11-14-map-gathering-lists-design.md`: herbs, ore, fish and skins on
   that readout (its plan is `docs/superpowers/plans/2026-11-14-map-gathering-lists.md`). Read its
   dated amendments: they overturn parts of the text above them.
+- `docs/superpowers/specs/2026-11-19-map-entrance-pins-design.md`: the swirls at dungeon and raid
+  doors on a zone's map (its plan is `docs/superpowers/plans/2026-11-19-map-entrance-pins.md`).
 - `docs/cvar-candidates.md`: console-only settings that could become switches (researched
   2026-11-15 from the client exe's own strings; a list to pick from, nothing built or seen in game).
 - `docs/manual-test-checklist.md`: every in-game check, ticked only by the owner.
@@ -41,6 +43,9 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
   Statistics and Professions windows (brown panels, bronze edges, bright gold titles, white words),
   drawn with plain frames and colour textures. **No Blizzard frame templates or art files**, so no
   texture name is guessed and a renamed template cannot break it; colours only from `Look.COLOUR`.
+  **The one exception** (the owner's ask, 2026-11-19): the map's entrance pins wear the game's
+  `Dungeon` and `Raid` atlases, and only after `C_Texture.GetAtlasInfo` answers for the name
+  (`API.EntranceIcon`); a coloured square is drawn otherwise. No other Blizzard art.
   Do not add art to the window: a title bar, not a banner. Goblin Flyout keeps the older Goblin
   look, so the two no longer match.
 - Art is generated, never hand-edited: `python tools/make_art.py [preview_dir]` cuts
@@ -84,7 +89,7 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
 
 ## How it fits together
 
-TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, Decline, Accept, Loot, TrackerSort, MapData, MapInfo, Kills, Look, Options, Window, MinimapButton, MapReadout, KillsReadout, Core`.
+TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, Decline, Accept, Loot, TrackerSort, MapData, MapInfo, MapPins, Kills, Look, Options, Window, MinimapButton, MapReadout, MapEntrances, KillsReadout, Core`.
 
 1. `Features.LIST` is every switch as data: key, label, section (its tab), optional group (a
    sub-header), control (`check`, `slider`, `choice`) and default; `Features.NOTES` gives a tab its
@@ -126,7 +131,14 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
      drawn whenever the game gives nothing.
    - `C_Map.GetMapLevels` exists on this build and answers for no zone, so never switch to it
      without an in-game check; `/gt probe` counts the hover API's answers and the icons given.
-7. Kills to level: `Kills` (pure) keeps the last ten kills' XP and divides the XP still needed by
+7. Entrance pins: `MapPins` (pure) holds `ENTRANCES`, a **hand-kept** table of dungeon and raid
+   doors by UiMap ID in map percent, and `MapPins.For(mapID)` gives a map's pins (doors on one spot
+   share a pin). `MapEntrances` draws them and decides nothing: plain frames on the map's canvas
+   (`API.MapCanvas`, not the container the readout sits on), placed and scaled as Blizzard's
+   `ApplyPinPosition` does, hover-only so clicks reach the map. Zone and city maps only: a door is
+   listed on its own map and nowhere else. **Never a guessed spot**: a door goes in when a source
+   for Forever gives it or the owner reads it off the door with `/gt probe`'s "you stand at" line.
+8. Kills to level: `Kills` (pure) keeps the last ten kills' XP and divides the XP still needed by
    their average; `KillsReadout` draws the one ghosted number `Core`'s `drawKills` hands it, on
    `UIParent` at strata BACKGROUND with the mouse off. A kill is a `CHAT_MSG_COMBAT_XP_GAIN` line
    matching the pattern `Kills.Pattern` builds from the game's own `COMBATLOG_XPGAIN_FIRSTPERSON`, so
@@ -155,6 +167,10 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
   `C_Spell.GetSpellTexture` answers for spells 2366 (Herbalism), 2575 (Mining), 7620 (Fishing) and
   8613 (Skinning), and each picture is that profession's own icon.
 - The map hover (2026-11-14, `/gt probe`): `C_Map.GetMapInfoAtPosition` answered 267 of 267 asks.
+- Dungeon entrances (2026-11-19, the owner's `/run` lines): `showDungeonEntrancesOnMap` reads 1 and
+  `#C_EncounterJournal.GetDungeonEntrancesForMap(1413)` is 0, so Blizzard's own entrance pins are
+  on and have nothing to draw on Forever. `C_Texture.GetAtlasInfo` answers for `Dungeon` and
+  `Raid`. Not yet seen: the addon's pins themselves.
 - Console-only candidates (2026-11-15, `/gt probe`, the owner's screenshot): `C_CVar.GetCVar` and
   `GetCVarDefault` answer for all eleven first picks of `docs/cvar-candidates.md`.
   `showInGameNavigation` read 1 with default 0, so Forever ships the quest diamond off (the exe's

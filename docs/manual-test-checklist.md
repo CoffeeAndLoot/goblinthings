@@ -556,3 +556,41 @@ Nothing is switched here: `/gt probe` only reads. A `/reload` is enough. The lis
 - [x] No "threw:" line names GetCVarDefault, GetSortBagsRightToLeft, GetInsertItemsLeftToRight or
       ConsoleGetAllCommands.
       Seen 2026-11-15: the chat ends at "accept calls missing: none.", with no threw line after it. (seen 2026-11-15, the owner's `/gt probe` screenshot)
+
+## Dungeon and raid entrances on the map (2026-11-19)
+
+Spec `docs/superpowers/specs/2026-11-19-map-entrance-pins-design.md`. Verified in source only.
+
+- [x] The game's own pins cannot do this: `showDungeonEntrancesOnMap` reads 1 and
+      `C_EncounterJournal.GetDungeonEntrancesForMap(1413)` gives 0 entrances.
+      (seen 2026-11-19, the owner's `/run` lines: "1,0")
+- [x] `C_Texture.GetAtlasInfo` answers for "Dungeon" and "Raid".
+      (seen 2026-11-19, the owner's `/run` line: "true true")
+- [ ] **Full client restart** first (MapPins.lua and MapEntrances.lua are new in the TOC). No Lua
+      error on login; the Map tab shows a sixth check, "Dungeon and raid entrances on the map",
+      ticked, and the window still fits its rows.
+- [ ] The Barrens' own map: a blue swirl at Wailing Caverns (45.5, 35.5), Razorfen Kraul
+      (42.6, 88.5) and Razorfen Downs (50.0, 92.0), each on its door. Say if one is a square, not a
+      swirl, or sits off its door.
+- [ ] Hover a swirl: a small brown card beside it, the dungeon's name in gold and its levels
+      ("Wailing Caverns  15-25"). It goes when the cursor leaves.
+- [ ] Searing Gorge's map: one swirl at Blackrock Mountain; its card lists Blackrock Depths,
+      Lower and Upper Blackrock Spire with their levels.
+- [ ] A city: Orgrimmar's map shows Ragefire Chasm's swirl, Stormwind's The Stockade's.
+- [ ] Ironforge's map: The Hall of Thanes' swirl at 43, 51 (a Wowhead reader's figure). Say
+      whether it is on the door.
+- [ ] Kalimdor's and Eastern Kingdoms' maps show no swirl; nor does a zone with no dungeon (Durotar).
+- [ ] Zoom the map with the mouse wheel, if this build zooms: the swirls stay on their doors and
+      keep their size.
+- [ ] Right-click with the cursor over a swirl: the map still zooms out to the continent.
+- [ ] A swirl near the map's right or top edge (Tirisfal's Scarlet Monastery, Badlands' Uldaman):
+      its card opens inwards and is not cut off.
+- [ ] The swirls and the corner card do not hide each other where it matters, and a quest or
+      flight pin near a door can still be hovered.
+- [ ] Untick the switch with the map open: every swirl goes at once. Tick it: they come back.
+- [ ] `/gt probe` prints "entrance icons from the game: dungeon yes, raid yes; entrance pins built"
+      and "you stand at X, Y on map N". Paste both.
+- [ ] Standing at a door the table lacks, `/gt probe`'s "you stand at" line, pasted to Claude with
+      the door's name, for each of: Ruins of Lordaeron, Excavation Site, City of Dalaran, The
+      Drowned City, Krol'dok Stronghold, Alcaz Prison, Blackmaw Hold, Shaper's Terrace, and from
+      2026-12-09 Barrow Deeps, Hyjal Summit and Onyxia's Lair.

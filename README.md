@@ -41,6 +41,7 @@ and forget them.
 | Map | Ore on the map | The same for mining: the skill range, and each vein with its skill | On |
 | Map | Fish list on the map | On the zone's own map, an icon on the fishing line lists what is caught there and how often | On |
 | Map | Skins on the map | Adds the leather grades the zone's beasts give to that readout ("Skins: Light, Medium"); on the zone's own map, hover the line's icon to list every leather, hide and scale skinned there and how common each is | On |
+| Map | Dungeon and raid entrances on the map | On a zone's or city's own map, the game's blue swirl at each dungeon door and its green swirl at each raid door; hover one for the name and level range | On |
 | Map | World map fades while moving | Whether the open world map turns see-through as you walk | Untouched |
 | Map | Every tracking type on the minimap | The minimap's tracking menu offers every tracking type the game has | Untouched |
 | XP | Kills to level | A faint number in a screen corner: how many more kills like your last ten it takes to level. Pick the corner, offsets, faintness, size and font | Off |
