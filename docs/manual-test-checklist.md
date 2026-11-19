@@ -574,8 +574,9 @@ Spec `docs/superpowers/specs/2026-11-19-map-entrance-pins-design.md`. Verified i
       swirl, or sits off its door.
 - [ ] Hover a swirl: a small brown card beside it, the dungeon's name in gold and its levels
       ("Wailing Caverns  15-25"). It goes when the cursor leaves.
-- [ ] Searing Gorge's map: one swirl at Blackrock Mountain; its card lists Blackrock Depths,
-      Lower and Upper Blackrock Spire with their levels.
+- [ ] Searing Gorge's map: one blue swirl at Blackrock Mountain; its card lists Blackrock Depths,
+      Lower and Upper Blackrock Spire with their levels, then Molten Core and Blackwing Lair, each
+      "Raid, not announced".
 - [ ] A city: Orgrimmar's map shows Ragefire Chasm's swirl, Stormwind's The Stockade's.
 - [ ] The swirls are big enough to find at a glance (32 units since 2026-11-19; they read small
       at 22, the owner). Say if they now crowd the map.
@@ -585,6 +586,9 @@ Spec `docs/superpowers/specs/2026-11-19-map-entrance-pins-design.md`. Verified i
       (Stranglethorn Vale 21.4, 27.9, underwater), Krol'dok Stronghold (Riverglades 37.5, 37.5),
       Alcaz Prison (Dustwallow Marsh 75.3, 14.1), Blackmaw Hold (Azshara 38.7, 33.4, the tunnel's
       mouth), Shaper's Terrace (Un'Goro Crater 48.1, 6.1).
+- [ ] Green swirls, each on its way in or say how far off: Onyxia's Lair (Dustwallow Marsh
+      52.3, 76.1, card "Raid"), Zul'Gurub (Stranglethorn Vale 53.9, 17.6) and Naxxramas (Eastern
+      Plaguelands 39, 26), both "Raid, not announced". The swirl is green, not blue.
 - [ ] Kalimdor's and Eastern Kingdoms' maps show no swirl; nor does a zone with no dungeon (Durotar).
 - [ ] Zoom the map with the mouse wheel, if this build zooms: the swirls stay on their doors and
       keep their size.
@@ -598,5 +602,5 @@ Spec `docs/superpowers/specs/2026-11-19-map-entrance-pins-design.md`. Verified i
       and "you stand at X, Y on map N". Paste both.
 - [ ] Standing at a door the table lacks, `/gt probe`'s "you stand at" line, pasted to Claude with
       the door's name, for each of: Excavation Site (the guides give Wetlands 48.1, 56.5 and
-      53.4, 65.3 and disagree which is the door), and from 2026-12-09 Barrow Deeps, Hyjal Summit
-      and Onyxia's Lair.
+      53.4, 65.3 and disagree which is the door), Ruins of Ahn'Qiraj and Temple of Ahn'Qiraj
+      (stand where the way in is), and from 2026-12-09 Barrow Deeps and Hyjal Summit.

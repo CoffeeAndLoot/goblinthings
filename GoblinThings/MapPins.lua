@@ -8,7 +8,8 @@ local _, ns = ...
 local MapPins = {}
 ns.MapPins = MapPins
 
--- { map, x, y, kind, name, low, high }: x and y in map percent, as Wowhead's
+-- { map, x, y, kind, name, low, high }, or { map, x, y, kind, name, words }
+-- for a door with no levels to give (a raid not yet open): x and y in map percent, as Wowhead's
 -- /way gives them on the door's own zone or city map. A door goes in only
 -- once a source for Forever gives its spot: never a guessed one. The Classic
 -- dungeons are from Wowhead's Forever dungeon guide (updated 2026-11-15); the
@@ -18,7 +19,16 @@ ns.MapPins = MapPins
 -- Excavation Site (the guides give 48.1, 56.5 and 53.4, 65.3 in Wetlands and
 -- disagree which is the door), and the raids Barrow Deeps, Hyjal Summit and
 -- Onyxia's Lair (2026-12-09; no Forever source has a spot).
-local D = "dungeon"
+-- The raids. Onyxia's Lair opens 2026-12-09; its spot is a Forever map
+-- site's and a guide's. The other Classic raids are in Wowhead's Forever
+-- database but Blizzard has announced none of them for Forever (2026-11-19);
+-- the owner wants them pinned all the same, at Classic's spots, the zones
+-- not having moved, and the card says so. Molten Core is entered through
+-- Blackrock Depths and Blackwing Lair through Upper Blackrock Spire, so both
+-- share Blackrock Mountain's spot. Both Ahn'Qiraj raids wait for a spot (no
+-- guide gives one), as do Barrow Deeps and Hyjal Summit.
+local D, R = "dungeon", "raid"
+local UNANNOUNCED = "Raid, not announced"
 MapPins.ENTRANCES = {
     { 1454, 52.0, 49.0, D, "Ragefire Chasm", 13, 18 },            -- Orgrimmar
     { 1455, 43.5, 52.0, D, "The Hall of Thanes", 13, 18 },        -- Ironforge; others', several agree
@@ -46,6 +56,11 @@ MapPins.ENTRANCES = {
     { 1427, 35.2, 84.2, D, "Lower Blackrock Spire", 55, 60 },     -- Searing Gorge
     { 1427, 35.2, 84.2, D, "Upper Blackrock Spire", 58, 60 },     -- Searing Gorge
     { 1449, 48.1, 6.1, D, "Shaper's Terrace", 58, 60 },           -- Un'Goro Crater; others', one source
+    { 1445, 52.3, 76.1, R, "Onyxia's Lair" },                     -- Dustwallow Marsh; others', two agree
+    { 1434, 53.9, 17.6, R, "Zul'Gurub", UNANNOUNCED },            -- Stranglethorn Vale; Classic's, a guide's 53, 17
+    { 1423, 39.0, 26.0, R, "Naxxramas", UNANNOUNCED },            -- Eastern Plaguelands; Classic's, one guide
+    { 1427, 35.2, 84.2, R, "Molten Core", UNANNOUNCED },          -- Searing Gorge; through Blackrock Depths
+    { 1427, 35.2, 84.2, R, "Blackwing Lair", UNANNOUNCED },       -- Searing Gorge; through Upper Blackrock Spire
     { 1444, 58.9, 41.5, D, "Dire Maul", 58, 60 },                 -- Feralas
     { 1422, 69.8, 76.0, D, "Scholomance", 58, 60 },               -- Western Plaguelands
     { 1423, 30.9, 15.2, D, "Stratholme: Living Side", 58, 60 },   -- Eastern Plaguelands
@@ -56,9 +71,12 @@ local function percent(n)
     return type(n) == "number" and n >= 0 and n <= 100
 end
 
--- What a row says after the name: "13-18", "60", "Raid" for a raid with no
--- levels, else nothing.
+-- What a row says after the name: the row's own words, "13-18", "60", "Raid"
+-- for a raid with no levels, else nothing.
 local function levels(kind, low, high)
+    if type(low) == "string" then
+        return low
+    end
     if type(low) == "number" and type(high) == "number" then
         return low == high and tostring(low) or (low .. "-" .. high)
     end

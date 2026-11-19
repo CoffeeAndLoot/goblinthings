@@ -131,3 +131,12 @@ the swirls read small. This overturns "No pin until the owner reads out the spot
   Forever (its raid overview names three; "other vanilla raids will return" is all it says), and
   no spot was found in a source. Not pinned; the owner's call.
 - **Pin size 22 to 32.**
+- **Later the same day, the owner: "Yes, pin them".** The unannounced Classic raids are pinned,
+  each saying "Raid, not announced" on its card (a row may carry words in place of levels).
+  Molten Core and Blackwing Lair share Blackrock Mountain's pin, being entered through Blackrock
+  Depths and Upper Blackrock Spire; the pin stays blue, having dungeons on it.
+- **And: "those are going to be the same locations that they were in Classic".** A returning
+  raid's Classic spot is a source, the zones not having moved: Zul'Gurub (53.9, 17.6; a guide
+  gives 53, 17) and Naxxramas (39, 26, one guide). Onyxia's Lair is 52.3, 76.1 (metabot.gg's
+  Forever map and wow.gg agree; Wrath-era guides' 56, 71 is set aside). Both Ahn'Qiraj raids stay
+  out: no guide gives a spot.
