@@ -140,6 +140,8 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
    **Never a guessed spot**: a door goes in when a source for Forever gives it (Wowhead's guide,
    or another site's Forever guide, marked as such in the table) or the owner reads it off the
    door with `/gt probe`'s "you stand at" line. Where sources disagree, the door stays out.
+   **Only raids Blizzard has announced for Forever** (the owner, 2026-11-19: any other would
+   mislead); a returning Classic raid goes in at its Classic spot once it is named.
 8. Kills to level: `Kills` (pure) keeps the last ten kills' XP and divides the XP still needed by
    their average; `KillsReadout` draws the one ghosted number `Core`'s `drawKills` hands it, on
    `UIParent` at strata BACKGROUND with the mouse off. A kill is a `CHAT_MSG_COMBAT_XP_GAIN` line

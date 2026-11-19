@@ -140,3 +140,9 @@ the swirls read small. This overturns "No pin until the owner reads out the spot
   gives 53, 17) and Naxxramas (39, 26, one guide). Onyxia's Lair is 52.3, 76.1 (metabot.gg's
   Forever map and wow.gg agree; Wrath-era guides' 56, 71 is set aside). Both Ahn'Qiraj raids stay
   out: no guide gives a spot.
+- **Last word, the owner, the same day: "I don't want any raids that have not been announced on
+  there ... that seems a bit misleading".** This overturns the two entries above. Only a raid
+  Blizzard has announced for Forever is pinned: Onyxia's Lair now, Barrow Deeps and Hyjal Summit
+  once they have a spot. Molten Core, Blackwing Lair, Zul'Gurub and Naxxramas came out, with the
+  "words in place of levels" row they needed. A returning raid goes in, at its Classic spot, the
+  day Blizzard names it.
