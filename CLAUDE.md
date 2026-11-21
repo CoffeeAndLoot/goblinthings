@@ -163,8 +163,8 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
    tooltip: no API ties a unit to an objective. Blizzard's Forever plates carry no quest marker of
    their own. Seen in game 2026-11-21 (the owner's
    screenshot, a Gordunni Mage-Lord marked "1"): Forever types the objective lines, so the marks
-   draw. Not yet seen: a mark with figures (the "1" may be the no-figures fallback; the probe
-   prints the target's lines).
+   draw. Later that day a Feral Scar Yeti read "! 5": the figures come through, and the
+   mark sits over the name.
 
 ## Client facts (verified in game)
 

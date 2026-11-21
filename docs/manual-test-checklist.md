@@ -610,23 +610,24 @@ Spec `docs/superpowers/specs/2026-11-19-map-entrance-pins-design.md`. Verified i
 Spec `docs/superpowers/specs/2026-11-21-quest-marks-on-nameplates-design.md`. The count comes from
 the mob's tooltip data; Forever has not yet been seen to type those lines, so the probe comes first.
 
-- [ ] **Full client restart** first (QuestPlates.lua and PlateMarks.lua are new in the TOC). No Lua
+- [x] **Full client restart** first (QuestPlates.lua and PlateMarks.lua are new in the TOC). No Lua
       error on login; the Quests tab shows "Quest marks on nameplates" under the quest diamond,
-      ticked, and the window still fits its rows.
+      ticked, and the window still fits its rows. (seen 2026-11-21, the owner's screenshot)
 - [ ] Target a mob one of your quests wants, then `/gt probe`: paste the "quest marks" line. It
       should read "target lines: [title] <quest name>; [objective] <...>: 4/10". Say if the
       objective line reads "[other]" (the game does not type them) or "(secret)" (its text is
       unreadable): either means the mark cannot work and the switch comes out.
 - [x] With nameplates on (V), a quest mob's plate wears a mark above its name and a number.
       (seen 2026-11-21, the owner's screenshot: a Gordunni Mage-Lord, "1"; the square is now a gold "!")
-- [ ] The number matches the mob's tooltip "x/y" (10 - 4 = 6), not always 1. If every mark reads 1,
-      paste the probe's "quest marks" line: the text may be secret.
+- [x] The number matches the mob's tooltip "x/y" (10 - 4 = 6), not always 1. (seen 2026-11-21, the
+      owner's screenshot: a Feral Scar Yeti with "! 5", so the figures come through)
 - [x] The mark sat a good way above the name (the plate frame is taller than its bar); the owner
       asked for closer (2026-11-21).
-- [ ] The Quests tab shows a "Mark size" slider (8-32, at 12) under the switch; dragging it resizes
-      every shown mark at once, the "!" staying a touch bigger than the number.
-- [ ] After that: the mark sits just over the mob's name, and stays there when the plate is
-      recycled for another mob (walk through a camp).
+- [x] The Quests tab shows a "Mark size" slider (8-32, at 12) under the switch; dragging it resizes
+      every shown mark at once, the "!" staying a touch bigger than the number. (seen 2026-11-21,
+      the owner's screenshots: the slider at 23, and a mark that size)
+- [x] After that: the mark sits just over the mob's name. (seen 2026-11-21, the owner's screenshot)
+- [ ] It stays there when the plate is recycled for another mob (walk through a camp).
 - [ ] Kill one: every shown mark of that mob drops by one within a moment.
 - [ ] Finish the objective: the marks go.
 - [ ] A mob of no quest of yours, a friendly NPC and another player: no mark.

@@ -53,6 +53,8 @@ corpse to get the normal loot window. Everything else is one click in the window
 Out in the field, any mob one of your quests still wants wears a gold **!** over its nameplate with
 the number of it left to go; it drops as you kill, and goes when the objective is done.
 
+![A Feral Scar Yeti's nameplate with a gold ! and a 5 over its name](https://raw.githubusercontent.com/CoffeeAndLoot/goblinthings/master/images/quest-mark.png)
+
 ![The Goblin Things window on its Quests tab, in the game's own browns and gold: the auto-quest checks, the quest diamond, Quest marks on nameplates and its size slider, Only this zone, the Hide quests above me slider, and the three tracker sort tiers](https://raw.githubusercontent.com/CoffeeAndLoot/goblinthings/master/images/quests.png)
 
 <p>
