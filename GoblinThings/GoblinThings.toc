@@ -30,4 +30,5 @@ MinimapButton.lua
 MapReadout.lua
 MapEntrances.lua
 KillsReadout.lua
+PlateMarks.lua
 Core.lua

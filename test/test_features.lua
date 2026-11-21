@@ -1,5 +1,5 @@
 return function(h, loaded)
-    local Features = loaded.ns.Features
+    local Features, QuestPlates = loaded.ns.Features, loaded.ns.QuestPlates
 
     h.describe("Features.LIST", function()
         h.it("holds the switches in window order", function()
@@ -7,7 +7,7 @@ return function(h, loaded)
             for _, f in ipairs(Features.LIST) do
                 keys[#keys + 1] = f.key
             end
-            h.eq(table.concat(keys, " "), "autoAccept autoTurnIn autoTrack questDiamond zoneOnly hideAbove "
+            h.eq(table.concat(keys, " "), "autoAccept autoTurnIn autoTrack questDiamond questPlates zoneOnly hideAbove "
                 .. "sortFirst sortSecond sortThird autoSellJunk autoRepair autoTrain fastLoot "
                 .. "bagsFillLeft bagsSortRight compareItems "
                 .. "declineDuels declineGuild acceptGuild acceptFriends acceptSummons guildAlerts "
@@ -42,6 +42,14 @@ return function(h, loaded)
             h.eq(f.control, "check")
             h.eq(f.group, nil)
             h.eq(f.default, false)
+        end)
+        h.it("Quest marks on nameplates is an ungrouped Quests check, on by default", function()
+            local f = Features.ByKey(QuestPlates.KEY)
+            h.eq(f.label, "Quest marks on nameplates")
+            h.eq(f.section, "Quests")
+            h.eq(f.control, "check")
+            h.eq(f.group, nil)
+            h.eq(f.default, true)
         end)
         h.it("Only this zone is a check in the same group, off by default", function()
             local f = Features.ByKey("zoneOnly")
@@ -201,7 +209,7 @@ return function(h, loaded)
                 counts[#counts + 1] = #s.features
             end
             h.eq(table.concat(names, " "), "Quests Vendors Loot Social Combat Camera Cinematics Map XP")
-            h.eq(table.concat(counts, " "), "9 3 4 6 7 1 1 8 7")
+            h.eq(table.concat(counts, " "), "10 3 4 6 7 1 1 8 7")
         end)
         h.it("a section carries its note; the others have none", function()
             local sections = Features.Sections()

@@ -27,6 +27,9 @@ Features.LIST = {
     -- and ships the CVar at 0, so this is its only switch.
     { key = "questDiamond", label = "Quest diamond on screen", section = "Quests", control = "check",
         cvar = "showInGameNavigation" },
+    -- One mark above a quest mob's nameplate, with the smallest number still to go.
+    { key = "questPlates", label = "Quest marks on nameplates", section = "Quests", control = "check",
+        default = true },
     { key = "zoneOnly", label = "Only this zone", section = "Quests", group = "Quest tracker", control = "check",
         default = false },
     { key = "hideAbove", label = "Hide quests above me", section = "Quests", group = "Quest tracker",

@@ -27,6 +27,7 @@ local modules = {
     { "MapReadout", "GoblinThings/MapReadout.lua" },
     { "MapEntrances", "GoblinThings/MapEntrances.lua" },
     { "KillsReadout", "GoblinThings/KillsReadout.lua" },
+    { "PlateMarks", "GoblinThings/PlateMarks.lua" },
 }
 
 local ns = {}

@@ -9,6 +9,7 @@ local API, Accept, Camera, Cinematics, Decline, Features, Hands, Loot, MapReadou
     TrackerSort, Vendor, Window = ns.API, ns.Accept, ns.Camera, ns.Cinematics, ns.Decline, ns.Features, ns.Hands,
     ns.Loot, ns.MapReadout, ns.MinimapButton, ns.Options, ns.Trainer, ns.TrackerSort, ns.Vendor, ns.Window
 local Kills, KillsReadout, MapEntrances = ns.Kills, ns.KillsReadout, ns.MapEntrances
+local QuestPlates, PlateMarks = ns.QuestPlates, ns.PlateMarks
 local Core = {}
 ns.Core = Core
 
@@ -110,6 +111,65 @@ local function redrawKills()
     guard("Kills", drawKills)
 end
 
+-- ---- quest marks on nameplates ----
+
+local plates = {}  -- unit token -> its plate frame while the game shows it
+local remarkPending = false
+
+-- The mark this unit's quest lines call for, or none; no reads while the switch is off.
+local function markUnit(unit, plate)
+    local n = db().features[QuestPlates.KEY] and QuestPlates.Remaining(API.UnitQuestLines(unit)) or nil
+    if n then
+        PlateMarks.Show(plate, n)
+    else
+        PlateMarks.Hide(plate)
+    end
+end
+
+local function remarkAll()
+    remarkPending = false
+    if not db().features[QuestPlates.KEY] then
+        PlateMarks.HideAll()
+        return
+    end
+    for unit, plate in pairs(plates) do
+        markUnit(unit, plate)
+    end
+end
+
+-- Once per frame however many quest-log events come in a burst.
+local function remarkLater()
+    if remarkPending then
+        return
+    end
+    remarkPending = true
+    API.Later(function()
+        guard("Quest marks", remarkAll)
+    end)
+end
+
+API.OnEvents({ "NAME_PLATE_UNIT_ADDED" }, function(_, unit)
+    guard("Quest marks", function()
+        local plate = API.NamePlate(unit)
+        if plate then
+            plates[unit] = plate
+            markUnit(unit, plate)
+        end
+    end)
+end)
+
+API.OnEvents({ "NAME_PLATE_UNIT_REMOVED" }, function(_, unit)
+    guard("Quest marks", function()
+        local plate = plates[unit]
+        plates[unit] = nil
+        if plate then
+            PlateMarks.Hide(plate)
+        end
+    end)
+end)
+
+API.OnEvents({ "QUEST_LOG_UPDATE", "UNIT_QUEST_LOG_CHANGED" }, remarkLater)
+
 function Core.WindowHidden()
     redrawKills()
 end
@@ -162,6 +222,8 @@ function Core.Set(key, value)
                 applyAutoTrack(true)
             elseif feature.section == "XP" then
                 redrawKills()  -- its own guard: a draw error must not skip the Refresh below
+            elseif key == QuestPlates.KEY then
+                remarkLater()
             end
         end
         Window.Refresh(Core)
@@ -613,6 +675,18 @@ function commands.probe()
     local hereMap, hereX, hereY = API.PlayerPosition()
     say(hereMap and ("Probe: you stand at %.1f, %.1f on map %d."):format(hereX, hereY, hereMap)
         or "Probe: the game gives no position here.")
+    local known = 0
+    for _ in pairs(plates) do
+        known = known + 1
+    end
+    local targetLines = API.UnitQuestLines("target")
+    local shown = {}
+    for _, line in ipairs(targetLines or {}) do
+        shown[#shown + 1] = ("[%s] %s%s"):format(line.kind, line.text or "(secret)", line.completed and " (done)" or "")
+    end
+    say(("Probe: quest marks: %d plate(s) known, %d marked; target %s."):format(known, PlateMarks.Count(),
+        targetLines and ("lines: " .. (#shown > 0 and table.concat(shown, "; ") or "none"))
+        or "has no quest lines (nothing targeted, no quest of yours, or no tooltip data)"))
     say("Probe: kills readout " .. (KillsReadout.Built() and "built" or "not built yet") .. "; "
         .. #samples .. " kill sample(s).")
     if #xpLog == 0 then

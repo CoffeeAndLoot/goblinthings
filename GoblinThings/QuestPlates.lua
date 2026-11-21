@@ -7,6 +7,8 @@ local _, ns = ...
 local QuestPlates = {}
 ns.QuestPlates = QuestPlates
 
+QuestPlates.KEY = "questPlates"  -- the switch
+
 -- What one objective line still asks for: b - a from its "a/b"; 1 for an
 -- unfinished line with no figures (a named one to slay, or a text the addon
 -- may not read); nil when it is done.
