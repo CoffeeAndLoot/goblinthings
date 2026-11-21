@@ -621,8 +621,10 @@ the mob's tooltip data; Forever has not yet been seen to type those lines, so th
       (seen 2026-11-21, the owner's screenshot: a Gordunni Mage-Lord, "1"; the square is now a gold "!")
 - [ ] The number matches the mob's tooltip "x/y" (10 - 4 = 6), not always 1. If every mark reads 1,
       paste the probe's "quest marks" line: the text may be secret.
-- [ ] The mark sits a good way above the name (the plate frame is taller than its bar). Say if it
-      should sit closer.
+- [x] The mark sat a good way above the name (the plate frame is taller than its bar); the owner
+      asked for closer (2026-11-21).
+- [ ] After that: the mark sits just over the mob's name, and stays there when the plate is
+      recycled for another mob (walk through a camp).
 - [ ] Kill one: every shown mark of that mob drops by one within a moment.
 - [ ] Finish the objective: the marks go.
 - [ ] A mob of no quest of yours, a friendly NPC and another player: no mark.

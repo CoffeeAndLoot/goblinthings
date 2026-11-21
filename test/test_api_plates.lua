@@ -32,6 +32,17 @@ return function(h)
         end)
     end)
 
+    h.describe("API.NamePlateName", function()
+        h.it("is the plate's name text, or nothing", function()
+            local API = fresh()
+            local name = {}
+            h.eq(API.NamePlateName({ UnitFrame = { name = name } }), name)
+            h.eq(API.NamePlateName({ UnitFrame = {} }), nil)
+            h.eq(API.NamePlateName({}), nil)
+            h.eq(API.NamePlateName(nil), nil)
+        end)
+    end)
+
     h.describe("API.UnitQuestLines", function()
         h.it("is each tooltip line's kind, readable text and finished flag", function()
             game(true, {

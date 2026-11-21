@@ -155,7 +155,9 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
    `API.UnitQuestLines` views them (`{ kind, text, completed }`, kinds from the game's own
    `Enum.TooltipDataLineType`) and answers the smallest number still to go across its objective
    lines; `PlateMarks` draws that number and a gold "!" on a mouse-off child of the plate frame
-   `API.NamePlate` gives, kept per plate. `Core` keeps `plates[unit]` from
+   `API.NamePlate` gives, kept per plate and anchored just over the plate's name text
+   (`API.NamePlateName`, asked at every show: the game pools unit frames) or, without one, the
+   plate's top. `Core` keeps `plates[unit]` from
    `NAME_PLATE_UNIT_ADDED` / `_REMOVED`, marks on add and re-marks every known plate once per
    frame after `QUEST_LOG_UPDATE` / `UNIT_QUEST_LOG_CHANGED`. The count is nowhere but the
    tooltip: no API ties a unit to an objective. Blizzard's Forever plates carry no quest marker of

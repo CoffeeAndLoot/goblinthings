@@ -120,7 +120,7 @@ local remarkPending = false
 local function markUnit(unit, plate)
     local n = db().features[QuestPlates.KEY] and QuestPlates.Remaining(API.UnitQuestLines(unit)) or nil
     if n then
-        PlateMarks.Show(plate, n)
+        PlateMarks.Show(plate, n, API.NamePlateName(plate))
     else
         PlateMarks.Hide(plate)
     end

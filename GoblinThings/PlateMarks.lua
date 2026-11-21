@@ -10,7 +10,7 @@ ns.PlateMarks = PlateMarks
 
 PlateMarks.LAYOUT = {
     BANG = 16,    -- the "!"'s font size (a square read as a box, the owner 2026-11-21)
-    GAP = 2,      -- between the plate's top and the mark
+    GAP = 1,      -- between the name (or the plate's top) and the mark
     PAD = 3,      -- between the "!" and the number
     SIZE = 12,    -- the number's font size
     HEIGHT = 16,
@@ -25,7 +25,6 @@ local function build(plate)
     mark:EnableMouse(false)
     mark:SetFrameLevel(plate:GetFrameLevel() + 5)
     mark:SetHeight(L.HEIGHT)
-    mark:SetPoint("BOTTOM", plate, "TOP", 0, L.GAP)
     mark.bang = Look.Text(mark, Look.WORDS, L.BANG, "gold", "OUTLINE")
     mark.bang:SetShadowOffset(0, 0)  -- the outline carries it over any ground
     mark.bang:SetText("!")
@@ -37,9 +36,14 @@ local function build(plate)
     return mark
 end
 
--- The number n above this plate.
-function PlateMarks.Show(plate, n)
+-- The number n above this plate: just over `name` (its name text, when the
+-- game gives it; it may differ from last time's, so the anchor is set at every
+-- show) or over the plate itself (it is taller than its bar, so the mark then
+-- floats; the owner 2026-11-21).
+function PlateMarks.Show(plate, n, name)
     local mark = marks[plate] or build(plate)
+    mark:ClearAllPoints()
+    mark:SetPoint("BOTTOM", name or plate, "TOP", 0, L.GAP)
     mark.text:SetText(tostring(n))
     mark:SetWidth(mark.bang:GetStringWidth() + L.PAD + mark.text:GetStringWidth())
     mark:Show()

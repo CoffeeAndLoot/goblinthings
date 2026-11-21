@@ -801,6 +801,15 @@ function API.NamePlate(unit)
     return type(plate) == "table" and plate or nil
 end
 
+-- The plate's name text (Blizzard_NamePlates.xml: UnitFrame's "name"), or nil.
+-- The game pools unit frames, so a plate's next tenant may bring another:
+-- asked at every mark, never kept.
+function API.NamePlateName(plate)
+    local unitFrame = type(plate) == "table" and plate.UnitFrame
+    local name = type(unitFrame) == "table" and unitFrame.name
+    return type(name) == "table" and name or nil
+end
+
 -- A tooltip line's kind by the game's own enum, asked at call time; every
 -- line is "other" without it.
 local function lineKind(lineType)
