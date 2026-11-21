@@ -22,6 +22,7 @@ MapData.lua
 MapInfo.lua
 MapPins.lua
 Kills.lua
+QuestPlates.lua
 Look.lua
 Options.lua
 Window.lua
