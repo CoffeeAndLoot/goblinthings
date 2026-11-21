@@ -1,7 +1,7 @@
 local _, ns = ...
 
 -- The mark above a quest mob's nameplate (spec 2026-11-21-quest-marks-on-
--- nameplates-design.md): a small gold square and the number Core hands it,
+-- nameplates-design.md): a gold "!" and the number Core hands it,
 -- one mouse-off frame per plate frame, kept for the plate's next tenant (the
 -- game recycles its plates). Draws and decides nothing. The plate's own
 -- scale and fade carry the mark with them.
@@ -9,11 +9,11 @@ local PlateMarks = {}
 ns.PlateMarks = PlateMarks
 
 PlateMarks.LAYOUT = {
-    SQUARE = 10,  -- the gold square's side
+    BANG = 16,    -- the "!"'s font size (a square read as a box, the owner 2026-11-21)
     GAP = 2,      -- between the plate's top and the mark
-    PAD = 3,      -- between the square and the number
+    PAD = 3,      -- between the "!" and the number
     SIZE = 12,    -- the number's font size
-    HEIGHT = 14,
+    HEIGHT = 16,
 }
 local L = PlateMarks.LAYOUT
 
@@ -26,14 +26,13 @@ local function build(plate)
     mark:SetFrameLevel(plate:GetFrameLevel() + 5)
     mark:SetHeight(L.HEIGHT)
     mark:SetPoint("BOTTOM", plate, "TOP", 0, L.GAP)
-    local square = CreateFrame("Frame", nil, mark)
-    square:SetSize(L.SQUARE, L.SQUARE)
-    square:SetPoint("LEFT", mark, "LEFT", 0, 0)
-    Look.Texture(square, "ARTWORK", Look.COLOUR.gold):SetAllPoints(square)
-    Look.Outline(square, Look.COLOUR.rim, "OVERLAY")
+    mark.bang = Look.Text(mark, Look.WORDS, L.BANG, "gold", "OUTLINE")
+    mark.bang:SetShadowOffset(0, 0)  -- the outline carries it over any ground
+    mark.bang:SetText("!")
+    mark.bang:SetPoint("LEFT", mark, "LEFT", 0, 0)
     mark.text = Look.Text(mark, Look.WORDS, L.SIZE, "text", "OUTLINE")
-    mark.text:SetShadowOffset(0, 0)  -- the outline carries it over any ground
-    mark.text:SetPoint("LEFT", square, "RIGHT", L.PAD, 0)
+    mark.text:SetShadowOffset(0, 0)
+    mark.text:SetPoint("LEFT", mark.bang, "RIGHT", L.PAD, 0)
     marks[plate] = mark
     return mark
 end
@@ -42,7 +41,7 @@ end
 function PlateMarks.Show(plate, n)
     local mark = marks[plate] or build(plate)
     mark.text:SetText(tostring(n))
-    mark:SetWidth(L.SQUARE + L.PAD + mark.text:GetStringWidth())
+    mark:SetWidth(mark.bang:GetStringWidth() + L.PAD + mark.text:GetStringWidth())
     mark:Show()
 end
 

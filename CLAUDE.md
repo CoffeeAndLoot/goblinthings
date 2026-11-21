@@ -154,13 +154,15 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
 9. Quest marks on nameplates: `QuestPlates` (pure) takes a unit's tooltip lines as
    `API.UnitQuestLines` views them (`{ kind, text, completed }`, kinds from the game's own
    `Enum.TooltipDataLineType`) and answers the smallest number still to go across its objective
-   lines; `PlateMarks` draws that number and a gold square on a mouse-off child of the plate frame
+   lines; `PlateMarks` draws that number and a gold "!" on a mouse-off child of the plate frame
    `API.NamePlate` gives, kept per plate. `Core` keeps `plates[unit]` from
    `NAME_PLATE_UNIT_ADDED` / `_REMOVED`, marks on add and re-marks every known plate once per
    frame after `QUEST_LOG_UPDATE` / `UNIT_QUEST_LOG_CHANGED`. The count is nowhere but the
    tooltip: no API ties a unit to an objective. Blizzard's Forever plates carry no quest marker of
-   their own. Not yet seen in game: whether Forever sends typed quest lines for mobs (`/gt probe`
-   prints the target's).
+   their own. Seen in game 2026-11-21 (the owner's
+   screenshot, a Gordunni Mage-Lord marked "1"): Forever types the objective lines, so the marks
+   draw. Not yet seen: a mark with figures (the "1" may be the no-figures fallback; the probe
+   prints the target's lines).
 
 ## Client facts (verified in game)
 

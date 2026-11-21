@@ -617,8 +617,12 @@ the mob's tooltip data; Forever has not yet been seen to type those lines, so th
       should read "target lines: [title] <quest name>; [objective] <...>: 4/10". Say if the
       objective line reads "[other]" (the game does not type them) or "(secret)" (its text is
       unreadable): either means the mark cannot work and the switch comes out.
-- [ ] With nameplates on (V), a quest mob's plate wears a small gold square above its name and the
-      number still to go, matching its tooltip's "x/y" (10 - 4 = 6).
+- [x] With nameplates on (V), a quest mob's plate wears a mark above its name and a number.
+      (seen 2026-11-21, the owner's screenshot: a Gordunni Mage-Lord, "1"; the square is now a gold "!")
+- [ ] The number matches the mob's tooltip "x/y" (10 - 4 = 6), not always 1. If every mark reads 1,
+      paste the probe's "quest marks" line: the text may be secret.
+- [ ] The mark sits a good way above the name (the plate frame is taller than its bar). Say if it
+      should sit closer.
 - [ ] Kill one: every shown mark of that mob drops by one within a moment.
 - [ ] Finish the objective: the marks go.
 - [ ] A mob of no quest of yours, a friendly NPC and another player: no mark.
