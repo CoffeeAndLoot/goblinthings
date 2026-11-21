@@ -19,6 +19,8 @@ per switch. Docs:
   dated amendments: they overturn parts of the text above them.
 - `docs/superpowers/specs/2026-11-19-map-entrance-pins-design.md`: the swirls at dungeon and raid
   doors on a zone's map (its plan is `docs/superpowers/plans/2026-11-19-map-entrance-pins.md`).
+- `docs/superpowers/specs/2026-11-21-quest-marks-on-nameplates-design.md`: the mark and number above a
+  quest mob's nameplate (its plan is `docs/superpowers/plans/2026-11-21-quest-marks-on-nameplates.md`).
 - `docs/cvar-candidates.md`: console-only settings that could become switches (researched
   2026-11-15 from the client exe's own strings; a list to pick from, nothing built or seen in game).
 - `docs/manual-test-checklist.md`: every in-game check, ticked only by the owner.
@@ -89,7 +91,7 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
 
 ## How it fits together
 
-TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, Decline, Accept, Loot, TrackerSort, MapData, MapInfo, MapPins, Kills, Look, Options, Window, MinimapButton, MapReadout, MapEntrances, KillsReadout, Core`.
+TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, Decline, Accept, Loot, TrackerSort, MapData, MapInfo, MapPins, Kills, QuestPlates, Look, Options, Window, MinimapButton, MapReadout, MapEntrances, KillsReadout, PlateMarks, Core`.
 
 1. `Features.LIST` is every switch as data: key, label, section (its tab), optional group (a
    sub-header), control (`check`, `slider`, `choice`) and default; `Features.NOTES` gives a tab its
@@ -149,6 +151,16 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
    it follows the client's language; its figure is the sample. Samples are session-only and taken
    only while the switch is on. Quest, exploration and unnamed XP lower the count but are no sample.
    The window's XP tab shows a sample `37` while it is open, to tune the look.
+9. Quest marks on nameplates: `QuestPlates` (pure) takes a unit's tooltip lines as
+   `API.UnitQuestLines` views them (`{ kind, text, completed }`, kinds from the game's own
+   `Enum.TooltipDataLineType`) and answers the smallest number still to go across its objective
+   lines; `PlateMarks` draws that number and a gold square on a mouse-off child of the plate frame
+   `API.NamePlate` gives, kept per plate. `Core` keeps `plates[unit]` from
+   `NAME_PLATE_UNIT_ADDED` / `_REMOVED`, marks on add and re-marks every known plate once per
+   frame after `QUEST_LOG_UPDATE` / `UNIT_QUEST_LOG_CHANGED`. The count is nowhere but the
+   tooltip: no API ties a unit to an objective. Blizzard's Forever plates carry no quest marker of
+   their own. Not yet seen in game: whether Forever sends typed quest lines for mobs (`/gt probe`
+   prints the target's).
 
 ## Client facts (verified in game)
 

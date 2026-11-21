@@ -604,3 +604,28 @@ Spec `docs/superpowers/specs/2026-11-19-map-entrance-pins-design.md`. Verified i
       the door's name, for each of: Excavation Site (the guides give Wetlands 48.1, 56.5 and
       53.4, 65.3 and disagree which is the door), and from 2026-12-09 Barrow Deeps and Hyjal
       Summit.
+
+## Quest marks on nameplates (2026-11-21)
+
+Spec `docs/superpowers/specs/2026-11-21-quest-marks-on-nameplates-design.md`. The count comes from
+the mob's tooltip data; Forever has not yet been seen to type those lines, so the probe comes first.
+
+- [ ] **Full client restart** first (QuestPlates.lua and PlateMarks.lua are new in the TOC). No Lua
+      error on login; the Quests tab shows "Quest marks on nameplates" under the quest diamond,
+      ticked, and the window still fits its rows.
+- [ ] Target a mob one of your quests wants, then `/gt probe`: paste the "quest marks" line. It
+      should read "target lines: [title] <quest name>; [objective] <...>: 4/10". Say if the
+      objective line reads "[other]" (the game does not type them) or "(secret)" (its text is
+      unreadable): either means the mark cannot work and the switch comes out.
+- [ ] With nameplates on (V), a quest mob's plate wears a small gold square above its name and the
+      number still to go, matching its tooltip's "x/y" (10 - 4 = 6).
+- [ ] Kill one: every shown mark of that mob drops by one within a moment.
+- [ ] Finish the objective: the marks go.
+- [ ] A mob of no quest of yours, a friendly NPC and another player: no mark.
+- [ ] A mob that drops a quest item (a "Linen Scraps: 2/8" tooltip line): marked with 6.
+- [ ] A mob two quests want: one mark, the smaller number.
+- [ ] A named mob to slay with no figures on its tooltip line: marked with 1.
+- [ ] The mark scales and fades with its plate (walk away, turn the camera).
+- [ ] Untick the switch mid-fight: every mark goes at once. Tick it: they come back.
+- [ ] `/gt probe` prints "quest marks: N plate(s) known, M marked" with sensible counts and no
+      "threw:" for GetNamePlateForUnit, UnitIsRelatedToActiveQuest or C_TooltipInfo.GetUnit.
