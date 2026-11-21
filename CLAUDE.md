@@ -154,7 +154,7 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
 9. Quest marks on nameplates: `QuestPlates` (pure) takes a unit's tooltip lines as
    `API.UnitQuestLines` views them (`{ kind, text, completed }`, kinds from the game's own
    `Enum.TooltipDataLineType`) and answers the smallest number still to go across its objective
-   lines; `PlateMarks` draws that number and a gold "!" on a mouse-off child of the plate frame
+   lines; `PlateMarks` draws that number and a gold "!" (the `questPlatesSize` slider sets the number's size, the "!" a third larger) on a mouse-off child of the plate frame
    `API.NamePlate` gives, kept per plate and anchored just over the plate's name text
    (`API.NamePlateName`, asked at every show: the game pools unit frames) or, without one, the
    plate's top. `Core` keeps `plates[unit]` from

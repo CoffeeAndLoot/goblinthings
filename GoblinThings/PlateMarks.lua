@@ -9,11 +9,9 @@ local PlateMarks = {}
 ns.PlateMarks = PlateMarks
 
 PlateMarks.LAYOUT = {
-    BANG = 16,    -- the "!"'s font size (a square read as a box, the owner 2026-11-21)
-    GAP = 1,      -- between the name (or the plate's top) and the mark
-    PAD = 3,      -- between the "!" and the number
-    SIZE = 12,    -- the number's font size
-    HEIGHT = 16,
+    BANG = 4 / 3,  -- the "!"'s font size over the number's (a square read as a box, the owner 2026-11-21)
+    GAP = 1,       -- between the name (or the plate's top) and the mark
+    PAD = 3,       -- between the "!" and the number
 }
 local L = PlateMarks.LAYOUT
 
@@ -24,12 +22,12 @@ local function build(plate)
     local mark = CreateFrame("Frame", nil, plate)
     mark:EnableMouse(false)
     mark:SetFrameLevel(plate:GetFrameLevel() + 5)
-    mark:SetHeight(L.HEIGHT)
-    mark.bang = Look.Text(mark, Look.WORDS, L.BANG, "gold", "OUTLINE")
+    mark.size = 0  -- the number's font size last set; the fonts are set on change only
+    mark.bang = Look.Text(mark, Look.WORDS, 12, "gold", "OUTLINE")
     mark.bang:SetShadowOffset(0, 0)  -- the outline carries it over any ground
     mark.bang:SetText("!")
     mark.bang:SetPoint("LEFT", mark, "LEFT", 0, 0)
-    mark.text = Look.Text(mark, Look.WORDS, L.SIZE, "text", "OUTLINE")
+    mark.text = Look.Text(mark, Look.WORDS, 12, "text", "OUTLINE")
     mark.text:SetShadowOffset(0, 0)
     mark.text:SetPoint("LEFT", mark.bang, "RIGHT", L.PAD, 0)
     marks[plate] = mark
@@ -39,9 +37,18 @@ end
 -- The number n above this plate: just over `name` (its name text, when the
 -- game gives it; it may differ from last time's, so the anchor is set at every
 -- show) or over the plate itself (it is taller than its bar, so the mark then
--- floats; the owner 2026-11-21).
-function PlateMarks.Show(plate, n, name)
+-- floats; the owner 2026-11-21). `size` is the number's font size (the
+-- questPlatesSize slider); the "!" is a third larger.
+function PlateMarks.Show(plate, n, name, size)
     local mark = marks[plate] or build(plate)
+    if size ~= mark.size then
+        mark.size = size
+        local bang = math.floor(size * L.BANG + 0.5)
+        -- SetFont answers false for a face it cannot load; the words then keep their fallback font.
+        mark.bang:SetFont(ns.Look.WORDS, bang, "OUTLINE")
+        mark.text:SetFont(ns.Look.WORDS, size, "OUTLINE")
+        mark:SetHeight(bang)
+    end
     mark:ClearAllPoints()
     mark:SetPoint("BOTTOM", name or plate, "TOP", 0, L.GAP)
     mark.text:SetText(tostring(n))

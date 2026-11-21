@@ -623,6 +623,8 @@ the mob's tooltip data; Forever has not yet been seen to type those lines, so th
       paste the probe's "quest marks" line: the text may be secret.
 - [x] The mark sat a good way above the name (the plate frame is taller than its bar); the owner
       asked for closer (2026-11-21).
+- [ ] The Quests tab shows a "Mark size" slider (8-32, at 12) under the switch; dragging it resizes
+      every shown mark at once, the "!" staying a touch bigger than the number.
 - [ ] After that: the mark sits just over the mob's name, and stays there when the plate is
       recycled for another mob (walk through a camp).
 - [ ] Kill one: every shown mark of that mob drops by one within a moment.

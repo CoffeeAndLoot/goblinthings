@@ -30,6 +30,8 @@ Features.LIST = {
     -- One mark above a quest mob's nameplate, with the smallest number still to go.
     { key = "questPlates", label = "Quest marks on nameplates", section = "Quests", control = "check",
         default = true },
+    { key = "questPlatesSize", label = "Mark size", section = "Quests", control = "slider",
+        min = 8, max = 32, step = 1, default = 12, format = "%d" },
     { key = "zoneOnly", label = "Only this zone", section = "Quests", group = "Quest tracker", control = "check",
         default = false },
     { key = "hideAbove", label = "Hide quests above me", section = "Quests", group = "Quest tracker",

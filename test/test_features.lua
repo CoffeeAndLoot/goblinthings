@@ -7,7 +7,8 @@ return function(h, loaded)
             for _, f in ipairs(Features.LIST) do
                 keys[#keys + 1] = f.key
             end
-            h.eq(table.concat(keys, " "), "autoAccept autoTurnIn autoTrack questDiamond questPlates zoneOnly hideAbove "
+            h.eq(table.concat(keys, " "), "autoAccept autoTurnIn autoTrack questDiamond questPlates questPlatesSize "
+                .. "zoneOnly hideAbove "
                 .. "sortFirst sortSecond sortThird autoSellJunk autoRepair autoTrain fastLoot "
                 .. "bagsFillLeft bagsSortRight compareItems "
                 .. "declineDuels declineGuild acceptGuild acceptFriends acceptSummons guildAlerts "
@@ -50,6 +51,10 @@ return function(h, loaded)
             h.eq(f.control, "check")
             h.eq(f.group, nil)
             h.eq(f.default, true)
+            local size = Features.ByKey(QuestPlates.SIZE_KEY)
+            h.eq(size.label .. " " .. size.section .. " " .. size.control, "Mark size Quests slider")
+            h.eq(size.min .. "-" .. size.max .. " " .. size.default, "8-32 12")
+            h.eq(Features.SliderText(size, 12), "12")
         end)
         h.it("Only this zone is a check in the same group, off by default", function()
             local f = Features.ByKey("zoneOnly")
@@ -209,7 +214,7 @@ return function(h, loaded)
                 counts[#counts + 1] = #s.features
             end
             h.eq(table.concat(names, " "), "Quests Vendors Loot Social Combat Camera Cinematics Map XP")
-            h.eq(table.concat(counts, " "), "10 3 4 6 7 1 1 8 7")
+            h.eq(table.concat(counts, " "), "11 3 4 6 7 1 1 8 7")
         end)
         h.it("a section carries its note; the others have none", function()
             local sections = Features.Sections()

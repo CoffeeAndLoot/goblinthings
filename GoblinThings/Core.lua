@@ -120,7 +120,7 @@ local remarkPending = false
 local function markUnit(unit, plate)
     local n = db().features[QuestPlates.KEY] and QuestPlates.Remaining(API.UnitQuestLines(unit)) or nil
     if n then
-        PlateMarks.Show(plate, n, API.NamePlateName(plate))
+        PlateMarks.Show(plate, n, API.NamePlateName(plate), db().features[QuestPlates.SIZE_KEY])
     else
         PlateMarks.Hide(plate)
     end
@@ -222,7 +222,7 @@ function Core.Set(key, value)
                 applyAutoTrack(true)
             elseif feature.section == "XP" then
                 redrawKills()  -- its own guard: a draw error must not skip the Refresh below
-            elseif key == QuestPlates.KEY then
+            elseif key == QuestPlates.KEY or key == QuestPlates.SIZE_KEY then
                 remarkLater()
             end
         end
