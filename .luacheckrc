@@ -24,6 +24,6 @@ read_globals = {
     "StaticPopup_Hide", "C_SummonInfo", "Enum", "UnitAffectingCombat", "PlayerCanTeleport",
     "GetNumLootItems", "GetLootSlotInfo", "LootSlot", "UnitLevel",
     "UnitXP", "UnitXPMax", "IsXPUserDisabled", "GameRulesUtil", "issecretvalue",
-    "WorldMapFrame",
+    "WorldMapFrame", "C_NamePlate", "C_TooltipInfo",
     "C_Trainer", "GetNumTrainerServices", "GetTrainerServiceInfo", "GetTrainerServiceCost", "BuyTrainerService",
 }

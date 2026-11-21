@@ -792,6 +792,53 @@ function API.CursorPosition()
     return call("GetCursorPosition", GetCursorPosition)
 end
 
+-- ---- nameplates (spec 2026-11-21-quest-marks-on-nameplates-design.md) ----
+
+-- The plate frame the game shows for a nameplate unit, or nil (a forbidden
+-- plate, or no C_NamePlate).
+function API.NamePlate(unit)
+    local plate = call("GetNamePlateForUnit", C_NamePlate and C_NamePlate.GetNamePlateForUnit, unit)
+    return type(plate) == "table" and plate or nil
+end
+
+-- A tooltip line's kind by the game's own enum, asked at call time; every
+-- line is "other" without it.
+local function lineKind(lineType)
+    local types = Enum and Enum.TooltipDataLineType
+    if type(types) ~= "table" then
+        return "other"
+    end
+    if lineType == types.QuestObjective then
+        return "objective"
+    elseif lineType == types.QuestTitle then
+        return "title"
+    end
+    return "other"
+end
+
+-- The unit's tooltip lines as QuestPlates.Remaining reads them:
+-- { kind, text, completed }, text nil when secret. nil when the game says the
+-- unit is no active quest's (C_QuestLog.UnitIsRelatedToActiveQuest), or gives
+-- no tooltip data (C_TooltipInfo.GetUnit); an unknown answer to the first
+-- still asks the second.
+function API.UnitQuestLines(unit)
+    if call("UnitIsRelatedToActiveQuest", C_QuestLog and C_QuestLog.UnitIsRelatedToActiveQuest, unit) == false then
+        return nil
+    end
+    local data = call("C_TooltipInfo.GetUnit", C_TooltipInfo and C_TooltipInfo.GetUnit, unit)
+    if type(data) ~= "table" or type(data.lines) ~= "table" then
+        return nil
+    end
+    local out = {}
+    for _, line in ipairs(data.lines) do
+        if type(line) == "table" then
+            out[#out + 1] = { kind = lineKind(line.type), text = API.Readable(line.leftText),
+                completed = line.completed == true }
+        end
+    end
+    return out
+end
+
 -- ---- events (from Goblin Flyout's API.lua) ----
 
 local eventFrame

@@ -62,6 +62,7 @@ local suites = {
     "test/test_api_trainer.lua",
     "test/test_api_map.lua",
     "test/test_api_xp.lua",
+    "test/test_api_plates.lua",
 }
 
 for i = 1, #suites do
