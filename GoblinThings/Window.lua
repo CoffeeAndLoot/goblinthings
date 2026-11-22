@@ -13,12 +13,12 @@ local Window = {}
 ns.Window = Window
 
 Window.NAME = "GoblinThingsWindow"  -- UISpecialFrames closes frames by name on Escape
-Window.WIDTH = 766  -- nine tabs at 82px each, so every tab name fits
+Window.WIDTH = 843  -- ten tabs at 82px each, so every tab name fits
 Window.HOME = { "CENTER", "CENTER", 0, 40 }  -- where it opens until dragged
 Window.LAYOUT = {
     TOP_EDGE = 3, HEADER = 30, PAD = 16, CLOSE = 22, TAB_H = 26, WELL_PAD = 4, GROUP = 26, ROW = 40,
     NOTE = 22, INDENT = 38, CHECK = 18, SLIDER_W = 160, SLIDER_H = 16, VALUE_W = 34, CHOICE_H = 24,
-    CHOICE_PAD = 20, FOOT = 62,
+    CHOICE_PAD = 20, FOOT = 62, ICON = 30,
 }
 local L = Window.LAYOUT
 
@@ -150,7 +150,45 @@ local function choiceControl(core, r, feature)
     return { buttons = buttons }
 end
 
-local MAKERS = { check = checkControl, slider = sliderControl, choice = choiceControl }
+-- A flyout kind's row (spec 2026-11-22-flyout-merge-design.md): its macro's icon
+-- where a check would sit (drag or click it to pick up the button, right-click to
+-- change its icon in Blizzard's macro window), then a Horizontal | Vertical choice.
+local function flyoutControl(core, r, feature)
+    local Look = ns.Look
+    local kind = ns.Kinds.ByKey(feature.kind)
+    local icon = CreateFrame("Button", nil, r)
+    icon:SetSize(L.ICON, L.ICON)
+    icon:SetPoint("LEFT", r, "LEFT", 4, 0)
+    local art = icon:CreateTexture(nil, "ARTWORK")
+    art:SetPoint("TOPLEFT", icon, "TOPLEFT", 1, -1)
+    art:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", -1, 1)
+    art:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+    Look.Outline(icon, Look.COLOUR.line)
+    Look.Texture(icon, "HIGHLIGHT", Look.COLOUR.gold, 0.25):SetAllPoints(art)
+    icon:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+    icon:RegisterForDrag("LeftButton")
+    icon:SetScript("OnDragStart", function() core.PickUp(kind) end)
+    icon:SetScript("OnClick", function(_, mouseButton)
+        if mouseButton == "RightButton" then
+            core.EditIcon(kind)
+        else
+            core.PickUp(kind)
+        end
+    end)
+    icon:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText(kind.label)
+        GameTooltip:AddLine("Drag to an action bar.", 1, 1, 1)
+        GameTooltip:AddLine("Right-click to change its icon.", 1, 1, 1)
+        GameTooltip:Show()
+    end)
+    icon:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    local control = choiceControl(core, r, feature)
+    control.icon = art
+    return control
+end
+
+local MAKERS = { check = checkControl, slider = sliderControl, choice = choiceControl, flyout = flyoutControl }
 
 local function row(core, page, feature, y)
     local r = CreateFrame("Frame", nil, page)
@@ -265,8 +303,8 @@ end
 
 -- Shows the open tab's page with its tab lit, and draws every control from
 -- core.Get: checks on or off, each slider and its number (Features.SliderText;
--- the camera's CVar is read fresh, "?" when the game gives no answer), the chosen choice gold, and
--- the minimap check.
+-- the camera's CVar is read fresh, "?" when the game gives no answer), the chosen choice gold,
+-- each flyout row's icon from core.Icon, and the minimap check.
 function Window.Refresh(core)
     if not frame then
         return
@@ -281,6 +319,9 @@ function Window.Refresh(core)
     minimapCheck.SetOn(core.MinimapShown())
     for key, c in pairs(controls) do
         local value = core.Get(key)
+        if c.icon then  -- a flyout row: the macro's own icon, the player's pick or the default
+            c.icon:SetTexture(core.Icon(ns.Kinds.ByKey(c.feature.kind)))
+        end
         if c.check then
             c.check.SetOn(value)
         elseif c.slider then
