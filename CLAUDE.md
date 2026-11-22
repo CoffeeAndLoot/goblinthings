@@ -88,6 +88,11 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
   the README, so edit it in its style rather than pasting the README over it. Its banner and five
   screenshots (three tabs, the Map tab, the map readout) are the README's raw `master` URLs, so a replaced screenshot shows there on its own; a new
   image file needs its own line.
+  CurseForge (2026-11-22): project `goblin-things`, ID 1822921, at curseforge.com/wow/addons/goblin-things
+  (authors.curseforge.com/#/projects/1822921), MIT, third-party distribution allowed, game version
+  WoW Forever 1.60.1. Its description is the Wago one, so it needs the same hand edit after a switch
+  changes. Files are uploaded by hand for now; the owner's own API token would let the release
+  workflow upload there too.
 
 ## How it fits together
 
