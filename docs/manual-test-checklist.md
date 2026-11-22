@@ -696,7 +696,8 @@ line here is new until seen from Goblin Things.
       potion sharing it; Escape in combat gives no "action blocked" error; Bandages and Scrolls work
       the same.
 - [ ] `/reload` in combat: no Lua error; once the fight ends every button works (setup waited).
-- [ ] `/gt probe` ends with Flyout's lines: one per profession ending `-> <spell> <id>`, the food
+- [ ] `/gt probe` carries Flyout's lines after the console line (the "accept calls missing" and any
+      "threw:" lines still come last): one per profession ending `-> <spell> <id>`, the food
       and drink spell names, every bag consumable with subclass, spell and kinds, each kind's macro
       and slot count, "secure snippets work; Goblin Flyout is not loaded", "travel -> 6948
       Hearthstone, 18960 Teleport: Moonglade", and no "threw:".

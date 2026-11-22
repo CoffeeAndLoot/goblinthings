@@ -57,7 +57,8 @@ rules came from GoblinQuest (`D:\goblinquest`, shelved).
   **The second exception** (the merge, 2026-11-22): the flyout bars (`Bar.lua`) are Blizzard's own
   action buttons (`ActionButtonTemplate, SecureActionButtonTemplate`) on `SecureHandlerBaseTemplate`
   frames, their toggles `SecureHandlerClickTemplate` buttons: they must match the stock bar they
-  open from, and the combat behaviour rests on the secure templates. Nothing else uses a template.
+  open from, and the combat behaviour rests on the secure templates. `API.SnippetsWork` makes one
+  scratch `SecureHandlerBaseTemplate` frame to prove snippets run. Nothing else uses a template.
 - Flyout rules carried over: nothing secure is created, changed or shown by insecure code in combat;
   the snippet text (`Bar.TOGGLE_SNIPPET`, `Bar.CLOSE_PRE`, `Bar.CLOSE_POST`) may not contain `{`,
   `}` or the word `function` (the restricted environment refuses them, silently in combat); the
@@ -117,7 +118,7 @@ TOC load order is `API, Kinds, Features, Hands, Vendor, Trainer, Camera, Cinemat
 (`Kinds` before `Features`: the Flyout rows are built from it).
 
 1. `Features.LIST` is every switch as data: key, label, section (its tab), optional group (a
-   sub-header), control (`check`, `slider`, `choice`) and default; `Features.NOTES` gives a tab its
+   sub-header), control (`check`, `slider`, `choice`, `flyout`) and default; `Features.NOTES` gives a tab its
    dim note. The window builds its tabs and rows from it; `Options.Init` stores every feature with a
    default. One with a `cvar` (the camera, Guild login alerts, the quest diamond, the Combat tab) has none: the
    game's own CVar is its store. Likewise one with a `bag` (the two bag directions on the Loot
