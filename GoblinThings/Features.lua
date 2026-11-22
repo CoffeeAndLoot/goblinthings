@@ -119,11 +119,23 @@ Features.LIST = {
         labels = { friz = "Friz", arial = "Arial", morpheus = "Morpheus" } },
 }
 
+-- The flyout buttons (spec 2026-11-22-flyout-merge-design.md): one row per kind, its icon to
+-- drag onto an action bar and its layout as the switch. A kind has no on/off: it costs nothing
+-- until its button is placed.
+Features.LAYOUTS = { "horizontal", "vertical" }
+Features.LAYOUT_LABELS = { horizontal = "Horizontal", vertical = "Vertical" }
+for _, kind in ipairs(ns.Kinds.LIST) do
+    Features.LIST[#Features.LIST + 1] = { key = kind.feature, label = kind.label, section = "Flyout",
+        control = "flyout", kind = kind.key, default = "horizontal", choices = Features.LAYOUTS,
+        labels = Features.LAYOUT_LABELS }
+end
+
 -- A dim line at the foot of a section's tab.
 Features.NOTES = {
     XP = "Kills like your last ten; hidden until your first kill",
     Quests = "Off and all None = Blizzard's tracker (fully after /reload)",
     Map = "Read a zone at the world map's bottom right; open the zone for its lists",
+    Flyout = "Drag an icon onto an action bar to place its button; right-click it to change the icon.",
 }
 
 function Features.ByKey(key)
@@ -142,7 +154,7 @@ function Features.Valid(feature, value)
     end
     if feature.control == "check" then
         return type(value) == "boolean"
-    elseif feature.control == "choice" then
+    elseif feature.control == "choice" or feature.control == "flyout" then
         return type(value) == "string" and feature.labels[value] ~= nil
     elseif feature.control == "slider" then
         return type(value) == "number" and value == value and value >= feature.min and value <= feature.max

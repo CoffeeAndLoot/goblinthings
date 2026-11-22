@@ -18,6 +18,12 @@ return function(h, loaded)
             h.eq(db.minimap.hide, false)
             h.eq(db.window, nil)
         end)
+        h.it("a flyout kind starts horizontal; a saved vertical is kept and junk resets", function()
+            h.eq(Options.Init(nil).features.flyoutPotions, "horizontal")
+            local f = Options.Init({ features = { flyoutPotions = "vertical", flyoutFood = "diagonal" } }).features
+            h.eq(f.flyoutPotions, "vertical")
+            h.eq(f.flyoutFood, "horizontal")
+        end)
         h.it("keeps the table it was given and every valid value", function()
             local db = { features = { autoAccept = false, cinematics = "all" } }
             h.eq(Options.Init(db), db)

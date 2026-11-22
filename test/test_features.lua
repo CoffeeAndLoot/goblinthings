@@ -14,7 +14,9 @@ return function(h, loaded)
                 .. "declineDuels declineGuild acceptGuild acceptFriends acceptSummons guildAlerts "
                 .. "stopAttack assistAttack autoStand autoDismount autoUnshift targetCastbar spellsToBar "
                 .. "cameraDistance cinematics mapInfo mapHerbs mapOre mapFish mapSkins mapEntrances mapFade trackAll "
-                .. "killsLeft killsCorner killsX killsY killsAlpha killsSize killsFont")
+                .. "killsLeft killsCorner killsX killsY killsAlpha killsSize killsFont "
+                .. "flyoutProfessions flyoutFood flyoutDrink flyoutFooddrink flyoutPotions flyoutElixirs "
+                .. "flyoutBandages flyoutScrolls flyoutTravel")
         end)
         h.it("Kills to level is off by default, top left, 30% and Friz", function()
             h.eq(Features.ByKey("killsLeft").default, false)
@@ -201,6 +203,16 @@ return function(h, loaded)
             h.falsy(Features.Valid(f, "3"))
             h.falsy(Features.Valid(f, 0 / 0))
         end)
+        h.it("a Flyout row is a flyout control holding its kind's layout, Horizontal to start", function()
+            local f = Features.ByKey("flyoutPotions")
+            h.eq(f.label .. " " .. f.section .. " " .. f.control .. " " .. f.kind, "Potions Flyout flyout potions")
+            h.eq(f.default, "horizontal")
+            h.eq(table.concat(f.choices, " "), "horizontal vertical")
+            h.eq(f.labels.vertical, "Vertical")
+            h.truthy(Features.Valid(f, "vertical"))
+            h.falsy(Features.Valid(f, "diagonal"))
+            h.falsy(Features.Valid(f, true))
+        end)
         h.it("no feature is never valid", function()
             h.falsy(Features.Valid(nil, true))
         end)
@@ -213,14 +225,16 @@ return function(h, loaded)
                 names[#names + 1] = s.name
                 counts[#counts + 1] = #s.features
             end
-            h.eq(table.concat(names, " "), "Quests Vendors Loot Social Combat Camera Cinematics Map XP")
-            h.eq(table.concat(counts, " "), "11 3 4 6 7 1 1 8 7")
+            h.eq(table.concat(names, " "), "Quests Vendors Loot Social Combat Camera Cinematics Map XP Flyout")
+            h.eq(table.concat(counts, " "), "11 3 4 6 7 1 1 8 7 9")
         end)
         h.it("a section carries its note; the others have none", function()
             local sections = Features.Sections()
             h.eq(sections[1].note, "Off and all None = Blizzard's tracker (fully after /reload)")
             h.eq(sections[2].note, nil)
             h.eq(sections[8].note, "Read a zone at the world map's bottom right; open the zone for its lists")
+            h.eq(sections[10].note,
+                "Drag an icon onto an action bar to place its button; right-click it to change the icon.")
         end)
     end)
 end

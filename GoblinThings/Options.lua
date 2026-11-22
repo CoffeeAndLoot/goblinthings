@@ -8,7 +8,7 @@ local Options = {}
 ns.Options = Options
 
 Options.NAME = "Goblin Things"
-Options.DEFAULT_ANGLE = 195  -- degrees round the minimap: clear of Goblin Flyout's 225
+Options.DEFAULT_ANGLE = 195  -- degrees round the minimap: bottom-left
 
 local function list(t)
     return type(t) == "table" and t or {}
