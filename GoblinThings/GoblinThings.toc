@@ -28,6 +28,8 @@ QuestPlates.lua
 Professions.lua
 Items.lua
 Travel.lua
+Macro.lua
+Bar.lua
 Look.lua
 Options.lua
 Window.lua
