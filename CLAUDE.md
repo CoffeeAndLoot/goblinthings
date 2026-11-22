@@ -216,7 +216,8 @@ TOC load order is `API, Kinds, Features, Hands, Vendor, Trainer, Camera, Cinemat
 
 ## Client facts (verified in game)
 
-- From Goblin Flyout (2026-10-12, build 1.60.1.70338; seen from Flyout, not yet from here): secure
+- From Goblin Flyout (2026-10-12, build 1.60.1.70338; the merged bars seen working from here
+  2026-11-22, the owner's screenshots: the Flyout tab, placed buttons, a bar open): secure
   snippets work (the 69913 `loadstring_untainted` bug was fixed in 70009). Consumables (classID 0)
   carry modern subclasses: 1 Potion, 2 Elixir, 4 Scroll, 5 Food & Drink (3 Flask and 7 Bandage by the
   same table, unseen); food vs drink is the item's spell, Food (433) or Drink (430).
@@ -276,8 +277,10 @@ TOC load order is `API, Kinds, Features, Hands, Vendor, Trainer, Camera, Cinemat
 
 The addon folder is junctioned into the live client (`_forever_`; the beta folder is gone):
 `New-Item -ItemType Junction -Path "D:\World of Warcraft\_forever_\Interface\AddOns\GoblinThings" -Target "D:\GoblinThings\GoblinThings"`
-Goblin Flyout's junction (`...\AddOns\GoblinFlyout`) comes out once the merge is seen in game:
-while both are enabled Goblin Things stands its bars down.
+Goblin Flyout's junction (`...\AddOns\GoblinFlyout`) comes out now the merge is seen in game
+(2026-11-22): while both are enabled Goblin Things stands its bars down.
+`Remove-Item "D:\World of Warcraft\_forever_\Interface\AddOns\GoblinFlyout"` (the junction only;
+the target folder stays).
 
 ## Commands (this Windows box)
 

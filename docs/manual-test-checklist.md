@@ -646,24 +646,26 @@ Everything Goblin Flyout did, now from Goblin Things (spec 2026-11-22-flyout-mer
 the owner saw in Flyout is Flyout's record (`D:\GoblinFlyout\docs\manual-test-checklist.md`); every
 line here is new until seen from Goblin Things.
 
-- [ ] **Full client restart** first (Kinds, Professions, Items, Travel, Macro and Bar are new in
-      the TOC). No Lua error on login.
+- [x] **Full client restart** first (Kinds, Professions, Items, Travel, Macro and Bar are new in
+      the TOC). No Lua error on login. (2026-11-22)
 - [ ] With Goblin Flyout still enabled: one chat line at login, "Goblin Flyout is still enabled; its
       buttons now live in Goblin Things. Disable Goblin Flyout and /reload." Flyout's buttons still
       work as before, and the Goblin Things window's Flyout tab shows the same icons and can drag them.
       `/gf` still opens Flyout's window.
 - [ ] Disable Goblin Flyout, `/reload` (remove its junction later): no yield line; a button Flyout
       placed opens its bar from Goblin Things; `/gf` and `/goblinflyout` open the Goblin Things window.
-- [ ] The window shows ten tabs (… XP, Flyout), every name fully visible at 843 wide; every other
-      tab's rows still read in full; the window fits on screen.
-- [ ] The Flyout tab: nine rows, Professions, Food, Drink, Food & Drink, Potions, Elixirs, Bandages,
+- [x] The window shows ten tabs (… XP, Flyout), every name fully visible at 843 wide; every other
+      tab's rows still read in full; the window fits on screen. (2026-11-22, the owner's screenshot)
+- [x] The Flyout tab: nine rows, Professions, Food, Drink, Food & Drink, Potions, Elixirs, Bandages,
       Scrolls, Travel, each with its icon (book, food, drink, fork and knife, potion, elixir,
       bandage, scroll, rune; no red question mark) in a thin outline where a check box would sit,
       its name, and a Horizontal | Vertical switch with Horizontal gold; the dim note "Drag an icon
-      onto an action bar to place its button; right-click it to change the icon."
+      onto an action bar to place its button; right-click it to change the icon." (2026-11-22,
+      the owner's screenshot)
 - [ ] Hovering an icon tints it gold and shows "<Kind> / Drag to an action bar. / Right-click to
       change its icon."
-- [ ] Dragging an icon onto an action slot places that kind's button; Esc > Macros > General shows
+- [x] Dragging an icon onto an action slot places that kind's button (2026-11-22, the owner's
+      screenshot: Prof, Elixir, Potion, Meals and Travel on the bars); Esc > Macros > General shows
       the macro with the same icon and its short name (Prof, Food, Drink, Meals, Potion, Elixir,
       Aid, Scroll, Travel). Clicking an icon puts the button on the cursor. Doing either again makes
       no second macro.
@@ -676,7 +678,8 @@ line here is new until seen from Goblin Things.
       switch agrees.
 - [ ] `/gt potions` puts the Potions button on the cursor and says to click a slot; `/gt` with a
       wrong word prints the help with the kinds.
-- [ ] Plain bars: Professions opens above its button in Blizzard's tab order (Fishing included,
+- [x] Plain bars (2026-11-22, the owner's screenshot: Food & Drink open above Meals, five entries
+      with counts, the owner's "everything works as expected"): Professions opens above its button in Blizzard's tab order (Fishing included,
       opening its crafting window); hovering an entry shows the profession and its skill. Food,
       Drink and Food & Drink open their bars (Food & Drink: food first, then drink, each best
       first); clicking an entry uses it and closes the bar; a stack split across bags is one entry
