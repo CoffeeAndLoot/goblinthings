@@ -9,6 +9,7 @@
 ## SavedVariables: GoblinThingsDB
 
 API.lua
+Kinds.lua
 Features.lua
 Hands.lua
 Vendor.lua
@@ -24,6 +25,9 @@ MapInfo.lua
 MapPins.lua
 Kills.lua
 QuestPlates.lua
+Professions.lua
+Items.lua
+Travel.lua
 Look.lua
 Options.lua
 Window.lua

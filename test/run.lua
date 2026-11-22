@@ -5,6 +5,7 @@ local harness = dofile("test/harness.lua")
 -- API.lua and Core.lua touch Blizzard globals, so they are not loaded here.
 -- A missing module is a hard failure: a suite that silently skips proves nothing.
 local modules = {
+    { "Kinds", "GoblinThings/Kinds.lua" },
     { "Features", "GoblinThings/Features.lua" },
     { "Hands", "GoblinThings/Hands.lua" },
     { "Vendor", "GoblinThings/Vendor.lua" },
@@ -20,6 +21,9 @@ local modules = {
     { "MapPins", "GoblinThings/MapPins.lua" },
     { "Kills", "GoblinThings/Kills.lua" },
     { "QuestPlates", "GoblinThings/QuestPlates.lua" },
+    { "Professions", "GoblinThings/Professions.lua" },
+    { "Items", "GoblinThings/Items.lua" },
+    { "Travel", "GoblinThings/Travel.lua" },
     { "Look", "GoblinThings/Look.lua" },
     { "Options", "GoblinThings/Options.lua" },
     { "Window", "GoblinThings/Window.lua" },
@@ -55,6 +59,10 @@ local suites = {
     "test/test_mappins.lua",
     "test/test_kills.lua",
     "test/test_questplates.lua",
+    "test/test_kinds.lua",
+    "test/test_professions.lua",
+    "test/test_items.lua",
+    "test/test_travel.lua",
     "test/test_minimap.lua",
     "test/test_window.lua",
     "test/test_api_tracker.lua",
