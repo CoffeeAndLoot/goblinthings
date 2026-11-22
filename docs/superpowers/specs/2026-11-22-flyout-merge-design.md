@@ -117,7 +117,10 @@ Nothing new: the flyout rows have defaults, so `Options.Init` stores them like a
   a texture inset 1 px with `SetTexCoord(0.08, 0.92, 0.08, 0.92)`, a `Look.Outline` in `line`, a gold
   25% hover texture; left-click and drag call `core.PickUp(kind)`, right-click `core.EditIcon(kind)`;
   tooltip "<Label> / Drag to an action bar. / Right-click to change its icon." `controls[key].icon`
-  keeps the texture; `Window.Refresh` sets it from `core.Icon(kind)` so a picked icon shows.
+  keeps the texture; `Window.Refresh` sets it from `core.Icon(kind)` so a picked icon shows, and
+  the control's `buttons` are lit as a choice's are. Every other consumer of `Features.LIST`
+  (`Options.Init` through `Features.Valid`, `Core.Get` reading `db.features`, `Window.PageHeight`
+  counting rows) already handles a row with a default and a value.
 - Flyout's gold bracket joining Food & Drink to Food and Drink is dropped (builder's call: there
   is no gutter beside the icon in this row layout, and the row order already tells the story).
 
@@ -131,18 +134,26 @@ Nothing new: the flyout rows have defaults, so `Options.Init` stores them like a
   where `kind.secure` and snippets work, else plain), `Bar.LinkSecure()`, `Bar.SetEscape(true)`,
   says once when snippets fail.
 - **Yielding to a still-enabled Goblin Flyout**: at setup, if `API.AddOnLoaded("GoblinFlyout")`
-  (`C_AddOns.IsAddOnLoaded`, AddOnsDocumentation.lua), none of the toggles or bars are made and one
-  line says "Goblin Flyout is still enabled; its buttons now live in Goblin Things. Disable Goblin
-  Flyout and /reload." The Flyout tab still shows; its icons and `/gt <kind>` still work, since
-  the macros are the same macros. Without this both addons would own the same global frame names
+  (`C_AddOns.IsAddOnLoaded`, AddOnsDocumentation.lua), the whole of setup is skipped (no toggles,
+  bars, `Macro.Tidy`, `LinkSecure`, `SetEscape`, snippet check or `/gf` alias) and one line says
+  "Goblin Flyout is still enabled; its buttons now live in Goblin Things. Disable Goblin Flyout
+  and /reload." The Flyout tab still shows; its icons and `/gt <kind>` still work, since the
+  macros are the same macros and `Macro` finds them by body. The bar events stay registered and
+  do nothing: `Bar` has no bars. Without this both addons would own the same global frame names
   and the same `/gf`.
+- A layout changed while a bar is open in combat is saved at once and applies at the bar's next
+  rebuild (`Bar.Close` does nothing in combat), as in Flyout.
 - Events, as Flyout's: `GLOBAL_MOUSE_DOWN` → `Bar.CloseUnlessMouseOver`; `ACTIONBAR_PAGE_CHANGED` →
   `Bar.CloseAll`; `PLAYER_REGEN_DISABLED` → `Bar.EnterCombat(Core.Layout)`; `PLAYER_REGEN_ENABLED` →
   `Bar.LeaveCombat(Core.Layout)`; `UPDATE_MACROS` → `Window.Refresh`; `BAG_UPDATE_DELAYED`,
   `BAG_UPDATE_COOLDOWN`, `SPELL_UPDATE_COOLDOWN` → `Bar.Refresh`. Each behind `guard`.
 - Slash: `/gt <kind>` puts that button on the cursor; `/gt layout <kind>` flips its layout and
-  says so; `/gf` and `/goblinflyout` are aliases of `/gt`. The slash parser takes a `rest` word.
-  `HELP` lists them and the kind keys.
+  says so. The slash parser takes a `rest` word; a command word wins over a kind key of the same
+  spelling (none collide today). `HELP` lists them and the kind keys. `/gf` and `/goblinflyout`
+  become aliases of `/gt` (`SLASH_GOBLINFLYOUT1/2` and `SlashCmdList.GOBLINFLYOUT`, registered at
+  setup and **only when Goblin Flyout is not loaded**: the chat frame re-imports `SlashCmdList`
+  on every command sent (ChatFrameEditBox.lua `ImportAllListsToHash`), so a late registration
+  takes, and two owners of one slash word would be settled by hash order).
 - `/gt probe` gains Flyout's lines: professions with their spells and pick, food and drink spell
   names, every bag consumable with subclass, spell and kinds, each kind's macro and visible slot
   count, whether snippets work, the travel entries.
