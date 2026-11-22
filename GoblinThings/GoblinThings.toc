@@ -1,6 +1,6 @@
 ## Interface: 16001
 ## Title: Goblin Things
-## Notes: Small goblin conveniences: auto accept and turn in quests, sort and trim the quest tracker, mark quest mobs on their nameplates, sell junk, repair, train, loot fast, decline duels and guild invites, accept invites from your guild or friends and summons, skip cinematics, zoom the camera out further, read a zone's levels, herbs, ore, fish and skins on the world map, and count the kills to your next level. Time is money, friend.
+## Notes: Small goblin conveniences: auto accept and turn in quests, sort and trim the quest tracker, mark quest mobs on their nameplates, sell junk, repair, train, loot fast, decline duels and guild invites, accept invites from your guild or friends and summons, skip cinematics, zoom the camera out further, read a zone's levels, herbs, ore, fish and skins on the world map, and count the kills to your next level, and action bar buttons that fly out your professions, food, drink, potions, elixirs, bandages, scrolls and ways home (potions work in combat). Time is money, friend.
 ## Author: CoffeeAndLoot
 ## Version: 2026.11.22
 ## IconTexture: Interface\AddOns\GoblinThings\Media\icon

@@ -639,3 +639,64 @@ the mob's tooltip data; Forever has not yet been seen to type those lines, so th
 - [ ] Untick the switch mid-fight: every mark goes at once. Tick it: they come back.
 - [ ] `/gt probe` prints "quest marks: N plate(s) known, M marked" with sensible counts and no
       "threw:" for GetNamePlateForUnit, UnitIsRelatedToActiveQuest or C_TooltipInfo.GetUnit.
+
+## Goblin Flyout folded in (2026-11-22)
+
+Everything Goblin Flyout did, now from Goblin Things (spec 2026-11-22-flyout-merge-design.md). What
+the owner saw in Flyout is Flyout's record (`D:\GoblinFlyout\docs\manual-test-checklist.md`); every
+line here is new until seen from Goblin Things.
+
+- [ ] **Full client restart** first (Kinds, Professions, Items, Travel, Macro and Bar are new in
+      the TOC). No Lua error on login.
+- [ ] With Goblin Flyout still enabled: one chat line at login, "Goblin Flyout is still enabled; its
+      buttons now live in Goblin Things. Disable Goblin Flyout and /reload." Flyout's buttons still
+      work as before, and the Goblin Things window's Flyout tab shows the same icons and can drag them.
+      `/gf` still opens Flyout's window.
+- [ ] Disable Goblin Flyout, `/reload` (remove its junction later): no yield line; a button Flyout
+      placed opens its bar from Goblin Things; `/gf` and `/goblinflyout` open the Goblin Things window.
+- [ ] The window shows ten tabs (… XP, Flyout), every name fully visible at 843 wide; every other
+      tab's rows still read in full; the window fits on screen.
+- [ ] The Flyout tab: nine rows, Professions, Food, Drink, Food & Drink, Potions, Elixirs, Bandages,
+      Scrolls, Travel, each with its icon (book, food, drink, fork and knife, potion, elixir,
+      bandage, scroll, rune; no red question mark) in a thin outline where a check box would sit,
+      its name, and a Horizontal | Vertical switch with Horizontal gold; the dim note "Drag an icon
+      onto an action bar to place its button; right-click it to change the icon."
+- [ ] Hovering an icon tints it gold and shows "<Kind> / Drag to an action bar. / Right-click to
+      change its icon."
+- [ ] Dragging an icon onto an action slot places that kind's button; Esc > Macros > General shows
+      the macro with the same icon and its short name (Prof, Food, Drink, Meals, Potion, Elixir,
+      Aid, Scroll, Travel). Clicking an icon puts the button on the cursor. Doing either again makes
+      no second macro.
+- [ ] Right-clicking a row's icon opens Esc > Macros on that kind's macro with the "Change Name/Icon"
+      picker open; a kind with no macro yet gets one first. Picking an icon and pressing Okay
+      changes the button on the bar and the row's icon at once and after `/reload`.
+- [ ] In combat: dragging, clicking or right-clicking an icon says "Can't do that in combat."
+- [ ] Clicking Vertical lights it gold and the next open is a column; Horizontal turns it back;
+      `/reload` keeps the choice. `/gt layout potions` flips Potions and says so; an open window's
+      switch agrees.
+- [ ] `/gt potions` puts the Potions button on the cursor and says to click a slot; `/gt` with a
+      wrong word prints the help with the kinds.
+- [ ] Plain bars: Professions opens above its button in Blizzard's tab order (Fishing included,
+      opening its crafting window); hovering an entry shows the profession and its skill. Food,
+      Drink and Food & Drink open their bars (Food & Drink: food first, then drink, each best
+      first); clicking an entry uses it and closes the bar; a stack split across bags is one entry
+      with the total; opening one closes the others; Escape, a click elsewhere and paging the main
+      bar each close it; in combat: "Can't open food in combat."; empty bags: "No food in your bags.";
+      a macro on no bar: "Put the Food button on an action bar (/gt food)."
+- [ ] Travel opens Hearthstone first, then Teleport: Moonglade (on the druid); the Hearthstone shows
+      its cooldown sweep after a hearth; clicking an entry casts and closes the bar; in combat:
+      "Can't open travel in combat."
+- [ ] Secure bars out of combat: Potions opens above its slot, best potion first, sized like the
+      bar, counts and tooltips; drinking one closes the bar and the count drops; Escape, a click
+      elsewhere and paging close it; opening Elixirs closes Potions; no bandages: "No bandages in
+      your bags."
+- [ ] Secure bars in combat (fight a mob): the Potions button opens the bar; a potion drinks and
+      closes it; the button again closes an open bar; the last of a stack reads 0 and greys, and
+      is gone when the fight ends and the bar reopens; drinking starts the cooldown sweep on every
+      potion sharing it; Escape in combat gives no "action blocked" error; Bandages and Scrolls work
+      the same.
+- [ ] `/reload` in combat: no Lua error; once the fight ends every button works (setup waited).
+- [ ] `/gt probe` ends with Flyout's lines: one per profession ending `-> <spell> <id>`, the food
+      and drink spell names, every bag consumable with subclass, spell and kinds, each kind's macro
+      and slot count, "secure snippets work; Goblin Flyout is not loaded", "travel -> 6948
+      Hearthstone, 18960 Teleport: Moonglade", and no "threw:".

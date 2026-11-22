@@ -3,7 +3,7 @@
 *Time is money, friend.*
 
 Small goblin conveniences for **WoW Forever** (interface 16001): set them once in one tabbed window
-and forget them.
+and forget them. Goblin Flyout's action bar buttons live here too (since 2026-11-22).
 
 | Tab | Switch | What it does | Starts |
 |---|---|---|---|
@@ -46,6 +46,15 @@ and forget them.
 | Map | World map fades while moving | Whether the open world map turns see-through as you walk | Untouched |
 | Map | Every tracking type on the minimap | The minimap's tracking menu offers every tracking type the game has | Untouched |
 | XP | Kills to level | A faint number in a screen corner: how many more kills like your last ten it takes to level. Pick the corner, offsets, faintness, size and font | Off |
+| Flyout | Professions | A button whose bar flies out every profession with a crafting window, in the order of Blizzard's profession tabs. Mining opens Smelting; Skinning, Herbalism and Fishing open their WoW Forever windows. Out of combat | Horizontal |
+| | Food | The food in your bags, best first | Horizontal |
+| | Drink | The drinks in your bags | Horizontal |
+| | Food & Drink | Food first, then drinks, on one bar | Horizontal |
+| | Potions | Your potions. **Works in combat** | Horizontal |
+| | Elixirs | Your elixirs and flasks. **Works in combat** | Horizontal |
+| | Bandages | Your bandages. **Works in combat** | Horizontal |
+| | Scrolls | Your scrolls. **Works in combat** | Horizontal |
+| | Travel | Your Hearthstone, Teleport: Moonglade, Astral Recall, and a mage's teleports and portals | Horizontal |
 
 Hold **Shift** while talking to an NPC, a vendor or a trainer to skip everything that visit. Hold it on a
 corpse to get the normal loot window. Everything else is one click in the window.
@@ -66,6 +75,36 @@ the number of it left to go; it drops as you kill, and goes when the objective i
 
 ![The world map's corner on Mount Hyjal: a card reading Level 60, Herbs 270-300, Ore 275-300 and Skins: Rugged, with the Skinning list open above it](https://raw.githubusercontent.com/CoffeeAndLoot/goblinthings/master/images/map-readout.png)
 
+## Flyout buttons
+
+One button on your action bar, a whole bar of choices. The Flyout tab gives you nine buttons for
+your stock Blizzard action bars (this was the Goblin Flyout addon, folded in here). Click one and a
+small bar flies out above it with everything of that kind you have; click what you want and the bar
+folds away. Every entry is Blizzard's own action button, matched to the bar it opens from, with
+stack counts and cooldown sweeps; consumables are sorted best first, split stacks show as one
+entry with the total.
+
+1. On the Flyout tab, drag a kind's icon onto an action bar slot (or type `/gt potions`).
+2. Click that slot, or press its keybind, to open the bar. Click an entry to use it.
+3. Horizontal | Vertical on the row sets which way that bar opens. Right-click the icon to pick
+   another icon in Blizzard's macro window.
+
+Each button is an ordinary account macro with a short name (Prof, Food, Drink, Meals, Potion,
+Elixir, Aid, Scroll, Travel), so it keeps its keybind, works on every bar page and survives a
+`/reload`. Only the buttons you place are made; one deleted by hand comes back on the next drag,
+and taking a button off your bars leaves its macro, since your other characters may use it.
+Buttons placed by Goblin Flyout keep working: disable Goblin Flyout and `/reload`.
+
+**In combat** the game only lets an addon change what is on a bar out of combat, so in a fight a
+bar shows what you had when the fight began. A potion you drink to the last greys out at 0 and
+drops off when the fight ends; one you loot mid-fight joins the bar afterwards. Professions, food,
+drink and travel open out of combat only. Stock Blizzard bars only: Bartender, Dominos and other
+bar addons are not supported.
+
+![The Food & Drink bar open above its Meals button: food first, then drinks, with stack counts](https://raw.githubusercontent.com/CoffeeAndLoot/goblinthings/master/images/flyout-meals.png)
+
+![The Professions bar open above its Prof button, its tooltip showing Skinning 144/225](https://raw.githubusercontent.com/CoffeeAndLoot/goblinthings/master/images/flyout-professions.png)
+
 ## Getting started
 
 Click the goblin on the minimap, or type `/gt`. The window also opens from Esc > Options > AddOns >
@@ -74,8 +113,12 @@ Goblin Things.
 | Command | Does |
 |---|---|
 | `/gt` | Opens the Goblin Things window |
+| `/gt <kind>` | Puts that flyout button on your cursor, e.g. `/gt potions` (kinds: professions, food, drink, fooddrink, potions, elixirs, bandages, scrolls, travel) |
+| `/gt layout <kind>` | Flips that button's bar between Horizontal and Vertical |
 | `/gt minimap` | Hides or shows the minimap button |
 | `/gt probe` | Prints what the addon sees; include it in bug reports |
+
+`/gf` and `/goblinflyout` do the same as `/gt`.
 
 ## Install
 

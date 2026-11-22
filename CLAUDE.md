@@ -27,8 +27,12 @@ per switch. Docs:
 - `docs/art-spec.md`: the brief for the plaque banner the window wore until 2026-11-14; kept for
   the record, no longer built.
 
-Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came from GoblinQuest
-(`D:\goblinquest`, shelved).
+- `docs/superpowers/specs/2026-11-22-flyout-merge-design.md`: Goblin Flyout folded in, as the Flyout
+  tab (its plan is `docs/superpowers/plans/2026-11-22-flyout-merge.md`).
+
+Goblin Flyout (`D:\GoblinFlyout`, retired 2026-11-22: its nine flyout buttons live here now, its
+frame and macro names kept so placed buttons keep working) was the sibling; the quest and vendor
+rules came from GoblinQuest (`D:\goblinquest`, shelved).
 
 ## Rules
 
@@ -38,7 +42,8 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
   checks live in `docs/manual-test-checklist.md` and every UI or behaviour change adds an entry.
   Tick a box only for what the owner saw; `[-]` means skipped by choice, with the reason.
 - `API.lua` is the only file that calls Blizzard game APIs, each through `attempt()`.
-- Pure modules touch no Blizzard global at file load; test/run.lua loads them.
+- Pure modules touch no Blizzard global at file load; test/run.lua loads them (`Macro` and `Bar`
+  too: they reach `ns.API` only when called).
 - No libraries. An unknown answer from the game means do nothing.
 - The window, options page, minimap button and the map readout's lists wear **the game's own look**
   (`Look.lua`; the owner's "back to roots", 2026-11-14): the palette is sampled from WoW Forever's
@@ -48,8 +53,17 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
   **The one exception** (the owner's ask, 2026-11-19): the map's entrance pins wear the game's
   `Dungeon` and `Raid` atlases, and only after `C_Texture.GetAtlasInfo` answers for the name
   (`API.EntranceIcon`); a coloured square is drawn otherwise. No other Blizzard art.
-  Do not add art to the window: a title bar, not a banner. Goblin Flyout keeps the older Goblin
-  look, so the two no longer match.
+  Do not add art to the window: a title bar, not a banner.
+  **The second exception** (the merge, 2026-11-22): the flyout bars (`Bar.lua`) are Blizzard's own
+  action buttons (`ActionButtonTemplate, SecureActionButtonTemplate`) on `SecureHandlerBaseTemplate`
+  frames, their toggles `SecureHandlerClickTemplate` buttons: they must match the stock bar they
+  open from, and the combat behaviour rests on the secure templates. Nothing else uses a template.
+- Flyout rules carried over: nothing secure is created, changed or shown by insecure code in combat;
+  the snippet text (`Bar.TOGGLE_SNIPPET`, `Bar.CLOSE_PRE`, `Bar.CLOSE_POST`) may not contain `{`,
+  `}` or the word `function` (the restricted environment refuses them, silently in combat); the
+  toggle frame names `GoblinFlyout<Label>`, the bar names `GoblinFlyout<Label>Bar` and the macro
+  names and bodies (`/click GoblinFlyoutPotions`) stay as Flyout made them: they are what players'
+  placed buttons and keybinds point at.
 - Art is generated, never hand-edited: `python tools/make_art.py [preview_dir]` cuts
   `Media/icon.tga` plus `images/thumbnail.png` (the round goblin: the minimap button and the
   AddOns-list icon) from `tools/art/concept-sheet.png`. `Media/icons/close-*.tga` are Goblin
@@ -99,7 +113,8 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
 
 ## How it fits together
 
-TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, Decline, Accept, Loot, TrackerSort, MapData, MapInfo, MapPins, Kills, QuestPlates, Look, Options, Window, MinimapButton, MapReadout, MapEntrances, KillsReadout, PlateMarks, Core`.
+TOC load order is `API, Kinds, Features, Hands, Vendor, Trainer, Camera, Cinematics, Decline, Accept, Loot, TrackerSort, MapData, MapInfo, MapPins, Kills, QuestPlates, Professions, Items, Travel, Macro, Bar, Look, Options, Window, MinimapButton, MapReadout, MapEntrances, KillsReadout, PlateMarks, Core`
+(`Kinds` before `Features`: the Flyout rows are built from it).
 
 1. `Features.LIST` is every switch as data: key, label, section (its tab), optional group (a
    sub-header), control (`check`, `slider`, `choice`) and default; `Features.NOTES` gives a tab its
@@ -173,8 +188,43 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
    screenshot, a Gordunni Mage-Lord marked "1"): Forever types the objective lines, so the marks
    draw. Later that day a Feral Scar Yeti read "! 5": the figures come through, and the
    mark sits over the name.
+10. The flyout buttons (Goblin Flyout, folded in 2026-11-22): `Kinds.LIST` is the nine kinds as
+    data (key, label, macro short name, icon, source `professions` / `bags` / `travel`, `secure`,
+    `accepts(item, names)`, optional `group`, derived `toggle`, `empty` and `feature`). `Features`
+    appends one `flyout` row per kind on the Flyout tab, its value the kind's layout
+    (`horizontal` / `vertical`), so `Core.Layout(kindKey)` is `Core.Get(kind.feature)`; the window
+    draws that row as the macro's icon (drag or click: `Core.PickUp`; right-click: `Core.EditIcon`,
+    Blizzard's macro window with its icon picker) plus the Horizontal | Vertical choice.
+    `Professions`, `Items` and `Travel` (pure) turn `API`'s raw professions, bag items and known
+    spells into a bar's entries, best first. `Macro` finds a kind's account macro **by body**
+    (`/click GoblinFlyout<Label>`), makes it if missing, never touching a player's own macro.
+11. `Bar` is the bar engine: one `SecureHandlerBaseTemplate` frame per kind, Blizzard action
+    buttons for entries, opened above the slot that holds the macro (`API.MacroButtons`). A plain
+    kind (professions, food, drink, food & drink, travel) has an insecure toggle and opens out of
+    combat only; a secure kind (potions, elixirs, bandages, scrolls) has a `SecureHandlerClickTemplate`
+    toggle whose `_onclick` snippet shows or hides the bar in combat too, its insecure `PreClick`
+    rebuilding out of combat. Entries change only out of combat: on open, at
+    `PLAYER_REGEN_DISABLED` (every secure bar, on its last host) and at `PLAYER_REGEN_ENABLED` (open
+    bars). Counts and cooldowns are drawn only, so they update in combat. `Core` makes the toggles
+    once out of combat after `PLAYER_LOGIN` (`API.SnippetsWork` first; plain style for all if
+    snippets fail, said once), routes the close/combat/bag events, and takes `/gt <kind>`,
+    `/gt layout <kind>`, with `/gf` and `/goblinflyout` as aliases. **With Goblin Flyout still
+    enabled** (`API.AddOnLoaded`), none of that is made and one line says to disable it: both
+    addons would own the same frame names and `/gf`; the window's icons still work, the macros
+    being the same.
 
 ## Client facts (verified in game)
+
+- From Goblin Flyout (2026-10-12, build 1.60.1.70338; seen from Flyout, not yet from here): secure
+  snippets work (the 69913 `loadstring_untainted` bug was fixed in 70009). Consumables (classID 0)
+  carry modern subclasses: 1 Potion, 2 Elixir, 4 Scroll, 5 Food & Drink (3 Flask and 7 Bandage by the
+  same table, unseen); food vs drink is the item's spell, Food (433) or Drink (430).
+  `C_TradeSkillUI.CanTradeSkillShowCraftingUI` picks the crafting spell; Mining opens Smelting 2656;
+  Skinning opens via Tanning; Fishing has a crafting window too, opened via Bait and Tackle 1278067
+  (Fishing 7620 casts a line); the bar follows Blizzard's tab order (prof1, prof2, First Aid,
+  Fishing, Cooking); entry template order `"ActionButtonTemplate, SecureActionButtonTemplate"` with
+  `useOnKeyDown = false`. Teleport: Moonglade kept its Classic ID 18960. Potions opened and drank in
+  combat.
 
 - `cameraDistanceMaxZoomFactor` keeps 2.6 and 4, the camera zooms further than at 2.0, and opening
   Options > Controls does not reset it (2026-10-13).
@@ -225,6 +275,8 @@ TOC load order is `API, Features, Hands, Vendor, Trainer, Camera, Cinematics, De
 
 The addon folder is junctioned into the live client (`_forever_`; the beta folder is gone):
 `New-Item -ItemType Junction -Path "D:\World of Warcraft\_forever_\Interface\AddOns\GoblinThings" -Target "D:\GoblinThings\GoblinThings"`
+Goblin Flyout's junction (`...\AddOns\GoblinFlyout`) comes out once the merge is seen in game:
+while both are enabled Goblin Things stands its bars down.
 
 ## Commands (this Windows box)
 
