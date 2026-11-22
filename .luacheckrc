@@ -26,4 +26,5 @@ read_globals = {
     "UnitXP", "UnitXPMax", "IsXPUserDisabled", "GameRulesUtil", "issecretvalue",
     "WorldMapFrame", "C_NamePlate", "C_TooltipInfo",
     "C_Trainer", "GetNumTrainerServices", "GetTrainerServiceInfo", "GetTrainerServiceCost", "BuyTrainerService",
+    "InCombatLockdown", "GetProfessions", "GetProfessionInfo", "C_SpellBook", "C_TradeSkillUI", "ActionButtonUtil", "GetActionInfo", "GetNumMacros", "GetMacroInfo", "Constants", "CreateMacro", "PickupMacro", "EditMacro", "ShowMacroFrame", "MacroFrame", "MacroEditButton_OnClick", "MacroEditButton", "SecureHandlerExecute", "C_AddOns", "SecureHandlerWrapScript",
 }
