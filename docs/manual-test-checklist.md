@@ -633,7 +633,8 @@ the mob's tooltip data; Forever has not yet been seen to type those lines, so th
 - [ ] A mob of no quest of yours, a friendly NPC and another player: no mark.
 - [ ] A mob that drops a quest item (a "Linen Scraps: 2/8" tooltip line): marked with 6.
 - [ ] A mob two quests want: one mark, the smaller number.
-- [ ] A named mob to slay with no figures on its tooltip line: marked with 1.
+- [ ] A named mob to slay with no figures on its tooltip line, or the last of a count (1/2): a bare
+      "!" with no number (the owner, 2026-11-22: a 1 says nothing the "!" does not).
 - [ ] The mark scales and fades with its plate (walk away, turn the camera).
 - [ ] Untick the switch mid-fight: every mark goes at once. Tick it: they come back.
 - [ ] `/gt probe` prints "quest marks: N plate(s) known, M marked" with sensible counts and no

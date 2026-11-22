@@ -11,7 +11,7 @@ and forget them.
 | | Auto turn-in quests | Hands in finished quests, except ones that cost gold or offer a reward choice | On |
 | | Auto-track new quests | Keeps Blizzard's own auto-tracking on, even if another addon turns it off | Off |
 | | Quest diamond on screen | The gold diamond and distance that point at your tracked quest. The game has it but ships it off, with no option of its own | Untouched |
-| | Quest marks on nameplates | A gold ! above the nameplate of any mob one of your quests still wants, kill or drop, with how many of it are left to go (the smallest number when two quests want it). A slider sets the size | On |
+| | Quest marks on nameplates | A gold ! above the nameplate of any mob one of your quests still wants, kill or drop, with how many of it are left to go when more than one (the smallest number when two quests want it). A slider sets the size | On |
 | | Only this zone | The quest tracker shows only quests in the zone you're in | Off |
 | | Hide quests above me | The quest tracker hides quests more than 1-20 levels (your pick) above you | Off |
 | | Tracker sort | Orders the quest tracker by up to three tiers: Level (lowest first), Finished first, This zone first | Off |

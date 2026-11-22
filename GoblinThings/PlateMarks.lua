@@ -34,7 +34,8 @@ local function build(plate)
     return mark
 end
 
--- The number n above this plate: just over `name` (its name text, when the
+-- The number n above this plate (a bare "!" when it is 1: the owner,
+-- 2026-11-22): just over `name` (its name text, when the
 -- game gives it; it may differ from last time's, so the anchor is set at every
 -- show) or over the plate itself (it is taller than its bar, so the mark then
 -- floats; the owner 2026-11-21). `size` is the number's font size (the
@@ -51,8 +52,13 @@ function PlateMarks.Show(plate, n, name, size)
     end
     mark:ClearAllPoints()
     mark:SetPoint("BOTTOM", name or plate, "TOP", 0, L.GAP)
-    mark.text:SetText(tostring(n))
-    mark:SetWidth(mark.bang:GetStringWidth() + L.PAD + mark.text:GetStringWidth())
+    if n > 1 then
+        mark.text:SetText(tostring(n))
+        mark:SetWidth(mark.bang:GetStringWidth() + L.PAD + mark.text:GetStringWidth())
+    else
+        mark.text:SetText("")
+        mark:SetWidth(mark.bang:GetStringWidth())
+    end
     mark:Show()
 end
 
