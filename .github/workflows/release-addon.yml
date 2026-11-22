@@ -10,6 +10,8 @@ permissions:
 env:
   # Set as a repository secret to publish on Wago; leave unset to skip.
   WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
+  # Set as a repository secret to publish on CurseForge; leave unset to skip.
+  CURSEFORGE_API_TOKEN: ${{ secrets.CURSEFORGE_API_TOKEN }}
 
 jobs:
   release:
@@ -100,6 +102,59 @@ jobs:
           curl -sf -X POST "https://addons.wago.io/api/projects/${WAGO_ID}/version" \
             -H "Authorization: Bearer ${WAGO_API_TOKEN}" \
             -H "Accept: application/json" \
+            -F "file=@GoblinThings-${GITHUB_REF_NAME}.zip" \
+            -F "metadata=<metadata.json"
+          echo
+
+      # CurseForge. Runs only when the CURSEFORGE_API_TOKEN secret exists and
+      # the TOC carries an X-Curse-Project-ID. The game version is looked up
+      # by name from CurseForge's own list, the name being the TOC's Interface
+      # read as major.minor.patch (16001 is 1.60.1), inside the version type
+      # whose name says Forever, so a patch day needs only the usual Interface
+      # bump. No match fails the step rather than guessing a version. A tag
+      # containing "beta" or "alpha" publishes at that release type.
+      - name: Publish to CurseForge
+        if: env.CURSEFORGE_API_TOKEN != ''
+        run: |
+          set -euo pipefail
+          PROJECT_ID=$(sed -n 's/^## X-Curse-Project-ID:[[:space:]]*//p' GoblinThings/GoblinThings.toc | tr -d '\r')
+          if [ -z "$PROJECT_ID" ]; then
+            echo "No X-Curse-Project-ID in the TOC; skipping CurseForge."
+            exit 0
+          fi
+
+          case "${GITHUB_REF_NAME}" in
+            *alpha*) RELEASE_TYPE=alpha ;;
+            *beta*)  RELEASE_TYPE=beta ;;
+            *)       RELEASE_TYPE=release ;;
+          esac
+
+          API=https://wow.curseforge.com/api
+          curl -sf -H "X-Api-Token: ${CURSEFORGE_API_TOKEN}" "${API}/game/version-types" > types.json
+          curl -sf -H "X-Api-Token: ${CURSEFORGE_API_TOKEN}" "${API}/game/versions" > versions.json
+
+          INTERFACE=$(sed -n 's/^## Interface:[[:space:]]*//p' GoblinThings/GoblinThings.toc | tr -d '\r')
+          LABEL="${GITHUB_REF_NAME#v}" RELEASE_TYPE="$RELEASE_TYPE" INTERFACE="$INTERFACE" python3 - > metadata.json <<'PY'
+          import json, os, sys
+          n = int(os.environ["INTERFACE"])
+          name = f"{n // 10000}.{n // 100 % 100}.{n % 100}"
+          forever = {t["id"] for t in json.load(open("types.json")) if "forever" in t["name"].lower()}
+          ids = [v["id"] for v in json.load(open("versions.json"))
+                 if v["name"] == name and v["gameVersionTypeID"] in forever]
+          if len(ids) != 1:
+              sys.exit(f"CurseForge game version {name} in a Forever type: {len(ids)} found, want 1")
+          print(json.dumps({
+              "displayName": "Goblin Things " + os.environ["LABEL"],
+              "changelog": open("CHANGELOG.md", encoding="utf-8").read(),
+              "changelogType": "markdown",
+              "gameVersions": ids,
+              "releaseType": os.environ["RELEASE_TYPE"],
+          }))
+          PY
+
+          echo "Uploading to CurseForge project ${PROJECT_ID} as ${RELEASE_TYPE}: $(python3 -c 'import json; print(json.load(open("metadata.json"))["gameVersions"])')"
+          curl -sf -X POST "${API}/projects/${PROJECT_ID}/upload-file" \
+            -H "X-Api-Token: ${CURSEFORGE_API_TOKEN}" \
             -F "file=@GoblinThings-${GITHUB_REF_NAME}.zip" \
             -F "metadata=<metadata.json"
           echo

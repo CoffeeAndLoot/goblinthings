@@ -91,8 +91,11 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
   CurseForge (2026-11-22): project `goblin-things`, ID 1822921, at curseforge.com/wow/addons/goblin-things
   (authors.curseforge.com/#/projects/1822921), MIT, third-party distribution allowed, game version
   WoW Forever 1.60.1. Its description is the Wago one, so it needs the same hand edit after a switch
-  changes. Files are uploaded by hand for now; the owner's own API token would let the release
-  workflow upload there too.
+  changes. The release workflow uploads there too (the repo's `CURSEFORGE_API_TOKEN` secret and the
+  TOC's `X-Curse-Project-ID`, set 2026-11-22): the game version is looked up by name from
+  CurseForge's list, the name being the TOC's Interface read as major.minor.patch inside the version
+  type named Forever, and no single match fails the step. The first file (v2026.11.21) was uploaded by
+  hand. Not yet seen: a workflow run reaching CurseForge.
 
 ## How it fits together
 

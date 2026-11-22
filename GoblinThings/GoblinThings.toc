@@ -5,6 +5,7 @@
 ## Version: 2026.11.21
 ## IconTexture: Interface\AddOns\GoblinThings\Media\icon
 ## X-Wago-ID: rN4rvyKD
+## X-Curse-Project-ID: 1822921
 ## SavedVariables: GoblinThingsDB
 
 API.lua
