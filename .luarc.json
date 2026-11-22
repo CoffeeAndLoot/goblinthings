@@ -2,7 +2,8 @@
   "runtime.version": "Lua 5.1",
   "workspace.ignoreDir": [".remember", ".superpowers", "docs"],
   "diagnostics.globals": [
-    "GoblinThingsDB", "SLASH_GOBLINTHINGS1", "SLASH_GOBLINTHINGS2", "SlashCmdList",
+    "GoblinThingsDB", "SLASH_GOBLINTHINGS1", "SLASH_GOBLINTHINGS2", "SLASH_GOBLINFLYOUT1", "SLASH_GOBLINFLYOUT2",
+    "SlashCmdList",
     "print", "CreateFrame", "UIParent", "UISpecialFrames", "GameTooltip",
     "Settings", "SettingsPanel", "HideUIPanel",
     "Minimap", "GetCursorPosition", "GetPhysicalScreenSize", "C_Timer",

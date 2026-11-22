@@ -2,7 +2,8 @@ std = "lua51"
 max_line_length = 120
 self = false
 globals = {
-    "GoblinThingsDB", "SLASH_GOBLINTHINGS1", "SLASH_GOBLINTHINGS2", "SlashCmdList",
+    "GoblinThingsDB", "SLASH_GOBLINTHINGS1", "SLASH_GOBLINTHINGS2", "SLASH_GOBLINFLYOUT1", "SLASH_GOBLINFLYOUT2",
+    "SlashCmdList",
     "QuestObjectiveTracker",  -- API.SetTrackerSort sets its BuildQuestWatchInfos
 }
 read_globals = {
