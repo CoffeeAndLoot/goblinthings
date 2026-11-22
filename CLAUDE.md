@@ -95,7 +95,7 @@ Sibling of Goblin Flyout (`D:\GoblinFlyout`); the quest and vendor rules came fr
   TOC's `X-Curse-Project-ID`, set 2026-11-22): the game version is looked up by name from
   CurseForge's list, the name being the TOC's Interface read as major.minor.patch inside the version
   type named Forever, and no single match fails the step. The first file (v2026.11.21) was uploaded by
-  hand. Not yet seen: a workflow run reaching CurseForge.
+  hand; v2026.11.22 went up from the workflow (game version ID 17053, file 9747010), seen 2026-11-22.
 
 ## How it fits together
 
